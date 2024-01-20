@@ -1,45 +1,25 @@
-import { Text, View } from 'react-native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { HomeScreen } from './HomeScreen'
+import { BlockListScreen } from './BlocklistScreen'
+import { SettingsScreen } from './SettingsScreen'
 import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Home } from './Home'
 
-const Stack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator()
 
-export type StackParamList = {
+export type BottomTabList = {
   Home: undefined
+  BlockList: undefined
+  Settings: undefined
   Details: undefined
 }
-
-function DetailsScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-    </View>
-  )
-}
-
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={'Home'}
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#f4511e',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-      >
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Blocklist" component={BlockListScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+      </Tab.Navigator>
     </NavigationContainer>
   )
 }

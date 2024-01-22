@@ -3,6 +3,7 @@ import { HomeScreen } from './HomeScreen'
 import { BlockListScreen } from './BlocklistScreen'
 import { SettingsScreen } from './SettingsScreen'
 import { NavigationContainer } from '@react-navigation/native'
+import { Entypo, Ionicons } from '@expo/vector-icons'
 
 const Tab = createBottomTabNavigator()
 
@@ -15,10 +16,42 @@ export type BottomTabList = {
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Blocklist" component={BlockListScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Navigator
+        screenOptions={{
+          tabBarLabelPosition: 'below-icon',
+          tabBarStyle: { backgroundColor: '#0C207A', height: 80, padding: 20 },
+          tabBarActiveTintColor: '#15ABFF',
+          tabBarInactiveTintColor: '#d1e9f8',
+          headerShown: false,
+        }}
+      >
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Entypo name="light-up" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Blocklist"
+          component={BlockListScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Entypo name="shield" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="settings-outline" size={size} color={color} />
+            ),
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   )

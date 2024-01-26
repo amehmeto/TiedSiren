@@ -12,6 +12,7 @@ export type BottomTabList = {
   BlockList: undefined
   Settings: undefined
   Details: undefined
+  CreateBlockSession: undefined
 }
 export default function App() {
   return (

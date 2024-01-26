@@ -1,4 +1,4 @@
-import Svg from 'react-native-svg'
+import Svg, { G, Path } from 'react-native-svg'
 import React from 'react'
 
 export function TiedSirenLogoSvg() {
@@ -8,12 +8,12 @@ export function TiedSirenLogoSvg() {
       viewBox="0 0 420.000000 398.000000"
       preserveAspectRatio="xMidYMid meet"
     >
-      <g
+      <G
         transform="translate(0.000000,398.000000) scale(0.100000,-0.100000)"
         fill="#000000"
         stroke="none"
       >
-        <path
+        <Path
           d="M1977 3590 c-70 -12 -142 -51 -217 -115 -125 -108 -172 -120 -341
 -89 -101 19 -179 10 -254 -27 -48 -24 -126 -98 -90 -85 40 15 141 36 170 36
 70 0 236 -59 280 -100 17 -15 33 -18 95 -15 62 2 97 12 202 54 122 48 246 86
@@ -107,11 +107,11 @@ l-5 91 49 49 c26 27 49 49 51 49 1 0 23 -29 48 -64z m-290 -80 c10 -10 11 -16
 -2 -9 4 6 10 25 14 25 6z m-163 -12 c-3 -3 -12 -4 -19 -1 -8 3 -5 6 6 6 11 1
 17 -2 13 -5z m-214 -11 c-7 -2 -21 -2 -30 0 -10 3 -4 5 12 5 17 0 24 -2 18 -5z"
         />
-        <path
+        <Path
           d="M2277 3303 c-4 -3 2 -13 13 -20 16 -12 24 -12 35 -3 8 7 12 16 9 21
 -6 10 -48 12 -57 2z"
         />
-      </g>
+      </G>
     </Svg>
   )
 }

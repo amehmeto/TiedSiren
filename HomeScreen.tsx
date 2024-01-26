@@ -1,6 +1,6 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React from 'react'
-import { Image, Pressable, Text, View } from 'react-native'
+import { Pressable, Text, View } from 'react-native'
 import { BottomTabList } from './App'
 import { LinearGradient } from 'expo-linear-gradient'
 import { BlurView } from 'expo-blur'
@@ -46,7 +46,7 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
   const titleStyle = {
     fontWeight: 'bold' as const,
     color: 'white',
-    fontFamily: 'sans-serif',
+    fontFamily: 'Verdana',
     fontSize: 14,
     marginTop: 10,
     marginBottom: 10,
@@ -114,6 +114,7 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
           shadowOpacity: 0.1,
           shadowRadius: 10,
         }}
+        onPress={() => navigation.navigate('CreateBlockSession')}
       >
         <Text
           style={{

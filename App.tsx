@@ -1,9 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { HomeScreen } from './HomeScreen'
 import { BlockListScreen } from './BlocklistScreen'
 import { SettingsScreen } from './SettingsScreen'
 import { NavigationContainer } from '@react-navigation/native'
 import { Entypo, Ionicons } from '@expo/vector-icons'
+import { HomeStackNavigator } from './HomeStackNavigator'
 
 const Tab = createBottomTabNavigator()
 
@@ -28,7 +28,7 @@ export default function App() {
       >
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={HomeStackNavigator}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Entypo name="light-up" size={size} color={color} />

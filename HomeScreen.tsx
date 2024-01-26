@@ -5,6 +5,7 @@ import { BottomTabList } from './App'
 import { LinearGradient } from 'expo-linear-gradient'
 import { BlurView } from 'expo-blur'
 import { TiedSirenLogoSvg } from './TiedSirenLogoSvg'
+import 'react-native-gesture-handler'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<BottomTabList, 'Home'>

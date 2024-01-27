@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native'
 import React from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { BottomTabList } from './App'
+import { BottomTabList } from '../../App'
 
 type SettingsScreenProps = {
   navigation: NativeStackNavigationProp<BottomTabList, 'Settings'>

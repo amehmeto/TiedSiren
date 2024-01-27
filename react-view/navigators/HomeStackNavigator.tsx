@@ -1,7 +1,7 @@
 import React from 'react'
-import { HomeScreen } from './HomeScreen'
+import { HomeScreen } from '../screens/HomeScreen'
 import { createStackNavigator } from '@react-navigation/stack'
-import { CreateBlockSessionScreen } from './CreateBlockSessionScreen'
+import { CreateBlockSessionScreen } from '../screens/CreateBlockSessionScreen'
 
 const Stack = createStackNavigator()
 

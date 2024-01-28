@@ -48,6 +48,7 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
 
       {currentSessions.map(([name, minutes, blocklists, devices]) => (
         <CurrentSessionBoard
+          key={name}
           sessionName={name}
           minutesLeft={minutes}
           blocklists={blocklists}

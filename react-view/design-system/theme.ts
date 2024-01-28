@@ -25,7 +25,7 @@ export const T = {
     xx_large: 32,
   },
   fontFamily: {
-    primary: 'Verdana',
+    primary: 'Roboto',
   },
   borderRadius: {
     roundedSmall: 5,

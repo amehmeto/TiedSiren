@@ -19,9 +19,10 @@ export function BottomTabNavigator() {
       screenOptions={{
         tabBarLabelPosition: 'below-icon',
         tabBarStyle: {
+          borderTopWidth: 0,
           backgroundColor: T.color.darkBlue,
           height: 80,
-          padding: T.spacing.large,
+          padding: T.spacing.small,
         },
         tabBarActiveTintColor: T.color.lightBlue,
         tabBarInactiveTintColor: T.color.inactive,

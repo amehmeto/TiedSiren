@@ -46,6 +46,7 @@ export function BlockListScreen({
     <TiedSLinearBackground>
       {blocklists.map(([blocklistName, blocksNumber]) => (
         <BlocklistCard
+          key={blocklistName}
           blocklistName={blocklistName}
           blocksNumber={blocksNumber}
         />

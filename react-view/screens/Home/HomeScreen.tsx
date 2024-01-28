@@ -8,6 +8,8 @@ import { TabScreens } from '../../navigators/BottomTabNavigator'
 import { TiedSButton } from '../../design-system/components/TiedSButton'
 import { CurrentSessionBoard } from './CurrentSessionBoard'
 import { TiedSLinearBackground } from '../../design-system/components/TiedSLinearBackground'
+import { T } from '../../design-system/theme'
+import { HomeStackScreens } from '../../navigators/HomeStackNavigator'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<BottomTabList, TabScreens.HOME>
@@ -15,12 +17,12 @@ type HomeScreenProps = {
 
 export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
   const titleStyle = {
-    fontWeight: 'bold' as const,
-    color: 'white',
-    fontFamily: 'Verdana',
-    fontSize: 14,
-    marginTop: 10,
-    marginBottom: 10,
+    fontWeight: T.fontWeight.bold,
+    color: T.color.text,
+    fontFamily: T.fontFamily.primary,
+    fontSize: T.size.small,
+    marginTop: T.spacing.small,
+    marginBottom: T.spacing.small,
   }
 
   const currentSessions: [string, number, number, number][] = [
@@ -31,10 +33,16 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
   return (
     <TiedSLinearBackground>
       <TiedSirenLogoSvg />
-      <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>
+      <Text
+        style={{
+          color: T.color.text,
+          fontWeight: T.fontWeight.bold,
+          fontSize: T.size.medium,
+        }}
+      >
         Good Afternoon
       </Text>
-      <Text style={{ color: 'white' }}>Let's make it productive</Text>
+      <Text style={{ color: T.color.text }}>Let's make it productive</Text>
 
       <Text style={titleStyle}>ACTIVE SESSIONS</Text>
 
@@ -49,14 +57,16 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
 
       <Text style={titleStyle}>NO SCHEDULED SESSIONS</Text>
 
-      <Text style={{ color: 'white' }}>
+      <Text style={{ color: T.color.text }}>
         Scheduled sessions start automatically and help you to stick to a plan,
         giving you distraction-free focus when you need it most
       </Text>
 
       <TiedSButton
         text={'CREATE A BLOCK SESSION'}
-        onPress={() => navigation.navigate('CreateBlockSession')}
+        onPress={() =>
+          navigation.navigate(HomeStackScreens.CREATE_BLOCK_SESSION)
+        }
       />
     </TiedSLinearBackground>
   )

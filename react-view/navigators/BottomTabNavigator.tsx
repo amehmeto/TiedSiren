@@ -3,6 +3,7 @@ import { BlockListScreen } from '../screens/BlocklistScreen'
 import { SettingsScreen } from '../screens/SettingsScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Entypo, Ionicons } from '@expo/vector-icons'
+import { T } from '../design-system/theme'
 
 const Tab = createBottomTabNavigator()
 
@@ -17,14 +18,18 @@ export function BottomTabNavigator() {
     <Tab.Navigator
       screenOptions={{
         tabBarLabelPosition: 'below-icon',
-        tabBarStyle: { backgroundColor: '#0C207A', height: 80, padding: 20 },
-        tabBarActiveTintColor: '#15ABFF',
-        tabBarInactiveTintColor: '#d1e9f8',
+        tabBarStyle: {
+          backgroundColor: T.color.darkBlue,
+          height: 80,
+          padding: T.spacing.large,
+        },
+        tabBarActiveTintColor: T.color.lightBlue,
+        tabBarInactiveTintColor: T.color.inactive,
         headerShown: false,
       }}
     >
       <Tab.Screen
-        name="Home"
+        name={TabScreens.HOME}
         component={HomeStackNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -33,7 +38,7 @@ export function BottomTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Blocklist"
+        name={TabScreens.BLOCKLIST}
         component={BlockListScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -42,7 +47,7 @@ export function BottomTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Settings"
+        name={TabScreens.SETTINGS}
         component={SettingsScreen}
         options={{
           tabBarIcon: ({ color, size }) => (

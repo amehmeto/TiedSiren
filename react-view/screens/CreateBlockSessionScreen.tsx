@@ -6,22 +6,23 @@ import { BottomTabList } from '../../App'
 import { TabScreens } from '../navigators/BottomTabNavigator'
 import { TiedSButton } from '../design-system/components/TiedSButton'
 import { TiedSLinearBackground } from '../design-system/components/TiedSLinearBackground'
+import { T } from '../design-system/theme'
 
 const BlockSessionParamStyle = {
   flexDirection: 'row' as const,
   justifyContent: 'space-between' as const,
-  paddingTop: 20,
-  paddingBottom: 20,
-  paddingLeft: 10,
-  paddingRight: 10,
+  paddingTop: T.spacing.large,
+  paddingBottom: T.spacing.large,
+  paddingLeft: T.spacing.small,
+  paddingRight: T.spacing.small,
 }
 
 const BlockSessionBoardStyle = {
-  padding: 15,
-  marginTop: 10,
-  marginBottom: 10,
-  borderRadius: 5,
-  shadowColor: '#1e1e1e',
+  padding: T.spacing.medium,
+  marginTop: T.spacing.small,
+  marginBottom: T.spacing.small,
+  borderRadius: T.borderRadius.roundedSmall,
+  shadowColor: T.color.shadow,
   shadowOffset: {
     width: 5,
     height: 5,
@@ -37,8 +38,8 @@ type Props = {
 }
 
 function BlockSessionParam({ label, option }: Props) {
-  const labelStyle = { color: 'white' }
-  const optionStyle = { color: 'rgba(0,212,255,1)' }
+  const labelStyle = { color: T.color.text }
+  const optionStyle = { color: T.color.lightBlue }
 
   return (
     <View style={BlockSessionParamStyle}>

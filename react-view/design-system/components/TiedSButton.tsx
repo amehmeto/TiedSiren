@@ -1,15 +1,16 @@
 import { Pressable, Text } from 'react-native'
 import React from 'react'
+import { T } from '../theme'
 
 export function TiedSButton(props: { onPress: () => any; text: string }) {
   return (
     <Pressable
       style={{
-        borderRadius: 5,
-        backgroundColor: 'rgba(0,212,255,1)',
-        marginTop: 20,
-        padding: 10,
-        shadowColor: '#1e1e1e',
+        borderRadius: T.borderRadius.roundedSmall,
+        backgroundColor: T.color.lightBlue,
+        marginTop: T.spacing.large,
+        padding: T.spacing.small,
+        shadowColor: T.color.shadow,
         shadowOffset: {
           width: 5,
           height: 5,
@@ -21,10 +22,10 @@ export function TiedSButton(props: { onPress: () => any; text: string }) {
     >
       <Text
         style={{
-          fontWeight: 'bold',
-          color: 'white',
+          fontWeight: T.fontWeight.bold,
+          color: T.color.text,
           textAlign: 'center',
-          borderRadius: 5,
+          borderRadius: T.borderRadius.roundedSmall,
         }}
       >
         {props.text}

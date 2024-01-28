@@ -1,13 +1,14 @@
 import React from 'react'
 import { BlurView } from 'expo-blur'
+import { T } from '../theme'
 
 export function TiedSBlurView(props: { children: React.ReactNode }) {
   const currentSessionBoardStyle = {
-    padding: 15,
-    marginTop: 10,
-    marginBottom: 10,
-    borderRadius: 5,
-    shadowColor: '#1e1e1e',
+    padding: T.spacing.medium,
+    marginTop: T.spacing.small,
+    marginBottom: T.spacing.small,
+    borderRadius: T.borderRadius.roundedSmall,
+    shadowColor: T.color.shadow,
     shadowOffset: {
       width: 5,
       height: 5,

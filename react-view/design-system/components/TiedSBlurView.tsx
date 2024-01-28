@@ -2,7 +2,10 @@ import React from 'react'
 import { BlurView } from 'expo-blur'
 import { T } from '../theme'
 
-export function TiedSBlurView(props: { children: React.ReactNode }) {
+export function TiedSBlurView(props: {
+  children: React.ReactNode
+  style?: Record<string, any>
+}) {
   const currentSessionBoardStyle = {
     padding: T.spacing.medium,
     marginTop: T.spacing.small,
@@ -18,6 +21,7 @@ export function TiedSBlurView(props: { children: React.ReactNode }) {
     elevation: 20, // for Android
     flexDirection: 'row' as const,
     alignItems: 'center' as const,
+    ...props.style,
   }
 
   return (

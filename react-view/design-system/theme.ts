@@ -3,7 +3,7 @@ export const T = {
     text: 'white',
     darkBlue: '#0C207A',
     lightBlue: 'rgba(0,212,255,1)',
-    lightBlue2: 'rgb(105,178,225)',
+    lightBlueShade: 'rgb(105,178,225)',
     purple: 'rgb(69,64,196)',
     inactive: '#d1e9f8',
     shadow: '#1e1e1e',

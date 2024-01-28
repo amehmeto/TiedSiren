@@ -12,10 +12,12 @@ export const T = {
     bold: 'bold' as const,
   },
   size: {
+    xSmall: 11,
     small: 14,
     medium: 20,
   },
   spacing: {
+    extraSmall: 4,
     small: 8,
     medium: 16,
     large: 20,

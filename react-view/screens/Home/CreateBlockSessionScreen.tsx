@@ -1,12 +1,12 @@
 import { Text, View } from 'react-native'
 import React from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { BottomTabList } from '../../App'
-import { TabScreens } from '../navigators/BottomTabNavigator'
-import { TiedSButton } from '../design-system/components/TiedSButton'
-import { TiedSLinearBackground } from '../design-system/components/TiedSLinearBackground'
-import { T } from '../design-system/theme'
-import { TiedSBlurView } from '../design-system/components/TiedSBlurView'
+import { BottomTabList } from '../../../App'
+import { TabScreens } from '../../navigators/BottomTabNavigator'
+import { TiedSButton } from '../../design-system/components/TiedSButton'
+import { TiedSLinearBackground } from '../../design-system/components/TiedSLinearBackground'
+import { T } from '../../design-system/theme'
+import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 
 type Props = {
   label: string

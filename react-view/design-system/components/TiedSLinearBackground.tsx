@@ -1,7 +1,7 @@
 import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import { T } from '../theme'
-import { Platform, StatusBar } from 'react-native'
+import { Platform, ScrollView, StatusBar } from 'react-native'
 
 export function TiedSLinearBackground(props: { children: React.ReactNode }) {
   const statusBarHeight =
@@ -15,7 +15,7 @@ export function TiedSLinearBackground(props: { children: React.ReactNode }) {
       end={{ x: 1.5, y: 0.6 }}
       style={{ flex: 1, padding: T.spacing.large, paddingTop }}
     >
-      {props.children}
+      <ScrollView>{props.children}</ScrollView>
     </LinearGradient>
   )
 }

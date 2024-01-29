@@ -23,6 +23,7 @@ export function TiedSButton(props: { onPress: () => any; text: string }) {
       <Text
         style={{
           fontWeight: T.fontWeight.bold,
+          fontFamily: T.fontFamily.primary,
           color: T.color.text,
           textAlign: 'center',
           borderRadius: T.borderRadius.roundedSmall,

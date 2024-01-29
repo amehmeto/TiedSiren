@@ -1,17 +1,12 @@
 import { HomeStackNavigator } from './HomeStackNavigator'
-import { BlockListScreen } from '../screens/BlocklistScreen'
 import { SettingsScreen } from '../screens/SettingsScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Entypo, Ionicons } from '@expo/vector-icons'
 import { T } from '../design-system/theme'
+import { BlocklistStackNavigator } from './BlocklistStackNavigator'
+import { TabScreens } from './screen-lists/TabScreens'
 
 const Tab = createBottomTabNavigator()
-
-export enum TabScreens {
-  HOME = 'Home',
-  BLOCKLIST = 'Blocklist',
-  SETTINGS = 'Settings',
-}
 
 export function BottomTabNavigator() {
   return (
@@ -40,7 +35,7 @@ export function BottomTabNavigator() {
       />
       <Tab.Screen
         name={TabScreens.BLOCKLIST}
-        component={BlockListScreen}
+        component={BlocklistStackNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Entypo name="shield" size={size} color={color} />

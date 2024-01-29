@@ -1,12 +1,13 @@
 import { Text, View } from 'react-native'
 import React from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { BottomTabList } from '../../../App'
-import { TabScreens } from '../../navigators/BottomTabNavigator'
 import { TiedSButton } from '../../design-system/components/TiedSButton'
 import { TiedSLinearBackground } from '../../design-system/components/TiedSLinearBackground'
 import { T } from '../../design-system/theme'
 import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
+import { ScreenList } from '../../navigators/screen-lists/screenLists'
+import { HomeStackScreens } from '../../navigators/screen-lists/HomeStackScreens'
+import { TabScreens } from '../../navigators/screen-lists/TabScreens'
 
 type Props = {
   label: string
@@ -34,7 +35,7 @@ function BlockSessionParam({ label, option }: Props) {
 }
 
 type HomeScreenProps = {
-  navigation: NativeStackNavigationProp<BottomTabList, TabScreens.HOME>
+  navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
 }
 
 export function CreateBlockSessionScreen({
@@ -63,7 +64,7 @@ export function CreateBlockSessionScreen({
 
       <TiedSButton
         text={'START'}
-        onPress={() => navigation.navigate(TabScreens.HOME)}
+        onPress={() => navigation.navigate(HomeStackScreens.MAIN_HOME)}
       />
     </TiedSLinearBackground>
   )

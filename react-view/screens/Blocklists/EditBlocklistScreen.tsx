@@ -84,7 +84,6 @@ export function EditBlocklistScreen({
         platform={'Android'}
         blocksNumber={blocklist.androidBlock}
         onPress={() => {
-          console.log('Android called')
           navigation.navigate(BlocklistsStackScreens.EDIT_PLATFORM_BLOCKLIST)
         }}
       />

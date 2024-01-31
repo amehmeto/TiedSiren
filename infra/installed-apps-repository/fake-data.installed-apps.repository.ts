@@ -1,4 +1,4 @@
-import { InstalledAppsRepository } from '../../core/installed-apps/ports/installed-apps.repository'
+import { InstalledAppRepository } from '../../core/installed-apps/ports/installed-app.repository'
 import { InstalledApp } from '../../core/installed-apps/InstalledApp'
 import {
   AmazonPrimeIcon,
@@ -6,9 +6,7 @@ import {
   YouTubeAppIcon,
 } from '../../assets/fakeBase64AppIcons'
 
-export class FakeDataInstalledAppsRepository
-  implements InstalledAppsRepository
-{
+export class FakeDataInstalledAppsRepository implements InstalledAppRepository {
   getInstalledApps(): Promise<InstalledApp[]> {
     return Promise.resolve([
       {

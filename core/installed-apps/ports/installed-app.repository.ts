@@ -1,5 +1,5 @@
 import { InstalledApp } from '../InstalledApp'
 
-export interface InstalledAppsRepository {
+export interface InstalledAppRepository {
   getInstalledApps(): Promise<InstalledApp[]>
 }

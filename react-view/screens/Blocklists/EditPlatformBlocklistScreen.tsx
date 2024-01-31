@@ -2,37 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { TiedSLinearBackground } from '../../design-system/components/TiedSLinearBackground'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { T } from '../../design-system/theme'
-import { Image, Platform, Pressable, Text } from 'react-native'
+import { Image, Pressable, Text } from 'react-native'
 import { ScreenList } from '../../navigators/screen-lists/screenLists'
 import { TabScreens } from '../../navigators/screen-lists/TabScreens'
 import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { CheckBox } from 'react-native-elements'
-import RNInstalledApplication from 'react-native-installed-application'
-import {
-  AmazonPrimeIcon,
-  TikTokAppIcon,
-  YouTubeAppIcon,
-} from '../../../assets/fakeBase64AppIcons'
 import { TiedSButton } from '../../design-system/components/TiedSButton'
+import { installedAppsRepository } from '../../dependencies'
+import { InstalledApp } from '../../../core/installed-apps/InstalledApp'
 
 type BlocklistScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
 }
 
-export type InstalledApplication = {
-  packageName: string
-  versionName: string
-  versionCode: number
-  firstInstallTime: number
-  lastUpdateTime: number
-  appName: string
-  icon: string // Base64 encoded image
-  apkDir: string
-  size: number // Size in bytes
-}
-
 function AndroidSelectableAppCard(props: {
-  app: InstalledApplication
+  app: InstalledApp
   onPress: () => any
 }) {
   const [isChecked, setIsChecked] = useState<boolean>(false)
@@ -74,51 +58,13 @@ export function EditPlatformBlocklistScreen({
     marginBottom: T.spacing.small,
   }
 
-  const fakeInstalledApps: InstalledApplication[] = [
-    {
-      packageName: 'com.example.youtube',
-      versionName: '1.0.0',
-      versionCode: 1,
-      firstInstallTime: 1616161616161,
-      lastUpdateTime: 1626262626262,
-      appName: 'YouTube',
-      icon: YouTubeAppIcon,
-      apkDir: '/data/app/youtube-1/base.apk',
-      size: 52428800,
-    },
-    {
-      packageName: 'com.example.amazonprime',
-      versionName: '1.0.0',
-      versionCode: 1,
-      firstInstallTime: 1616161616161,
-      lastUpdateTime: 1626262626262,
-      appName: 'Amazon Prime',
-      icon: AmazonPrimeIcon,
-      apkDir: '/data/app/amazonprime-1/base.apk',
-      size: 52428800,
-    },
-    {
-      packageName: 'com.example.tiktok',
-      versionName: '1.0.0',
-      versionCode: 1,
-      firstInstallTime: 1616161616161,
-      lastUpdateTime: 1626262626262,
-      appName: 'TikTok',
-      icon: TikTokAppIcon,
-      apkDir: '/data/app/tiktok-1/base.apk',
-      size: 52428800,
-    },
-  ]
-
-  const [installedApps, setInstalledApps] =
-    useState<InstalledApplication[]>(fakeInstalledApps)
+  const [installedApps, setInstalledApps] = useState<InstalledApp[]>([])
 
   useEffect(() => {
-    if (Platform.OS === 'android')
-      RNInstalledApplication.getApps().then((apps: InstalledApplication[]) =>
-        setInstalledApps(apps),
-      )
-  })
+    installedAppsRepository
+      .getInstalledApps()
+      .then((apps) => setInstalledApps(apps))
+  }, [])
 
   return (
     <TiedSLinearBackground>

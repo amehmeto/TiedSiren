@@ -29,5 +29,18 @@ export const T = {
   },
   borderRadius: {
     roundedSmall: 5,
+    fullRound: 100,
+  },
+  shadow: {
+    color: '#1e1e1e',
+    offset: {
+      width: 5,
+      height: 5,
+    },
+    opacity: 0.1,
+    radius: 10,
+  },
+  width: {
+    roundButton: 80,
   },
 }

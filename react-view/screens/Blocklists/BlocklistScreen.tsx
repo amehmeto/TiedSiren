@@ -1,68 +1,77 @@
-import { Pressable, Text } from 'react-native'
+import { FlatList, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { T } from '../../design-system/theme'
 import { TiedSLinearBackground } from '../../design-system/components/TiedSLinearBackground'
 import uuid from 'react-native-uuid'
 import { ScreenList } from '../../navigators/screen-lists/screenLists'
 import { TabScreens } from '../../navigators/screen-lists/TabScreens'
 import { BlocklistsStackScreens } from '../../navigators/screen-lists/BlocklistsStackScreens'
+import { Ionicons } from '@expo/vector-icons'
+import { Blocklist } from '../../../core/blocklist/blocklist'
+import { BlocklistCard } from './BlocklistCard'
 
 type BlockListScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
 }
 
-function BlocklistCard(props: {
-  blocklistName: string
-  blocksNumber: number
-  onPress: () => any
-}) {
-  return (
-    <Pressable onPress={props.onPress}>
-      <TiedSBlurView
-        style={{
-          flexDirection: 'column' as const,
-          alignItems: 'stretch' as const,
-        }}
-      >
-        <Text
-          style={{
-            color: T.color.text,
-            fontWeight: T.fontWeight.bold,
-            paddingBottom: T.spacing.extraSmall,
-          }}
-        >
-          {props.blocklistName}
-        </Text>
-        <Text style={{ color: T.color.text, fontSize: T.size.xSmall }}>
-          {props.blocksNumber} blocks
-        </Text>
-      </TiedSBlurView>
-    </Pressable>
-  )
-}
-
 export function BlocklistScreen({
   navigation,
 }: Readonly<BlockListScreenProps>) {
-  const blocklists: [string, string, number][] = [
-    [String(uuid.v4()), 'Distractions', 397],
-    [String(uuid.v4()), 'Necessary evils', 4],
+  const blocklists: Blocklist[] = [
+    {
+      id: String(uuid.v4()),
+      name: 'Distractions',
+      totalBlocks: 397,
+    },
+    {
+      id: String(uuid.v4()),
+      name: 'Necessary evils',
+      totalBlocks: 4,
+    },
   ]
 
   return (
     <TiedSLinearBackground>
-      {blocklists.map(([id, blocklistName, blocksNumber]) => (
-        <BlocklistCard
-          key={id}
-          blocklistName={blocklistName}
-          blocksNumber={blocksNumber}
-          onPress={() =>
-            navigation.navigate(BlocklistsStackScreens.EDIT_BLOCKLIST)
-          }
-        />
-      ))}
+      <FlatList
+        data={blocklists}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <BlocklistCard
+            blocklist={item}
+            onPress={() =>
+              navigation.navigate(BlocklistsStackScreens.EDIT_BLOCKLIST)
+            }
+          />
+        )}
+      />
+      <TouchableOpacity onPress={() => {}} style={styles.roundButton}>
+        <Ionicons name={'add'} size={50} color={T.color.lightBlue} />
+      </TouchableOpacity>
     </TiedSLinearBackground>
   )
 }
+
+const styles = StyleSheet.create({
+  roundButton: {
+    width: T.width.roundButton,
+    height: T.width.roundButton,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: T.spacing.small,
+    borderRadius: T.borderRadius.fullRound,
+
+    backgroundColor: T.color.darkBlue,
+    shadowColor: T.color.shadow,
+    shadowOffset: {
+      width: T.shadow.offset.width,
+      height: T.shadow.offset.height,
+    },
+    shadowOpacity: T.shadow.opacity,
+    shadowRadius: T.shadow.radius,
+
+    position: 'absolute',
+    bottom: T.spacing.large,
+    right: T.spacing.large,
+  },
+})

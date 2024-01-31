@@ -2,144 +2,128 @@ import React from 'react'
 import { TiedSLinearBackground } from '../../design-system/components/TiedSLinearBackground'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { T } from '../../design-system/theme'
-import { Pressable, Text, View } from 'react-native'
+import { SectionList, StyleSheet, Text } from 'react-native'
 import { ScreenList } from '../../navigators/screen-lists/screenLists'
 import { TabScreens } from '../../navigators/screen-lists/TabScreens'
 import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { MaterialCommunityIcons, Zocial } from '@expo/vector-icons'
-import { Icon } from '@expo/vector-icons/build/createIconSet'
 import { BlocklistsStackScreens } from '../../navigators/screen-lists/BlocklistsStackScreens'
+import { BlocksPreviewCard } from './BlocksPreviewCard'
+import { Icon } from '@expo/vector-icons/build/createIconSet'
 
 type BlocklistScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
 }
 
-function BlocksPreviewCard(props: {
+type AppBlock = {
   IconTag: Icon<any, any>
   iconName: string
   platform: 'Android' | 'iOS' | 'web' | 'macOS' | 'Windows' | 'Linux'
   blocksNumber: number
-  onPress: () => any
-}) {
-  return (
-    <Pressable onPress={props.onPress}>
-      <TiedSBlurView>
-        <props.IconTag
-          name={props.iconName}
-          color={T.color.text}
-          size={25}
-          style={{ marginRight: T.spacing.small }}
-        />
-        <View
-          style={{
-            flexDirection: 'column' as const,
-            alignItems: 'stretch' as const,
-          }}
-        >
-          <Text style={{ color: T.color.text }}>
-            {props.blocksNumber} blocks
-          </Text>
-          <Text style={{ color: T.color.text, fontSize: T.size.xSmall }}>
-            {props.platform}
-          </Text>
-        </View>
-      </TiedSBlurView>
-    </Pressable>
-  )
+}
+
+type Section = {
+  title: string
+  data: AppBlock[]
 }
 
 export function EditBlocklistScreen({
   navigation,
 }: Readonly<BlocklistScreenProps>) {
-  const titleStyle = {
+  const platforms: Section[] = [
+    {
+      title: 'Blocked Mobile Applications',
+      data: [
+        {
+          IconTag: Zocial,
+          iconName: 'android',
+          platform: 'Android' as const,
+          blocksNumber: 19,
+        },
+        {
+          IconTag: MaterialCommunityIcons,
+          iconName: 'apple-ios',
+          platform: 'iOS' as const,
+          blocksNumber: 14,
+        },
+      ],
+    },
+    {
+      title: 'Blocked Desktop Applications',
+      data: [
+        {
+          IconTag: MaterialCommunityIcons,
+          iconName: 'apple',
+          platform: 'macOS' as const,
+          blocksNumber: 23,
+        },
+        {
+          IconTag: MaterialCommunityIcons,
+          iconName: 'microsoft-windows',
+          platform: 'Windows' as const,
+          blocksNumber: 6,
+        },
+        {
+          IconTag: MaterialCommunityIcons,
+          iconName: 'linux',
+          platform: 'Linux' as const,
+          blocksNumber: 34,
+        },
+      ],
+    },
+    {
+      title: 'Websites',
+      data: [
+        {
+          IconTag: MaterialCommunityIcons,
+          iconName: 'web',
+          platform: 'web' as const,
+          blocksNumber: 432,
+        },
+      ],
+    },
+    { title: 'Curated Filters', data: [] },
+    { title: 'Keywords', data: [] },
+  ]
+
+  return (
+    <TiedSLinearBackground>
+      <Text style={styles.title}>Name</Text>
+      <TiedSBlurView>
+        <Text style={{ color: T.color.text }}>Distractions</Text>
+      </TiedSBlurView>
+
+      <SectionList
+        sections={platforms}
+        keyExtractor={(item, index) => item.platform + index}
+        renderSectionHeader={({ section: { title } }) => (
+          <Text style={styles.title}>{title}</Text>
+        )}
+        renderItem={({ item }) => (
+          <BlocksPreviewCard
+            IconTag={item.IconTag}
+            iconName={item.iconName}
+            platform={item.platform}
+            blocksNumber={item.blocksNumber}
+            onPress={() => {
+              navigation.navigate(
+                BlocklistsStackScreens.EDIT_PLATFORM_BLOCKLIST,
+              )
+            }}
+          />
+        )}
+      />
+    </TiedSLinearBackground>
+  )
+}
+
+const styles = StyleSheet.create({
+  title: {
     fontWeight: T.fontWeight.bold,
     color: T.color.text,
     fontFamily: T.fontFamily.primary,
     fontSize: T.size.small,
     marginTop: T.spacing.small,
     marginBottom: T.spacing.small,
-  }
-
-  const blocklist = {
-    name: 'Distractions',
-    androidBlock: 19,
-    iosBlock: 14,
-    macosBlock: 6,
-    windowsBlock: 10,
-    linuxBlock: 8,
-    webBlock: 343,
-  }
-
-  return (
-    <TiedSLinearBackground>
-      <Text style={titleStyle}>Name</Text>
-      <TiedSBlurView>
-        <Text style={{ color: T.color.text }}>{blocklist.name}</Text>
-      </TiedSBlurView>
-
-      <Text style={titleStyle}>Blocked Mobile Applications</Text>
-      <BlocksPreviewCard
-        IconTag={Zocial}
-        iconName={'android'}
-        platform={'Android'}
-        blocksNumber={blocklist.androidBlock}
-        onPress={() => {
-          navigation.navigate(BlocklistsStackScreens.EDIT_PLATFORM_BLOCKLIST)
-        }}
-      />
-
-      <BlocksPreviewCard
-        IconTag={MaterialCommunityIcons}
-        iconName={'apple-ios'}
-        platform={'iOS'}
-        blocksNumber={blocklist.iosBlock}
-        onPress={() =>
-          navigation.navigate(BlocklistsStackScreens.EDIT_BLOCKLIST)
-        }
-      />
-
-      <Text style={titleStyle}>Blocked Desktop Applications</Text>
-      <BlocksPreviewCard
-        IconTag={MaterialCommunityIcons}
-        iconName={'apple'}
-        platform={'macOS'}
-        blocksNumber={blocklist.macosBlock}
-        onPress={() =>
-          navigation.navigate(BlocklistsStackScreens.EDIT_BLOCKLIST)
-        }
-      />
-      <BlocksPreviewCard
-        IconTag={MaterialCommunityIcons}
-        iconName={'microsoft-windows'}
-        platform={'Windows'}
-        blocksNumber={blocklist.windowsBlock}
-        onPress={() =>
-          navigation.navigate(BlocklistsStackScreens.EDIT_BLOCKLIST)
-        }
-      />
-
-      <BlocksPreviewCard
-        IconTag={MaterialCommunityIcons}
-        iconName={'linux'}
-        platform={'Linux'}
-        blocksNumber={blocklist.linuxBlock}
-        onPress={() =>
-          navigation.navigate(BlocklistsStackScreens.EDIT_BLOCKLIST)
-        }
-      />
-
-      <Text style={titleStyle}>Websites</Text>
-      <BlocksPreviewCard
-        IconTag={MaterialCommunityIcons}
-        iconName={'web'}
-        platform={'web'}
-        blocksNumber={blocklist.webBlock}
-        onPress={() =>
-          navigation.navigate(BlocklistsStackScreens.EDIT_BLOCKLIST)
-        }
-      />
-
-      <Text style={titleStyle}>Curated Filters</Text>
-    </TiedSLinearBackground>
-  )
-}
+  },
+})

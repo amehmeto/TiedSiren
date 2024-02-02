@@ -1,38 +1,12 @@
-import { Text, View } from 'react-native'
 import React from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { TiedSButton } from '../../design-system/components/TiedSButton'
 import { TiedSLinearBackground } from '../../design-system/components/TiedSLinearBackground'
-import { T } from '../../design-system/theme'
 import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { ScreenList } from '../../navigators/screen-lists/screenLists'
 import { HomeStackScreens } from '../../navigators/screen-lists/HomeStackScreens'
 import { TabScreens } from '../../navigators/screen-lists/TabScreens'
-
-type Props = {
-  label: string
-  option: string
-}
-
-function BlockSessionParam({ label, option }: Props) {
-  const BlockSessionParamStyle = {
-    flexDirection: 'row' as const,
-    justifyContent: 'space-between' as const,
-    paddingTop: T.spacing.medium,
-    paddingBottom: T.spacing.medium,
-    paddingLeft: T.spacing.small,
-    paddingRight: T.spacing.small,
-  }
-  const labelStyle = { color: T.color.text }
-  const optionStyle = { color: T.color.lightBlue }
-
-  return (
-    <View style={BlockSessionParamStyle}>
-      <Text style={labelStyle}>{label}</Text>
-      <Text style={optionStyle}>{option}</Text>
-    </View>
-  )
-}
+import { BlockSessionParam } from './BlockSessionParam'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>

@@ -18,7 +18,7 @@ export function BottomTabNavigator() {
         tabBarStyle: {
           borderTopWidth: 0,
           backgroundColor: T.color.darkBlue,
-          height: 80,
+          height: 50,
           padding: T.spacing.small,
         },
         tabBarActiveTintColor: T.color.lightBlue,

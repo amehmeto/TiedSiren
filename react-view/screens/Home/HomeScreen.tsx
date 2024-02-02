@@ -1,6 +1,6 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React from 'react'
-import { Text } from 'react-native'
+import { FlatList, Text } from 'react-native'
 import { TiedSirenLogoSvg } from './TiedSirenLogoSvg'
 import 'react-native-gesture-handler'
 import { TiedSButton } from '../../design-system/components/TiedSButton'
@@ -25,9 +25,9 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
     marginBottom: T.spacing.small,
   }
 
-  const currentSessions: [string, number, number, number][] = [
-    ['Sleeping time', 42, 2, 1],
-    ['Working time', 34, 2, 4],
+  const currentSessions = [
+    { name: 'Sleeping time', minutesLeft: 22, blocklists: 2, devices: 1 },
+    { name: 'Working time', minutesLeft: 34, blocklists: 2, devices: 4 },
   ]
 
   return (
@@ -46,15 +46,10 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
 
       <Text style={titleStyle}>ACTIVE SESSIONS</Text>
 
-      {currentSessions.map(([name, minutes, blocklists, devices]) => (
-        <CurrentSessionBoard
-          key={name}
-          sessionName={name}
-          minutesLeft={minutes}
-          blocklists={blocklists}
-          devices={devices}
-        />
-      ))}
+      <FlatList
+        data={currentSessions}
+        renderItem={({ item }) => <CurrentSessionBoard session={item} />}
+      />
 
       <Text style={titleStyle}>NO SCHEDULED SESSIONS</Text>
 

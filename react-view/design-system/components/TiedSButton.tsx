@@ -1,12 +1,12 @@
-import { Pressable, StyleSheet, Text } from 'react-native'
+import { Pressable, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { T } from '../theme'
 
 export function TiedSButton(props: { onPress: () => any; text: string }) {
   return (
-    <Pressable style={styles.container} onPress={props.onPress}>
+    <TouchableOpacity style={styles.container} onPress={props.onPress}>
       <Text style={styles.buttonText}>{props.text}</Text>
-    </Pressable>
+    </TouchableOpacity>
   )
 }
 

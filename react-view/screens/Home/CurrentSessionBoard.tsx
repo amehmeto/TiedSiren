@@ -21,25 +21,27 @@ function RoundBlueDot() {
 }
 
 export function CurrentSessionBoard(props: {
-  sessionName: string
-  minutesLeft: number
-  blocklists: number
-  devices: number
+  session: {
+    name: string
+    minutesLeft: number
+    blocklists: number
+    devices: number
+  }
 }) {
   return (
     <TiedSBlurView>
       <RoundBlueDot />
       <View>
         <Text style={{ color: T.color.text, fontWeight: T.fontWeight.bold }}>
-          {props.sessionName}
+          {props.session.name}
         </Text>
         <Text
           style={{ color: T.color.lightBlue, fontWeight: T.fontWeight.bold }}
         >
-          {props.minutesLeft} minutes left
+          {props.session.minutesLeft} minutes left
         </Text>
         <Text style={{ color: T.color.text }}>
-          {props.devices} device, {props.blocklists} blocklist
+          {props.session.devices} device, {props.session.blocklists} blocklist
         </Text>
       </View>
     </TiedSBlurView>

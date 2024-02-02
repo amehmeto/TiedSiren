@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { T } from '../../design-system/theme'
@@ -32,18 +32,20 @@ export function CurrentSessionBoard(props: {
     <TiedSBlurView>
       <RoundBlueDot />
       <View>
-        <Text style={{ color: T.color.text, fontWeight: T.fontWeight.bold }}>
-          {props.session.name}
-        </Text>
-        <Text
-          style={{ color: T.color.lightBlue, fontWeight: T.fontWeight.bold }}
-        >
+        <Text style={styles.sessionName}>{props.session.name}</Text>
+        <Text style={styles.minutesLeft}>
           {props.session.minutesLeft} minutes left
         </Text>
-        <Text style={{ color: T.color.text }}>
+        <Text style={styles.devices}>
           {props.session.devices} device, {props.session.blocklists} blocklist
         </Text>
       </View>
     </TiedSBlurView>
   )
 }
+
+const styles = StyleSheet.create({
+  sessionName: { color: T.color.text, fontWeight: T.fontWeight.bold },
+  minutesLeft: { color: T.color.lightBlue, fontWeight: T.fontWeight.bold },
+  devices: { color: T.color.text },
+})

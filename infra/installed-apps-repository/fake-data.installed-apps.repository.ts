@@ -1,10 +1,10 @@
-import { InstalledAppRepository } from '../../core/installed-apps/ports/installed-app.repository'
-import { InstalledApp } from '../../core/installed-apps/InstalledApp'
 import {
   AmazonPrimeIcon,
   TikTokAppIcon,
   YouTubeAppIcon,
 } from '../../assets/fakeBase64AppIcons'
+import { InstalledAppRepository } from '../../core/installed-app/ports/installed-app.repository'
+import { InstalledApp } from '../../core/installed-app/InstalledApp'
 
 export class FakeDataInstalledAppsRepository implements InstalledAppRepository {
   getInstalledApps(): Promise<InstalledApp[]> {

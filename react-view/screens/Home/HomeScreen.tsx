@@ -1,5 +1,5 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, Text } from 'react-native'
 import { TiedSirenLogoSvg } from './TiedSirenLogoSvg'
 import 'react-native-gesture-handler'
@@ -10,17 +10,21 @@ import { T } from '../../design-system/theme'
 import { ScreenList } from '../../navigators/screen-lists/screenLists'
 import { HomeStackScreens } from '../../navigators/screen-lists/HomeStackScreens'
 import { TabScreens } from '../../navigators/screen-lists/TabScreens'
+import { CurrentSession } from '../../../core/current-sessions/current-session'
+import { currentSessionRepository } from '../../dependencies'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
 }
 
 export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
-  const currentSessions = [
-    { name: 'Sleeping time', minutesLeft: 22, blocklists: 2, devices: 1 },
-    { name: 'Necessary Evils', minutesLeft: 220, blocklists: 6, devices: 5 },
-    { name: 'Test time', minutesLeft: 34, blocklists: 2, devices: 4 },
-  ]
+  const [currentSessions, setCurrentSessions] = useState<CurrentSession[]>([])
+
+  useEffect(() => {
+    currentSessionRepository
+      .getCurrentSessions()
+      .then((sessions) => setCurrentSessions(sessions))
+  }, [])
 
   return (
     <TiedSLinearBackground>

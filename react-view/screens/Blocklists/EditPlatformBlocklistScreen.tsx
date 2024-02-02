@@ -4,14 +4,17 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { T } from '../../design-system/theme'
 import { FlatList, StyleSheet, Text } from 'react-native'
 import { ScreenList } from '../../navigators/screen-lists/screenLists'
-import { TabScreens } from '../../navigators/screen-lists/TabScreens'
 import { TiedSButton } from '../../design-system/components/TiedSButton'
 import { installedAppsRepository } from '../../dependencies'
 import { AndroidSelectableAppCard } from './AndroidSelectableAppCard'
 import { InstalledApp } from '../../../core/installed-app/InstalledApp'
+import { BlocklistsStackScreens } from '../../navigators/screen-lists/BlocklistsStackScreens'
 
 type BlocklistScreenProps = {
-  navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
+  navigation: NativeStackNavigationProp<
+    ScreenList,
+    BlocklistsStackScreens.MAIN_BLOCKLIST
+  >
 }
 
 export function EditPlatformBlocklistScreen({
@@ -37,7 +40,12 @@ export function EditPlatformBlocklistScreen({
         )}
       />
 
-      <TiedSButton onPress={() => {}} text={'SAVE APPS INTO BLOCKLIST'} />
+      <TiedSButton
+        onPress={() =>
+          navigation.navigate(BlocklistsStackScreens.MAIN_BLOCKLIST)
+        }
+        text={'SAVE APPS INTO BLOCKLIST'}
+      />
     </TiedSLinearBackground>
   )
 }

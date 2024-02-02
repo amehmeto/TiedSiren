@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { T } from '../theme'
 
@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontWeight: T.fontWeight.bold,
-    fontFamily: T.fontFamily.primary,
     color: T.color.text,
     textAlign: 'center',
     borderRadius: T.borderRadius.roundedSmall,

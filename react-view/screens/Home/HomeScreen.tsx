@@ -10,18 +10,18 @@ import { T } from '../../design-system/theme'
 import { ScreenList } from '../../navigators/screen-lists/screenLists'
 import { HomeStackScreens } from '../../navigators/screen-lists/HomeStackScreens'
 import { TabScreens } from '../../navigators/screen-lists/TabScreens'
-import { CurrentSession } from '../../../core/current-sessions/current-session'
-import { currentSessionRepository } from '../../dependencies'
+import { blockSessionRepository } from '../../dependencies'
+import { BlockSession } from '../../../core/block-session/block-session'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
 }
 
 export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
-  const [currentSessions, setCurrentSessions] = useState<CurrentSession[]>([])
+  const [currentSessions, setCurrentSessions] = useState<BlockSession[]>([])
 
   useEffect(() => {
-    currentSessionRepository
+    blockSessionRepository
       .getCurrentSessions()
       .then((sessions) => setCurrentSessions(sessions))
   }, [])

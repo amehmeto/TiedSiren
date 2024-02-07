@@ -4,13 +4,15 @@ import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { T } from '../../design-system/theme'
 import React from 'react'
 
-export function BlocksPreviewCard(props: {
-  IconTag: Icon<any, any>
-  iconName: string
-  platform: 'Android' | 'iOS' | 'web' | 'macOS' | 'Windows' | 'Linux'
-  blocksNumber: number
-  onPress: () => any
-}) {
+export function BlocksPreviewCard(
+  props: Readonly<{
+    IconTag: Icon<any, any>
+    iconName: string
+    platform: 'Android' | 'iOS' | 'web' | 'macOS' | 'Windows' | 'Linux'
+    blocksNumber: number
+    onPress: () => any
+  }>,
+) {
   return (
     <TouchableOpacity onPress={props.onPress}>
       <TiedSBlurView>

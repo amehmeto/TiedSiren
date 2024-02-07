@@ -4,10 +4,12 @@ import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { T } from '../../design-system/theme'
 import React from 'react'
 
-export function BlocklistCard(props: {
-  blocklist: Blocklist
-  onPress: () => any
-}) {
+export function BlocklistCard(
+  props: Readonly<{
+    blocklist: Blocklist
+    onPress: () => any
+  }>,
+) {
   return (
     <TouchableOpacity onPress={props.onPress}>
       <TiedSBlurView style={styles.container}>

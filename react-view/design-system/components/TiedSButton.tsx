@@ -1,12 +1,14 @@
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { Platform, Pressable, StyleSheet, Text } from 'react-native'
 import React from 'react'
 import { T } from '../theme'
 
-export function TiedSButton(props: { onPress: () => any; text: string }) {
+export function TiedSButton(
+  props: Readonly<{ onPress: () => any; text: string }>,
+) {
   return (
-    <TouchableOpacity style={styles.container} onPress={props.onPress}>
+    <Pressable style={styles.container} onPress={props.onPress}>
       <Text style={styles.buttonText}>{props.text}</Text>
-    </TouchableOpacity>
+    </Pressable>
   )
 }
 
@@ -16,13 +18,24 @@ const styles = StyleSheet.create({
     backgroundColor: T.color.lightBlue,
     marginTop: T.spacing.large,
     padding: T.spacing.small,
-    shadowColor: T.color.shadow,
-    shadowOffset: {
-      width: T.shadow.offset.width,
-      height: T.shadow.offset.height,
-    },
-    shadowOpacity: T.shadow.opacity,
-    shadowRadius: T.shadow.radius,
+
+    ...Platform.select({
+      ios: {
+        shadowColor: T.color.shadow,
+        shadowOffset: {
+          width: T.shadow.offset.width,
+          height: T.shadow.offset.height,
+        },
+        shadowOpacity: T.shadow.opacity,
+        shadowRadius: T.shadow.radius,
+      },
+      android: {
+        elevation: 20,
+      },
+      web: {
+        boxShadow: `${T.shadow.offset.width}px ${T.shadow.offset.height}px 10px ${T.color.shadow}`,
+      },
+    }),
   },
   buttonText: {
     fontWeight: T.fontWeight.bold,

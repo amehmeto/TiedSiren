@@ -8,10 +8,10 @@ import { InstalledApp } from '../../../core/installed-app/InstalledApp'
 export function AndroidSelectableAppCard({
   app,
   onPress,
-}: {
+}: Readonly<{
   app: InstalledApp
   onPress: () => any
-}) {
+}>) {
   const [isChecked, setIsChecked] = useState<boolean>(false)
 
   const dataImagePngBase64 = 'data:image/png;base64,'

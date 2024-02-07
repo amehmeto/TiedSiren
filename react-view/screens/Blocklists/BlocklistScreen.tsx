@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, TouchableOpacity } from 'react-native'
+import { FlatList, Platform, Pressable, StyleSheet } from 'react-native'
 import React from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { T } from '../../design-system/theme'
@@ -45,9 +45,9 @@ export function BlocklistScreen({
           />
         )}
       />
-      <TouchableOpacity onPress={() => {}} style={styles.roundButton}>
+      <Pressable onPress={() => {}} style={styles.roundButton}>
         <Ionicons name={'add'} size={50} color={T.color.lightBlue} />
-      </TouchableOpacity>
+      </Pressable>
     </TiedSLinearBackground>
   )
 }
@@ -60,18 +60,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: T.spacing.small,
     borderRadius: T.borderRadius.fullRound,
-
     backgroundColor: T.color.darkBlue,
-    shadowColor: T.color.shadow,
-    shadowOffset: {
-      width: T.shadow.offset.width,
-      height: T.shadow.offset.height,
-    },
-    shadowOpacity: T.shadow.opacity,
-    shadowRadius: T.shadow.radius,
-
     position: 'absolute',
     bottom: T.spacing.large,
     right: T.spacing.large,
+
+    ...Platform.select({
+      ios: {
+        shadowColor: T.color.shadow,
+        shadowOffset: {
+          width: T.shadow.offset.width,
+          height: T.shadow.offset.height,
+        },
+        shadowOpacity: T.shadow.opacity,
+        shadowRadius: T.shadow.radius,
+      },
+      android: {
+        elevation: 20,
+      },
+      web: {
+        boxShadow: `5px 5px 10px ${T.color.shadow}`,
+      },
+    }),
   },
 })

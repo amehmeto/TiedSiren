@@ -9,14 +9,14 @@ import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { MaterialCommunityIcons, Zocial } from '@expo/vector-icons'
 import { BlocklistsStackScreens } from '../../navigators/screen-lists/BlocklistsStackScreens'
 import { BlocksPreviewCard } from './BlocksPreviewCard'
-import { Icon } from '@expo/vector-icons/build/createIconSet'
+import { IconProps } from '@expo/vector-icons/build/createIconSet'
 
 type BlocklistScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
 }
 
 type AppBlock = {
-  IconTag: Icon<any, any>
+  IconTag: React.ComponentType<IconProps<any>>
   iconName: string
   platform: 'Android' | 'iOS' | 'web' | 'macOS' | 'Windows' | 'Linux'
   blocksNumber: number

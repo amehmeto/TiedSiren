@@ -3,7 +3,7 @@ import React from 'react'
 import { T } from '../theme'
 
 export function TiedSButton(
-  props: Readonly<{ onPress: () => any; text: string }>,
+  props: Readonly<{ onPress: () => void; text: string }>,
 ) {
   return (
     <Pressable style={styles.container} onPress={props.onPress}>

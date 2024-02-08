@@ -1,4 +1,4 @@
-import { Icon } from '@expo/vector-icons/build/createIconSet'
+import { IconProps } from '@expo/vector-icons/build/createIconSet'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { T } from '../../design-system/theme'
@@ -6,11 +6,11 @@ import React from 'react'
 
 export function BlocksPreviewCard(
   props: Readonly<{
-    IconTag: Icon<any, any>
+    IconTag: React.ComponentType<IconProps<any>>
     iconName: string
     platform: 'Android' | 'iOS' | 'web' | 'macOS' | 'Windows' | 'Linux'
     blocksNumber: number
-    onPress: () => any
+    onPress: () => void
   }>,
 ) {
   return (

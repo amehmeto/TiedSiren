@@ -10,7 +10,7 @@ export function AndroidSelectableAppCard({
   onPress,
 }: Readonly<{
   app: InstalledApp
-  onPress: () => any
+  onPress: () => void
 }>) {
   const [isChecked, setIsChecked] = useState<boolean>(false)
 
@@ -28,7 +28,7 @@ export function AndroidSelectableAppCard({
         <Text style={styles.appName}>{app.appName}</Text>
         <CheckBox
           style={styles.checkbox}
-          containerStyle={styles.checkbox.container}
+          containerStyle={styles.checkboxContainer}
           checked={isChecked}
           onPress={() => setIsChecked(!isChecked)}
           checkedColor={T.color.lightBlue}
@@ -39,12 +39,16 @@ export function AndroidSelectableAppCard({
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   checkbox: {
     alignItems: 'flex-end',
-    container: {
-      padding: 0,
-      margin: 0,
-    },
+  },
+  checkboxContainer: {
+    padding: 0,
+    margin: 0,
   },
   appName: {
     color: T.color.text,
@@ -55,9 +59,5 @@ const styles = StyleSheet.create({
     marginRight: T.spacing.small,
     height: 20,
     width: 20,
-  },
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
 })

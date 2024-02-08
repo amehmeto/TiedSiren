@@ -1,8 +1,8 @@
-import { BlockSession } from '../../core/current-session/block-session'
-import { CurrentSessionRepository } from '../../core/current-session/ports/current-session.repository'
+import { BlockSession } from '../../core/block-session/block-session'
+import { BlockSessionRepository } from '../../core/block-session/ports/block-session.repository'
 
 export class FakeDataCurrentSessionRepository
-  implements CurrentSessionRepository
+  implements BlockSessionRepository
 {
   getCurrentSessions(): Promise<BlockSession[]> {
     return Promise.resolve([

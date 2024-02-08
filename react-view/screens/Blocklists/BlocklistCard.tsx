@@ -7,7 +7,7 @@ import React from 'react'
 export function BlocklistCard(
   props: Readonly<{
     blocklist: Blocklist
-    onPress: () => any
+    onPress: () => void
   }>,
 ) {
   return (

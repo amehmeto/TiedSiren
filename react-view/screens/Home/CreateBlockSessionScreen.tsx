@@ -9,32 +9,55 @@ import { TabScreens } from '../../navigators/screen-lists/TabScreens'
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 import { Formik } from 'formik'
 import { T } from '../../design-system/theme'
-import { SelectFromListModal } from './SelectFromListModal'
+import { SelectBlocklistModal } from './SelectBlocklistModal'
+import { TiedSModal } from '../../design-system/components/TiedSModal'
+import { SelectDeviceModal } from './SelectDeviceModal'
+import { Blocklist } from '../../../core/blocklist/blocklist'
+import { Device } from '../../../core/device/device'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
 }
 
+type Session = {
+  name: string
+  blocklists: Blocklist[]
+  devices: Device[]
+  start: string | null
+  end: string | null
+}
 export function CreateBlockSessionScreen({
   navigation,
 }: Readonly<HomeScreenProps>) {
-  const session = {
-    name: 'Working time',
-    blocklists: ['Distractions', 'Necessary evils'],
-    devices: ['Huawei P20', 'Lenovo Tab'],
-    start: '19:00',
-    end: '21:00',
+  const defaultSession: Session = {
+    name: '' as string,
+    blocklists: [] as Blocklist[],
+    devices: [] as Device[],
+    start: null,
+    end: null,
   }
+
   const [isBlocklists, setIsBlocklists] = useState<boolean>(false)
   const [isDeviceList, setIsDeviceList] = useState<boolean>(false)
+  const [isResultModalOpen, setIsResultModalOpen] = useState<boolean>(false)
+  const [formResult, setFormResult] = useState({})
 
   return (
     <TiedSLinearBackground>
       <Formik
-        initialValues={session}
-        onSubmit={(values) => console.log(values)}
+        initialValues={defaultSession}
+        onSubmit={(values) => {
+          setFormResult(values)
+          setIsResultModalOpen(true)
+        }}
       >
-        {({ handleChange, handleBlur, handleSubmit, values }) => (
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          setFieldValue,
+          values,
+        }) => (
           <View>
             <TiedSBlurView style={styles.blockSession}>
               <View style={styles.param}>
@@ -43,37 +66,47 @@ export function CreateBlockSessionScreen({
                   style={styles.option}
                   onChangeText={handleChange('name')}
                   onBlur={handleBlur('name')}
-                  value={values.name}
+                  value={values.name === '' ? 'Choose a name...' : values.name}
                 />
               </View>
 
               <View style={styles.param}>
                 <Text style={styles.label}>Blocklists</Text>
                 <Pressable onPress={() => setIsBlocklists(true)}>
-                  <Text
-                    style={styles.option}
-                    /*  onChangeText={handleChange('blocklists')}
-                    onBlur={handleBlur('blocklists')}
-                    value={values}*/
-                  >
-                    {session.blocklists.join(', ')}
+                  <Text style={styles.option}>
+                    {values.blocklists.length > 0
+                      ? values.blocklists
+                          .map((blocklist) => blocklist.name)
+                          .join(', ')
+                      : 'Choose blocklists...'}
                   </Text>
                 </Pressable>
               </View>
+              <SelectBlocklistModal
+                visible={isBlocklists}
+                blocklists={values.blocklists}
+                onRequestClose={() => setIsBlocklists(!isBlocklists)}
+                onPress={() => setIsBlocklists(!isBlocklists)}
+                setFieldValue={setFieldValue}
+              />
 
               <View style={styles.param}>
                 <Text style={styles.label}>Devices</Text>
                 <Pressable onPress={() => setIsDeviceList(true)}>
-                  <Text
-                    style={styles.option}
-                    /* onChangeText={handleChange('devices')}
-                  onBlur={handleBlur('devices')}
-                  value={values.devices.join(', ')} */
-                  >
-                    {session.devices.join(', ')}
+                  <Text style={styles.option}>
+                    {values.devices.length > 0
+                      ? values.devices.map((device) => device.name).join(', ')
+                      : 'Choose devices...'}
                   </Text>
                 </Pressable>
               </View>
+              <SelectDeviceModal
+                visible={isDeviceList}
+                devices={values.devices}
+                onRequestClose={() => setIsDeviceList(!isDeviceList)}
+                onPress={() => setIsDeviceList(!isDeviceList)}
+                setFieldValue={setFieldValue}
+              />
 
               <View style={styles.param}>
                 <Text style={styles.label}>Starts</Text>
@@ -81,7 +114,7 @@ export function CreateBlockSessionScreen({
                   style={styles.option}
                   onChangeText={handleChange('start')}
                   onBlur={handleBlur('start')}
-                  value={values.start}
+                  value={values.start ?? 'Choose a start time...'}
                 />
               </View>
               <View style={styles.param}>
@@ -90,7 +123,7 @@ export function CreateBlockSessionScreen({
                   style={styles.option}
                   onChangeText={handleChange('end')}
                   onBlur={handleBlur('end')}
-                  value={values.end}
+                  value={values.end ?? 'Choose an end time...'}
                 />
               </View>
             </TiedSBlurView>
@@ -105,18 +138,20 @@ export function CreateBlockSessionScreen({
         )}
       </Formik>
 
-      <SelectFromListModal
-        visible={isBlocklists}
-        list={session.blocklists}
-        onRequestClose={() => setIsBlocklists(!isBlocklists)}
-        onPress={() => setIsBlocklists(!isBlocklists)}
-      />
-      <SelectFromListModal
-        visible={isDeviceList}
-        list={session.devices}
-        onRequestClose={() => setIsDeviceList(!isDeviceList)}
-        onPress={() => setIsDeviceList(!isDeviceList)}
-      />
+      <TiedSModal
+        visible={isResultModalOpen}
+        onRequestClose={() => setIsResultModalOpen(!isResultModalOpen)}
+      >
+        <View>
+          <Text style={{ color: T.color.text }}>
+            {JSON.stringify(formResult, null, 2)}
+          </Text>
+        </View>
+        <TiedSButton
+          onPress={() => setIsResultModalOpen(!isResultModalOpen)}
+          text={'Close'}
+        />
+      </TiedSModal>
     </TiedSLinearBackground>
   )
 }

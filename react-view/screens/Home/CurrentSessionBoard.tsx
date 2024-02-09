@@ -20,14 +20,16 @@ function RoundBlueDot() {
   )
 }
 
-export function CurrentSessionBoard(props: {
-  session: {
-    name: string
-    minutesLeft: number
-    blocklists: number
-    devices: number
-  }
-}) {
+export function CurrentSessionBoard(
+  props: Readonly<{
+    session: {
+      name: string
+      minutesLeft: number
+      blocklists: number
+      devices: number
+    }
+  }>,
+) {
   return (
     <TiedSBlurView>
       <RoundBlueDot />

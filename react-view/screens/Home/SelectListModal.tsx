@@ -4,69 +4,61 @@ import React, { useEffect, useState } from 'react'
 import { TiedSButton } from '../../design-system/components/TiedSButton'
 import { TiedSModal } from '../../design-system/components/TiedSModal'
 import { Blocklist } from '../../../core/blocklist/blocklist'
-import { blocklistRepository } from '../../dependencies'
+import { Device } from '../../../core/device/device'
 
-export function SelectBlocklistModal(
+export function SelectListModal(
   props: Readonly<{
     visible: boolean
-    blocklists: Blocklist[]
+    list: (Blocklist | Device)[]
+    listType: 'blocklists' | 'devices'
     onRequestClose: () => void
-    onPress: () => void
     setFieldValue: (field: string, value: any) => void
+    getItems: () => Promise<(Blocklist | Device)[]>
   }>,
 ) {
-  const [availableBlocklists, setAvailableBlocklists] = useState<Blocklist[]>(
-    [],
-  )
-  const [selectedBlocklists, setSelectedBlocklists] = useState<Blocklist[]>([])
+  const [availableListItems, setAvailableListItems] = useState<
+    (Blocklist | Device)[]
+  >([])
+  const [selectedItems, setSelectedItems] = useState<(Blocklist | Device)[]>([])
 
   useEffect(() => {
-    blocklistRepository
-      .getBlocklists()
-      .then((blocklists) => setAvailableBlocklists(blocklists))
+    props.getItems().then((list) => setAvailableListItems(list))
   }, [])
 
-  const handleSave = () => {
-    props.setFieldValue('blocklists', selectedBlocklists)
+  const saveList = () => {
+    props.setFieldValue(props.listType, selectedItems)
     props.onRequestClose()
   }
 
-  function selectBlocklist(item: Blocklist) {
+  function toggleList(item: Blocklist | Device) {
     return (isSelected: boolean) => {
-      const newSelections: Blocklist[] = isSelected
-        ? [...selectedBlocklists, item]
-        : selectedBlocklists.filter((blocklist) => blocklist.id !== item.id)
-      setSelectedBlocklists(newSelections)
+      const newSelections: (Blocklist | Device)[] = isSelected
+        ? [...selectedItems, item]
+        : selectedItems.filter((_item) => _item.id !== item.id)
+      setSelectedItems(newSelections)
     }
   }
 
   return (
     <TiedSModal visible={props.visible} onRequestClose={props.onRequestClose}>
       <View>
-        {availableBlocklists.length === 0 && (
-          <Text style={styles.itemText}>No devices available</Text>
+        {availableListItems.length === 0 && (
+          <Text style={styles.itemText}>No {props.listType} available</Text>
         )}
 
         <FlatList
-          data={availableBlocklists}
+          data={availableListItems}
           renderItem={({ item }) => (
             <View key={item.id} style={styles.item}>
               <Text style={styles.itemText}>{item.name}</Text>
               <Switch
-                value={selectedBlocklists.includes(item)}
-                onValueChange={selectBlocklist(item)}
+                value={selectedItems.includes(item)}
+                onValueChange={toggleList(item)}
               />
             </View>
           )}
         />
-        <TiedSButton
-          style={styles.button}
-          onPress={() => {
-            handleSave()
-            props.onPress()
-          }}
-          text={'SAVE'}
-        />
+        <TiedSButton style={styles.button} onPress={saveList} text={'SAVE'} />
       </View>
     </TiedSModal>
   )

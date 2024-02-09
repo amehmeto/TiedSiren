@@ -29,6 +29,7 @@ export const T = {
   },
   borderRadius: {
     roundedSmall: 5,
+    extraRounded: 20,
     fullRound: 100,
   },
   shadow: {

@@ -1,12 +1,23 @@
-import { Platform, Pressable, StyleSheet, Text } from 'react-native'
+import {
+  Platform,
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  Text,
+  ViewStyle,
+} from 'react-native'
 import React from 'react'
 import { T } from '../theme'
 
 export function TiedSButton(
-  props: Readonly<{ onPress: () => void; text: string }>,
+  props: Readonly<{
+    onPress: () => void
+    text: string
+    style?: StyleProp<ViewStyle>
+  }>,
 ) {
   return (
-    <Pressable style={styles.container} onPress={props.onPress}>
+    <Pressable style={[styles.container, props.style]} onPress={props.onPress}>
       <Text style={styles.buttonText}>{props.text}</Text>
     </Pressable>
   )

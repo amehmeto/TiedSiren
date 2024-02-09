@@ -9,7 +9,7 @@ import { TabScreens } from '../../navigators/screen-lists/TabScreens'
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 import { Formik } from 'formik'
 import { T } from '../../design-system/theme'
-import { SelectFromList } from './SelectFromList'
+import { SelectFromListModal } from './SelectFromListModal'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
@@ -18,35 +18,26 @@ type HomeScreenProps = {
 export function CreateBlockSessionScreen({
   navigation,
 }: Readonly<HomeScreenProps>) {
-  const sessionOptions = {
-    blocklists: ['Distractions'],
-    devices: ['Huawei P20, Lenovo Tab'],
+  const session = {
+    name: 'Working time',
+    blocklists: ['Distractions', 'Necessary evils'],
+    devices: ['Huawei P20', 'Lenovo Tab'],
     start: '19:00',
     end: '21:00',
-    name: 'Working time',
   }
-  const [modalVisible, setModalVisible] = useState(false)
+  const [isBlocklists, setIsBlocklists] = useState<boolean>(false)
+  const [isDeviceList, setIsDeviceList] = useState<boolean>(false)
 
   return (
     <TiedSLinearBackground>
-      <SelectFromList
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible)
-        }}
-        onPress={() => {
-          setModalVisible(!modalVisible)
-        }}
-      />
-
       <Formik
-        initialValues={sessionOptions}
+        initialValues={session}
         onSubmit={(values) => console.log(values)}
       >
         {({ handleChange, handleBlur, handleSubmit, values }) => (
           <View>
             <TiedSBlurView style={styles.blockSession}>
-              <View style={styles.container}>
+              <View style={styles.param}>
                 <Text style={styles.label}>Name</Text>
                 <TextInput
                   style={styles.option}
@@ -56,31 +47,35 @@ export function CreateBlockSessionScreen({
                 />
               </View>
 
-              <View style={styles.container}>
+              <View style={styles.param}>
                 <Text style={styles.label}>Blocklists</Text>
-                <Pressable
-                  onPress={() => {
-                    setModalVisible(true)
-                  }}
-                >
-                  <TextInput
+                <Pressable onPress={() => setIsBlocklists(true)}>
+                  <Text
                     style={styles.option}
-                    onChangeText={handleChange('blocklists')}
+                    /*  onChangeText={handleChange('blocklists')}
                     onBlur={handleBlur('blocklists')}
-                    value={values.blocklists.join(', ')}
-                  />
+                    value={values}*/
+                  >
+                    {session.blocklists.join(', ')}
+                  </Text>
                 </Pressable>
               </View>
-              <View style={styles.container}>
+
+              <View style={styles.param}>
                 <Text style={styles.label}>Devices</Text>
-                <TextInput
-                  style={styles.option}
-                  onChangeText={handleChange('devices')}
+                <Pressable onPress={() => setIsDeviceList(true)}>
+                  <Text
+                    style={styles.option}
+                    /* onChangeText={handleChange('devices')}
                   onBlur={handleBlur('devices')}
-                  value={values.devices.join(', ')}
-                />
+                  value={values.devices.join(', ')} */
+                  >
+                    {session.devices.join(', ')}
+                  </Text>
+                </Pressable>
               </View>
-              <View style={styles.container}>
+
+              <View style={styles.param}>
                 <Text style={styles.label}>Starts</Text>
                 <TextInput
                   style={styles.option}
@@ -89,7 +84,7 @@ export function CreateBlockSessionScreen({
                   value={values.start}
                 />
               </View>
-              <View style={styles.container}>
+              <View style={styles.param}>
                 <Text style={styles.label}>Ends</Text>
                 <TextInput
                   style={styles.option}
@@ -109,6 +104,19 @@ export function CreateBlockSessionScreen({
           </View>
         )}
       </Formik>
+
+      <SelectFromListModal
+        visible={isBlocklists}
+        list={session.blocklists}
+        onRequestClose={() => setIsBlocklists(!isBlocklists)}
+        onPress={() => setIsBlocklists(!isBlocklists)}
+      />
+      <SelectFromListModal
+        visible={isDeviceList}
+        list={session.devices}
+        onRequestClose={() => setIsDeviceList(!isDeviceList)}
+        onPress={() => setIsDeviceList(!isDeviceList)}
+      />
     </TiedSLinearBackground>
   )
 }
@@ -118,7 +126,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'stretch',
   },
-  container: {
+  param: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingTop: T.spacing.medium,

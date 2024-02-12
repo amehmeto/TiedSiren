@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FormikProps } from 'formik'
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { TiedSButton } from '../../design-system/components/TiedSButton'
 import { T } from '../../design-system/theme'
@@ -11,6 +11,7 @@ import { ScreenList } from '../../navigators/screen-lists/screenLists'
 import { TabScreens } from '../../navigators/screen-lists/TabScreens'
 import { SelectFromList } from './SelectFromList'
 import { blocklistRepository, deviceRepository } from '../../dependencies'
+import DateTimePickerModal from 'react-native-modal-datetime-picker'
 
 export function SelectBlockSessionParams(
   props: Readonly<{
@@ -20,6 +21,8 @@ export function SelectBlockSessionParams(
 ) {
   const { handleChange, handleBlur, handleSubmit, setFieldValue, values } =
     props.form
+
+  const [isDatePickerVisible, setIsDatePickerVisible] = useState<boolean>(false)
 
   return (
     <View>
@@ -49,20 +52,47 @@ export function SelectBlockSessionParams(
 
         <View style={styles.param}>
           <Text style={styles.label}>Starts</Text>
-          <TextInput
-            style={styles.option}
-            onChangeText={() => handleChange('start')}
-            onBlur={() => handleBlur('start')}
-            value={values.start ?? 'Select start time...'}
+          <Pressable onPress={() => setIsDatePickerVisible(true)}>
+            <Text style={styles.option}>
+              {values.start ?? 'Select start time...'}
+            </Text>
+          </Pressable>
+        </View>
+        <View>
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            is24Hour={true}
+            mode="time"
+            onConfirm={(date) => {
+              setIsDatePickerVisible(false)
+              setFieldValue('start', date.toTimeString()).then((r) =>
+                console.log('start', r),
+              )
+            }}
+            onCancel={() => setIsDatePickerVisible(false)}
           />
         </View>
+
         <View style={styles.param}>
           <Text style={styles.label}>Ends</Text>
-          <TextInput
-            style={styles.option}
-            onChangeText={() => handleChange('end')}
-            onBlur={() => handleBlur('end')}
-            value={values.end ?? 'Select end time...'}
+          <Pressable onPress={() => setIsDatePickerVisible(true)}>
+            <Text style={styles.option}>
+              {values.end ?? 'Select end time...'}
+            </Text>
+          </Pressable>
+        </View>
+        <View>
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            is24Hour={true}
+            mode="time"
+            onConfirm={(date) => {
+              setIsDatePickerVisible(false)
+              setFieldValue('end', date.toTimeString()).then((r) =>
+                console.log('end', r),
+              )
+            }}
+            onCancel={() => setIsDatePickerVisible(false)}
           />
         </View>
       </TiedSBlurView>

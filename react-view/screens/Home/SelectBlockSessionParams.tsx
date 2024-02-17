@@ -22,7 +22,10 @@ export function SelectBlockSessionParams(
   const { handleChange, handleBlur, handleSubmit, setFieldValue, values } =
     props.form
 
-  const [isDatePickerVisible, setIsDatePickerVisible] = useState<boolean>(false)
+  const [isStartTimePickerVisible, setIsStartTimePickerVisible] =
+    useState<boolean>(false)
+  const [isEndTimePickerVisible, setIsEndTimePickerVisible] =
+    useState<boolean>(false)
 
   return (
     <View>
@@ -52,7 +55,7 @@ export function SelectBlockSessionParams(
 
         <View style={styles.param}>
           <Text style={styles.label}>Starts</Text>
-          <Pressable onPress={() => setIsDatePickerVisible(true)}>
+          <Pressable onPress={() => setIsStartTimePickerVisible(true)}>
             <Text style={styles.option}>
               {values.start ?? 'Select start time...'}
             </Text>
@@ -60,22 +63,22 @@ export function SelectBlockSessionParams(
         </View>
         <View>
           <DateTimePickerModal
-            isVisible={isDatePickerVisible}
+            isVisible={isStartTimePickerVisible}
             is24Hour={true}
             mode="time"
             onConfirm={(date) => {
-              setIsDatePickerVisible(false)
               setFieldValue('start', date.toTimeString()).then((r) =>
                 console.log('start', r),
               )
+              setIsStartTimePickerVisible(false)
             }}
-            onCancel={() => setIsDatePickerVisible(false)}
+            onCancel={() => setIsStartTimePickerVisible(false)}
           />
         </View>
 
         <View style={styles.param}>
           <Text style={styles.label}>Ends</Text>
-          <Pressable onPress={() => setIsDatePickerVisible(true)}>
+          <Pressable onPress={() => setIsEndTimePickerVisible(true)}>
             <Text style={styles.option}>
               {values.end ?? 'Select end time...'}
             </Text>
@@ -83,16 +86,16 @@ export function SelectBlockSessionParams(
         </View>
         <View>
           <DateTimePickerModal
-            isVisible={isDatePickerVisible}
+            isVisible={isEndTimePickerVisible}
             is24Hour={true}
             mode="time"
             onConfirm={(date) => {
-              setIsDatePickerVisible(false)
               setFieldValue('end', date.toTimeString()).then((r) =>
                 console.log('end', r),
               )
+              setIsEndTimePickerVisible(false)
             }}
-            onCancel={() => setIsDatePickerVisible(false)}
+            onCancel={() => setIsEndTimePickerVisible(false)}
           />
         </View>
       </TiedSBlurView>

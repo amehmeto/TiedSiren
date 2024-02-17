@@ -1,7 +1,7 @@
 import React from 'react'
 import { BlurView } from 'expo-blur'
 import { T } from '../theme'
-import { Platform, StyleProp, StyleSheet, ViewStyle } from 'react-native'
+import { Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 
 export function TiedSBlurView(
   props: Readonly<{
@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     marginTop: T.spacing.small,
     marginBottom: T.spacing.small,
     borderRadius: T.border.radius.roundedSmall,
+    overflow: 'hidden',
     flexDirection: 'row',
     alignItems: 'center',
 

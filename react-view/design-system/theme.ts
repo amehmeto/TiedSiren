@@ -1,13 +1,13 @@
 export const T = {
   color: {
-    text: 'white',
-    darkBlue: '#0C207A',
-    lightBlue: 'rgba(0,212,255,1)',
-    lightBlueShade: 'rgb(105,178,225)',
-    purple: 'rgb(69,64,196)',
-    inactive: '#d1e9f8',
-    shadow: '#1e1e1e',
-    white: '#fff',
+    text: 'rgba(255, 255, 255, 1)',
+    darkBlue: 'rgba(12, 32, 122, 1)',
+    lightBlue: 'rgba(0, 212, 255, 1)',
+    lightBlueShade: 'rgba(105, 178, 225, 1)',
+    purple: 'rgba(69, 64, 196, 1)',
+    inactive: 'rgba(209, 233, 248, 1)',
+    shadow: 'rgba(30, 30, 30, 1)',
+    white: 'rgba(255, 255, 255, 1)',
   },
   font: {
     size: {

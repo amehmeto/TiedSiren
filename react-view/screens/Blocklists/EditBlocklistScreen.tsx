@@ -119,9 +119,9 @@ export function EditBlocklistScreen({
 
 const styles = StyleSheet.create({
   title: {
-    fontWeight: T.fontWeight.bold,
+    fontWeight: T.font.weight.bold,
     color: T.color.text,
-    fontFamily: T.fontFamily.primary,
+    fontFamily: T.font.family.primary,
     fontSize: T.size.small,
     marginTop: T.spacing.small,
     marginBottom: T.spacing.small,

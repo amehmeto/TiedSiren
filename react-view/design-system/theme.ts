@@ -7,9 +7,22 @@ export const T = {
     purple: 'rgb(69,64,196)',
     inactive: '#d1e9f8',
     shadow: '#1e1e1e',
+    white: '#fff',
   },
-  fontWeight: {
-    bold: 'bold' as const,
+  font: {
+    size: {
+      small: 14,
+      regular: 18,
+      medium: 20,
+      large: 24,
+      xLarge: 32,
+    },
+    weight: {
+      bold: 'bold' as const,
+    },
+    family: {
+      primary: 'Roboto',
+    },
   },
   size: {
     xSmall: 11,
@@ -24,13 +37,16 @@ export const T = {
     x_large: 25,
     xx_large: 32,
   },
-  fontFamily: {
-    primary: 'Roboto',
-  },
-  borderRadius: {
-    roundedSmall: 5,
-    extraRounded: 20,
-    fullRound: 100,
+  border: {
+    width: {
+      thin: 1,
+      thick: 2,
+    },
+    radius: {
+      roundedSmall: 5,
+      extraRounded: 20,
+      fullRound: 100,
+    },
   },
   shadow: {
     color: '#1e1e1e',

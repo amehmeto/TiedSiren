@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: T.spacing.small,
-    borderRadius: T.borderRadius.fullRound,
+    borderRadius: T.border.radius.fullRound,
     backgroundColor: T.color.darkBlue,
     position: 'absolute',
     bottom: T.spacing.large,

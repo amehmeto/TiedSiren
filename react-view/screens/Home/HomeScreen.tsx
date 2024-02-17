@@ -58,7 +58,7 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
 
 const styles = StyleSheet.create({
   title: {
-    fontWeight: T.fontWeight.bold,
+    fontWeight: T.font.weight.bold,
     color: T.color.text,
     fontSize: T.size.small,
     marginTop: T.spacing.small,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
   greetings: {
     color: T.color.text,
-    fontWeight: T.fontWeight.bold,
+    fontWeight: T.font.weight.bold,
     fontSize: T.size.medium,
   },
   text: { color: T.color.text },

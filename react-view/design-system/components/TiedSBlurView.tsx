@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     padding: T.spacing.medium,
     marginTop: T.spacing.small,
     marginBottom: T.spacing.small,
-    borderRadius: T.borderRadius.roundedSmall,
+    borderRadius: T.border.radius.roundedSmall,
     flexDirection: 'row',
     alignItems: 'center',
 
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
       ios: {
         shadowColor: T.color.shadow,
         shadowOffset: {
-          width: 5,
-          height: 5,
+          width: T.shadow.offset.width,
+          height: T.shadow.offset.height,
         },
         shadowOpacity: T.shadow.opacity,
         shadowRadius: T.shadow.radius,

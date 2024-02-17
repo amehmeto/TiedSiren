@@ -52,7 +52,7 @@ export function CreateBlockSessionScreen({
       </Formik>
 
       <TiedSModal
-        visible={isResultModalOpen}
+        isVisible={isResultModalOpen}
         onRequestClose={() => setIsResultModalOpen(!isResultModalOpen)}
       >
         <View style={{ flexDirection: 'column' }}>

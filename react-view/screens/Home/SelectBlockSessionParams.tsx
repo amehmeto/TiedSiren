@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FormikProps } from 'formik'
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { TiedSButton } from '../../design-system/components/TiedSButton'
 import { T } from '../../design-system/theme'
@@ -12,6 +12,7 @@ import { TabScreens } from '../../navigators/screen-lists/TabScreens'
 import { SelectFromList } from './SelectFromList'
 import { blocklistRepository, deviceRepository } from '../../dependencies'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
+import { ChooseName } from './ChooseName'
 
 export function SelectBlockSessionParams(
   props: Readonly<{
@@ -30,15 +31,11 @@ export function SelectBlockSessionParams(
   return (
     <View>
       <TiedSBlurView style={styles.blockSession}>
-        <View style={styles.param}>
-          <Text style={styles.label}>Name</Text>
-          <TextInput
-            style={styles.option}
-            onChangeText={() => handleChange('name')}
-            onBlur={() => handleBlur('name')}
-            value={values.name ?? 'Choose a name...'}
-          />
-        </View>
+        <ChooseName
+          values={values}
+          onChangeText={(text) => handleChange('name')(text)}
+          onBlur={() => handleBlur('name')}
+        />
 
         <SelectFromList
           values={values}

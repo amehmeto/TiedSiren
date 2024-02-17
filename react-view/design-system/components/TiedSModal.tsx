@@ -5,9 +5,10 @@ import React from 'react'
 
 export function TiedSModal(
   props: Readonly<{
-    visible: boolean
+    isVisible: boolean
     children: React.ReactNode
     onRequestClose: () => void
+    style?: Record<string, unknown>
   }>,
 ) {
   return (
@@ -15,11 +16,11 @@ export function TiedSModal(
       style={styles.modalView}
       animationType="slide"
       transparent={true}
-      visible={props.visible}
+      visible={props.isVisible}
       onRequestClose={props.onRequestClose}
     >
-      <View style={styles.centeredView}>
-        <TiedSBlurView>{props.children}</TiedSBlurView>
+      <View style={[styles.centeredView]}>
+        <TiedSBlurView style={props.style}>{props.children}</TiedSBlurView>
       </View>
     </Modal>
   )
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: T.spacing.large,
-    borderRadius: T.borderRadius.extraRounded,
+    borderRadius: T.border.radius.extraRounded,
     padding: T.spacing.xx_large,
     alignItems: 'center',
     shadowColor: T.shadow.color,

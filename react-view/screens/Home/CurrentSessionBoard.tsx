@@ -47,7 +47,7 @@ export function CurrentSessionBoard(
 }
 
 const styles = StyleSheet.create({
-  sessionName: { color: T.color.text, fontWeight: T.fontWeight.bold },
-  minutesLeft: { color: T.color.lightBlue, fontWeight: T.fontWeight.bold },
+  sessionName: { color: T.color.text, fontWeight: T.font.weight.bold },
+  minutesLeft: { color: T.color.lightBlue, fontWeight: T.font.weight.bold },
   devices: { color: T.color.text },
 })

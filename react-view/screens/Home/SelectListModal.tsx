@@ -40,7 +40,7 @@ export function SelectListModal(
   }
 
   return (
-    <TiedSModal visible={props.visible} onRequestClose={props.onRequestClose}>
+    <TiedSModal isVisible={props.visible} onRequestClose={props.onRequestClose}>
       <View>
         {availableListItems.length === 0 && (
           <Text style={styles.itemText}>No {props.listType} available</Text>

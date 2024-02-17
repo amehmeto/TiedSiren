@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   name: {
     color: T.color.text,
-    fontWeight: T.fontWeight.bold,
+    fontWeight: T.font.weight.bold,
     paddingBottom: T.spacing.extraSmall,
   },
   totalBlocks: {

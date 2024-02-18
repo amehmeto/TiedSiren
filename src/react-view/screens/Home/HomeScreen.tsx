@@ -11,14 +11,16 @@ import { ScreenList } from '../../navigators/screen-lists/screenLists'
 import { HomeStackScreens } from '../../navigators/screen-lists/HomeStackScreens'
 import { TabScreens } from '../../navigators/screen-lists/TabScreens'
 import { blockSessionRepository } from '../../dependencies'
-import { BlockSession } from '../../../core/block-session/block-session'
+import { ViewModelBlockSession } from '../../../core/block-session/view-model-block-session.ts'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
 }
 
 export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
-  const [currentSessions, setCurrentSessions] = useState<BlockSession[]>([])
+  const [currentSessions, setCurrentSessions] = useState<
+    ViewModelBlockSession[]
+  >([])
 
   useEffect(() => {
     blockSessionRepository

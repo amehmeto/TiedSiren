@@ -11,6 +11,9 @@ import { TiedSModal } from '../../design-system/components/TiedSModal'
 import { Blocklist } from '../../../core/blocklist/blocklist'
 import { Device } from '../../../core/device/device'
 import { SelectBlockSessionParams } from './SelectBlockSessionParams'
+import { AppDispatch } from '../../../core/createStore.ts'
+import { useDispatch } from 'react-redux'
+import { createBlockSession } from '../../../core/block-session/usecases/create-block-session.usecase.ts'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
@@ -27,6 +30,8 @@ export type Session = {
 export function CreateBlockSessionScreen({
   navigation,
 }: Readonly<HomeScreenProps>) {
+  const dispatch = useDispatch<AppDispatch>()
+
   const defaultSession: Session = {
     name: null,
     blocklists: [] as Blocklist[],
@@ -50,7 +55,7 @@ export function CreateBlockSessionScreen({
           <SelectBlockSessionParams form={form} navigation={navigation} />
         )}
       </Formik>
-
+      {/* Temporary modal to display a form result */}
       <TiedSModal
         isVisible={isResultModalOpen}
         onRequestClose={() => setIsResultModalOpen(!isResultModalOpen)}

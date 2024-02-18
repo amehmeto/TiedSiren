@@ -4,7 +4,7 @@ import { Entypo, Ionicons } from '@expo/vector-icons'
 import { T } from '../design-system/theme'
 import { BlocklistStackNavigator } from './BlocklistStackNavigator'
 import { TabScreens } from './screen-lists/TabScreens'
-import { CreateBlockSessionScreen } from '../screens/Home/CreateBlockSessionScreen'
+import { HomeStackNavigator } from './HomeStackNavigator.tsx'
 
 const Tab = createBottomTabNavigator()
 
@@ -26,8 +26,8 @@ export function BottomTabNavigator() {
     >
       <Tab.Screen
         name={TabScreens.HOME}
-        // component={HomeStackNavigator}
-        component={CreateBlockSessionScreen}
+        component={HomeStackNavigator}
+        // component={CreateBlockSessionScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Entypo name="light-up" size={size} color={color} />

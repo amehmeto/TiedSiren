@@ -1,4 +1,4 @@
-export type BlockSession = {
+export type ViewModelBlockSession = {
   id: string
   name: string
   minutesLeft: number

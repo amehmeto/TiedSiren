@@ -19,8 +19,3 @@ export const selectBlockSessionById = (sessionId: string, state: RootState) =>
 
 export const selectAllBlockSessionIds = (state: RootState) =>
   blockSessionAdapter.getSelectors().selectIds(state.blockSession)
-
-export const selectAllBlockSessions = (state: RootState) => {
-  console.log('wesh alors')
-  return state.blockSession
-}

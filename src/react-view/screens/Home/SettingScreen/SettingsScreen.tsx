@@ -6,7 +6,7 @@ import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
 type SettingsScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, 'Settings'>
 }
-// @ts-ignore
+
 export function SettingsScreen({ navigation }: Readonly<SettingsScreenProps>) {
   return (
     <TiedSLinearBackground>

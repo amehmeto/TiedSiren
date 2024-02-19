@@ -6,7 +6,9 @@ import React from 'react'
 
 export function BlocksPreviewCard(
   props: Readonly<{
-    IconTag: React.ComponentType<IconProps<any>>
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    IconTag: React.ComponentType<IconProps<any>> // eslint-disable-line @typescript-eslint/no-explicit-any
     iconName: string
     platform: 'Android' | 'iOS' | 'web' | 'macOS' | 'Windows' | 'Linux'
     blocksNumber: number

@@ -17,7 +17,7 @@ export function SelectFromList({
   values: Session
   setFieldValue: (
     field: string,
-    value: any,
+    value: (Blocklist | Device)[],
     shouldValidate?: boolean,
   ) => Promise<void | FormikErrors<Session>>
   getItems: () => Promise<(Blocklist | Device)[]>

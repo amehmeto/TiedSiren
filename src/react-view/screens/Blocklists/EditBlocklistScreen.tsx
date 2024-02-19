@@ -15,10 +15,14 @@ type BlocklistScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
 }
 
+export type Platform = 'Android' | 'iOS' | 'web' | 'macOS' | 'Windows' | 'Linux'
+
 type AppBlock = {
-  IconTag: React.ComponentType<IconProps<any>>
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  IconTag: React.ComponentType<IconProps<any>> // eslint-disable-line @typescript-eslint/no-explicit-any
   iconName: string
-  platform: 'Android' | 'iOS' | 'web' | 'macOS' | 'Windows' | 'Linux'
+  platform: Platform
   blocksNumber: number
 }
 

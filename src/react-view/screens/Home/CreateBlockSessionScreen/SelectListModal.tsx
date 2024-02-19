@@ -12,7 +12,7 @@ export function SelectListModal(
     list: (Blocklist | Device)[]
     listType: 'blocklists' | 'devices'
     onRequestClose: () => void
-    setFieldValue: (field: string, value: any) => void
+    setFieldValue: (field: string, value: (Blocklist | Device)[]) => void
     getItems: () => Promise<(Blocklist | Device)[]>
   }>,
 ) {
@@ -20,10 +20,11 @@ export function SelectListModal(
     (Blocklist | Device)[]
   >([])
   const [selectedItems, setSelectedItems] = useState<(Blocklist | Device)[]>([])
+  const { getItems } = props
 
   useEffect(() => {
-    props.getItems().then((list) => setAvailableListItems(list))
-  }, [])
+    getItems().then((list) => setAvailableListItems(list))
+  }, [getItems])
 
   const saveList = () => {
     props.setFieldValue(props.listType, selectedItems)

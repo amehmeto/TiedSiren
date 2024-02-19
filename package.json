@@ -9,6 +9,7 @@
     "web": "expo start --web",
     "lint:fix": "tsc --noEmit && eslint --fix 'src/**/*.{js,ts,tsx}' && prettier --write 'src/**/*.{js,ts,tsx}'",
     "test": "vitest",
+    "test:prepush": "vitest --run",
     "test:cov": "c8 vitest --run",
     "prepare": "husky install"
   },

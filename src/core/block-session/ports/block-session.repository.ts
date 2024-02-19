@@ -1,8 +1,6 @@
-import { ViewModelBlockSession } from '../view-model-block-session.ts'
-
 import { BlockSession } from '../block.session.ts'
 
 export interface BlockSessionRepository {
-  getCurrentSessions(): Promise<ViewModelBlockSession[]>
+  getCurrentSessions(): Promise<BlockSession[]>
   createSession(sessionPayload: BlockSession): Promise<BlockSession>
 }

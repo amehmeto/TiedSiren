@@ -26,8 +26,8 @@ describe('Home View Model', () => {
             'block-session-id': {
               id: 'block-session-id',
               name: 'Sleeping time',
-              start: '2023-06-07T17:00:00.000Z',
-              end: '2023-06-07T17:30:00.000Z',
+              start: '03:48:00',
+              end: '13:58:00',
               blocklists: [
                 {
                   id: 'blocklist-id',
@@ -75,8 +75,8 @@ describe('Home View Model', () => {
             'block-session-id': {
               id: 'block-session-id',
               name: 'Sleeping time',
-              start: '2023-06-07T17:00:00.000Z',
-              end: '2023-06-07T18:30:00.000Z',
+              start: '03:48:00',
+              end: '14:58:00',
               blocklists: [
                 {
                   id: 'blocklist-id',
@@ -124,8 +124,8 @@ describe('Home View Model', () => {
             'block-session-id-1': {
               id: 'block-session-id-1',
               name: 'Sleeping time',
-              start: '2023-06-07T17:00:00.000Z',
-              end: '2023-06-07T17:30:00.000Z',
+              start: '10:48:00',
+              end: '13:58:00',
               blocklists: [
                 {
                   id: 'blocklist-id',
@@ -149,8 +149,8 @@ describe('Home View Model', () => {
             'block-session-id-2': {
               id: 'block-session-id-2',
               name: 'Working time',
-              start: '2023-06-07T17:00:00.000Z',
-              end: '2023-06-07T17:30:00.000Z',
+              start: '10:48:00',
+              end: '13:58:00',
               blocklists: [
                 {
                   id: 'blocklist-id',
@@ -199,11 +199,11 @@ describe('Home View Model', () => {
     'Example: there is %s going on',
     (_, preloadedState: PreloadedState, expectedViewModel) => {
       const store = createTestStore({}, preloadedState)
-      const now = '2023-06-07T17:20:00.000Z'
+      const now = '2023-06-07T13:48:00.000Z'
 
       const homeViewModel = selectHomeViewModel(store.getState(), () => now)
 
-      expect(homeViewModel).toEqual(expectedViewModel)
+      expect(homeViewModel).toStrictEqual(expectedViewModel)
     },
   )
 })

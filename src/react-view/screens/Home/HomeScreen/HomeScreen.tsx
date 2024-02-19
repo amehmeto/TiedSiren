@@ -1,5 +1,5 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { FlatList, StyleSheet, Text } from 'react-native'
 import { TiedSirenLogoSvg } from './TiedSirenLogoSvg.tsx'
 import 'react-native-gesture-handler'
@@ -11,22 +11,41 @@ import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
 import { HomeStackScreens } from '../../../navigators/screen-lists/HomeStackScreens.ts'
 import { TabScreens } from '../../../navigators/screen-lists/TabScreens.ts'
 import { blockSessionRepository } from '../../../dependencies.ts'
-import { ViewModelBlockSession } from '../../../../core/block-session/view-model-block-session.ts'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../core/createStore.ts'
+import { HomeViewModelType, selectHomeViewModel } from './home.view-model.ts'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
 }
 
 export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
-  const [currentSessions, setCurrentSessions] = useState<
-    ViewModelBlockSession[]
-  >([])
+  const viewModel = useSelector<
+    RootState,
+    ReturnType<typeof selectHomeViewModel>
+  >((rootState) =>
+    selectHomeViewModel(rootState, () => new Date().toISOString()),
+  )
 
-  useEffect(() => {
-    blockSessionRepository
-      .getCurrentSessions()
-      .then((sessions) => setCurrentSessions(sessions))
-  }, [])
+  const activeSessionsNode: ReactNode = (() => {
+    switch (viewModel.type) {
+      case HomeViewModelType.NoBlockSessions:
+        return <Text style={styles.title}>{viewModel.sessionBoardTitle}</Text>
+      case HomeViewModelType.OneOrMoreBlockSessions:
+        return (
+          <>
+            <Text style={styles.title}>ACTIVE SESSIONS</Text>
+
+            <FlatList
+              data={viewModel.blockSessions}
+              renderItem={({ item }) => <CurrentSessionBoard session={item} />}
+            />
+          </>
+        )
+      default:
+        return null
+    }
+  })()
 
   return (
     <TiedSLinearBackground>
@@ -34,12 +53,13 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
       <Text style={styles.greetings}>Good Afternoon</Text>
       <Text style={styles.text}>Let's make it productive</Text>
 
-      <Text style={styles.title}>ACTIVE SESSIONS</Text>
+      {activeSessionsNode}
+      {/*      <Text style={styles.title}>ACTIVE SESSIONS</Text>
 
       <FlatList
         data={currentSessions}
         renderItem={({ item }) => <CurrentSessionBoard session={item} />}
-      />
+      />*/}
 
       <Text style={styles.title}>NO SCHEDULED SESSIONS</Text>
 

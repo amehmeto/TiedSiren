@@ -1,13 +1,8 @@
-import { useState } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { TiedSButton } from '../../../design-system/components/TiedSButton.tsx'
 import { TiedSLinearBackground } from '../../../design-system/components/TiedSLinearBackground.tsx'
 import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
 import { TabScreens } from '../../../navigators/screen-lists/TabScreens.ts'
-import { Text, View } from 'react-native'
 import { Formik } from 'formik'
-import { T } from '../../../design-system/theme.ts'
-import { TiedSModal } from '../../../design-system/components/TiedSModal.tsx'
 import { Blocklist } from '../../../../core/blocklist/blocklist.ts'
 import { Device } from '../../../../core/device/device.ts'
 import { SelectBlockSessionParams } from './SelectBlockSessionParams.tsx'
@@ -44,8 +39,6 @@ export function CreateBlockSessionScreen({
     end: null,
   }
 
-  const [isResultModalOpen, setIsResultModalOpen] = useState<boolean>(false)
-
   function assertIsBlockSession(
     values: Session,
   ): asserts values is BlockSession {
@@ -67,21 +60,6 @@ export function CreateBlockSessionScreen({
           <SelectBlockSessionParams form={form} navigation={navigation} />
         )}
       </Formik>
-      {/* Temporary modal to display a form result */}
-      <TiedSModal
-        isVisible={isResultModalOpen}
-        onRequestClose={() => setIsResultModalOpen(!isResultModalOpen)}
-      >
-        <View style={{ flexDirection: 'column' }}>
-          <Text style={{ color: T.color.text }}>
-            {/*{JSON.stringify(values, null, 2)}*/}
-          </Text>
-        </View>
-        <TiedSButton
-          onPress={() => setIsResultModalOpen(!isResultModalOpen)}
-          text={'Close'}
-        />
-      </TiedSModal>
     </TiedSLinearBackground>
   )
 }

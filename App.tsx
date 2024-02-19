@@ -4,6 +4,15 @@ import * as NavigationBar from 'expo-navigation-bar'
 import { Platform } from 'react-native'
 import { BottomTabNavigator } from './src/react-view/navigators/BottomTabNavigator'
 import { T } from './src/react-view/design-system/theme'
+import { createStore } from './src/core/createStore'
+import { FakeDataBlockSessionRepository } from './src/infra/block-session-repository/fake-data.block-session.repository'
+import { Provider } from 'react-redux'
+
+const blockSessionRepository = new FakeDataBlockSessionRepository()
+
+const store = createStore({
+  blockSessionRepository,
+})
 
 export default function App() {
   useEffect(() => {
@@ -15,9 +24,13 @@ export default function App() {
       )
   }, [])
 
+  console.log(store)
+
   return (
-    <NavigationContainer>
-      <BottomTabNavigator />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <BottomTabNavigator />
+      </NavigationContainer>
+    </Provider>
   )
 }

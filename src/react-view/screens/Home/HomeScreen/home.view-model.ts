@@ -1,44 +1,83 @@
 import { RootState } from '../../../../core/createStore.ts'
 import { blockSessionAdapter } from '../../../../core/block-session/block.session.ts'
 import { formatDistance } from 'date-fns'
+import { createSelector } from '@reduxjs/toolkit'
 
-export const selectHomeViewModel = (
-  rootState: RootState,
-  getNow: () => string,
-) => {
-  const blockSessions = blockSessionAdapter
-    .getSelectors()
-    .selectAll(rootState.blockSession)
+type ViewModelBlockSession = {
+  id: string
+  name: string
+  minutesLeft: string
+  blocklists: number
+  devices: number
+}
 
-  if (!blockSessions.length)
-    return {
-      type: 'NO_BLOCK_SESSIONS',
-      sessionBoardTitle: 'No active sessions',
-      message:
-        "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
-      blockSessions: null,
+export enum HomeViewModelType {
+  NoBlockSessions = 'NO_BLOCK_SESSIONS',
+  OneOrMoreBlockSessions = 'ONE_OR_MORE_BLOCK_SESSIONS',
+}
+
+type NoBlockSessionsViewModel = {
+  type: HomeViewModelType.NoBlockSessions
+  sessionBoardTitle: 'No active sessions'
+  message: "Starting a session allows you to quickly focus on a task at hand and do what's important to you."
+  blockSessions: null
+}
+
+type ActiveBlockSessionsViewModel = {
+  type: HomeViewModelType.OneOrMoreBlockSessions
+  sessionBoardTitle: 'Active sessions'
+  blockSessions: ViewModelBlockSession[]
+}
+
+export const selectHomeViewModel = createSelector(
+  [
+    (rootState: RootState) => rootState.blockSession,
+    (_state: RootState, getNow: () => string) => getNow,
+  ],
+  (
+    blockSession,
+    getNow,
+  ): NoBlockSessionsViewModel | ActiveBlockSessionsViewModel => {
+    const blockSessions = blockSessionAdapter
+      .getSelectors()
+      .selectAll(blockSession)
+
+    if (!blockSessions.length)
+      return {
+        type: HomeViewModelType.NoBlockSessions,
+        sessionBoardTitle: 'No active sessions',
+        message:
+          "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
+        blockSessions: null,
+      }
+
+    function deductTimeLeft(givenEndHour: string) {
+      const today = new Date(getNow())
+      const [todayDate] = today.toISOString().split('T')
+      const [endHour] = givenEndHour.split(' ')
+      const formattedEndDate = new Date(`${todayDate}T${endHour}.000Z`)
+
+      return formatDistance(formattedEndDate, today, {
+        addSuffix: true,
+      })
     }
 
-  const viewBlockSessions = blockSessions.map((viewBlockSession) => {
-    const nowDate = new Date(getNow()).getTime()
-    const endDate = new Date(viewBlockSession.end).getTime()
+    const viewBlockSessions = blockSessions.map((session) => {
+      const formattedDate = deductTimeLeft(session.end)
 
-    const formattedDate = formatDistance(endDate, nowDate, {
-      addSuffix: true,
+      return {
+        id: session.id,
+        name: session.name,
+        minutesLeft: 'Ends ' + formattedDate,
+        blocklists: session.blocklists.length,
+        devices: session.devices.length,
+      }
     })
 
     return {
-      id: viewBlockSession.id,
-      name: viewBlockSession.name,
-      minutesLeft: 'Ends ' + formattedDate,
-      blocklists: viewBlockSession.blocklists.length,
-      devices: viewBlockSession.devices.length,
+      type: HomeViewModelType.OneOrMoreBlockSessions,
+      sessionBoardTitle: 'Active sessions',
+      blockSessions: viewBlockSessions,
     }
-  })
-
-  return {
-    type: 'ONE_OR_MORE_BLOCK_SESSIONS',
-    sessionBoardTitle: 'Active sessions',
-    blockSessions: viewBlockSessions,
-  }
-}
+  },
+)

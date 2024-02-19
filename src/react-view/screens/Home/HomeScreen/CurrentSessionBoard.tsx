@@ -23,7 +23,7 @@ export function CurrentSessionBoard(
   props: Readonly<{
     session: {
       name: string
-      minutesLeft: number
+      minutesLeft: string
       blocklists: number
       devices: number
     }
@@ -34,9 +34,7 @@ export function CurrentSessionBoard(
       <RoundBlueDot />
       <View>
         <Text style={styles.sessionName}>{props.session.name}</Text>
-        <Text style={styles.minutesLeft}>
-          {props.session.minutesLeft} minutes left
-        </Text>
+        <Text style={styles.minutesLeft}>{props.session.minutesLeft}</Text>
         <Text style={styles.devices}>
           {props.session.devices} device, {props.session.blocklists} blocklist
         </Text>

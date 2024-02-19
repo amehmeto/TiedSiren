@@ -7,6 +7,7 @@ type SettingsScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, 'Settings'>
 }
 
+// es-lint-disable-next-line @typescript-eslint/no-unused-vars
 export function SettingsScreen({ navigation }: Readonly<SettingsScreenProps>) {
   return (
     <TiedSLinearBackground>

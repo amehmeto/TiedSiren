@@ -7,13 +7,13 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint:fix": "eslint --fix 'src/**/*.{js,ts,tsx}' && prettier --write 'src/**/*.{js,ts,tsx}'",
+    "lint:fix": "tsc --noEmit && eslint --fix 'src/**/*.{js,ts,tsx}' && prettier --write 'src/**/*.{js,ts,tsx}'",
     "test": "vitest",
     "test:cov": "c8 vitest --run",
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": "yarn lint:fix"
+    "*.{js,ts,jsx,tsx}": "yarn lint:fix"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",

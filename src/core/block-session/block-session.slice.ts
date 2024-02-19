@@ -1,18 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { createBlockSession } from './usecases/create-block-session.usecase.ts'
-import { BlockSession } from './block.session.ts'
+import { blockSessionAdapter } from './block.session.ts'
+import { RootState } from '../createStore.ts'
 
-type BlockSessionState = {
-  blockSessions: BlockSession[]
-}
 export const blockSessionSlice = createSlice({
   name: 'blockSession',
-  initialState: { blockSessions: [] } as BlockSessionState,
+  initialState: blockSessionAdapter.getInitialState(),
   reducers: {},
   extraReducers(builder) {
     builder.addCase(createBlockSession.fulfilled, (state, action) => {
-      console.log(action.payload)
-      state.blockSessions.push(action.payload)
+      blockSessionAdapter.addOne(state, action.payload)
     })
   },
 })
+
+export const selectBlockSessionById = (sessionId: string, state: RootState) =>
+  blockSessionAdapter.getSelectors().selectById(state.blockSession, sessionId)
+
+export const selectAllBlockSessionIds = (state: RootState) =>
+  blockSessionAdapter.getSelectors().selectIds(state.blockSession)

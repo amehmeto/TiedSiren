@@ -9,10 +9,10 @@ describe('Feature: Creating a block session', () => {
     fixture = createBlockSessionFixture()
   })
 
-  it('should create a block session', () => {
+  it('should create a block session', async () => {
     const blockSessionPayload: BlockSession = {
       id: 'block-session-id',
-      name: 'block-session-name',
+      name: 'Sleeping time',
       blocklists: [
         { id: 'blocklist-id', name: 'Distraction', totalBlocks: 10 },
       ],
@@ -27,25 +27,23 @@ describe('Feature: Creating a block session', () => {
       end: '2021-01-01T00:00:00Z',
     }
 
-    fixture.when.creatingBlockSession(blockSessionPayload)
+    await fixture.when.creatingBlockSession(blockSessionPayload)
 
-    fixture.then.blockSessionsShouldBe([
-      {
-        id: 'block-session-id',
-        name: 'block-session-name',
-        blocklists: [
-          { id: 'blocklist-id', name: 'blocklist-name', totalBlocks: 10 },
-        ],
-        devices: [
-          {
-            id: 'device-id',
-            type: 'ios',
-            name: 'Huawei P30',
-          },
-        ],
-        start: '2021-01-01T00:00:00Z',
-        end: '2021-01-01T00:00:00Z',
-      },
-    ])
+    fixture.then.blockSessionsShouldBeStoredAs({
+      id: 'block-session-id',
+      name: 'Sleeping time',
+      blocklists: [
+        { id: 'blocklist-id', name: 'Distraction', totalBlocks: 10 },
+      ],
+      devices: [
+        {
+          id: 'device-id',
+          type: 'ios',
+          name: 'Huawei P30',
+        },
+      ],
+      start: '2021-01-01T00:00:00Z',
+      end: '2021-01-01T00:00:00Z',
+    })
   })
 })

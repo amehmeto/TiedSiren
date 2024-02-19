@@ -14,12 +14,15 @@ import { SelectBlockSessionParams } from './SelectBlockSessionParams'
 import { AppDispatch } from '../../../core/createStore.ts'
 import { useDispatch } from 'react-redux'
 import { createBlockSession } from '../../../core/block-session/usecases/create-block-session.usecase.ts'
+import uuid from 'react-native-uuid'
+import { BlockSession } from '../../../core/block-session/block.session.ts'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
 }
 
 export type Session = {
+  id: string
   name: string | null
   blocklists: Blocklist[]
   devices: Device[]
@@ -33,22 +36,31 @@ export function CreateBlockSessionScreen({
   const dispatch = useDispatch<AppDispatch>()
 
   const defaultSession: Session = {
+    id: uuid.v4().toString(),
     name: null,
     blocklists: [] as Blocklist[],
     devices: [] as Device[],
     start: null,
     end: null,
   }
-  const [formResult, setFormResult] = useState({})
+
   const [isResultModalOpen, setIsResultModalOpen] = useState<boolean>(false)
+
+  function assertIsBlockSession(
+    values: Session,
+  ): asserts values is BlockSession {
+    if (!Object.values(values).every((value) => value !== null)) {
+      throw new Error('Some properties are null')
+    }
+  }
 
   return (
     <TiedSLinearBackground>
       <Formik
         initialValues={defaultSession}
         onSubmit={(values) => {
-          setFormResult(values)
-          setIsResultModalOpen(true)
+          assertIsBlockSession(values)
+          dispatch(createBlockSession(values))
         }}
       >
         {(form) => (
@@ -62,7 +74,7 @@ export function CreateBlockSessionScreen({
       >
         <View style={{ flexDirection: 'column' }}>
           <Text style={{ color: T.color.text }}>
-            {JSON.stringify(formResult, null, 2)}
+            {/*{JSON.stringify(values, null, 2)}*/}
           </Text>
         </View>
         <TiedSButton

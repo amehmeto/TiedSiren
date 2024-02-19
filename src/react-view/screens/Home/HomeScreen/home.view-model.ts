@@ -1,10 +1,15 @@
 import { RootState } from '../../../../core/createStore.ts'
 import { blockSessionAdapter } from '../../../../core/block-session/block.session.ts'
+import { formatDistance } from 'date-fns'
 
-export const selectHomeViewModel = (rootState: RootState) => {
+export const selectHomeViewModel = (
+  rootState: RootState,
+  getNow: () => string,
+) => {
   const blockSessions = blockSessionAdapter
     .getSelectors()
     .selectAll(rootState.blockSession)
+
   if (!blockSessions.length)
     return {
       type: 'NO_BLOCK_SESSIONS',
@@ -15,11 +20,17 @@ export const selectHomeViewModel = (rootState: RootState) => {
     }
 
   const viewBlockSessions = blockSessions.map((viewBlockSession) => {
+    const nowDate = new Date(getNow()).getTime()
+    const endDate = new Date(viewBlockSession.end).getTime()
+
+    const formattedDate = formatDistance(endDate, nowDate, {
+      addSuffix: true,
+    })
+
     return {
       id: viewBlockSession.id,
       name: viewBlockSession.name,
-      // TODO: calculate minutes left
-      minutesLeft: '10 minutes left', //new Date(viewBlockSession.end).getTime() - Date.now(),
+      minutesLeft: 'Ends ' + formattedDate,
       blocklists: viewBlockSession.blocklists.length,
       devices: viewBlockSession.devices.length,
     }

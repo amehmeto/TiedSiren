@@ -21,6 +21,7 @@
     "@reduxjs/toolkit": "^2.2.1",
     "@types/react-redux": "^7.1.33",
     "@types/uuid": "^9.0.8",
+    "date-fns": "^3.3.1",
     "expo": "~50.0.7",
     "expo-blur": "~12.9.2",
     "expo-linear-gradient": "~12.7.2",

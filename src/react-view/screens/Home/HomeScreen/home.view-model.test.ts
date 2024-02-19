@@ -58,7 +58,56 @@ describe('Home View Model', () => {
           {
             id: 'block-session-id',
             name: 'Sleeping time',
-            minutesLeft: '10 minutes left',
+            minutesLeft: 'Ends in 10 minutes',
+            blocklists: 1,
+            devices: 2,
+          },
+        ],
+      },
+    ],
+
+    [
+      'one session',
+      {
+        blockSession: {
+          ids: ['block-session-id'],
+          entities: {
+            'block-session-id': {
+              id: 'block-session-id',
+              name: 'Sleeping time',
+              start: '2023-06-07T17:00:00.000Z',
+              end: '2023-06-07T18:30:00.000Z',
+              blocklists: [
+                {
+                  id: 'blocklist-id',
+                  name: 'Distractions',
+                  totalBlocks: 10,
+                },
+              ],
+              devices: [
+                {
+                  id: 'device-id',
+                  type: 'android',
+                  name: 'Huawei P30',
+                },
+                {
+                  id: 'device-id-2',
+                  type: 'android',
+                  name: 'Google Pixel 3a',
+                },
+              ],
+            },
+          },
+        },
+      },
+      {
+        type: 'ONE_OR_MORE_BLOCK_SESSIONS',
+        sessionBoardTitle: 'Active sessions',
+        blockSessions: [
+          {
+            id: 'block-session-id',
+            name: 'Sleeping time',
+            minutesLeft: 'Ends in about 1 hour',
             blocklists: 1,
             devices: 2,
           },
@@ -132,14 +181,14 @@ describe('Home View Model', () => {
           {
             id: 'block-session-id-1',
             name: 'Sleeping time',
-            minutesLeft: '10 minutes left',
+            minutesLeft: 'Ends in 10 minutes',
             blocklists: 1,
             devices: 2,
           },
           {
             id: 'block-session-id-2',
             name: 'Working time',
-            minutesLeft: '10 minutes left',
+            minutesLeft: 'Ends in 10 minutes',
             blocklists: 1,
             devices: 2,
           },
@@ -150,8 +199,9 @@ describe('Home View Model', () => {
     'Example: there is %s going on',
     (_, preloadedState: PreloadedState, expectedViewModel) => {
       const store = createTestStore({}, preloadedState)
+      const now = '2023-06-07T17:20:00.000Z'
 
-      const homeViewModel = selectHomeViewModel(store.getState())
+      const homeViewModel = selectHomeViewModel(store.getState(), () => now)
 
       expect(homeViewModel).toEqual(expectedViewModel)
     },

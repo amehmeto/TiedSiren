@@ -18,6 +18,7 @@ type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const exhaustiveGuard = (x: never): never => {
   throw new Error('exhaustiveGuard: unreachable code')
 }

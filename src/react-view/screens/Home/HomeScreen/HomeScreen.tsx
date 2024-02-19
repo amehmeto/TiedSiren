@@ -1,5 +1,5 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode } from 'react'
 import { FlatList, StyleSheet, Text } from 'react-native'
 import { TiedSirenLogoSvg } from './TiedSirenLogoSvg.tsx'
 import 'react-native-gesture-handler'
@@ -10,13 +10,16 @@ import { T } from '../../../design-system/theme.ts'
 import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
 import { HomeStackScreens } from '../../../navigators/screen-lists/HomeStackScreens.ts'
 import { TabScreens } from '../../../navigators/screen-lists/TabScreens.ts'
-import { blockSessionRepository } from '../../../dependencies.ts'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../core/createStore.ts'
 import { HomeViewModelType, selectHomeViewModel } from './home.view-model.ts'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
+}
+
+const exhaustiveGuard = (x: never): never => {
+  throw new Error('exhaustiveGuard: unreachable code')
 }
 
 export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
@@ -30,7 +33,13 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
   const activeSessionsNode: ReactNode = (() => {
     switch (viewModel.type) {
       case HomeViewModelType.NoBlockSessions:
-        return <Text style={styles.title}>{viewModel.sessionBoardTitle}</Text>
+        return (
+          <>
+            <Text style={styles.title}>No ACTIVE SESSIONS</Text>
+
+            <Text style={styles.text}>{viewModel.message}</Text>
+          </>
+        )
       case HomeViewModelType.OneOrMoreBlockSessions:
         return (
           <>
@@ -43,7 +52,7 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
           </>
         )
       default:
-        return null
+        return exhaustiveGuard(viewModel)
     }
   })()
 
@@ -54,12 +63,6 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
       <Text style={styles.text}>Let's make it productive</Text>
 
       {activeSessionsNode}
-      {/*      <Text style={styles.title}>ACTIVE SESSIONS</Text>
-
-      <FlatList
-        data={currentSessions}
-        renderItem={({ item }) => <CurrentSessionBoard session={item} />}
-      />*/}
 
       <Text style={styles.title}>NO SCHEDULED SESSIONS</Text>
 

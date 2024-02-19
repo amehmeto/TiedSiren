@@ -24,8 +24,6 @@ export default function App() {
       )
   }, [])
 
-  console.log(store)
-
   return (
     <Provider store={store}>
       <NavigationContainer>

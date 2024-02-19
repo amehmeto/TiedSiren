@@ -13,7 +13,6 @@ describe('Home View Model', () => {
         sessionBoardTitle: 'No active sessions',
         message:
           "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
-        blockSessions: null,
       },
     ],
 

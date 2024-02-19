@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
-import { T } from '../../design-system/theme'
+import { TiedSBlurView } from '../../../design-system/components/TiedSBlurView.tsx'
+import { T } from '../../../design-system/theme.ts'
 
 function RoundBlueDot() {
   const roundSize = 15

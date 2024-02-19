@@ -1,10 +1,10 @@
-import { Session } from './CreateBlockSessionScreen'
+import { Session } from './CreateBlockSessionScreen.tsx'
 import React, { useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { TiedSModal } from '../../design-system/components/TiedSModal'
-import { TiedSButton } from '../../design-system/components/TiedSButton'
-import { T } from '../../design-system/theme'
-import { TiedSTextInput } from '../../design-system/components/TiedSTextInput'
+import { TiedSModal } from '../../../design-system/components/TiedSModal.tsx'
+import { TiedSButton } from '../../../design-system/components/TiedSButton.tsx'
+import { T } from '../../../design-system/theme.ts'
+import { TiedSTextInput } from '../../../design-system/components/TiedSTextInput.tsx'
 
 export function ChooseName(
   props: Readonly<{

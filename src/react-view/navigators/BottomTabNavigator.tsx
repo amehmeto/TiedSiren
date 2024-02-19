@@ -1,4 +1,4 @@
-import { SettingsScreen } from '../screens/SettingsScreen'
+import { SettingsScreen } from '../screens/Home/SettingScreen/SettingsScreen.tsx'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Entypo, Ionicons } from '@expo/vector-icons'
 import { T } from '../design-system/theme'

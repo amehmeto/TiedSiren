@@ -1,6 +1,6 @@
-import { HomeScreen } from '../screens/Home/HomeScreen'
+import { HomeScreen } from '../screens/Home/HomeScreen/HomeScreen.tsx'
 import { createStackNavigator } from '@react-navigation/stack'
-import { CreateBlockSessionScreen } from '../screens/Home/CreateBlockSessionScreen'
+import { CreateBlockSessionScreen } from '../screens/Home/CreateBlockSessionScreen/CreateBlockSessionScreen.tsx'
 import { HomeStackScreens } from './screen-lists/HomeStackScreens'
 
 const Stack = createStackNavigator()

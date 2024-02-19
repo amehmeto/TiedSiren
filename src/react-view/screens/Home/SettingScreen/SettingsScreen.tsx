@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { TiedSLinearBackground } from '../design-system/components/TiedSLinearBackground'
-import { ScreenList } from '../navigators/screen-lists/screenLists'
+import { TiedSLinearBackground } from '../../../design-system/components/TiedSLinearBackground.tsx'
+import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
 
 type SettingsScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, 'Settings'>

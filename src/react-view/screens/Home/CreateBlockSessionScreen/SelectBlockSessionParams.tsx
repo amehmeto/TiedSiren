@@ -1,18 +1,18 @@
 import { useState } from 'react'
 import { FormikProps } from 'formik'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
-import { TiedSButton } from '../../design-system/components/TiedSButton'
-import { T } from '../../design-system/theme'
-import { Session } from './CreateBlockSessionScreen'
-import { HomeStackScreens } from '../../navigators/screen-lists/HomeStackScreens'
+import { TiedSBlurView } from '../../../design-system/components/TiedSBlurView.tsx'
+import { TiedSButton } from '../../../design-system/components/TiedSButton.tsx'
+import { T } from '../../../design-system/theme.ts'
+import { Session } from './CreateBlockSessionScreen.tsx'
+import { HomeStackScreens } from '../../../navigators/screen-lists/HomeStackScreens.ts'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { ScreenList } from '../../navigators/screen-lists/screenLists'
-import { TabScreens } from '../../navigators/screen-lists/TabScreens'
-import { SelectFromList } from './SelectFromList'
-import { blocklistRepository, deviceRepository } from '../../dependencies'
+import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
+import { TabScreens } from '../../../navigators/screen-lists/TabScreens.ts'
+import { SelectFromList } from './SelectFromList.tsx'
+import { blocklistRepository, deviceRepository } from '../../../dependencies.ts'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
-import { ChooseName } from './ChooseName'
+import { ChooseName } from './ChooseName.tsx'
 
 export function SelectBlockSessionParams(
   props: Readonly<{
@@ -64,9 +64,7 @@ export function SelectBlockSessionParams(
             is24Hour={true}
             mode="time"
             onConfirm={(date) => {
-              setFieldValue('start', date.toTimeString()).then((r) =>
-                console.log('start', r),
-              )
+              setFieldValue('start', date.toTimeString())
               setIsStartTimePickerVisible(false)
             }}
             onCancel={() => setIsStartTimePickerVisible(false)}
@@ -87,9 +85,7 @@ export function SelectBlockSessionParams(
             is24Hour={true}
             mode="time"
             onConfirm={(date) => {
-              setFieldValue('end', date.toTimeString()).then((r) =>
-                console.log('end', r),
-              )
+              setFieldValue('end', date.toTimeString())
               setIsEndTimePickerVisible(false)
             }}
             onCancel={() => setIsEndTimePickerVisible(false)}

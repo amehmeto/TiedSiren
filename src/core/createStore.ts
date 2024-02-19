@@ -6,7 +6,12 @@ export type Dependencies = {
   blockSessionRepository: BlockSessionRepository
 }
 
-export const createStore = (dependencies: Dependencies) =>
+export type PreloadedState = Partial<ReturnType<typeof rootReducer>>
+
+export const createStore = (
+  dependencies: Dependencies,
+  preloadedState?: PreloadedState,
+) =>
   configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
@@ -15,6 +20,7 @@ export const createStore = (dependencies: Dependencies) =>
           extraArgument: dependencies,
         },
       }),
+    preloadedState,
   })
 
 export type AppStore = ReturnType<typeof createStore>

@@ -1,10 +1,10 @@
 import { FlatList, StyleSheet, Switch, Text, View } from 'react-native'
-import { T } from '../../design-system/theme'
+import { T } from '../../../design-system/theme.ts'
 import { useEffect, useState } from 'react'
-import { TiedSButton } from '../../design-system/components/TiedSButton'
-import { TiedSModal } from '../../design-system/components/TiedSModal'
-import { Blocklist } from '../../../core/blocklist/blocklist'
-import { Device } from '../../../core/device/device'
+import { TiedSButton } from '../../../design-system/components/TiedSButton.tsx'
+import { TiedSModal } from '../../../design-system/components/TiedSModal.tsx'
+import { Blocklist } from '../../../../core/blocklist/blocklist.ts'
+import { Device } from '../../../../core/device/device.ts'
 
 export function SelectListModal(
   props: Readonly<{

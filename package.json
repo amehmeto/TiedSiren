@@ -12,6 +12,9 @@
     "test:cov": "c8 vitest --run",
     "prepare": "husky install"
   },
+  "lint-staged": {
+    "*.{js,ts,tsx}": "yarn lint:fix"
+  },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
     "@expo/webpack-config": "~19.0.1",

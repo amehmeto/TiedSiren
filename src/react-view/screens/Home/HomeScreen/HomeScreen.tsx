@@ -33,7 +33,9 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
         return (
           <>
             <Text style={styles.title}>{viewModel.activeSessions.title}</Text>
-            <Text style={styles.text}>{viewModel.activeSessions.message}</Text>
+            <Text style={[styles.text, { marginBottom: T.spacing.large }]}>
+              {viewModel.activeSessions.message}
+            </Text>
           </>
         )
       case HomeViewModelType.OneOrMoreBlockSessions:
@@ -41,6 +43,7 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
           <>
             <Text style={styles.title}>ACTIVE SESSIONS</Text>
             <FlatList
+              style={[{ marginBottom: T.spacing.large }]}
               data={viewModel.activeSessions.blockSessions}
               renderItem={({ item }) => <CurrentSessionBoard session={item} />}
             />
@@ -55,7 +58,9 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
     <TiedSLinearBackground>
       <TiedSirenLogoSvg />
       <Text style={styles.greetings}>{viewModel.greetings}</Text>
-      <Text style={styles.text}>Let's make it productive</Text>
+      <Text style={[styles.text, { marginBottom: T.spacing.large }]}>
+        Let's make it productive
+      </Text>
 
       {activeSessionsNode}
 

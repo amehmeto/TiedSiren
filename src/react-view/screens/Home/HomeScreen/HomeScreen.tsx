@@ -1,10 +1,9 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { ReactNode } from 'react'
-import { FlatList, StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 import { TiedSirenLogoSvg } from './TiedSirenLogoSvg.tsx'
 import 'react-native-gesture-handler'
 import { TiedSButton } from '../../../design-system/components/TiedSButton.tsx'
-import { CurrentSessionBoard } from './CurrentSessionBoard.tsx'
 import { TiedSLinearBackground } from '../../../design-system/components/TiedSLinearBackground.tsx'
 import { T } from '../../../design-system/theme.ts'
 import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
@@ -14,6 +13,8 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../../../core/createStore.ts'
 import { HomeViewModelType, selectHomeViewModel } from './home.view-model.ts'
 import { exhaustiveGuard } from '../../../../common/exhaustive-guard.ts'
+import { NoActiveSessionBoard } from './NoActiveSessionBoard.tsx'
+import { ActiveSessionsBoard } from './ActiveSessionsBoard.tsx'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
@@ -30,25 +31,9 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
   const activeSessionsNode: ReactNode = (() => {
     switch (viewModel.type) {
       case HomeViewModelType.NoBlockSessions:
-        return (
-          <>
-            <Text style={styles.title}>{viewModel.activeSessions.title}</Text>
-            <Text style={[styles.text, { marginBottom: T.spacing.large }]}>
-              {viewModel.activeSessions.message}
-            </Text>
-          </>
-        )
+        return <NoActiveSessionBoard viewModel={viewModel} />
       case HomeViewModelType.OneOrMoreBlockSessions:
-        return (
-          <>
-            <Text style={styles.title}>ACTIVE SESSIONS</Text>
-            <FlatList
-              style={[{ marginBottom: T.spacing.large }]}
-              data={viewModel.activeSessions.blockSessions}
-              renderItem={({ item }) => <CurrentSessionBoard session={item} />}
-            />
-          </>
-        )
+        return <ActiveSessionsBoard viewModel={viewModel} />
       default:
         return exhaustiveGuard(viewModel)
     }

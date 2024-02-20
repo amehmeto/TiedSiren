@@ -23,7 +23,7 @@ export enum Greetings {
   GoodNight = 'Good Night',
 }
 
-type NoBlockSessionsViewModel = {
+export type NoBlockSessionsViewModel = {
   type: HomeViewModelType.NoBlockSessions
   greetings: Greetings
   activeSessions: {
@@ -32,7 +32,7 @@ type NoBlockSessionsViewModel = {
   }
 }
 
-type ActiveBlockSessionsViewModel = {
+export type ActiveBlockSessionsViewModel = {
   type: HomeViewModelType.OneOrMoreBlockSessions
   greetings: Greetings
   activeSessions: {

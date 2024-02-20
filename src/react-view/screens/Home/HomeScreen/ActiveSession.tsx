@@ -19,7 +19,7 @@ function RoundBlueDot() {
   )
 }
 
-export function CurrentSessionBoard(
+export function ActiveSession(
   props: Readonly<{
     session: {
       name: string

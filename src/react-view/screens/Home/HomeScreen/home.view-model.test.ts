@@ -10,9 +10,11 @@ describe('Home View Model', () => {
       {},
       {
         type: 'NO_BLOCK_SESSIONS',
-        sessionBoardTitle: 'No active sessions',
-        message:
-          "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
+        activeSessions: {
+          message:
+            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
+          title: 'NO ACTIVE SESSIONS',
+        },
       },
     ],
 
@@ -52,16 +54,18 @@ describe('Home View Model', () => {
       },
       {
         type: 'ONE_OR_MORE_BLOCK_SESSIONS',
-        sessionBoardTitle: 'Active sessions',
-        blockSessions: [
-          {
-            id: 'block-session-id',
-            name: 'Sleeping time',
-            minutesLeft: 'Ends in 10 minutes',
-            blocklists: 1,
-            devices: 2,
-          },
-        ],
+        activeSessions: {
+          title: 'ACTIVE SESSIONS',
+          blockSessions: [
+            {
+              id: 'block-session-id',
+              name: 'Sleeping time',
+              minutesLeft: 'Ends in 10 minutes',
+              blocklists: 1,
+              devices: 2,
+            },
+          ],
+        },
       },
     ],
 
@@ -99,18 +103,21 @@ describe('Home View Model', () => {
           },
         },
       },
+
       {
         type: 'ONE_OR_MORE_BLOCK_SESSIONS',
-        sessionBoardTitle: 'Active sessions',
-        blockSessions: [
-          {
-            id: 'block-session-id',
-            name: 'Sleeping time',
-            minutesLeft: 'Ends in about 1 hour',
-            blocklists: 1,
-            devices: 2,
-          },
-        ],
+        activeSessions: {
+          title: 'ACTIVE SESSIONS',
+          blockSessions: [
+            {
+              id: 'block-session-id',
+              name: 'Sleeping time',
+              minutesLeft: 'Ends in about 1 hour',
+              blocklists: 1,
+              devices: 2,
+            },
+          ],
+        },
       },
     ],
 
@@ -175,23 +182,25 @@ describe('Home View Model', () => {
       },
       {
         type: 'ONE_OR_MORE_BLOCK_SESSIONS',
-        sessionBoardTitle: 'Active sessions',
-        blockSessions: [
-          {
-            id: 'block-session-id-1',
-            name: 'Sleeping time',
-            minutesLeft: 'Ends in 10 minutes',
-            blocklists: 1,
-            devices: 2,
-          },
-          {
-            id: 'block-session-id-2',
-            name: 'Working time',
-            minutesLeft: 'Ends in 10 minutes',
-            blocklists: 1,
-            devices: 2,
-          },
-        ],
+        activeSessions: {
+          title: 'ACTIVE SESSIONS',
+          blockSessions: [
+            {
+              id: 'block-session-id-1',
+              name: 'Sleeping time',
+              minutesLeft: 'Ends in 10 minutes',
+              blocklists: 1,
+              devices: 2,
+            },
+            {
+              id: 'block-session-id-2',
+              name: 'Working time',
+              minutesLeft: 'Ends in 10 minutes',
+              blocklists: 1,
+              devices: 2,
+            },
+          ],
+        },
       },
     ],
   ])(

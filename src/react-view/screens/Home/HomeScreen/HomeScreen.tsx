@@ -13,14 +13,10 @@ import { TabScreens } from '../../../navigators/screen-lists/TabScreens.ts'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../core/createStore.ts'
 import { HomeViewModelType, selectHomeViewModel } from './home.view-model.ts'
+import { exhaustiveGuard } from '../../../../common/exhaustive-guard.ts'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const exhaustiveGuard = (x: never): never => {
-  throw new Error('exhaustiveGuard: unreachable code')
 }
 
 export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
@@ -36,18 +32,16 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
       case HomeViewModelType.NoBlockSessions:
         return (
           <>
-            <Text style={styles.title}>No ACTIVE SESSIONS</Text>
-
-            <Text style={styles.text}>{viewModel.message}</Text>
+            <Text style={styles.title}>{viewModel.activeSessions.title}</Text>
+            <Text style={styles.text}>{viewModel.activeSessions.message}</Text>
           </>
         )
       case HomeViewModelType.OneOrMoreBlockSessions:
         return (
           <>
             <Text style={styles.title}>ACTIVE SESSIONS</Text>
-
             <FlatList
-              data={viewModel.blockSessions}
+              data={viewModel.activeSessions.blockSessions}
               renderItem={({ item }) => <CurrentSessionBoard session={item} />}
             />
           </>

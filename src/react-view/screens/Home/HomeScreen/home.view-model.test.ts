@@ -1,5 +1,5 @@
-import { describe, expect, test } from 'vitest'
-import { selectHomeViewModel } from './home.view-model.ts'
+import { describe, expect, test, it } from 'vitest'
+import { Greetings, selectHomeViewModel } from './home.view-model.ts'
 import { createTestStore } from '../../../../core/createTestStore.ts'
 import { PreloadedState } from '../../../../core/createStore.ts'
 
@@ -10,6 +10,7 @@ describe('Home View Model', () => {
       {},
       {
         type: 'NO_BLOCK_SESSIONS',
+        greetings: Greetings.GoodAfternoon,
         activeSessions: {
           message:
             "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
@@ -54,6 +55,7 @@ describe('Home View Model', () => {
       },
       {
         type: 'ONE_OR_MORE_BLOCK_SESSIONS',
+        greetings: Greetings.GoodAfternoon,
         activeSessions: {
           title: 'ACTIVE SESSIONS',
           blockSessions: [
@@ -106,6 +108,7 @@ describe('Home View Model', () => {
 
       {
         type: 'ONE_OR_MORE_BLOCK_SESSIONS',
+        greetings: Greetings.GoodAfternoon,
         activeSessions: {
           title: 'ACTIVE SESSIONS',
           blockSessions: [
@@ -182,6 +185,7 @@ describe('Home View Model', () => {
       },
       {
         type: 'ONE_OR_MORE_BLOCK_SESSIONS',
+        greetings: Greetings.GoodAfternoon,
         activeSessions: {
           title: 'ACTIVE SESSIONS',
           blockSessions: [
@@ -212,6 +216,51 @@ describe('Home View Model', () => {
       const homeViewModel = selectHomeViewModel(store.getState(), () => now)
 
       expect(homeViewModel).toStrictEqual(expectedViewModel)
+    },
+  )
+
+  it.each([
+    [Greetings.GoodMorning, 'from 06:00 to 11:59', '2023-06-07T06:00:00.000Z'],
+    [Greetings.GoodMorning, 'from 06:00 to 11:59', '2023-06-07T08:50:00.000Z'],
+    [Greetings.GoodMorning, 'from 06:00 to 11:59', '2023-06-07T11:59:00.000Z'],
+    [
+      Greetings.GoodAfternoon,
+      'from 12:00 to 17:59',
+      '2023-06-07T12:00:00.000Z',
+    ],
+    [
+      Greetings.GoodAfternoon,
+      'from 12:00 to 17:59',
+      '2023-06-07T13:50:00.000Z',
+    ],
+    [
+      Greetings.GoodAfternoon,
+      'from 12:00 to 17:59',
+      '2023-06-07T17:59:00.000Z',
+    ],
+    [Greetings.GoodEvening, 'from 18:00 to 21:59', '2023-06-07T18:00:00.000Z'],
+    [Greetings.GoodEvening, 'from 18:00 to 21:59', '2023-06-07T21:00:00.000Z'],
+    [Greetings.GoodEvening, 'from 18:00 to 21:59', '2023-06-07T21:59:00.000Z'],
+    [Greetings.GoodNight, 'from 22:00 to 06:00', '2023-06-07T22:50:00.000Z'],
+    [Greetings.GoodNight, 'from 22:00 to 06:00', '2023-06-07T00:50:00.000Z'],
+    [Greetings.GoodNight, 'from 22:00 to 06:00', '2023-06-07T04:50:00.000Z'],
+    [Greetings.GoodNight, 'from 22:00 to 06:00', '2023-06-07T05:59:00.000Z'],
+  ])(
+    'should greet the user with %s %s',
+    (greetings: Greetings, _, now: string) => {
+      const store = createTestStore({}, {})
+
+      const homeViewModel = selectHomeViewModel(store.getState(), () => now)
+
+      expect(homeViewModel).toStrictEqual({
+        type: 'NO_BLOCK_SESSIONS',
+        greetings,
+        activeSessions: {
+          message:
+            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
+          title: 'NO ACTIVE SESSIONS',
+        },
+      })
     },
   )
 })

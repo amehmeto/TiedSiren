@@ -54,7 +54,7 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
   return (
     <TiedSLinearBackground>
       <TiedSirenLogoSvg />
-      <Text style={styles.greetings}>Good Afternoon</Text>
+      <Text style={styles.greetings}>{viewModel.greetings}</Text>
       <Text style={styles.text}>Let's make it productive</Text>
 
       {activeSessionsNode}

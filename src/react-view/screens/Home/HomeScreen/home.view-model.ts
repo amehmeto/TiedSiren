@@ -16,8 +16,16 @@ export enum HomeViewModelType {
   OneOrMoreBlockSessions = 'ONE_OR_MORE_BLOCK_SESSIONS',
 }
 
+export enum Greetings {
+  GoodMorning = 'Good Morning',
+  GoodAfternoon = 'Good Afternoon',
+  GoodEvening = 'Good Evening',
+  GoodNight = 'Good Night',
+}
+
 type NoBlockSessionsViewModel = {
   type: HomeViewModelType.NoBlockSessions
+  greetings: Greetings
   activeSessions: {
     message: "Starting a session allows you to quickly focus on a task at hand and do what's important to you."
     title: 'NO ACTIVE SESSIONS'
@@ -26,10 +34,31 @@ type NoBlockSessionsViewModel = {
 
 type ActiveBlockSessionsViewModel = {
   type: HomeViewModelType.OneOrMoreBlockSessions
+  greetings: Greetings
   activeSessions: {
     title: 'ACTIVE SESSIONS'
     blockSessions: ViewModelBlockSession[]
   }
+}
+
+function deductTimeLeft(givenEndHour: string, getNow: () => string) {
+  const today = new Date(getNow())
+  const [todayDate] = today.toISOString().split('T')
+  const [endHour] = givenEndHour.split(' ')
+  const formattedEndDate = new Date(`${todayDate}T${endHour}.000Z`)
+
+  return formatDistance(formattedEndDate, today, {
+    addSuffix: true,
+  })
+}
+
+function greetUser(now: string) {
+  const hour = new Date(now).getUTCHours()
+
+  if (hour >= 6 && hour < 12) return Greetings.GoodMorning
+  if (hour >= 12 && hour < 18) return Greetings.GoodAfternoon
+  if (hour >= 18 && hour < 22) return Greetings.GoodEvening
+  return Greetings.GoodNight
 }
 
 export const selectHomeViewModel = createSelector(
@@ -45,9 +74,12 @@ export const selectHomeViewModel = createSelector(
       .getSelectors()
       .selectAll(blockSession)
 
+    const greetings = greetUser(getNow())
+
     if (!blockSessions.length)
       return {
         type: HomeViewModelType.NoBlockSessions,
+        greetings,
         activeSessions: {
           message:
             "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
@@ -55,19 +87,8 @@ export const selectHomeViewModel = createSelector(
         },
       }
 
-    function deductTimeLeft(givenEndHour: string) {
-      const today = new Date(getNow())
-      const [todayDate] = today.toISOString().split('T')
-      const [endHour] = givenEndHour.split(' ')
-      const formattedEndDate = new Date(`${todayDate}T${endHour}.000Z`)
-
-      return formatDistance(formattedEndDate, today, {
-        addSuffix: true,
-      })
-    }
-
     const viewBlockSessions = blockSessions.map((session) => {
-      const formattedDate = deductTimeLeft(session.end)
+      const formattedDate = deductTimeLeft(session.end, getNow)
 
       return {
         id: session.id,
@@ -80,6 +101,7 @@ export const selectHomeViewModel = createSelector(
 
     return {
       type: HomeViewModelType.OneOrMoreBlockSessions,
+      greetings,
       activeSessions: {
         title: 'ACTIVE SESSIONS',
         blockSessions: viewBlockSessions,

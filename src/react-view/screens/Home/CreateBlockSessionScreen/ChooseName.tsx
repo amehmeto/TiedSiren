@@ -14,17 +14,17 @@ export function ChooseName(
   }>,
 ) {
   const [isNameModalVisible, setIsNameModalVisible] = useState<boolean>(false)
+  const blockSessionName = props.values.name ?? 'Choose a name...'
 
   return (
     <>
       <View style={styles.param}>
         <Text style={styles.label}>Name</Text>
         <Pressable onPress={() => setIsNameModalVisible(true)}>
-          <Text style={styles.option}>
-            {props.values.name ?? 'Choose a name...'}
-          </Text>
+          <Text style={styles.option}>{blockSessionName}</Text>
         </Pressable>
       </View>
+
       <TiedSModal
         isVisible={isNameModalVisible}
         onRequestClose={() => setIsNameModalVisible(false)}
@@ -33,8 +33,13 @@ export function ChooseName(
         <TiedSTextInput
           onChangeText={props.onChangeText}
           onBlur={props.onBlur}
-          value={props.values.name ?? 'Choose a name...'}
+          value={blockSessionName}
+          autoFocus={true}
           selectTextOnFocus={true}
+          selection={{
+            start: 0,
+            end: blockSessionName.length,
+          }}
         />
         <TiedSButton
           text={'SAVE'}

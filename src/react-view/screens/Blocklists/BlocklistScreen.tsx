@@ -34,10 +34,10 @@ export function BlocklistScreen({
     <TiedSLinearBackground>
       <FlatList
         data={blocklists}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
+        keyExtractor={(blocklist) => blocklist.id}
+        renderItem={({ item: blocklist }) => (
           <BlocklistCard
-            blocklist={item}
+            blocklist={blocklist}
             onPress={() =>
               navigation.navigate(BlocklistsStackScreens.EDIT_BLOCKLIST)
             }

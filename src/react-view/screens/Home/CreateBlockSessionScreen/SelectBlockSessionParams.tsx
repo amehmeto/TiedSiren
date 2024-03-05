@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FormikProps } from 'formik'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import { TiedSBlurView } from '../../../design-system/components/TiedSBlurView.tsx'
 import { TiedSButton } from '../../../design-system/components/TiedSButton.tsx'
 import { T } from '../../../design-system/theme.ts'
@@ -59,16 +59,47 @@ export function SelectBlockSessionParams(
           </Pressable>
         </View>
         <View>
-          <DateTimePickerModal
-            isVisible={isStartTimePickerVisible}
-            is24Hour={true}
-            mode="time"
-            onConfirm={(date) => {
-              setFieldValue('start', date.toTimeString())
-              setIsStartTimePickerVisible(false)
-            }}
-            onCancel={() => setIsStartTimePickerVisible(false)}
-          />
+          {Platform.OS === 'web' ? (
+            isStartTimePickerVisible && (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <input
+                  aria-label={'Time'}
+                  type={'time'}
+                  onChange={(event) => {
+                    const [hours, minutes] = event.target.value.split(':')
+                    const date = new Date()
+                    date.setHours(parseInt(hours))
+                    date.setMinutes(parseInt(minutes))
+                    setFieldValue('start', date.toTimeString())
+                  }}
+                />
+                <button
+                  onClick={() => {
+                    setIsStartTimePickerVisible(false)
+                  }}
+                >
+                  Confirm
+                </button>
+              </View>
+            )
+          ) : (
+            <DateTimePickerModal
+              isVisible={isStartTimePickerVisible}
+              is24Hour={true}
+              mode="time"
+              onConfirm={(date) => {
+                setFieldValue('start', date.toTimeString())
+                setIsStartTimePickerVisible(false)
+              }}
+              onCancel={() => setIsStartTimePickerVisible(false)}
+            />
+          )}
         </View>
 
         <View style={styles.param}>
@@ -80,16 +111,47 @@ export function SelectBlockSessionParams(
           </Pressable>
         </View>
         <View>
-          <DateTimePickerModal
-            isVisible={isEndTimePickerVisible}
-            is24Hour={true}
-            mode="time"
-            onConfirm={(date) => {
-              setFieldValue('end', date.toTimeString())
-              setIsEndTimePickerVisible(false)
-            }}
-            onCancel={() => setIsEndTimePickerVisible(false)}
-          />
+          {Platform.OS === 'web' ? (
+            isEndTimePickerVisible && (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <input
+                  aria-label={'Time'}
+                  type={'time'}
+                  onChange={(event) => {
+                    const [hours, minutes] = event.target.value.split(':')
+                    const date = new Date()
+                    date.setHours(parseInt(hours))
+                    date.setMinutes(parseInt(minutes))
+                    setFieldValue('end', date.toTimeString())
+                  }}
+                />
+                <button
+                  onClick={() => {
+                    setIsEndTimePickerVisible(false)
+                  }}
+                >
+                  Confirm
+                </button>
+              </View>
+            )
+          ) : (
+            <DateTimePickerModal
+              isVisible={isEndTimePickerVisible}
+              is24Hour={true}
+              mode="time"
+              onConfirm={(date) => {
+                setFieldValue('end', date.toTimeString())
+                setIsEndTimePickerVisible(false)
+              }}
+              onCancel={() => setIsEndTimePickerVisible(false)}
+            />
+          )}
         </View>
       </TiedSBlurView>
       <TiedSButton

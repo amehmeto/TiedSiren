@@ -43,7 +43,9 @@ export function CreateBlockSessionScreen({
     values: Session,
   ): asserts values is BlockSession {
     if (!Object.values(values).every((value) => value !== null)) {
-      throw new Error('Some properties are null')
+      throw new Error(
+        `Some properties are null ${JSON.stringify(values, null, 2)}`,
+      )
     }
   }
 

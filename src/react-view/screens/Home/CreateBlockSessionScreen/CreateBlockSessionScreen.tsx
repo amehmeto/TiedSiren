@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux'
 import { createBlockSession } from '../../../../core/block-session/usecases/create-block-session.usecase.ts'
 import uuid from 'react-native-uuid'
 import { BlockSession } from '../../../../core/block-session/block.session.ts'
+import { z } from 'zod'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
@@ -39,6 +40,26 @@ export function CreateBlockSessionScreen({
     end: null,
   }
 
+  const validationSchema = z.object({
+    id: z.string(),
+    name: z.string(),
+    blocklists: z.array(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+        totalBlocks: z.number(),
+      }),
+    ),
+    devices: z.array(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+      }),
+    ),
+    start: z.string(),
+    end: z.string(),
+  })
+
   function assertIsBlockSession(
     values: Session,
   ): asserts values is BlockSession {
@@ -53,6 +74,14 @@ export function CreateBlockSessionScreen({
     <TiedSLinearBackground>
       <Formik
         initialValues={defaultSession}
+        validate={(values) => {
+          try {
+            return validationSchema.parse(values)
+          } catch (e) {
+            if (e instanceof z.ZodError) return e.formErrors.fieldErrors
+            return undefined
+          }
+        }}
         onSubmit={(values) => {
           assertIsBlockSession(values)
           dispatch(createBlockSession(values))

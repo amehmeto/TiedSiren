@@ -6,7 +6,7 @@ export type Dependencies = {
   blockSessionRepository: BlockSessionRepository
 }
 
-export type PreloadedState = Partial<ReturnType<typeof rootReducer>>
+export type PreloadedState = Partial<RootState>
 
 export const createStore = (
   dependencies: Dependencies,

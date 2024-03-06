@@ -2,6 +2,7 @@ import { describe, expect, test, it } from 'vitest'
 import { Greetings, selectHomeViewModel } from './home.view-model.ts'
 import { createTestStore } from '../../../../core/createTestStore.ts'
 import { PreloadedState } from '../../../../core/createStore.ts'
+import { stateBuilder } from '../../../../core/state-builder.ts'
 
 describe('Home View Model', () => {
   test.each([
@@ -21,38 +22,35 @@ describe('Home View Model', () => {
 
     [
       'one session',
-      {
-        blockSession: {
-          ids: ['block-session-id'],
-          entities: {
-            'block-session-id': {
-              id: 'block-session-id',
-              name: 'Sleeping time',
-              start: '03:48:00',
-              end: '13:58:00',
-              blocklists: [
-                {
-                  id: 'blocklist-id',
-                  name: 'Distractions',
-                  totalBlocks: 10,
-                },
-              ],
-              devices: [
-                {
-                  id: 'device-id',
-                  type: 'android',
-                  name: 'Huawei P30',
-                },
-                {
-                  id: 'device-id-2',
-                  type: 'android',
-                  name: 'Google Pixel 3a',
-                },
-              ],
-            },
+      stateBuilder()
+        .withBlockSessions([
+          {
+            id: 'block-session-id',
+            name: 'Sleeping time',
+            start: '03:48:00',
+            end: '13:58:00',
+            blocklists: [
+              {
+                id: 'blocklist-id',
+                name: 'Distractions',
+                totalBlocks: 10,
+              },
+            ],
+            devices: [
+              {
+                id: 'device-id',
+                type: 'android',
+                name: 'Huawei P30',
+              },
+              {
+                id: 'device-id-2',
+                type: 'android',
+                name: 'Google Pixel 3a',
+              },
+            ],
           },
-        },
-      },
+        ])
+        .build(),
       {
         type: 'ONE_OR_MORE_BLOCK_SESSIONS',
         greetings: Greetings.GoodAfternoon,
@@ -73,39 +71,35 @@ describe('Home View Model', () => {
 
     [
       'one session',
-      {
-        blockSession: {
-          ids: ['block-session-id'],
-          entities: {
-            'block-session-id': {
-              id: 'block-session-id',
-              name: 'Sleeping time',
-              start: '03:48:00',
-              end: '14:58:00',
-              blocklists: [
-                {
-                  id: 'blocklist-id',
-                  name: 'Distractions',
-                  totalBlocks: 10,
-                },
-              ],
-              devices: [
-                {
-                  id: 'device-id',
-                  type: 'android',
-                  name: 'Huawei P30',
-                },
-                {
-                  id: 'device-id-2',
-                  type: 'android',
-                  name: 'Google Pixel 3a',
-                },
-              ],
-            },
+      stateBuilder()
+        .withBlockSessions([
+          {
+            id: 'block-session-id',
+            name: 'Sleeping time',
+            start: '03:48:00',
+            end: '14:58:00',
+            blocklists: [
+              {
+                id: 'blocklist-id',
+                name: 'Distractions',
+                totalBlocks: 10,
+              },
+            ],
+            devices: [
+              {
+                id: 'device-id',
+                type: 'android',
+                name: 'Huawei P30',
+              },
+              {
+                id: 'device-id-2',
+                type: 'android',
+                name: 'Google Pixel 3a',
+              },
+            ],
           },
-        },
-      },
-
+        ])
+        .build(),
       {
         type: 'ONE_OR_MORE_BLOCK_SESSIONS',
         greetings: Greetings.GoodAfternoon,
@@ -126,63 +120,61 @@ describe('Home View Model', () => {
 
     [
       'two sessions',
-      {
-        blockSession: {
-          ids: ['block-session-id-1', 'block-session-id-2'],
-          entities: {
-            'block-session-id-1': {
-              id: 'block-session-id-1',
-              name: 'Sleeping time',
-              start: '10:48:00',
-              end: '13:58:00',
-              blocklists: [
-                {
-                  id: 'blocklist-id',
-                  name: 'Distractions',
-                  totalBlocks: 10,
-                },
-              ],
-              devices: [
-                {
-                  id: 'device-id',
-                  type: 'android',
-                  name: 'Huawei P30',
-                },
-                {
-                  id: 'device-id-2',
-                  type: 'android',
-                  name: 'Google Pixel 3a',
-                },
-              ],
-            },
-            'block-session-id-2': {
-              id: 'block-session-id-2',
-              name: 'Working time',
-              start: '10:48:00',
-              end: '13:58:00',
-              blocklists: [
-                {
-                  id: 'blocklist-id',
-                  name: 'Distractions',
-                  totalBlocks: 10,
-                },
-              ],
-              devices: [
-                {
-                  id: 'device-id',
-                  type: 'android',
-                  name: 'Huawei P30',
-                },
-                {
-                  id: 'device-id-2',
-                  type: 'android',
-                  name: 'Google Pixel 3a',
-                },
-              ],
-            },
+      stateBuilder()
+        .withBlockSessions([
+          {
+            id: 'block-session-id-1',
+            name: 'Sleeping time',
+            start: '10:48:00',
+            end: '13:58:00',
+            blocklists: [
+              {
+                id: 'blocklist-id',
+                name: 'Distractions',
+                totalBlocks: 10,
+              },
+            ],
+            devices: [
+              {
+                id: 'device-id',
+                type: 'android',
+                name: 'Huawei P30',
+              },
+              {
+                id: 'device-id-2',
+                type: 'android',
+                name: 'Google Pixel 3a',
+              },
+            ],
           },
-        },
-      },
+          {
+            id: 'block-session-id-2',
+            name: 'Working time',
+            start: '10:48:00',
+            end: '13:58:00',
+            blocklists: [
+              {
+                id: 'blocklist-id',
+                name: 'Distractions',
+                totalBlocks: 10,
+              },
+            ],
+            devices: [
+              {
+                id: 'device-id',
+                type: 'android',
+                name: 'Huawei P30',
+              },
+              {
+                id: 'device-id-2',
+                type: 'android',
+                name: 'Google Pixel 3a',
+              },
+            ],
+          },
+        ])
+        .build(),
+
       {
         type: 'ONE_OR_MORE_BLOCK_SESSIONS',
         greetings: Greetings.GoodAfternoon,

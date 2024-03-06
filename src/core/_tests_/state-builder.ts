@@ -1,14 +1,14 @@
 import {
   BlockSession,
   blockSessionAdapter,
-} from './block-session/block.session.ts'
-import { RootState } from './createStore.ts'
+} from '../block-session/block.session.ts'
+import { RootState } from '../_redux_/createStore.ts'
 import {
   ActionCreatorWithPayload,
   createAction,
   createReducer,
 } from '@reduxjs/toolkit'
-import { rootReducer } from './rootReducer.ts'
+import { rootReducer } from '../_redux_/rootReducer.ts'
 
 const initialState = rootReducer(undefined, { type: 'unknown' })
 

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { createBlockSession } from './usecases/create-block-session.usecase.ts'
 import { blockSessionAdapter } from './block.session.ts'
-import { RootState } from '../createStore.ts'
+import { RootState } from '../_redux_/createStore.ts'
 
 export const blockSessionSlice = createSlice({
   name: 'blockSession',

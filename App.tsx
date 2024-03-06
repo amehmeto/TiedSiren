@@ -4,7 +4,7 @@ import * as NavigationBar from 'expo-navigation-bar'
 import { Platform } from 'react-native'
 import { BottomTabNavigator } from './src/react-view/navigators/BottomTabNavigator'
 import { T } from './src/react-view/design-system/theme'
-import { createStore } from './src/core/createStore'
+import { createStore } from './src/core/_redux_/createStore'
 import { FakeDataBlockSessionRepository } from './src/infra/block-session-repository/fake-data.block-session.repository'
 import { Provider } from 'react-redux'
 

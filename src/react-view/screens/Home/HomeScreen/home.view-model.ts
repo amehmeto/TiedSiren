@@ -1,4 +1,4 @@
-import { RootState } from '../../../../core/createStore.ts'
+import { RootState } from '../../../../core/_redux_/createStore.ts'
 import { blockSessionAdapter } from '../../../../core/block-session/block.session.ts'
 import { formatDistance } from 'date-fns'
 import { createSelector } from '@reduxjs/toolkit'

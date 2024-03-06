@@ -1,5 +1,5 @@
 import { AnyAction, configureStore, ThunkDispatch } from '@reduxjs/toolkit'
-import { BlockSessionRepository } from './block-session/ports/block-session.repository.ts'
+import { BlockSessionRepository } from '../block-session/ports/block-session.repository.ts'
 import { rootReducer } from './rootReducer.ts'
 
 export type Dependencies = {

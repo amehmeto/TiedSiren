@@ -1,4 +1,4 @@
-import { AppStore, createStore } from '../../createStore.ts'
+import { AppStore, createStore } from '../../_redux_/createStore.ts'
 import { createBlockSession } from './create-block-session.usecase.ts'
 import { expect } from 'vitest'
 import { FakeDataBlockSessionRepository } from '../../../infra/block-session-repository/fake-data.block-session.repository.ts'

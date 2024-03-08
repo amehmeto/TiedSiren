@@ -23,7 +23,7 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
   },
-  "include": ["src/**/*", "app.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "app.d.ts"],
   "exclude": ["node_modules"],
   "extends": ["expo/tsconfig.base", "@tsconfig/react-native/tsconfig.json"],
 }

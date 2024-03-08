@@ -4,11 +4,13 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import { T } from '../../../design-system/theme.ts'
 import React from 'react'
 
-function WebTimePicker(props: {
-  value: string
-  onChange: (event: any) => void
-  onClick: () => void
-}) {
+function WebTimePicker(
+  props: Readonly<{
+    value: string
+    onChange: (event: any) => void
+    onClick: () => void
+  }>,
+) {
   return (
     <View style={styles.webTimePicker}>
       <input
@@ -22,13 +24,15 @@ function WebTimePicker(props: {
   )
 }
 
-export function SelectTime(props: {
-  timeField: 'start' | 'end'
-  setIsTimePickerVisible: (value: React.SetStateAction<boolean>) => void
-  values: Session
-  isTimePickerVisible: boolean
-  setFieldValue: (field: string, value: string) => void
-}) {
+export function SelectTime(
+  props: Readonly<{
+    timeField: 'start' | 'end'
+    setIsTimePickerVisible: (value: React.SetStateAction<boolean>) => void
+    values: Session
+    isTimePickerVisible: boolean
+    setFieldValue: (field: string, value: string) => void
+  }>,
+) {
   const date = new Date()
   const hours = String(date.getHours()).padStart(2, '0')
   const minutes = String(date.getMinutes()).padStart(2, '0')

@@ -30,9 +30,9 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
 
   const activeSessionsNode: ReactNode = (() => {
     switch (viewModel.type) {
-      case HomeViewModelType.NoBlockSessions:
+      case HomeViewModelType.WithoutActiveNorScheduledSessions:
         return <NoActiveSessionBoard viewModel={viewModel} />
-      case HomeViewModelType.OneOrMoreBlockSessions:
+      case HomeViewModelType.WithActiveWithoutScheduledSessions:
         return <ActiveSessionsBoard viewModel={viewModel} />
       default:
         return exhaustiveGuard(viewModel)
@@ -49,12 +49,8 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
 
       {activeSessionsNode}
 
-      <Text style={styles.title}>NO SCHEDULED SESSIONS</Text>
-
-      <Text style={styles.text}>
-        Scheduled sessions start automatically and help you to stick to a plan,
-        giving you distraction-free focus when you need it most
-      </Text>
+      <Text style={styles.title}>{viewModel.scheduledSessions.title}</Text>
+      <Text style={styles.text}>{viewModel.scheduledSessions.message}</Text>
 
       <TiedSButton
         text={'CREATE A BLOCK SESSION'}

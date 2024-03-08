@@ -1,5 +1,9 @@
 import { describe, expect, it, test } from 'vitest'
-import { Greetings, selectHomeViewModel } from './home.view-model.ts'
+import {
+  Greetings,
+  HomeViewModelType,
+  selectHomeViewModel,
+} from './home.view-model.ts'
 import { createTestStore } from '../../../../core/_tests_/createTestStore.ts'
 import { PreloadedState } from '../../../../core/_redux_/createStore.ts'
 import { stateBuilder } from '../../../../core/_tests_/state-builder.ts'
@@ -11,12 +15,17 @@ describe('Home View Model', () => {
       'no session',
       {},
       {
-        type: 'NO_BLOCK_SESSIONS',
+        type: HomeViewModelType.WithoutActiveNorScheduledSessions,
         greetings: Greetings.GoodAfternoon,
         activeSessions: {
+          title: 'NO ACTIVE SESSIONS',
           message:
             "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
-          title: 'NO ACTIVE SESSIONS',
+        },
+        scheduledSessions: {
+          title: 'NO SCHEDULED SESSIONS',
+          message:
+            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
         },
       },
     ],
@@ -34,7 +43,7 @@ describe('Home View Model', () => {
         ])
         .build(),
       {
-        type: 'ONE_OR_MORE_BLOCK_SESSIONS',
+        type: HomeViewModelType.WithActiveWithoutScheduledSessions,
         greetings: Greetings.GoodAfternoon,
         activeSessions: {
           title: 'ACTIVE SESSIONS',
@@ -47,6 +56,11 @@ describe('Home View Model', () => {
               devices: 2,
             },
           ],
+        },
+        scheduledSessions: {
+          title: 'NO SCHEDULED SESSIONS',
+          message:
+            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
         },
       },
     ],
@@ -64,7 +78,7 @@ describe('Home View Model', () => {
         ])
         .build(),
       {
-        type: 'ONE_OR_MORE_BLOCK_SESSIONS',
+        type: HomeViewModelType.WithActiveWithoutScheduledSessions,
         greetings: Greetings.GoodAfternoon,
         activeSessions: {
           title: 'ACTIVE SESSIONS',
@@ -77,6 +91,11 @@ describe('Home View Model', () => {
               devices: 2,
             },
           ],
+        },
+        scheduledSessions: {
+          title: 'NO SCHEDULED SESSIONS',
+          message:
+            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
         },
       },
     ],
@@ -100,7 +119,7 @@ describe('Home View Model', () => {
         ])
         .build(),
       {
-        type: 'ONE_OR_MORE_BLOCK_SESSIONS',
+        type: HomeViewModelType.WithActiveWithoutScheduledSessions,
         greetings: Greetings.GoodAfternoon,
         activeSessions: {
           title: 'ACTIVE SESSIONS',
@@ -120,6 +139,11 @@ describe('Home View Model', () => {
               devices: 2,
             },
           ],
+        },
+        scheduledSessions: {
+          title: 'NO SCHEDULED SESSIONS',
+          message:
+            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
         },
       },
     ],
@@ -168,15 +192,7 @@ describe('Home View Model', () => {
 
       const homeViewModel = selectHomeViewModel(store.getState(), () => now)
 
-      expect(homeViewModel).toStrictEqual({
-        type: 'NO_BLOCK_SESSIONS',
-        greetings,
-        activeSessions: {
-          message:
-            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
-          title: 'NO ACTIVE SESSIONS',
-        },
-      })
+      expect(homeViewModel.greetings).toStrictEqual(greetings)
     },
   )
 })

@@ -1,11 +1,11 @@
-import { ActiveBlockSessionsViewModel } from './home.view-model.ts'
 import { FlatList, StyleSheet, Text } from 'react-native'
 import { T } from '../../../design-system/theme.ts'
 import { ActiveSession } from './ActiveSession.tsx'
+import { WithActiveWithoutScheduledSessionsModel } from './home.view-model.ts'
 
 export function ActiveSessionsBoard(
   props: Readonly<{
-    viewModel: ActiveBlockSessionsViewModel
+    viewModel: WithActiveWithoutScheduledSessionsModel
   }>,
 ) {
   return (

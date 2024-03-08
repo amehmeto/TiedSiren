@@ -12,8 +12,10 @@ type ViewModelBlockSession = {
 }
 
 export enum HomeViewModelType {
-  NoBlockSessions = 'NO_BLOCK_SESSIONS',
-  OneOrMoreBlockSessions = 'ONE_OR_MORE_BLOCK_SESSIONS',
+  WithoutActiveNorScheduledSessions = 'WITHOUT_ACTIVE_NOR_SCHEDULED_SESSIONS',
+  WithActiveWithoutScheduledSessions = 'WITH_ACTIVE_WITHOUT_SCHEDULED_SESSIONS',
+  WithoutActiveWithScheduledSessions = 'WITHOUT_ACTIVE_WITH_SCHEDULED_SESSIONS',
+  WithActiveAndScheduledSessions = 'WITH_ACTIVE_AND_SCHEDULED_SESSIONS',
 }
 
 export enum Greetings {
@@ -23,21 +25,29 @@ export enum Greetings {
   GoodNight = 'Good Night',
 }
 
-export type NoBlockSessionsViewModel = {
-  type: HomeViewModelType.NoBlockSessions
+export type WithoutActiveNorScheduledSessionsViewModel = {
+  type: HomeViewModelType.WithoutActiveNorScheduledSessions
   greetings: Greetings
   activeSessions: {
-    message: "Starting a session allows you to quickly focus on a task at hand and do what's important to you."
     title: 'NO ACTIVE SESSIONS'
+    message: "Starting a session allows you to quickly focus on a task at hand and do what's important to you."
+  }
+  scheduledSessions: {
+    title: 'NO SCHEDULED SESSIONS'
+    message: "Starting a session allows you to quickly focus on a task at hand and do what's important to you."
   }
 }
 
-export type ActiveBlockSessionsViewModel = {
-  type: HomeViewModelType.OneOrMoreBlockSessions
+export type WithActiveWithoutScheduledSessionsModel = {
+  type: HomeViewModelType.WithActiveWithoutScheduledSessions
   greetings: Greetings
   activeSessions: {
     title: 'ACTIVE SESSIONS'
     blockSessions: ViewModelBlockSession[]
+  }
+  scheduledSessions: {
+    title: 'NO SCHEDULED SESSIONS'
+    message: "Starting a session allows you to quickly focus on a task at hand and do what's important to you."
   }
 }
 
@@ -69,7 +79,9 @@ export const selectHomeViewModel = createSelector(
   (
     blockSession,
     getNow,
-  ): NoBlockSessionsViewModel | ActiveBlockSessionsViewModel => {
+  ):
+    | WithoutActiveNorScheduledSessionsViewModel
+    | WithActiveWithoutScheduledSessionsModel => {
     const blockSessions = blockSessionAdapter
       .getSelectors()
       .selectAll(blockSession)
@@ -78,12 +90,17 @@ export const selectHomeViewModel = createSelector(
 
     if (!blockSessions.length)
       return {
-        type: HomeViewModelType.NoBlockSessions,
+        type: HomeViewModelType.WithoutActiveNorScheduledSessions,
         greetings,
         activeSessions: {
           message:
             "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
           title: 'NO ACTIVE SESSIONS',
+        },
+        scheduledSessions: {
+          title: 'NO SCHEDULED SESSIONS',
+          message:
+            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
         },
       }
 
@@ -100,11 +117,16 @@ export const selectHomeViewModel = createSelector(
     })
 
     return {
-      type: HomeViewModelType.OneOrMoreBlockSessions,
+      type: HomeViewModelType.WithActiveWithoutScheduledSessions,
       greetings,
       activeSessions: {
         title: 'ACTIVE SESSIONS',
         blockSessions: viewBlockSessions,
+      },
+      scheduledSessions: {
+        title: 'NO SCHEDULED SESSIONS',
+        message:
+          "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
       },
     }
   },

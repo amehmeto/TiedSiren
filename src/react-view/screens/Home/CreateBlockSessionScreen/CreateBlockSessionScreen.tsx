@@ -74,14 +74,18 @@ export function CreateBlockSessionScreen({
     <TiedSLinearBackground>
       <Formik
         initialValues={defaultSession}
+        /*
         validate={(values) => {
           try {
+            console.log('Validate values')
             return validationSchema.parse(values)
           } catch (e) {
             if (e instanceof z.ZodError) return e.formErrors.fieldErrors
-            return undefined
+
+            return e
           }
         }}
+*/
         onSubmit={(values) => {
           assertIsBlockSession(values)
           dispatch(createBlockSession(values))

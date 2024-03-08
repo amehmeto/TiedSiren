@@ -8,7 +8,7 @@ function WebTimePicker(
   props: Readonly<{
     value: string
     onChange: (event: any) => void
-    onClick: () => void
+    setTime: () => void
   }>,
 ) {
   return (
@@ -19,7 +19,7 @@ function WebTimePicker(
         value={props.value}
         onChange={props.onChange}
       />
-      <button onClick={props.onClick}>Confirm</button>
+      <button onClick={props.setTime}>Confirm</button>
     </View>
   )
 }
@@ -33,10 +33,23 @@ export function SelectTime(
     setFieldValue: (field: string, value: string) => void
   }>,
 ) {
-  const date = new Date()
-  const hours = String(date.getHours()).padStart(2, '0')
-  const minutes = String(date.getMinutes()).padStart(2, '0')
-  const formattedTime = `${hours}:${minutes}`
+  const now = new Date()
+  const hours = String(now.getHours()).padStart(2, '0')
+  const minutes = String(now.getMinutes()).padStart(2, '0')
+  const formattedNowTime = `${hours}:${minutes}`
+
+  function toTimeString(time: string) {
+    const [hours, minutes] = time.split(':')
+    const date = new Date()
+    date.setHours(parseInt(hours))
+    date.setMinutes(parseInt(minutes))
+    return date.toTimeString()
+  }
+
+  const chosenTime =
+    props.timeField === 'start'
+      ? props.values.start ?? formattedNowTime
+      : props.values.end ?? formattedNowTime
 
   return (
     <>
@@ -54,15 +67,16 @@ export function SelectTime(
         {Platform.OS === 'web' ? (
           props.isTimePickerVisible && (
             <WebTimePicker
-              value={formattedTime}
-              onChange={(event) => {
-                const [hours, minutes] = event.target.value.split(':')
-                const date = new Date()
-                date.setHours(parseInt(hours))
-                date.setMinutes(parseInt(minutes))
-                props.setFieldValue(props.timeField, date.toTimeString())
+              value={chosenTime}
+              onChange={(e) => {
+                const date = toTimeString(e.target.value)
+                props.setFieldValue(props.timeField, date)
               }}
-              onClick={() => props.setIsTimePickerVisible(false)}
+              setTime={() => {
+                const date = toTimeString(chosenTime)
+                props.setFieldValue(props.timeField, date)
+                props.setIsTimePickerVisible(false)
+              }}
             />
           )
         ) : (

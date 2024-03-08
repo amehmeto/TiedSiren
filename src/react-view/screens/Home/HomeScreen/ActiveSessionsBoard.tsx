@@ -12,7 +12,7 @@ export function ActiveSessionsBoard(
     <>
       <Text style={styles.title}>ACTIVE SESSIONS</Text>
       <FlatList
-        style={[{ marginBottom: T.spacing.large }]}
+        style={styles.cardList}
         data={props.viewModel.activeSessions.blockSessions}
         renderItem={({ item }) => <ActiveSession session={item} />}
       />
@@ -29,4 +29,8 @@ const styles = StyleSheet.create({
     marginBottom: T.spacing.small,
   },
   text: { color: T.color.text },
+  cardList: {
+    marginBottom: T.spacing.small,
+    flexGrow: 0,
+  },
 })

@@ -5,12 +5,18 @@ import { TiedSModal } from '../../../design-system/components/TiedSModal.tsx'
 import { TiedSButton } from '../../../design-system/components/TiedSButton.tsx'
 import { T } from '../../../design-system/theme.ts'
 import { TiedSTextInput } from '../../../design-system/components/TiedSTextInput.tsx'
+import { FormikErrors } from 'formik'
 
 export function ChooseName(
   props: Readonly<{
     values: Session
-    onChangeText: (text: string) => void
+    onChange: (text: string) => void
     onBlur: () => (e: React.FocusEvent) => void
+    setFieldValue: (
+      field: string,
+      value: string,
+      shouldValidate?: boolean,
+    ) => Promise<void | FormikErrors<Session>>
   }>,
 ) {
   const [isNameModalVisible, setIsNameModalVisible] = useState<boolean>(false)
@@ -28,22 +34,20 @@ export function ChooseName(
       <TiedSModal
         isVisible={isNameModalVisible}
         onRequestClose={() => setIsNameModalVisible(false)}
-        style={{ flexDirection: 'column' }}
+        style={styles.modal}
       >
         <TiedSTextInput
-          onChangeText={props.onChangeText}
+          onChangeText={props.onChange}
           onBlur={props.onBlur}
-          value={blockSessionName}
-          autoFocus={true}
           selectTextOnFocus={true}
-          selection={{
-            start: 0,
-            end: blockSessionName.length,
-          }}
+          value={blockSessionName}
         />
         <TiedSButton
           text={'SAVE'}
-          onPress={() => setIsNameModalVisible(false)}
+          onPress={() => {
+            props.setFieldValue('name', blockSessionName)
+            setIsNameModalVisible(false)
+          }}
         />
       </TiedSModal>
     </>
@@ -65,5 +69,8 @@ const styles = StyleSheet.create({
   option: {
     color: T.color.lightBlue,
     textAlign: 'right',
+  },
+  modal: {
+    flexDirection: 'column',
   },
 })

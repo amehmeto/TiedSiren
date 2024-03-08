@@ -33,7 +33,8 @@ export function SelectBlockSessionParams(
       <TiedSBlurView style={styles.blockSession}>
         <ChooseName
           values={values}
-          onChangeText={(text) => handleChange('name')(text)}
+          onChange={(text) => handleChange('name')(text)}
+          setFieldValue={setFieldValue}
           onBlur={() => handleBlur('name')}
         />
 

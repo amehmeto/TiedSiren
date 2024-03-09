@@ -20,30 +20,34 @@ function greetUser(now: string) {
   return Greetings.GoodNight
 }
 
+function generateTimeline(now: Date, start: Date, end: Date) {
+  return isAfter(now, start)
+    ? 'Ends ' +
+        formatDistance(end, now, {
+          addSuffix: true,
+        })
+    : 'Starts at ' +
+        start.getUTCHours().toString().padStart(2, '0') +
+        ':' +
+        start.getUTCMinutes().toString().padStart(2, '0')
+}
+
+function recoverIsoDate(now: Date, time: string) {
+  const [todayDate] = now.toISOString().split('T')
+  return `${todayDate}T${time}.000Z`
+}
+
 function formatToViewModel(
   blockSessions: BlockSession[],
   getNow: () => string,
 ) {
   return blockSessions.map((session) => {
     const now = new Date(getNow())
-    const [todayDate] = now.toISOString().split('T')
+    const start = new Date(recoverIsoDate(now, session.start))
+    const end = new Date(recoverIsoDate(now, session.end))
 
-    const start = new Date(`${todayDate}T${session.start}.000Z`)
-    const end = new Date(`${todayDate}T${session.end}.000Z`)
+    const timeline = generateTimeline(now, start, end)
 
-    const formattedDate = isAfter(now, start)
-      ? 'Ends ' +
-        formatDistance(end, now, {
-          addSuffix: true,
-        })
-      : 'Starts at ' +
-        start.getUTCHours().toString().padStart(2, '0') +
-        ':' +
-        start.getUTCMinutes().toString().padStart(2, '0')
-
-    const timeline = formattedDate.includes('in')
-      ? formattedDate
-      : formattedDate
     return {
       id: session.id,
       name: session.name,
@@ -87,18 +91,16 @@ export const selectHomeViewModel = createSelector(
       }
 
     const activeSessions = blockSessions.filter((session) => {
-      const [todayDate] = new Date(getNow()).toISOString().split('T')
-      const sessionStartTime = `${todayDate}T${session.start}.000Z`
-
-      return isAfter(new Date(getNow()), new Date(sessionStartTime))
+      const now = new Date(getNow())
+      const start = new Date(recoverIsoDate(now, session.start))
+      return isAfter(now, start)
     })
     const formattedActiveSessions = formatToViewModel(activeSessions, getNow)
 
     const scheduledSessions = blockSessions.filter((session) => {
-      const [todayDate] = new Date(getNow()).toISOString().split('T')
-      const sessionStartTime = `${todayDate}T${session.start}.000Z`
-
-      return isBefore(new Date(getNow()), new Date(sessionStartTime))
+      const now = new Date(getNow())
+      const start = new Date(recoverIsoDate(now, session.start))
+      return isBefore(now, start)
     })
     const formattedScheduledSessions = formatToViewModel(
       scheduledSessions,

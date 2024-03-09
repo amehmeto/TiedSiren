@@ -11,10 +11,11 @@ import { HomeStackScreens } from '../../../navigators/screen-lists/HomeStackScre
 import { TabScreens } from '../../../navigators/screen-lists/TabScreens.ts'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../core/_redux_/createStore.ts'
-import { HomeViewModelType, selectHomeViewModel } from './home.view-model.ts'
+import { selectHomeViewModel } from './home.view-model.ts'
 import { exhaustiveGuard } from '../../../../common/exhaustive-guard.ts'
 import { NoActiveSessionBoard } from './NoActiveSessionBoard.tsx'
 import { ActiveSessionsBoard } from './ActiveSessionsBoard.tsx'
+import { HomeViewModel } from './home-view-model.types.ts'
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
@@ -30,10 +31,12 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
 
   const activeSessionsNode: ReactNode = (() => {
     switch (viewModel.type) {
-      case HomeViewModelType.WithoutActiveNorScheduledSessions:
+      case HomeViewModel.WithoutActiveNorScheduledSessions:
         return <NoActiveSessionBoard viewModel={viewModel} />
-      case HomeViewModelType.WithActiveWithoutScheduledSessions:
+      case HomeViewModel.WithActiveWithoutScheduledSessions:
         return <ActiveSessionsBoard viewModel={viewModel} />
+      case HomeViewModel.WithoutActiveWithScheduledSessions:
+        return <NoActiveSessionBoard viewModel={viewModel} />
       default:
         return exhaustiveGuard(viewModel)
     }
@@ -48,10 +51,12 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
       </Text>
 
       {activeSessionsNode}
+      {/*
 
       <Text style={styles.title}>{viewModel.scheduledSessions.title}</Text>
       <Text style={styles.text}>{viewModel.scheduledSessions.message}</Text>
 
+*/}
       <TiedSButton
         text={'CREATE A BLOCK SESSION'}
         onPress={() =>

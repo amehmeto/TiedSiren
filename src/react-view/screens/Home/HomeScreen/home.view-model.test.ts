@@ -1,13 +1,10 @@
 import { describe, expect, it, test } from 'vitest'
-import {
-  Greetings,
-  HomeViewModelType,
-  selectHomeViewModel,
-} from './home.view-model.ts'
+import { selectHomeViewModel } from './home.view-model.ts'
 import { createTestStore } from '../../../../core/_tests_/createTestStore.ts'
 import { PreloadedState } from '../../../../core/_redux_/createStore.ts'
 import { stateBuilder } from '../../../../core/_tests_/state-builder.ts'
 import { buildBlockSession } from '../../../../core/_tests_/data-builders/block-session.builder.ts'
+import { Greetings, HomeViewModel } from './home-view-model.types.ts'
 
 describe('Home View Model', () => {
   test.each([
@@ -15,7 +12,7 @@ describe('Home View Model', () => {
       'no session',
       {},
       {
-        type: HomeViewModelType.WithoutActiveNorScheduledSessions,
+        type: HomeViewModel.WithoutActiveNorScheduledSessions,
         greetings: Greetings.GoodAfternoon,
         activeSessions: {
           title: 'NO ACTIVE SESSIONS',
@@ -31,19 +28,19 @@ describe('Home View Model', () => {
     ],
 
     [
-      'one session',
+      'one active session',
       stateBuilder()
         .withBlockSessions([
           buildBlockSession({
             id: 'block-session-id',
             name: 'Sleeping time',
-            start: '03:48:00',
+            start: '03:38:00',
             end: '13:58:00',
           }),
         ])
         .build(),
       {
-        type: HomeViewModelType.WithActiveWithoutScheduledSessions,
+        type: HomeViewModel.WithActiveWithoutScheduledSessions,
         greetings: Greetings.GoodAfternoon,
         activeSessions: {
           title: 'ACTIVE SESSIONS',
@@ -66,7 +63,7 @@ describe('Home View Model', () => {
     ],
 
     [
-      'one session',
+      'one active session',
       stateBuilder()
         .withBlockSessions([
           buildBlockSession({
@@ -78,7 +75,7 @@ describe('Home View Model', () => {
         ])
         .build(),
       {
-        type: HomeViewModelType.WithActiveWithoutScheduledSessions,
+        type: HomeViewModel.WithActiveWithoutScheduledSessions,
         greetings: Greetings.GoodAfternoon,
         activeSessions: {
           title: 'ACTIVE SESSIONS',
@@ -119,7 +116,7 @@ describe('Home View Model', () => {
         ])
         .build(),
       {
-        type: HomeViewModelType.WithActiveWithoutScheduledSessions,
+        type: HomeViewModel.WithActiveWithoutScheduledSessions,
         greetings: Greetings.GoodAfternoon,
         activeSessions: {
           title: 'ACTIVE SESSIONS',
@@ -144,6 +141,41 @@ describe('Home View Model', () => {
           title: 'NO SCHEDULED SESSIONS',
           message:
             "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
+        },
+      },
+    ],
+
+    [
+      'one scheduled session and 0 active session',
+      stateBuilder()
+        .withBlockSessions([
+          buildBlockSession({
+            id: 'block-session-id-1',
+            name: 'Sleeping time',
+            start: '13:50:00',
+            end: '13:58:00',
+          }),
+        ])
+        .build(),
+      {
+        type: HomeViewModel.WithoutActiveWithScheduledSessions,
+        greetings: Greetings.GoodAfternoon,
+        activeSessions: {
+          title: 'NO ACTIVE SESSIONS',
+          message:
+            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
+        },
+        scheduledSessions: {
+          title: 'SCHEDULED SESSIONS',
+          blockSessions: [
+            {
+              id: 'block-session-id-1',
+              name: 'Sleeping time',
+              minutesLeft: 'Starts at 13:50',
+              blocklists: 1,
+              devices: 2,
+            },
+          ],
         },
       },
     ],

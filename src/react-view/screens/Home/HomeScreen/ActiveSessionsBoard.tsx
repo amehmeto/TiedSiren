@@ -1,11 +1,12 @@
 import { FlatList, StyleSheet, Text } from 'react-native'
 import { T } from '../../../design-system/theme.ts'
-import { ActiveSession } from './ActiveSession.tsx'
-import { WithActiveWithoutScheduledSessionsModel } from './home.view-model.ts'
+import { SessionCard } from './SessionCard.tsx'
+
+import { WithActiveWithoutScheduledSessions } from './home-view-model.types.ts'
 
 export function ActiveSessionsBoard(
   props: Readonly<{
-    viewModel: WithActiveWithoutScheduledSessionsModel
+    viewModel: WithActiveWithoutScheduledSessions
   }>,
 ) {
   return (
@@ -14,7 +15,7 @@ export function ActiveSessionsBoard(
       <FlatList
         style={styles.cardList}
         data={props.viewModel.activeSessions.blockSessions}
-        renderItem={({ item }) => <ActiveSession session={item} />}
+        renderItem={({ item }) => <SessionCard session={item} />}
       />
     </>
   )

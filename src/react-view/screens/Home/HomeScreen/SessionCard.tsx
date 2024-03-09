@@ -19,7 +19,7 @@ function RoundBlueDot() {
   )
 }
 
-export function ActiveSession(
+export function SessionCard(
   props: Readonly<{
     session: {
       name: string

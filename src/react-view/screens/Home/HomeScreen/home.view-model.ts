@@ -3,26 +3,13 @@ import {
   BlockSession,
   blockSessionAdapter,
 } from '../../../../core/block-session/block.session.ts'
-import { formatDistance, isAfter } from 'date-fns'
+import { formatDistance, isAfter, isBefore } from 'date-fns'
 import { createSelector } from '@reduxjs/toolkit'
 import {
   Greetings,
   HomeViewModel,
   HomeViewModelType,
 } from './home-view-model.types.ts'
-
-function isTimeGreaterOrEqual(time1: string, time2: string) {
-  const [hours1, minutes1, seconds1] = time1.split(':').map(Number)
-  const [hours2, minutes2, seconds2] = time2.split(':').map(Number)
-
-  if (hours1 > hours2) return true
-  if (hours1 < hours2) return false
-
-  if (minutes1 > minutes2) return true
-  if (minutes1 < minutes2) return false
-
-  return seconds1 >= seconds2
-}
 
 function greetUser(now: string) {
   const hour = new Date(now).getUTCHours()
@@ -67,10 +54,6 @@ function formatToViewModel(
   })
 }
 
-function extractTimeFromIsoString(getNow: () => string) {
-  return getNow().split('T')[1].split('.')[0]
-}
-
 export const selectHomeViewModel = createSelector(
   [
     (rootState: RootState) => rootState.blockSession,
@@ -104,14 +87,18 @@ export const selectHomeViewModel = createSelector(
       }
 
     const activeSessions = blockSessions.filter((session) => {
-      const nowTime = extractTimeFromIsoString(getNow)
-      return isTimeGreaterOrEqual(nowTime, session.start)
+      const [todayDate] = new Date(getNow()).toISOString().split('T')
+      const sessionStartTime = `${todayDate}T${session.start}.000Z`
+
+      return isAfter(new Date(getNow()), new Date(sessionStartTime))
     })
     const formattedActiveSessions = formatToViewModel(activeSessions, getNow)
 
     const scheduledSessions = blockSessions.filter((session) => {
-      const nowTime = extractTimeFromIsoString(getNow)
-      return !isTimeGreaterOrEqual(nowTime, session.start)
+      const [todayDate] = new Date(getNow()).toISOString().split('T')
+      const sessionStartTime = `${todayDate}T${session.start}.000Z`
+
+      return isBefore(new Date(getNow()), new Date(sessionStartTime))
     })
     const formattedScheduledSessions = formatToViewModel(
       scheduledSessions,

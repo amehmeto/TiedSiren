@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native'
 export function WebTimePicker(
   props: Readonly<{
     value: string
-    setTime: () => void
+    setTime: (chosenTime: string) => void
     handleChange: (field: string) => void
   }>,
 ) {
@@ -14,9 +14,12 @@ export function WebTimePicker(
         aria-label={'Time'}
         type={'time'}
         value={props.value}
-        onChange={(event) => props.handleChange(event.target.value)}
+        onChange={(event) => {
+          props.handleChange(event.target.value)
+          props.setTime(event.target.value)
+        }}
       />
-      <button onClick={props.setTime}>Confirm</button>
+      <button onClick={() => props.setTime(props.value)}>Confirm</button>
     </View>
   )
 }

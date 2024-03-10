@@ -25,7 +25,7 @@ export function SelectTime(
     const date = new Date()
     date.setHours(parseInt(hours))
     date.setMinutes(parseInt(minutes))
-    return date
+    return date.toTimeString().split(' ')[0]
   }
 
   const chosenTime =
@@ -52,12 +52,8 @@ export function SelectTime(
             <WebTimePicker
               value={chosenTime}
               handleChange={() => props.handleChange(props.timeField)}
-              setTime={() => {
-                const date = toTimeString(chosenTime)
-                props.setFieldValue(
-                  props.timeField,
-                  date.toTimeString().split(' ')[0],
-                )
+              setTime={(chosenTime: string) => {
+                props.setFieldValue(props.timeField, toTimeString(chosenTime))
                 props.setIsTimePickerVisible(false)
               }}
             />

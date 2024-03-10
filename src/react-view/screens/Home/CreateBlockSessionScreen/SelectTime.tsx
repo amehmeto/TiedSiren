@@ -54,8 +54,8 @@ export function SelectTime(
               handleChange={() => props.handleChange(props.timeField)}
               setTime={(chosenTime: string) => {
                 props.setFieldValue(props.timeField, toTimeString(chosenTime))
-                props.setIsTimePickerVisible(false)
               }}
+              setIsTimePickerVisible={props.setIsTimePickerVisible}
             />
           )
         ) : (

@@ -6,6 +6,7 @@ export function WebTimePicker(
     value: string
     setTime: (chosenTime: string) => void
     handleChange: (field: string) => void
+    setIsTimePickerVisible: (value: React.SetStateAction<boolean>) => void
   }>,
 ) {
   return (
@@ -17,9 +18,17 @@ export function WebTimePicker(
         onChange={(event) => {
           props.handleChange(event.target.value)
           props.setTime(event.target.value)
+          props.setIsTimePickerVisible(true)
         }}
       />
-      <button onClick={() => props.setTime(props.value)}>Confirm</button>
+      <button
+        onClick={() => {
+          props.setTime(props.value)
+          props.setIsTimePickerVisible(false)
+        }}
+      >
+        Confirm
+      </button>
     </View>
   )
 }

@@ -5,6 +5,12 @@ import { T } from '../../../design-system/theme.ts'
 import React from 'react'
 import { WebTimePicker } from './WebTimePicker.tsx'
 
+function toHHmm(date: Date) {
+  const hours = String(date.getHours()).padStart(2, '0')
+  const minutes = String(date.getMinutes()).padStart(2, '0')
+  return `${hours}:${minutes}`
+}
+
 export function SelectTime(
   props: Readonly<{
     timeField: 'start' | 'end'
@@ -15,23 +21,12 @@ export function SelectTime(
     handleChange: (field: 'start' | 'end') => void
   }>,
 ) {
-  const now = new Date()
-  const hours = String(now.getHours()).padStart(2, '0')
-  const minutes = String(now.getMinutes()).padStart(2, '0')
-  const formattedNowTime = `${hours}:${minutes}`
-
-  function toTimeString(time: string) {
-    const [hours, minutes] = time.split(':')
-    const date = new Date()
-    date.setHours(parseInt(hours))
-    date.setMinutes(parseInt(minutes))
-    return date.toTimeString().split(' ')[0]
-  }
+  const localeNow = toHHmm(new Date())
 
   const chosenTime =
     props.timeField === 'start'
-      ? props.values.start ?? formattedNowTime
-      : props.values.end ?? formattedNowTime
+      ? props.values.start ?? localeNow
+      : props.values.end ?? localeNow
 
   const placeholder =
     props.timeField === 'start'
@@ -50,10 +45,10 @@ export function SelectTime(
         {Platform.OS === 'web' ? (
           props.isTimePickerVisible && (
             <WebTimePicker
-              value={chosenTime}
+              chosenTime={chosenTime}
               handleChange={() => props.handleChange(props.timeField)}
               setTime={(chosenTime: string) => {
-                props.setFieldValue(props.timeField, toTimeString(chosenTime))
+                props.setFieldValue(props.timeField, chosenTime)
               }}
               setIsTimePickerVisible={props.setIsTimePickerVisible}
             />

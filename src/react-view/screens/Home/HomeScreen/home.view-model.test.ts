@@ -34,8 +34,8 @@ describe('Home View Model', () => {
           buildBlockSession({
             id: 'block-session-id',
             name: 'Sleeping time',
-            start: '03:38:00',
-            end: '13:58:00',
+            start: '03:38',
+            end: '13:58',
           }),
         ])
         .build(),
@@ -69,8 +69,8 @@ describe('Home View Model', () => {
           buildBlockSession({
             id: 'block-session-id',
             name: 'Sleeping time',
-            start: '03:48:00',
-            end: '14:58:00',
+            start: '03:48',
+            end: '14:58',
           }),
         ])
         .build(),
@@ -104,14 +104,14 @@ describe('Home View Model', () => {
           buildBlockSession({
             id: 'block-session-id-1',
             name: 'Sleeping time',
-            start: '10:48:00',
-            end: '13:58:00',
+            start: '10:48',
+            end: '13:58',
           }),
           buildBlockSession({
             id: 'block-session-id-2',
             name: 'Working time',
-            start: '10:48:00',
-            end: '17:58:00',
+            start: '10:48',
+            end: '17:58',
           }),
         ])
         .build(),
@@ -152,8 +152,8 @@ describe('Home View Model', () => {
           buildBlockSession({
             id: 'block-session-id-1',
             name: 'Sleeping time',
-            start: '13:50:00',
-            end: '13:58:00',
+            start: '13:50',
+            end: '13:58',
           }),
         ])
         .build(),

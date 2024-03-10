@@ -34,7 +34,7 @@ function generateTimeline(now: Date, start: Date, end: Date) {
 
 function recoverIsoDate(now: Date, time: string) {
   const [todayDate] = now.toISOString().split('T')
-  return `${todayDate}T${time}.000Z`
+  return `${todayDate}T${time}:00.000Z`
 }
 
 function formatToViewModel(

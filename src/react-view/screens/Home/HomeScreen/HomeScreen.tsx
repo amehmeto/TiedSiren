@@ -13,8 +13,8 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../../../core/_redux_/createStore.ts'
 import { selectHomeViewModel } from './home.view-model.ts'
 import { exhaustiveGuard } from '../../../../common/exhaustive-guard.ts'
-import { NoActiveSessionBoard } from './NoActiveSessionBoard.tsx'
-import { ActiveSessionsBoard } from './ActiveSessionsBoard.tsx'
+import { NoSessionBoard } from './NoSessionBoard.tsx'
+import { SessionsBoard } from './SessionsBoard.tsx'
 import { HomeViewModel } from './home-view-model.types.ts'
 
 type HomeScreenProps = {
@@ -29,14 +29,25 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
     selectHomeViewModel(rootState, () => new Date().toISOString()),
   )
 
-  const activeSessionsNode: ReactNode = (() => {
+  console.log(viewModel)
+
+  const [activeSessionsNode, scheduledSessionsNode]: ReactNode[] = (() => {
     switch (viewModel.type) {
       case HomeViewModel.WithoutActiveNorScheduledSessions:
-        return <NoActiveSessionBoard viewModel={viewModel} />
+        return [
+          <NoSessionBoard sessions={viewModel.activeSessions} />,
+          <NoSessionBoard sessions={viewModel.scheduledSessions} />,
+        ]
       case HomeViewModel.WithActiveWithoutScheduledSessions:
-        return <ActiveSessionsBoard viewModel={viewModel} />
+        return [
+          <SessionsBoard sessions={viewModel.activeSessions} />,
+          <NoSessionBoard sessions={viewModel.scheduledSessions} />,
+        ]
       case HomeViewModel.WithoutActiveWithScheduledSessions:
-        return <NoActiveSessionBoard viewModel={viewModel} />
+        return [
+          <NoSessionBoard sessions={viewModel.activeSessions} />,
+          <SessionsBoard sessions={viewModel.scheduledSessions} />,
+        ]
       default:
         return exhaustiveGuard(viewModel)
     }
@@ -51,12 +62,8 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
       </Text>
 
       {activeSessionsNode}
-      {/*
+      {scheduledSessionsNode}
 
-      <Text style={styles.title}>{viewModel.scheduledSessions.title}</Text>
-      <Text style={styles.text}>{viewModel.scheduledSessions.message}</Text>
-
-*/}
       <TiedSButton
         text={'CREATE A BLOCK SESSION'}
         onPress={() =>

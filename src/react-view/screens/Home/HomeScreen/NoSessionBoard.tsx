@@ -1,23 +1,19 @@
 import { StyleSheet, Text } from 'react-native'
 import { T } from '../../../design-system/theme.ts'
 
-import {
-  WithoutActiveNorScheduledSessions,
-  WithoutActiveWithScheduledSessions,
-} from './home-view-model.types.ts'
-
-export function NoActiveSessionBoard(
+export function NoSessionBoard(
   props: Readonly<{
-    viewModel:
-      | WithoutActiveNorScheduledSessions
-      | WithoutActiveWithScheduledSessions
+    sessions: {
+      title: string
+      message: string
+    }
   }>,
 ) {
   return (
     <>
-      <Text style={styles.title}>{props.viewModel.activeSessions.title}</Text>
+      <Text style={styles.title}>{props.sessions.title}</Text>
       <Text style={[styles.text, { marginBottom: T.spacing.large }]}>
-        {props.viewModel.activeSessions.message}
+        {props.sessions.message}
       </Text>
     </>
   )

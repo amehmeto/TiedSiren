@@ -93,6 +93,15 @@ export const selectHomeViewModel = createSelector(
     const activeSessions = blockSessions.filter((session) => {
       const now = new Date(getNow())
       const start = new Date(recoverIsoDate(now, session.start))
+      console.log(now)
+      console.log(
+        start,
+        'session.start=',
+        session.start,
+        'session.end=',
+        session.end,
+      )
+      console.log(isAfter(now, start))
       return isAfter(now, start)
     })
     const formattedActiveSessions = formatToViewModel(activeSessions, getNow)

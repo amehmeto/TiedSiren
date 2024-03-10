@@ -56,6 +56,7 @@ export function SelectBlockSessionParams(
           values={values}
           isTimePickerVisible={isStartTimePickerVisible}
           setFieldValue={setFieldValue}
+          handleChange={handleChange}
         />
 
         <SelectTime
@@ -64,6 +65,7 @@ export function SelectBlockSessionParams(
           values={values}
           isTimePickerVisible={isEndTimePickerVisible}
           setFieldValue={setFieldValue}
+          handleChange={handleChange}
         />
       </TiedSBlurView>
 

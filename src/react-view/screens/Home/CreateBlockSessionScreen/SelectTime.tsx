@@ -3,26 +3,7 @@ import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import { T } from '../../../design-system/theme.ts'
 import React from 'react'
-
-function WebTimePicker(
-  props: Readonly<{
-    value: string
-    onChange: (event: any) => void
-    setTime: () => void
-  }>,
-) {
-  return (
-    <View style={styles.webTimePicker}>
-      <input
-        aria-label={'Time'}
-        type={'time'}
-        value={props.value}
-        onChange={props.onChange}
-      />
-      <button onClick={props.setTime}>Confirm</button>
-    </View>
-  )
-}
+import { WebTimePicker } from './WebTimePicker.tsx'
 
 export function SelectTime(
   props: Readonly<{
@@ -31,6 +12,7 @@ export function SelectTime(
     values: Session
     isTimePickerVisible: boolean
     setFieldValue: (field: string, value: string) => void
+    handleChange: (field: 'start' | 'end') => void
   }>,
 ) {
   const now = new Date()
@@ -43,7 +25,7 @@ export function SelectTime(
     const date = new Date()
     date.setHours(parseInt(hours))
     date.setMinutes(parseInt(minutes))
-    return date.toTimeString()
+    return date
   }
 
   const chosenTime =
@@ -51,16 +33,17 @@ export function SelectTime(
       ? props.values.start ?? formattedNowTime
       : props.values.end ?? formattedNowTime
 
+  const placeholder =
+    props.timeField === 'start'
+      ? props.values.start ?? `Select start time...`
+      : props.values.end ?? `Select end time...`
+
   return (
     <>
       <View style={styles.param}>
         <Text style={styles.label}>{props.timeField}</Text>
         <Pressable onPress={() => props.setIsTimePickerVisible(true)}>
-          <Text style={styles.option}>
-            {props.timeField === 'start'
-              ? props.values.start ?? `Select start time...`
-              : props.values.end ?? `Select end time...`}
-          </Text>
+          <Text style={styles.option}>{placeholder}</Text>
         </Pressable>
       </View>
       <View>
@@ -68,13 +51,13 @@ export function SelectTime(
           props.isTimePickerVisible && (
             <WebTimePicker
               value={chosenTime}
-              onChange={(e) => {
-                const date = toTimeString(e.target.value)
-                props.setFieldValue(props.timeField, date)
-              }}
+              handleChange={() => props.handleChange(props.timeField)}
               setTime={() => {
                 const date = toTimeString(chosenTime)
-                props.setFieldValue(props.timeField, date)
+                props.setFieldValue(
+                  props.timeField,
+                  date.toTimeString().split(' ')[0],
+                )
                 props.setIsTimePickerVisible(false)
               }}
             />
@@ -115,10 +98,5 @@ const styles = StyleSheet.create({
   option: {
     color: T.color.lightBlue,
     textAlign: 'right',
-  },
-  webTimePicker: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 })

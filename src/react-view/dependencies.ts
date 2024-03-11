@@ -6,6 +6,8 @@ import { BlocklistRepository } from '../core/blocklist/ports/blocklist.repositor
 import { FakeDataBlocklistRepository } from '../infra/blocklist-repository/fake-data.blocklist.repository'
 import { DeviceRepository } from '../core/device/ports/device.repository'
 import { FakeDataDeviceRepository } from '../infra/device-repository/fake-data.device.repository'
+import { DateProvider } from '../infra/date-provider/port.date-provider.ts'
+import { RealDateProvider } from '../infra/date-provider/real.date-provider.ts'
 
 export const installedAppsRepository: InstalledAppRepository =
   new FakeDataInstalledAppsRepository()
@@ -14,3 +16,4 @@ export const blockSessionRepository: BlockSessionRepository =
 export const blocklistRepository: BlocklistRepository =
   new FakeDataBlocklistRepository()
 export const deviceRepository: DeviceRepository = new FakeDataDeviceRepository()
+export const dateProvider: DateProvider = new RealDateProvider()

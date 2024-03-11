@@ -1,12 +1,19 @@
-import { describe, expect, it, test } from 'vitest'
+import { beforeEach, describe, expect, it, test } from 'vitest'
 import { selectHomeViewModel } from './home.view-model.ts'
 import { createTestStore } from '../../../../core/_tests_/createTestStore.ts'
 import { PreloadedState } from '../../../../core/_redux_/createStore.ts'
 import { stateBuilder } from '../../../../core/_tests_/state-builder.ts'
 import { buildBlockSession } from '../../../../core/_tests_/data-builders/block-session.builder.ts'
 import { Greetings, HomeViewModel } from './home-view-model.types.ts'
+import { StubDateProvider } from '../../../../infra/date-provider/stub.date-provider.ts'
 
 describe('Home View Model', () => {
+  let dateProvider: StubDateProvider
+
+  beforeEach(() => {
+    dateProvider = new StubDateProvider()
+  })
+
   test.each([
     [
       'no session',
@@ -181,48 +188,50 @@ describe('Home View Model', () => {
     ],
   ])(
     'Example: there is %s going on',
-    (_, preloadedState: PreloadedState, expectedViewModel) => {
+    (
+      _,
+      preloadedState: PreloadedState,
+      expectedViewModel,
+      timezoneOffset?: number,
+    ) => {
       const store = createTestStore({}, preloadedState)
-      const now = '2023-06-07T13:48:00.000Z'
+      const now = new Date()
+      now.setHours(13, 48)
+      dateProvider.now = now
 
-      const homeViewModel = selectHomeViewModel(store.getState(), () => now)
+      if (timezoneOffset !== undefined)
+        dateProvider.timezoneOffset = timezoneOffset
+
+      const homeViewModel = selectHomeViewModel(store.getState(), dateProvider)
 
       expect(homeViewModel).toStrictEqual(expectedViewModel)
     },
   )
 
   it.each([
-    [Greetings.GoodMorning, 'from 06:00 to 11:59', '2023-06-07T06:00:00.000Z'],
-    [Greetings.GoodMorning, 'from 06:00 to 11:59', '2023-06-07T08:50:00.000Z'],
-    [Greetings.GoodMorning, 'from 06:00 to 11:59', '2023-06-07T11:59:00.000Z'],
-    [
-      Greetings.GoodAfternoon,
-      'from 12:00 to 17:59',
-      '2023-06-07T12:00:00.000Z',
-    ],
-    [
-      Greetings.GoodAfternoon,
-      'from 12:00 to 17:59',
-      '2023-06-07T13:50:00.000Z',
-    ],
-    [
-      Greetings.GoodAfternoon,
-      'from 12:00 to 17:59',
-      '2023-06-07T17:59:00.000Z',
-    ],
-    [Greetings.GoodEvening, 'from 18:00 to 21:59', '2023-06-07T18:00:00.000Z'],
-    [Greetings.GoodEvening, 'from 18:00 to 21:59', '2023-06-07T21:00:00.000Z'],
-    [Greetings.GoodEvening, 'from 18:00 to 21:59', '2023-06-07T21:59:00.000Z'],
-    [Greetings.GoodNight, 'from 22:00 to 06:00', '2023-06-07T22:50:00.000Z'],
-    [Greetings.GoodNight, 'from 22:00 to 06:00', '2023-06-07T00:50:00.000Z'],
-    [Greetings.GoodNight, 'from 22:00 to 06:00', '2023-06-07T04:50:00.000Z'],
-    [Greetings.GoodNight, 'from 22:00 to 06:00', '2023-06-07T05:59:00.000Z'],
+    [Greetings.GoodMorning, 'from 06:00 to 11:59', '06:00'],
+    [Greetings.GoodMorning, 'from 06 to 11:59', '08:50'],
+    [Greetings.GoodMorning, 'from 06 to 11:59', '11:59'],
+    [Greetings.GoodAfternoon, 'from 12 to 17:59', '12:00'],
+    [Greetings.GoodAfternoon, 'from 12 to 17:59', '13:50'],
+    [Greetings.GoodAfternoon, 'from 12 to 17:59', '17:59'],
+    [Greetings.GoodEvening, 'from 18 to 21:59', '18:00'],
+    [Greetings.GoodEvening, 'from 18 to 21:59', '21:00'],
+    [Greetings.GoodEvening, 'from 18 to 21:59', '21:59'],
+    [Greetings.GoodNight, 'from 22 to 06', '22:50'],
+    [Greetings.GoodNight, 'from 22 to 06', '00:50'],
+    [Greetings.GoodNight, 'from 22 to 06', '04:50'],
+    [Greetings.GoodNight, 'from 22 to 06', '05:59'],
   ])(
     'should greet the user with %s %s',
-    (greetings: Greetings, _, now: string) => {
+    (greetings: Greetings, _, nowHHmm: string) => {
       const store = createTestStore({}, {})
+      const [hours, minutes] = nowHHmm.split(':').map(Number)
+      const now = new Date()
+      now.setHours(hours, minutes)
+      dateProvider.now = now
 
-      const homeViewModel = selectHomeViewModel(store.getState(), () => now)
+      const homeViewModel = selectHomeViewModel(store.getState(), dateProvider)
 
       expect(homeViewModel.greetings).toStrictEqual(greetings)
     },

@@ -3,12 +3,14 @@ import {
   BlockSession,
   blockSessionAdapter,
 } from '../../../../core/block-session/block.session.ts'
-import { formatDistance, isAfter, isBefore } from 'date-fns'
+import { formatDistance, isBefore } from 'date-fns'
 import { createSelector } from '@reduxjs/toolkit'
 import {
   Greetings,
   HomeViewModel,
   HomeViewModelType,
+  SessionBoardMessage,
+  SessionBoardTitle,
 } from './home-view-model.types.ts'
 import { DateProvider } from '../../../../infra/date-provider/port.date-provider.ts'
 
@@ -21,8 +23,8 @@ function greetUser(now: Date) {
   return Greetings.GoodNight
 }
 
-function generateTimeline(now: Date, start: Date, end: Date) {
-  return isAfter(now, start)
+function generateTimeInfo(now: Date, start: Date, end: Date) {
+  return isActive(now, start, end)
     ? 'Ends ' +
         formatDistance(end, now, {
           addSuffix: true,
@@ -48,7 +50,7 @@ function formatToViewModel(blockSessions: BlockSession[], now: Date) {
     const start = recoverDate(now, session.start)
     const end = recoverDate(now, session.end)
 
-    const timeline = generateTimeline(now, start, end)
+    const timeline = generateTimeInfo(now, start, end)
 
     return {
       id: session.id,
@@ -61,7 +63,7 @@ function formatToViewModel(blockSessions: BlockSession[], now: Date) {
 }
 
 function isActive(now: Date, start: Date, end: Date) {
-  return isAfter(now, start) && isBefore(now, end)
+  return !isBefore(now, start) && isBefore(now, end)
 }
 
 export const selectHomeViewModel = createSelector(
@@ -77,15 +79,13 @@ export const selectHomeViewModel = createSelector(
     const greetings = greetUser(dateProvider.getNow())
 
     const NO_ACTIVE_SESSION = {
-      title: 'NO ACTIVE SESSIONS' as const,
-      message:
-        "Starting a session allows you to quickly focus on a task at hand and do what's important to you." as const,
+      title: SessionBoardTitle.NO_ACTIVE_SESSIONS as const,
+      message: SessionBoardMessage.NO_ACTIVE_SESSIONS as const,
     }
 
     const NO_SCHEDULED_SESSION = {
-      title: 'NO SCHEDULED SESSIONS' as const,
-      message:
-        "Starting a session allows you to quickly focus on a task at hand and do what's important to you." as const,
+      title: SessionBoardTitle.NO_SCHEDULED_SESSIONS as const,
+      message: SessionBoardMessage.NO_SCHEDULED_SESSIONS as const,
     }
 
     if (!blockSessions.length)
@@ -124,19 +124,33 @@ export const selectHomeViewModel = createSelector(
         greetings,
         activeSessions: NO_ACTIVE_SESSION,
         scheduledSessions: {
-          title: 'SCHEDULED SESSIONS',
+          title: SessionBoardTitle.SCHEDULED_SESSIONS,
           blockSessions: formattedScheduledSessions,
         },
       }
 
+    if (!scheduledSessions.length)
+      return {
+        type: HomeViewModel.WithActiveWithoutScheduledSessions,
+        greetings,
+        activeSessions: {
+          title: SessionBoardTitle.ACTIVE_SESSIONS,
+          blockSessions: formattedActiveSessions,
+        },
+        scheduledSessions: NO_SCHEDULED_SESSION,
+      }
+
     return {
-      type: HomeViewModel.WithActiveWithoutScheduledSessions,
+      type: HomeViewModel.WithActiveAndScheduledSessions,
       greetings,
       activeSessions: {
-        title: 'ACTIVE SESSIONS',
+        title: SessionBoardTitle.ACTIVE_SESSIONS as const,
         blockSessions: formattedActiveSessions,
       },
-      scheduledSessions: NO_SCHEDULED_SESSION,
+      scheduledSessions: {
+        title: SessionBoardTitle.SCHEDULED_SESSIONS as const,
+        blockSessions: formattedScheduledSessions,
+      },
     }
   },
 )

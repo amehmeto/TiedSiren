@@ -28,11 +28,6 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
     ReturnType<typeof selectHomeViewModel>
   >((rootState) => selectHomeViewModel(rootState, dateProvider))
 
-  console.log(viewModel)
-  console.log('NOW Date', new Date())
-  console.log('NOW toISOString', new Date().toISOString())
-  console.log('NOW toLocaleString', new Date().toLocaleString())
-
   const [activeSessionsNode, scheduledSessionsNode]: ReactNode[] = (() => {
     switch (viewModel.type) {
       case HomeViewModel.WithoutActiveNorScheduledSessions:
@@ -48,6 +43,11 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
       case HomeViewModel.WithoutActiveWithScheduledSessions:
         return [
           <NoSessionBoard sessions={viewModel.activeSessions} />,
+          <SessionsBoard sessions={viewModel.scheduledSessions} />,
+        ]
+      case HomeViewModel.WithActiveAndScheduledSessions:
+        return [
+          <SessionsBoard sessions={viewModel.activeSessions} />,
           <SessionsBoard sessions={viewModel.scheduledSessions} />,
         ]
       default:

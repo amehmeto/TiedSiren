@@ -20,16 +20,28 @@ export enum Greetings {
   GoodNight = 'Good Night',
 }
 
+export enum SessionBoardTitle {
+  NO_ACTIVE_SESSIONS = 'NO ACTIVE SESSIONS',
+  NO_SCHEDULED_SESSIONS = 'NO SCHEDULED SESSIONS',
+  ACTIVE_SESSIONS = 'ACTIVE SESSIONS',
+  SCHEDULED_SESSIONS = 'SCHEDULED SESSIONS',
+}
+
+export enum SessionBoardMessage {
+  NO_ACTIVE_SESSIONS = "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
+  NO_SCHEDULED_SESSIONS = 'Scheduled sessions start automatically and help you stay on track with your goals.',
+}
+
 export type WithoutActiveNorScheduledSessions = {
   type: HomeViewModel.WithoutActiveNorScheduledSessions
   greetings: Greetings
   activeSessions: {
-    title: 'NO ACTIVE SESSIONS'
-    message: "Starting a session allows you to quickly focus on a task at hand and do what's important to you."
+    title: SessionBoardTitle.NO_ACTIVE_SESSIONS
+    message: SessionBoardMessage.NO_ACTIVE_SESSIONS
   }
   scheduledSessions: {
-    title: 'NO SCHEDULED SESSIONS'
-    message: "Starting a session allows you to quickly focus on a task at hand and do what's important to you."
+    title: SessionBoardTitle.NO_SCHEDULED_SESSIONS
+    message: SessionBoardMessage.NO_SCHEDULED_SESSIONS
   }
 }
 
@@ -37,12 +49,12 @@ export type WithActiveWithoutScheduledSessions = {
   type: HomeViewModel.WithActiveWithoutScheduledSessions
   greetings: Greetings
   activeSessions: {
-    title: 'ACTIVE SESSIONS'
+    title: SessionBoardTitle.ACTIVE_SESSIONS
     blockSessions: ViewModelBlockSession[]
   }
   scheduledSessions: {
-    title: 'NO SCHEDULED SESSIONS'
-    message: "Starting a session allows you to quickly focus on a task at hand and do what's important to you."
+    title: SessionBoardTitle.NO_SCHEDULED_SESSIONS
+    message: SessionBoardMessage.NO_SCHEDULED_SESSIONS
   }
 }
 
@@ -50,11 +62,24 @@ export type WithoutActiveWithScheduledSessions = {
   type: HomeViewModel.WithoutActiveWithScheduledSessions
   greetings: Greetings
   activeSessions: {
-    title: 'NO ACTIVE SESSIONS'
-    message: "Starting a session allows you to quickly focus on a task at hand and do what's important to you."
+    title: SessionBoardTitle.NO_ACTIVE_SESSIONS
+    message: SessionBoardMessage.NO_ACTIVE_SESSIONS
   }
   scheduledSessions: {
-    title: 'SCHEDULED SESSIONS'
+    title: SessionBoardTitle.SCHEDULED_SESSIONS
+    blockSessions: ViewModelBlockSession[]
+  }
+}
+
+export type WithActiveAndScheduledSessions = {
+  type: HomeViewModel.WithActiveAndScheduledSessions
+  greetings: Greetings
+  activeSessions: {
+    title: SessionBoardTitle.ACTIVE_SESSIONS
+    blockSessions: ViewModelBlockSession[]
+  }
+  scheduledSessions: {
+    title: SessionBoardTitle.SCHEDULED_SESSIONS
     blockSessions: ViewModelBlockSession[]
   }
 }
@@ -63,3 +88,4 @@ export type HomeViewModelType =
   | WithoutActiveNorScheduledSessions
   | WithActiveWithoutScheduledSessions
   | WithoutActiveWithScheduledSessions
+  | WithActiveAndScheduledSessions

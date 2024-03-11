@@ -4,7 +4,12 @@ import { createTestStore } from '../../../../core/_tests_/createTestStore.ts'
 import { PreloadedState } from '../../../../core/_redux_/createStore.ts'
 import { stateBuilder } from '../../../../core/_tests_/state-builder.ts'
 import { buildBlockSession } from '../../../../core/_tests_/data-builders/block-session.builder.ts'
-import { Greetings, HomeViewModel } from './home-view-model.types.ts'
+import {
+  Greetings,
+  HomeViewModel,
+  SessionBoardMessage,
+  SessionBoardTitle,
+} from './home-view-model.types.ts'
 import { StubDateProvider } from '../../../../infra/date-provider/stub.date-provider.ts'
 
 describe('Home View Model', () => {
@@ -22,14 +27,12 @@ describe('Home View Model', () => {
         type: HomeViewModel.WithoutActiveNorScheduledSessions,
         greetings: Greetings.GoodAfternoon,
         activeSessions: {
-          title: 'NO ACTIVE SESSIONS',
-          message:
-            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
+          title: SessionBoardTitle.NO_ACTIVE_SESSIONS,
+          message: SessionBoardMessage.NO_ACTIVE_SESSIONS,
         },
         scheduledSessions: {
-          title: 'NO SCHEDULED SESSIONS',
-          message:
-            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
+          title: SessionBoardTitle.NO_SCHEDULED_SESSIONS,
+          message: SessionBoardMessage.NO_SCHEDULED_SESSIONS,
         },
       },
     ],
@@ -62,9 +65,8 @@ describe('Home View Model', () => {
           ],
         },
         scheduledSessions: {
-          title: 'NO SCHEDULED SESSIONS',
-          message:
-            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
+          title: SessionBoardTitle.NO_SCHEDULED_SESSIONS,
+          message: SessionBoardMessage.NO_SCHEDULED_SESSIONS,
         },
       },
     ],
@@ -97,9 +99,42 @@ describe('Home View Model', () => {
           ],
         },
         scheduledSessions: {
-          title: 'NO SCHEDULED SESSIONS',
-          message:
-            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
+          title: SessionBoardTitle.NO_SCHEDULED_SESSIONS,
+          message: SessionBoardMessage.NO_SCHEDULED_SESSIONS,
+        },
+      },
+    ],
+
+    [
+      'one active session that has just started',
+      stateBuilder()
+        .withBlockSessions([
+          buildBlockSession({
+            id: 'block-session-id',
+            name: 'Sleeping time',
+            start: '13:48',
+            end: '14:58',
+          }),
+        ])
+        .build(),
+      {
+        type: HomeViewModel.WithActiveWithoutScheduledSessions,
+        greetings: Greetings.GoodAfternoon,
+        activeSessions: {
+          title: 'ACTIVE SESSIONS',
+          blockSessions: [
+            {
+              id: 'block-session-id',
+              name: 'Sleeping time',
+              minutesLeft: 'Ends in about 1 hour',
+              blocklists: 1,
+              devices: 2,
+            },
+          ],
+        },
+        scheduledSessions: {
+          title: SessionBoardTitle.NO_SCHEDULED_SESSIONS,
+          message: SessionBoardMessage.NO_SCHEDULED_SESSIONS,
         },
       },
     ],
@@ -145,9 +180,8 @@ describe('Home View Model', () => {
           ],
         },
         scheduledSessions: {
-          title: 'NO SCHEDULED SESSIONS',
-          message:
-            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
+          title: SessionBoardTitle.NO_SCHEDULED_SESSIONS,
+          message: SessionBoardMessage.NO_SCHEDULED_SESSIONS,
         },
       },
     ],
@@ -168,9 +202,56 @@ describe('Home View Model', () => {
         type: HomeViewModel.WithoutActiveWithScheduledSessions,
         greetings: Greetings.GoodAfternoon,
         activeSessions: {
-          title: 'NO ACTIVE SESSIONS',
-          message:
-            "Starting a session allows you to quickly focus on a task at hand and do what's important to you.",
+          title: SessionBoardTitle.NO_ACTIVE_SESSIONS,
+          message: SessionBoardMessage.NO_ACTIVE_SESSIONS,
+        },
+        scheduledSessions: {
+          title: SessionBoardTitle.SCHEDULED_SESSIONS,
+          blockSessions: [
+            {
+              id: 'block-session-id-1',
+              name: 'Sleeping time',
+              minutesLeft: 'Starts at 13:50',
+              blocklists: 1,
+              devices: 2,
+            },
+          ],
+        },
+      },
+    ],
+
+    [
+      'one scheduled session and 1 active session',
+      stateBuilder()
+        .withBlockSessions([
+          buildBlockSession({
+            id: 'block-session-id-1',
+            name: 'Sleeping time',
+            start: '13:50',
+            end: '13:58',
+          }),
+          buildBlockSession({
+            id: 'block-session-id-2',
+            name: 'Working time',
+            start: '10:48',
+            end: '13:58',
+          }),
+        ])
+        .build(),
+      {
+        type: HomeViewModel.WithActiveAndScheduledSessions,
+        greetings: Greetings.GoodAfternoon,
+        activeSessions: {
+          title: 'ACTIVE SESSIONS',
+          blockSessions: [
+            {
+              id: 'block-session-id-2',
+              name: 'Working time',
+              minutesLeft: 'Ends in 10 minutes',
+              blocklists: 1,
+              devices: 2,
+            },
+          ],
         },
         scheduledSessions: {
           title: 'SCHEDULED SESSIONS',

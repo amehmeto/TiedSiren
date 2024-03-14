@@ -305,7 +305,7 @@ describe('Home View Model', () => {
     [Greetings.GoodNight, 'from 22 to 06', '05:59'],
   ])(
     'should greet the user with %s %s',
-    (greetings: Greetings, _, nowHHmm: string) => {
+    (expectedGreetings: Greetings, _, nowHHmm: string) => {
       const store = createTestStore({}, {})
       const [hours, minutes] = nowHHmm.split(':').map(Number)
       const now = new Date()
@@ -314,7 +314,7 @@ describe('Home View Model', () => {
 
       const homeViewModel = selectHomeViewModel(store.getState(), dateProvider)
 
-      expect(homeViewModel.greetings).toStrictEqual(greetings)
+      expect(homeViewModel.greetings).toStrictEqual(expectedGreetings)
     },
   )
 })

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, test } from 'vitest'
+import { describe, expect, it, test } from 'vitest'
 import { selectHomeViewModel } from './home.view-model.ts'
 import { createTestStore } from '../../../../core/_tests_/createTestStore.ts'
 import { PreloadedState } from '../../../../core/_redux_/createStore.ts'
@@ -10,15 +10,8 @@ import {
   SessionBoardMessage,
   SessionBoardTitle,
 } from './home-view-model.types.ts'
-import { StubDateProvider } from '../../../../infra/date-provider/stub.date-provider.ts'
 
 describe('Home View Model', () => {
-  let dateProvider: StubDateProvider
-
-  beforeEach(() => {
-    dateProvider = new StubDateProvider()
-  })
-
   test.each([
     [
       'no session',
@@ -269,21 +262,12 @@ describe('Home View Model', () => {
     ],
   ])(
     'Example: there is %s going on',
-    (
-      _,
-      preloadedState: PreloadedState,
-      expectedViewModel,
-      timezoneOffset?: number,
-    ) => {
+    (_, preloadedState: PreloadedState, expectedViewModel) => {
       const store = createTestStore({}, preloadedState)
       const now = new Date()
       now.setHours(13, 48)
-      dateProvider.now = now
 
-      if (timezoneOffset !== undefined)
-        dateProvider.timezoneOffset = timezoneOffset
-
-      const homeViewModel = selectHomeViewModel(store.getState(), dateProvider)
+      const homeViewModel = selectHomeViewModel(store.getState(), now)
 
       expect(homeViewModel).toStrictEqual(expectedViewModel)
     },
@@ -310,9 +294,8 @@ describe('Home View Model', () => {
       const [hours, minutes] = nowHHmm.split(':').map(Number)
       const now = new Date()
       now.setHours(hours, minutes)
-      dateProvider.now = now
 
-      const homeViewModel = selectHomeViewModel(store.getState(), dateProvider)
+      const homeViewModel = selectHomeViewModel(store.getState(), now)
 
       expect(homeViewModel.greetings).toStrictEqual(expectedGreetings)
     },

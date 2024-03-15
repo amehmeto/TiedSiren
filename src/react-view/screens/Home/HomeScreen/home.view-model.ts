@@ -12,7 +12,6 @@ import {
   SessionBoardMessage,
   SessionBoardTitle,
 } from './home-view-model.types.ts'
-import { DateProvider } from '../../../../infra/date-provider/port.date-provider.ts'
 
 function greetUser(now: Date) {
   const hour = now.getHours()
@@ -69,14 +68,14 @@ function isActive(now: Date, start: Date, end: Date) {
 export const selectHomeViewModel = createSelector(
   [
     (rootState: RootState) => rootState.blockSession,
-    (_state: RootState, dateProvider: DateProvider) => dateProvider,
+    (_state: RootState, now: Date) => now,
   ],
-  (blockSession, dateProvider): HomeViewModelType => {
+  (blockSession, now: Date): HomeViewModelType => {
     const blockSessions = blockSessionAdapter
       .getSelectors()
       .selectAll(blockSession)
 
-    const greetings = greetUser(dateProvider.getNow())
+    const greetings = greetUser(now)
 
     const NO_ACTIVE_SESSION = {
       title: SessionBoardTitle.NO_ACTIVE_SESSIONS as const,
@@ -97,26 +96,18 @@ export const selectHomeViewModel = createSelector(
       }
 
     const activeSessions = blockSessions.filter((session) => {
-      const now = dateProvider.getNow()
       const start = recoverDate(now, session.start)
       const end = recoverDate(now, session.end)
       return isActive(now, start, end)
     })
-    const formattedActiveSessions = formatToViewModel(
-      activeSessions,
-      dateProvider.getNow(),
-    )
+    const formattedActiveSessions = formatToViewModel(activeSessions, now)
 
     const scheduledSessions = blockSessions.filter((session) => {
-      const now = dateProvider.getNow()
       const start = recoverDate(now, session.start)
       const end = recoverDate(now, session.end)
       return !isActive(now, start, end)
     })
-    const formattedScheduledSessions = formatToViewModel(
-      scheduledSessions,
-      dateProvider.getNow(),
-    )
+    const formattedScheduledSessions = formatToViewModel(scheduledSessions, now)
 
     if (!activeSessions.length)
       return {

@@ -1,5 +1,5 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { StyleSheet, Text } from 'react-native'
 import { TiedSirenLogoSvg } from './TiedSirenLogoSvg.tsx'
 import 'react-native-gesture-handler'
@@ -23,10 +23,18 @@ type HomeScreenProps = {
 }
 
 export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
+  const [now, setNow] = useState<Date>(dateProvider.getNow())
   const viewModel = useSelector<
     RootState,
     ReturnType<typeof selectHomeViewModel>
-  >((rootState) => selectHomeViewModel(rootState, dateProvider))
+  >((rootState) => selectHomeViewModel(rootState, now))
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setNow(dateProvider.getNow())
+    }, 1_000)
+    return () => clearInterval(intervalId)
+  }, [now])
 
   const [activeSessionsNode, scheduledSessionsNode]: ReactNode[] = (() => {
     switch (viewModel.type) {
@@ -59,9 +67,7 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
     <TiedSLinearBackground>
       <TiedSirenLogoSvg />
       <Text style={styles.greetings}>{viewModel.greetings}</Text>
-      <Text style={[styles.text, { marginBottom: T.spacing.large }]}>
-        Let's make it productive
-      </Text>
+      <Text style={styles.text}>Let's make it productive</Text>
 
       {activeSessionsNode}
       {scheduledSessionsNode}
@@ -89,5 +95,5 @@ const styles = StyleSheet.create({
     fontWeight: T.font.weight.bold,
     fontSize: T.size.medium,
   },
-  text: { color: T.color.text },
+  text: { color: T.color.text, marginBottom: T.spacing.large },
 })

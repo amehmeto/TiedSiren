@@ -3,6 +3,7 @@ import { BlocklistScreen } from '../screens/Blocklists/BlocklistScreen'
 import { EditBlocklistScreen } from '../screens/Blocklists/EditBlocklistScreen'
 import { BlocklistsStackScreens } from './screen-lists/BlocklistsStackScreens'
 import { EditPlatformBlocklistScreen } from '../screens/Blocklists/EditPlatformBlocklistScreen'
+import { CreateBlocklistScreen } from '../screens/Blocklists/CreateBlocklistScreen/CreateBlockListScreen.tsx'
 
 const Stack = createStackNavigator()
 
@@ -14,6 +15,7 @@ export function BlocklistStackNavigator() {
         component={BlocklistScreen}
         options={{ headerShown: false }}
       />
+
       <Stack.Screen
         name={BlocklistsStackScreens.EDIT_BLOCKLIST}
         options={{ headerShown: true }}
@@ -24,6 +26,12 @@ export function BlocklistStackNavigator() {
         name={BlocklistsStackScreens.EDIT_PLATFORM_BLOCKLIST}
         options={{ headerShown: true }}
         component={EditPlatformBlocklistScreen}
+      />
+
+      <Stack.Screen
+        name={BlocklistsStackScreens.CREATE_BLOCK_LIST}
+        options={{ headerShown: true }}
+        component={CreateBlocklistScreen}
       />
     </Stack.Navigator>
   )

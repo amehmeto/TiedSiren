@@ -44,7 +44,12 @@ export function BlocklistScreen({
           />
         )}
       />
-      <Pressable onPress={() => {}} style={styles.roundButton}>
+      <Pressable
+        onPress={() =>
+          navigation.navigate(BlocklistsStackScreens.CREATE_BLOCK_LIST)
+        }
+        style={styles.roundButton}
+      >
         <Ionicons name={'add'} size={50} color={T.color.lightBlue} />
       </Pressable>
     </TiedSLinearBackground>

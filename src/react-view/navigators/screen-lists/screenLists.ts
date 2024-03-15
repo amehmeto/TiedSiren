@@ -8,4 +8,5 @@ export type ScreenList = {
   EditBlocklist: undefined
   EditPlatformBlocklist: undefined
   MainBlocklist: undefined
+  CreateBlocklist: undefined
 }

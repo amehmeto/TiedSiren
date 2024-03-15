@@ -1,4 +1,4 @@
-import { Modal, StyleSheet, View } from 'react-native'
+import { Dimensions, Modal, StyleSheet, View } from 'react-native'
 import { T } from '../theme'
 import { TiedSBlurView } from './TiedSBlurView'
 import React from 'react'
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
       width: T.shadow.offset.width,
       height: T.shadow.offset.height,
     },
+    width: Dimensions.get('window').width * 0.9,
     shadowOpacity: T.shadow.opacity,
     shadowRadius: T.shadow.radius,
     elevation: 5,

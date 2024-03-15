@@ -31,6 +31,7 @@
     "date-fns": "^3.3.1",
     "expo": "~50.0.13",
     "expo-blur": "~12.9.2",
+    "expo-device": "~5.9.3",
     "expo-linear-gradient": "~12.7.2",
     "expo-navigation-bar": "~2.8.1",
     "expo-status-bar": "~1.11.1",

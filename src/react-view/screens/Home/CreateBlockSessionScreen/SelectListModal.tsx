@@ -5,6 +5,7 @@ import { TiedSButton } from '../../../design-system/components/TiedSButton.tsx'
 import { TiedSModal } from '../../../design-system/components/TiedSModal.tsx'
 import { Blocklist } from '../../../../core/blocklist/blocklist.ts'
 import { Device } from '../../../../core/device/device.ts'
+import * as ExpoDevice from 'expo-device'
 
 export function SelectListModal(
   props: Readonly<{
@@ -16,14 +17,27 @@ export function SelectListModal(
     getItems: () => Promise<(Blocklist | Device)[]>
   }>,
 ) {
-  const [availableListItems, setAvailableListItems] = useState<
-    (Blocklist | Device)[]
-  >([])
-  const [selectedItems, setSelectedItems] = useState<(Blocklist | Device)[]>([])
+  const currentDevice: Device = {
+    id: ExpoDevice.modelId ?? 'unknown',
+    type: ExpoDevice.deviceType?.toString() ?? 'unknown',
+    name:
+      (ExpoDevice.manufacturer ?? 'Unknown Manufacturer') +
+      ' ' +
+      (ExpoDevice.modelName ?? 'Unknown Device') +
+      ' (this device)',
+  }
+
+  const initialItems = props.listType === 'devices' ? [currentDevice] : []
+  const [availableListItems, setAvailableListItems] =
+    useState<(Blocklist | Device)[]>(initialItems)
+  const [selectedItems, setSelectedItems] =
+    useState<(Blocklist | Device)[]>(initialItems)
   const { getItems } = props
 
   useEffect(() => {
-    getItems().then((list) => setAvailableListItems(list))
+    getItems().then((list) =>
+      setAvailableListItems((prevList) => [...prevList, ...list]),
+    )
   }, [getItems])
 
   const saveList = () => {
@@ -53,6 +67,7 @@ export function SelectListModal(
             <View key={item.id} style={styles.item}>
               <Text style={styles.itemText}>{item.name}</Text>
               <Switch
+                style={{ marginLeft: T.spacing.medium }}
                 value={selectedItems.includes(item)}
                 onValueChange={toggleList(item)}
               />

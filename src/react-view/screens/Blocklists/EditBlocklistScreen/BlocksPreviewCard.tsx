@@ -1,7 +1,7 @@
 import { IconProps } from '@expo/vector-icons/build/createIconSet'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
-import { T } from '../../design-system/theme'
+import { TiedSBlurView } from '../../../design-system/components/TiedSBlurView.tsx'
+import { T } from '../../../design-system/theme.ts'
 import React from 'react'
 
 export function BlocksPreviewCard(

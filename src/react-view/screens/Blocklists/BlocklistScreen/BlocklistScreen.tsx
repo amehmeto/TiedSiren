@@ -1,14 +1,15 @@
 import { FlatList, Platform, Pressable, StyleSheet } from 'react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { T } from '../../design-system/theme'
-import { TiedSLinearBackground } from '../../design-system/components/TiedSLinearBackground'
-import uuid from 'react-native-uuid'
-import { ScreenList } from '../../navigators/screen-lists/screenLists'
-import { TabScreens } from '../../navigators/screen-lists/TabScreens'
-import { BlocklistsStackScreens } from '../../navigators/screen-lists/BlocklistsStackScreens'
+import { T } from '../../../design-system/theme.ts'
+import { TiedSLinearBackground } from '../../../design-system/components/TiedSLinearBackground.tsx'
+import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
+import { TabScreens } from '../../../navigators/screen-lists/TabScreens.ts'
+import { BlocklistsStackScreens } from '../../../navigators/screen-lists/BlocklistsStackScreens.ts'
 import { Ionicons } from '@expo/vector-icons'
-import { Blocklist } from '../../../core/blocklist/blocklist'
-import { BlocklistCard } from './BlocklistCard'
+import { Blocklist } from '../../../../core/blocklist/blocklist.ts'
+import { BlocklistCard } from '../BlocklistCard.tsx'
+import { blocklistRepository } from '../../../dependencies.ts'
+import { useEffect, useState } from 'react'
 
 type BlockListScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
@@ -17,18 +18,13 @@ type BlockListScreenProps = {
 export function BlocklistScreen({
   navigation,
 }: Readonly<BlockListScreenProps>) {
-  const blocklists: Blocklist[] = [
-    {
-      id: String(uuid.v4()),
-      name: 'Distractions',
-      totalBlocks: 397,
-    },
-    {
-      id: String(uuid.v4()),
-      name: 'Necessary evils',
-      totalBlocks: 4,
-    },
-  ]
+  const [blocklists, setBlocklists] = useState<Blocklist[]>([])
+
+  useEffect(() => {
+    blocklistRepository.getBlocklists().then((blocklists) => {
+      setBlocklists(blocklists)
+    })
+  }, [])
 
   return (
     <TiedSLinearBackground>

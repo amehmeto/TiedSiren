@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import { BlocklistScreen } from '../screens/Blocklists/BlocklistScreen'
-import { EditBlocklistScreen } from '../screens/Blocklists/EditBlocklistScreen'
+import { BlocklistScreen } from '../screens/Blocklists/BlocklistScreen/BlocklistScreen.tsx'
+import { EditBlocklistScreen } from '../screens/Blocklists/EditBlocklistScreen/EditBlocklistScreen.tsx'
 import { BlocklistsStackScreens } from './screen-lists/BlocklistsStackScreens'
 import { EditPlatformBlocklistScreen } from '../screens/Blocklists/EditPlatformBlocklistScreen'
 import { CreateBlocklistScreen } from '../screens/Blocklists/CreateBlocklistScreen/CreateBlockListScreen.tsx'

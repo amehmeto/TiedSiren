@@ -20,5 +20,6 @@ const styles = StyleSheet.create({
     borderColor: T.color.lightBlue,
     borderRadius: T.border.radius.roundedSmall,
     color: T.color.white,
+    flex: 1,
   },
 })

@@ -5,6 +5,7 @@ import { T } from '../design-system/theme'
 import { BlocklistStackNavigator } from './BlocklistStackNavigator'
 import { TabScreens } from './screen-lists/TabScreens'
 import { HomeStackNavigator } from './HomeStackNavigator.tsx'
+import { CreateBlocklistScreen } from '../screens/Blocklists/CreateBlocklistScreen/CreateBlockListScreen.tsx'
 
 const Tab = createBottomTabNavigator()
 
@@ -26,8 +27,8 @@ export function BottomTabNavigator() {
     >
       <Tab.Screen
         name={TabScreens.HOME}
-        component={HomeStackNavigator}
-        // component={CreateBlockSessionScreen}
+        // component={HomeStackNavigator}
+        component={CreateBlocklistScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Entypo name="light-up" size={size} color={color} />

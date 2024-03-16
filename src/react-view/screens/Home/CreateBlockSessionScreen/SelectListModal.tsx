@@ -20,11 +20,7 @@ export function SelectListModal(
   const currentDevice: Device = {
     id: ExpoDevice.modelId ?? 'unknown',
     type: ExpoDevice.deviceType?.toString() ?? 'unknown',
-    name:
-      (ExpoDevice.manufacturer ?? 'Unknown Manufacturer') +
-      ' ' +
-      (ExpoDevice.modelName ?? 'Unknown Device') +
-      ' (this device)',
+    name: generateDeviceName(),
   }
 
   const initialItems = props.listType === 'devices' ? [currentDevice] : []
@@ -58,6 +54,15 @@ export function SelectListModal(
         : selectedItems.filter((_item) => _item.id !== item.id)
       setSelectedItems(newSelections)
     }
+  }
+
+  function generateDeviceName() {
+    return (
+      (ExpoDevice.manufacturer ?? 'Unknown Manufacturer') +
+      ' ' +
+      (ExpoDevice.modelName ?? 'Unknown Device') +
+      ' (this device)'
+    )
   }
 
   return (

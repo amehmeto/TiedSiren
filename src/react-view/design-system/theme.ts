@@ -30,6 +30,7 @@ export const T = {
     medium: 20,
   },
   spacing: {
+    extraExtraSmall: 2,
     extraSmall: 4,
     small: 8,
     medium: 16,

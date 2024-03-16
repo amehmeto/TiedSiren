@@ -35,9 +35,15 @@ export function SelectListModal(
   const { getItems } = props
 
   useEffect(() => {
-    getItems().then((list) =>
-      setAvailableListItems((prevList) => [...prevList, ...list]),
-    )
+    getItems().then((newItems) => {
+      setAvailableListItems((currentItems) => {
+        const currentIds = new Set(currentItems.map((item) => item.id))
+        const newUniqueItems = newItems.filter(
+          (item) => !currentIds.has(item.id),
+        )
+        return [...currentItems, ...newUniqueItems]
+      })
+    })
   }, [getItems])
 
   const saveList = () => {

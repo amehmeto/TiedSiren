@@ -27,8 +27,8 @@ export function BottomTabNavigator() {
     >
       <Tab.Screen
         name={TabScreens.HOME}
-        // component={HomeStackNavigator}
-        component={CreateBlocklistScreen}
+        component={HomeStackNavigator}
+        // component={CreateBlocklistScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Entypo name="light-up" size={size} color={color} />

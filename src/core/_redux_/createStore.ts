@@ -1,9 +1,11 @@
 import { AnyAction, configureStore, ThunkDispatch } from '@reduxjs/toolkit'
 import { BlockSessionRepository } from '../block-session/ports/block-session.repository.ts'
 import { rootReducer } from './rootReducer.ts'
+import { BlocklistRepository } from '../blocklist/ports/blocklist.repository.ts'
 
 export type Dependencies = {
   blockSessionRepository: BlockSessionRepository
+  blocklistRepository: BlocklistRepository
 }
 
 export type PreloadedState = Partial<RootState>

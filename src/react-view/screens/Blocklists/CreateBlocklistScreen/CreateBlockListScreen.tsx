@@ -1,4 +1,4 @@
-import { Dimensions, FlatList, Pressable, StyleSheet, Text } from 'react-native'
+import { Dimensions, FlatList, StyleSheet, Text } from 'react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
 import { TabScreens } from '../../../navigators/screen-lists/TabScreens.ts'
@@ -6,51 +6,28 @@ import { TiedSLinearBackground } from '../../../design-system/components/TiedSLi
 import { TiedSBlurView } from '../../../design-system/components/TiedSBlurView.tsx'
 import { T } from '../../../design-system/theme'
 import { TiedSTextInput } from '../../../design-system/components/TiedSTextInput.tsx'
+import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { installedAppsRepository } from '../../../dependencies.ts'
 import { InstalledApp } from '../../../../core/installed-app/InstalledApp.ts'
 import { AndroidSelectableAppCard } from '../AndroidSelectableAppCard.tsx'
-import {
-  Route,
-  SceneMap,
-  TabBar,
-  TabBarProps,
-  TabView,
-} from 'react-native-tab-view'
+import { Route, SceneMap, TabBarProps, TabView } from 'react-native-tab-view'
 import { TiedSButton } from '../../../design-system/components/TiedSButton.tsx'
+import { BlocklistsStackScreens } from '../../../navigators/screen-lists/BlocklistsStackScreens.ts'
+import { ChooseBlockTabBar } from './ChooseBlockTabBar.tsx'
+import { useDispatch } from 'react-redux'
+import { createBlocklist } from '../../../../core/blocklist/usecases/create-blocklist.usecase.ts'
+import { AppDispatch } from '../../../../core/_redux_/createStore.ts'
 
 type BlocklistScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
 }
 
-const renderTabBar = (props: TabBarProps<Route>) => (
-  <TabBar
-    {...props}
-    indicatorStyle={{ height: 0, display: 'none', width: 0 }}
-    renderLabel={({ route, focused, color }) => (
-      <Pressable
-        style={{
-          backgroundColor: focused ? T.color.lightBlue : T.color.darkBlue,
-          borderColor: focused ? T.color.lightBlue : T.color.darkBlue,
-          borderRadius: T.border.radius.extraRounded,
-          padding: T.spacing.medium,
-          minWidth: 80,
-          margin: 0,
-        }}
-      >
-        <Text style={{ color: 'white', textAlign: 'center' }}>
-          {route.title}
-        </Text>
-      </Pressable>
-    )}
-    style={{ backgroundColor: 'transparent' }}
-    tabStyle={{ marginLeft: 0, paddingLeft: 0 }}
-  />
-)
-
 export function CreateBlocklistScreen({
   navigation,
 }: Readonly<BlocklistScreenProps>) {
+  const dispatch = useDispatch<AppDispatch>()
+
   const [installedApps, setInstalledApps] = useState<InstalledApp[]>([])
   const [blocklistName, setBlocklistName] = useState('')
   const [index, setIndex] = useState(0)
@@ -107,10 +84,29 @@ export function CreateBlocklistScreen({
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: Dimensions.get('window').width }}
-        renderTabBar={renderTabBar}
+        renderTabBar={(props: TabBarProps<Route>) => (
+          <ChooseBlockTabBar {...props} />
+        )}
       />
 
-      <TiedSButton text={'Save Blocklist'} onPress={() => {}} />
+      <TiedSButton
+        text={'Save Blocklist'}
+        onPress={() => {
+          dispatch(
+            createBlocklist({
+              name: blocklistName,
+              blocks: {
+                apps: {
+                  android: [],
+                },
+                websites: [],
+                keywords: [],
+              },
+            }),
+          )
+          navigation.navigate(BlocklistsStackScreens.MAIN_BLOCKLIST)
+        }}
+      />
     </TiedSLinearBackground>
   )
 }

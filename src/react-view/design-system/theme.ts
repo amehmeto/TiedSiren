@@ -30,6 +30,7 @@ export const T = {
     medium: 20,
   },
   spacing: {
+    none: 0,
     extraExtraSmall: 2,
     extraSmall: 4,
     small: 8,
@@ -60,5 +61,6 @@ export const T = {
   },
   width: {
     roundButton: 80,
+    chipMinWidth: 80,
   },
 }

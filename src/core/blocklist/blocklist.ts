@@ -1,5 +1,16 @@
 export type Blocklist = {
   id: string
   name: string
-  totalBlocks: number
+  totalBlocks?: number
+  blocks: {
+    apps: {
+      android: string[]
+      windows?: string[]
+      macos?: string[]
+      ios?: string[]
+      linux?: string[]
+    }
+    websites: string[]
+    keywords: string[]
+  }
 }

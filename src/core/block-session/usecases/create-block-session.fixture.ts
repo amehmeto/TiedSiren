@@ -7,10 +7,12 @@ import {
   selectAllBlockSessionIds,
   selectBlockSessionById,
 } from '../block-session.slice.ts'
+import { FakeDataBlocklistRepository } from '../../../infra/blocklist-repository/fake-data.blocklist.repository.ts'
 
 export function createBlockSessionFixture() {
   const store: AppStore = createStore({
     blockSessionRepository: new FakeDataBlockSessionRepository(),
+    blocklistRepository: new FakeDataBlocklistRepository(),
   })
 
   return {

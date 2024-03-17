@@ -17,11 +17,25 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
             id: 'blocklist-id',
             name: 'Distractions',
             totalBlocks: 10,
+            blocks: {
+              apps: {
+                android: ['Instagram', 'Facebook'],
+              },
+              websites: ['twitter.com'],
+              keywords: ['cat videos'],
+            },
           },
           {
             id: 'blocklist-id-2',
             name: 'Games',
             totalBlocks: 10,
+            blocks: {
+              apps: {
+                android: ['Instagram', 'Facebook'],
+              },
+              websites: ['twitter.com'],
+              keywords: ['cat videos'],
+            },
           },
         ],
         devices: [
@@ -48,11 +62,25 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
             id: 'blocklist-id',
             name: 'Distractions',
             totalBlocks: 10,
+            blocks: {
+              apps: {
+                android: ['Instagram', 'Facebook'],
+              },
+              websites: ['twitter.com'],
+              keywords: ['cat videos'],
+            },
           },
           {
             id: 'blocklist-id-2',
             name: 'Games',
             totalBlocks: 10,
+            blocks: {
+              apps: {
+                android: ['Instagram', 'Facebook'],
+              },
+              websites: ['twitter.com'],
+              keywords: ['cat videos'],
+            },
           },
         ],
         devices: [
@@ -79,11 +107,25 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
             id: 'blocklist-id',
             name: 'Distractions',
             totalBlocks: 10,
+            blocks: {
+              apps: {
+                android: ['Instagram', 'Facebook'],
+              },
+              websites: ['twitter.com'],
+              keywords: ['cat videos'],
+            },
           },
           {
             id: 'blocklist-id-2',
             name: 'Games',
             totalBlocks: 10,
+            blocks: {
+              apps: {
+                android: ['Instagram', 'Facebook'],
+              },
+              websites: ['twitter.com'],
+              keywords: ['cat videos'],
+            },
           },
         ],
         devices: [

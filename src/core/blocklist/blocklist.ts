@@ -1,3 +1,5 @@
+import { createEntityAdapter } from '@reduxjs/toolkit'
+
 export type Blocklist = {
   id: string
   name: string
@@ -14,3 +16,5 @@ export type Blocklist = {
     keywords: string[]
   }
 }
+
+export const blocklistAdapter = createEntityAdapter<Blocklist>()

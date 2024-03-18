@@ -7,18 +7,22 @@ import { T } from './src/react-view/design-system/theme'
 import { createStore } from './src/core/_redux_/createStore'
 import { FakeDataBlockSessionRepository } from './src/infra/block-session-repository/fake-data.block-session.repository'
 import { Provider } from 'react-redux'
+import { FakeDataBlocklistRepository } from './src/infra/blocklist-repository/fake-data.blocklist.repository'
 
 const blockSessionRepository = new FakeDataBlockSessionRepository()
+const blocklistRepository = new FakeDataBlocklistRepository()
 
 const store = createStore({
   blockSessionRepository,
+  blocklistRepository,
 })
 
 export default function App() {
   useEffect(() => {
     if (Platform.OS === 'android')
       NavigationBar.setBackgroundColorAsync(T.color.darkBlue).catch(
-        (e: never) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (e: any) => {
           console.error('Failed to set navigation bar color', e)
         },
       )

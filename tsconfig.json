@@ -24,7 +24,7 @@
     "noImplicitReturns": true,
     "noImplicitAny": true,
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "app.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "app.d.ts", "App.tsx"],
   "exclude": ["node_modules"],
   "extends": ["expo/tsconfig.base", "@tsconfig/react-native/tsconfig.json"],
 }

@@ -1,4 +1,3 @@
-import { Blocklist } from '../../../core/blocklist/blocklist'
 import { Pressable, StyleSheet, Text } from 'react-native'
 import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { T } from '../../design-system/theme'
@@ -17,9 +16,7 @@ export function BlocklistCard(
     <Pressable onPress={props.onPress}>
       <TiedSBlurView style={styles.container}>
         <Text style={styles.name}>{props.blocklist.name}</Text>
-        <Text style={styles.totalBlocks}>
-          {props.blocklist.totalBlocks} blocks
-        </Text>
+        <Text style={styles.totalBlocks}>{props.blocklist.totalBlocks}</Text>
       </TiedSBlurView>
     </Pressable>
   )

@@ -1,13 +1,11 @@
 import { describe, expect, test } from 'vitest'
-import { selectBlocklistViewModel } from './blocklist.view-model.ts'
+import {
+  BlocklistViewModel,
+  selectBlocklistViewModel,
+} from './blocklist.view-model.ts'
 import { createTestStore } from '../../../../core/_tests_/createTestStore.ts'
 import { stateBuilder } from '../../../../core/_tests_/state-builder.ts'
 import { buildBlocklist } from '../../../../core/_tests_/data-builders/blocklist.builder.ts'
-
-export enum BlocklistViewModel {
-  NoBlocklist = 'NO_BLOCKLIST',
-  WithBlockLists = 'WITH_BLOCKLISTS',
-}
 
 describe('Blocklists View Model', () => {
   test('Example: there is no blocklist', () => {

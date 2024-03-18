@@ -11,6 +11,7 @@
     "test": "vitest",
     "test:prepush": "vitest --run",
     "test:cov": "c8 vitest --run",
+    "check:uncommitted": "git diff-index --quiet HEAD || exit 1",
     "prepare": "husky install"
   },
   "lint-staged": {

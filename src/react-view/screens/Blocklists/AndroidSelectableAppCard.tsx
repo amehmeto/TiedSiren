@@ -8,12 +8,12 @@ import { InstalledApp } from '../../../core/installed-app/InstalledApp'
 export function AndroidSelectableAppCard({
   app,
   onPress,
+  isSelected,
 }: Readonly<{
   app: InstalledApp
   onPress: () => void
+  isSelected: boolean
 }>) {
-  const [isChecked, setIsChecked] = useState<boolean>(false)
-
   const dataImagePngBase64 = 'data:image/png;base64,'
 
   return (
@@ -29,9 +29,9 @@ export function AndroidSelectableAppCard({
         <CheckBox
           style={styles.checkbox}
           containerStyle={styles.checkboxContainer}
-          checked={isChecked}
-          onPress={() => setIsChecked(!isChecked)}
+          checked={isSelected}
           checkedColor={T.color.lightBlue}
+          onPress={onPress}
         />
       </TiedSBlurView>
     </Pressable>

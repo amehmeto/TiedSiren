@@ -36,7 +36,11 @@ export function EditPlatformBlocklistScreen({
         data={installedApps}
         keyExtractor={(item) => item.packageName}
         renderItem={({ item }) => (
-          <AndroidSelectableAppCard app={item} onPress={() => {}} />
+          <AndroidSelectableAppCard
+            app={item}
+            onPress={() => {}}
+            isSelected={false}
+          />
         )}
       />
 

@@ -43,7 +43,7 @@ export class FakeDataInstalledAppsRepository implements InstalledAppRepository {
         size: 52428800,
       },
       {
-        packageName: 'com.example.youtube',
+        packageName: 'com.example.youtube-1',
         versionName: '1.0.0',
         versionCode: 1,
         firstInstallTime: 1616161616161,
@@ -54,7 +54,7 @@ export class FakeDataInstalledAppsRepository implements InstalledAppRepository {
         size: 52428800,
       },
       {
-        packageName: 'com.example.amazonprime',
+        packageName: 'com.example.amazonprime-1',
         versionName: '1.0.0',
         versionCode: 1,
         firstInstallTime: 1616161616161,
@@ -65,7 +65,7 @@ export class FakeDataInstalledAppsRepository implements InstalledAppRepository {
         size: 52428800,
       },
       {
-        packageName: 'com.example.tiktok',
+        packageName: 'com.example.tiktok-1',
         versionName: '1.0.0',
         versionCode: 1,
         firstInstallTime: 1616161616161,

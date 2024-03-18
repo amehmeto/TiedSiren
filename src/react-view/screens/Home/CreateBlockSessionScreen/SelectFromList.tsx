@@ -22,15 +22,15 @@ export function SelectFromList({
   ) => Promise<void | FormikErrors<Session>>
   getItems: () => Promise<(Blocklist | Device)[]>
 }>) {
-  const [isList, setIsList] = useState<boolean>(false)
+  const [isListModelOpened, setIsListModelOpened] = useState<boolean>(false)
 
   function selectItemsFrom(
     list: Blocklist[] | Device[],
-    listName: 'blocklists' | 'devices',
+    listType: 'blocklists' | 'devices',
   ) {
     return list.length > 0
-      ? values[listName].map((item) => item.name).join(', ')
-      : `Select ${listName}...`
+      ? values[listType].map((item) => item.name).join(', ')
+      : `Select ${listType}...`
   }
 
   const capitalizedListParam =
@@ -41,14 +41,14 @@ export function SelectFromList({
     <>
       <View style={styles.param}>
         <Text style={styles.label}>{capitalizedListParam}</Text>
-        <Pressable onPress={() => setIsList(true)}>
+        <Pressable onPress={() => setIsListModelOpened(true)}>
           <Text style={styles.option}>{selectedItems}</Text>
         </Pressable>
       </View>
       <SelectListModal
-        visible={isList}
+        visible={isListModelOpened}
         list={values[listType]}
-        onRequestClose={() => setIsList(!isList)}
+        onRequestClose={() => setIsListModelOpened(!isListModelOpened)}
         setFieldValue={setFieldValue}
         listType={listType}
         getItems={getItems}

@@ -5,7 +5,7 @@ import { T } from '../design-system/theme'
 import { BlocklistStackNavigator } from './BlocklistStackNavigator'
 import { TabScreens } from './screen-lists/TabScreens'
 import { HomeStackNavigator } from './HomeStackNavigator.tsx'
-import { CreateBlocklistScreen } from '../screens/Blocklists/CreateBlocklistScreen/CreateBlockListScreen.tsx'
+import { CreateBlocklistScreen } from '../screens/Blocklists/CreateBlocklistScreen/CreateBlocklistScreen.tsx'
 
 const Tab = createBottomTabNavigator()
 

@@ -3,7 +3,7 @@ import { BlocklistScreen } from '../screens/Blocklists/BlocklistScreen/Blocklist
 import { EditBlocklistScreen } from '../screens/Blocklists/EditBlocklistScreen/EditBlocklistScreen.tsx'
 import { BlocklistsStackScreens } from './screen-lists/BlocklistsStackScreens'
 import { EditPlatformBlocklistScreen } from '../screens/Blocklists/EditPlatformBlocklistScreen'
-import { CreateBlocklistScreen } from '../screens/Blocklists/CreateBlocklistScreen/CreateBlockListScreen.tsx'
+import { CreateBlocklistScreen } from '../screens/Blocklists/CreateBlocklistScreen/CreateBlocklistScreen.tsx'
 
 const Stack = createStackNavigator()
 

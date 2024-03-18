@@ -18,6 +18,7 @@ import { ChooseBlockTabBar } from './ChooseBlockTabBar.tsx'
 import { useDispatch } from 'react-redux'
 import { createBlocklist } from '../../../../core/blocklist/usecases/create-blocklist.usecase.ts'
 import { AppDispatch } from '../../../../core/_redux_/createStore.ts'
+import { Blocklist } from '../../../../core/blocklist/blocklist.ts'
 
 type BlocklistScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
@@ -29,7 +30,16 @@ export function CreateBlocklistScreen({
   const dispatch = useDispatch<AppDispatch>()
 
   const [installedApps, setInstalledApps] = useState<InstalledApp[]>([])
-  const [blocklistName, setBlocklistName] = useState('')
+  const [blocklist, setBlocklist] = useState<Omit<Blocklist, 'id'>>({
+    name: '',
+    blocks: {
+      apps: {
+        android: [],
+      },
+      websites: [],
+      keywords: [],
+    },
+  })
   const [index, setIndex] = useState(0)
   const [routes] = useState([
     { key: 'apps', title: 'Apps' },
@@ -43,13 +53,50 @@ export function CreateBlocklistScreen({
     })
   }, [])
 
+  function selectAppToBlocklist(packageName: string) {
+    console.log('selectAppToBlocklist', packageName, isAppSelected(packageName))
+    setBlocklist((prevBlocklist) => {
+      return isAppSelected(packageName)
+        ? {
+            ...prevBlocklist,
+            blocks: {
+              ...prevBlocklist.blocks,
+              apps: {
+                ...prevBlocklist.blocks.apps,
+                android: prevBlocklist.blocks.apps.android.filter(
+                  (selectedPackageName) => selectedPackageName !== packageName,
+                ),
+              },
+            },
+          }
+        : {
+            ...prevBlocklist,
+            blocks: {
+              ...prevBlocklist.blocks,
+              apps: {
+                ...prevBlocklist.blocks.apps,
+                android: [...prevBlocklist.blocks.apps.android, packageName],
+              },
+            },
+          }
+    })
+  }
+
+  function isAppSelected(packageName: string) {
+    return blocklist.blocks.apps.android.includes(packageName)
+  }
+
   const renderScene = SceneMap({
     apps: () => (
       <FlatList
         data={installedApps}
-        keyExtractor={(item) => item.appName}
+        keyExtractor={(item) => item.packageName}
         renderItem={({ item }) => (
-          <AndroidSelectableAppCard app={item} onPress={() => {}} />
+          <AndroidSelectableAppCard
+            app={item}
+            onPress={() => selectAppToBlocklist(item.packageName)}
+            isSelected={isAppSelected(item.packageName)}
+          />
         )}
       />
     ),
@@ -75,7 +122,7 @@ export function CreateBlocklistScreen({
       <TiedSBlurView>
         <TiedSTextInput
           placeholder="Blocklist name"
-          onChangeText={(text) => setBlocklistName(text)}
+          onChangeText={(text) => setBlocklist({ ...blocklist, name: text })}
         />
       </TiedSBlurView>
 
@@ -92,18 +139,8 @@ export function CreateBlocklistScreen({
       <TiedSButton
         text={'Save Blocklist'}
         onPress={() => {
-          dispatch(
-            createBlocklist({
-              name: blocklistName,
-              blocks: {
-                apps: {
-                  android: [],
-                },
-                websites: [],
-                keywords: [],
-              },
-            }),
-          )
+          console.log(blocklist)
+          dispatch(createBlocklist(blocklist))
           navigation.navigate(BlocklistsStackScreens.MAIN_BLOCKLIST)
         }}
       />

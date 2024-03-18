@@ -6,10 +6,10 @@ import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
 import { TabScreens } from '../../../navigators/screen-lists/TabScreens.ts'
 import { BlocklistsStackScreens } from '../../../navigators/screen-lists/BlocklistsStackScreens.ts'
 import { Ionicons } from '@expo/vector-icons'
-import { Blocklist } from '../../../../core/blocklist/blocklist.ts'
 import { BlocklistCard } from '../BlocklistCard.tsx'
-import { blocklistRepository } from '../../../dependencies.ts'
-import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../core/_redux_/createStore.ts'
+import { selectBlocklistViewModel } from './blocklist.view-model.ts'
 
 type BlockListScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
@@ -18,18 +18,15 @@ type BlockListScreenProps = {
 export function BlocklistScreen({
   navigation,
 }: Readonly<BlockListScreenProps>) {
-  const [blocklists, setBlocklists] = useState<Blocklist[]>([])
-
-  useEffect(() => {
-    blocklistRepository.getBlocklists().then((blocklists) => {
-      setBlocklists(blocklists)
-    })
-  }, [])
+  const viewModel = useSelector<
+    RootState,
+    ReturnType<typeof selectBlocklistViewModel>
+  >((rootState) => selectBlocklistViewModel(rootState))
 
   return (
     <TiedSLinearBackground>
       <FlatList
-        data={blocklists}
+        data={viewModel.blocklists}
         keyExtractor={(blocklist) => blocklist.id}
         renderItem={({ item: blocklist }) => (
           <BlocklistCard

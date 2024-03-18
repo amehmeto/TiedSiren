@@ -9,15 +9,21 @@ import {
   createReducer,
 } from '@reduxjs/toolkit'
 import { rootReducer } from '../_redux_/rootReducer.ts'
+import { Blocklist, blocklistAdapter } from '../blocklist/blocklist.ts'
 
 const initialState = rootReducer(undefined, { type: 'unknown' })
 
 const withBlockSessions = createAction<BlockSession[]>('withBlockSession')
+const withBlocklists = createAction<Blocklist[]>('withBlocklists')
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(withBlockSessions, (state, action) => {
-    blockSessionAdapter.addMany(state.blockSession, action.payload)
-  })
+  builder
+    .addCase(withBlockSessions, (state, action) => {
+      blockSessionAdapter.addMany(state.blockSession, action.payload)
+    })
+    .addCase(withBlocklists, (state, action) => {
+      blocklistAdapter.addMany(state.blocklist, action.payload)
+    })
 })
 
 export const stateBuilder = (baseState = initialState) => {
@@ -27,9 +33,10 @@ export const stateBuilder = (baseState = initialState) => {
       stateBuilder(reducer(baseState, actionCreator(payload)))
 
   return {
-    withBlockSessions: reduce(withBlockSessions),
     build(): RootState {
       return baseState
     },
+    withBlockSessions: reduce(withBlockSessions),
+    withBlocklists: reduce(withBlocklists),
   }
 }

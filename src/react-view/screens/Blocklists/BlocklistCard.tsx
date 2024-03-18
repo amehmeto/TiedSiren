@@ -5,7 +5,11 @@ import { T } from '../../design-system/theme'
 
 export function BlocklistCard(
   props: Readonly<{
-    blocklist: Blocklist
+    blocklist: {
+      id: string
+      name: string
+      totalBlocks: string
+    }
     onPress: () => void
   }>,
 ) {

@@ -23,6 +23,8 @@ describe('Feature: Creating a block session', () => {
             apps: {
               android: ['Instagram', 'Facebook'],
             },
+            websites: [],
+            keywords: [],
           },
         }),
       ],
@@ -51,6 +53,8 @@ describe('Feature: Creating a block session', () => {
             apps: {
               android: ['Instagram', 'Facebook'],
             },
+            websites: [],
+            keywords: [],
           },
         }),
       ],

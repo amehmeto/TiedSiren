@@ -40,23 +40,23 @@ export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
     switch (viewModel.type) {
       case HomeViewModel.WithoutActiveNorScheduledSessions:
         return [
-          <NoSessionBoard sessions={viewModel.activeSessions} />,
-          <NoSessionBoard sessions={viewModel.scheduledSessions} />,
+          <NoSessionBoard key={0} sessions={viewModel.activeSessions} />,
+          <NoSessionBoard key={1} sessions={viewModel.scheduledSessions} />,
         ]
       case HomeViewModel.WithActiveWithoutScheduledSessions:
         return [
-          <SessionsBoard sessions={viewModel.activeSessions} />,
-          <NoSessionBoard sessions={viewModel.scheduledSessions} />,
+          <SessionsBoard key={0} sessions={viewModel.activeSessions} />,
+          <NoSessionBoard key={1} sessions={viewModel.scheduledSessions} />,
         ]
       case HomeViewModel.WithoutActiveWithScheduledSessions:
         return [
-          <NoSessionBoard sessions={viewModel.activeSessions} />,
-          <SessionsBoard sessions={viewModel.scheduledSessions} />,
+          <NoSessionBoard key={0} sessions={viewModel.activeSessions} />,
+          <SessionsBoard key={1} sessions={viewModel.scheduledSessions} />,
         ]
       case HomeViewModel.WithActiveAndScheduledSessions:
         return [
-          <SessionsBoard sessions={viewModel.activeSessions} />,
-          <SessionsBoard sessions={viewModel.scheduledSessions} />,
+          <SessionsBoard key={0} sessions={viewModel.activeSessions} />,
+          <SessionsBoard key={1} sessions={viewModel.scheduledSessions} />,
         ]
       default:
         return exhaustiveGuard(viewModel)

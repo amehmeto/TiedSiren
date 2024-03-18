@@ -1,7 +1,9 @@
 import { faker } from '@faker-js/faker'
 import { Blocklist } from '../../blocklist/blocklist.ts'
 
-export function buildBlocklist(wantedBlocklist = {}): Blocklist {
+export function buildBlocklist(
+  wantedBlocklist: Partial<Blocklist> = {},
+): Blocklist {
   const blocklistNameExamples = [
     'Distractions',
     'Necessary evils',

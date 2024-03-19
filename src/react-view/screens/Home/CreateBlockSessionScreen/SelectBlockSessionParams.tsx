@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FormikProps } from 'formik'
 import { StyleSheet, View } from 'react-native'
 import { TiedSBlurView } from '../../../design-system/components/TiedSBlurView.tsx'
@@ -13,6 +13,8 @@ import { SelectFromList } from './SelectFromList.tsx'
 import { blocklistRepository, deviceRepository } from '../../../dependencies.ts'
 import { ChooseName } from './ChooseName.tsx'
 import { SelectTime } from './SelectTime.tsx'
+import { Device } from '../../../../core/device/device.ts'
+import { Blocklist } from '../../../../core/blocklist/blocklist.ts'
 
 export function SelectBlockSessionParams(
   props: Readonly<{
@@ -22,11 +24,21 @@ export function SelectBlockSessionParams(
 ) {
   const { handleChange, handleBlur, handleSubmit, setFieldValue, values } =
     props.form
-
+  const [devices, setDevices] = useState<Device[]>([])
+  const [blocklists, setBlocklists] = useState<Blocklist[]>([])
   const [isStartTimePickerVisible, setIsStartTimePickerVisible] =
     useState<boolean>(false)
   const [isEndTimePickerVisible, setIsEndTimePickerVisible] =
     useState<boolean>(false)
+
+  useEffect(() => {
+    deviceRepository.getDevices().then((devices) => {
+      setDevices(devices)
+    })
+    blocklistRepository.getBlocklists().then((blocklists) => {
+      setBlocklists(blocklists)
+    })
+  }, [])
 
   return (
     <View>
@@ -42,13 +54,13 @@ export function SelectBlockSessionParams(
           values={values}
           listType={'blocklists'}
           setFieldValue={setFieldValue}
-          getItems={() => blocklistRepository.getBlocklists()}
+          items={blocklists}
         />
         <SelectFromList
           values={values}
           listType={'devices'}
           setFieldValue={setFieldValue}
-          getItems={() => deviceRepository.getDevices()}
+          items={devices}
         />
         <SelectTime
           timeField={'start'}

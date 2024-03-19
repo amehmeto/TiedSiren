@@ -7,6 +7,21 @@ import { Blocklist } from '../../../../core/blocklist/blocklist.ts'
 import { Device } from '../../../../core/device/device.ts'
 import * as ExpoDevice from 'expo-device'
 
+const currentDevice: Device = {
+  id: ExpoDevice.modelId ?? 'unknown',
+  type: ExpoDevice.deviceType?.toString() ?? 'unknown',
+  name: generateDeviceName(),
+}
+
+function generateDeviceName() {
+  return (
+    (ExpoDevice.manufacturer ?? 'Unknown Manufacturer') +
+    ' ' +
+    (ExpoDevice.modelName ?? 'Unknown Device') +
+    ' (this device)'
+  )
+}
+
 export function SelectListModal(
   props: Readonly<{
     visible: boolean
@@ -14,33 +29,18 @@ export function SelectListModal(
     listType: 'blocklists' | 'devices'
     onRequestClose: () => void
     setFieldValue: (field: string, value: (Blocklist | Device)[]) => void
-    getItems: () => Promise<(Blocklist | Device)[]>
+    items: (Blocklist | Device)[]
   }>,
 ) {
-  const currentDevice: Device = {
-    id: ExpoDevice.modelId ?? 'unknown',
-    type: ExpoDevice.deviceType?.toString() ?? 'unknown',
-    name: generateDeviceName(),
-  }
-
-  const initialItems = props.listType === 'devices' ? [currentDevice] : []
-  const [availableListItems, setAvailableListItems] =
-    useState<(Blocklist | Device)[]>(initialItems)
-  const [selectedItems, setSelectedItems] =
-    useState<(Blocklist | Device)[]>(initialItems)
-  const { getItems } = props
+  const availableItems =
+    props.listType === 'devices' ? [currentDevice, ...props.items] : props.items
+  const [selectedItems, setSelectedItems] = useState<(Blocklist | Device)[]>(
+    props.listType === 'devices' ? [currentDevice] : [],
+  )
 
   useEffect(() => {
-    getItems().then((newItems) => {
-      setAvailableListItems((currentItems) => {
-        const currentIds = new Set(currentItems.map((item) => item.id))
-        const newUniqueItems = newItems.filter(
-          (item) => !currentIds.has(item.id),
-        )
-        return [...currentItems, ...newUniqueItems]
-      })
-    })
-  }, [getItems])
+    setSelectedItems(props.listType === 'devices' ? [currentDevice] : [])
+  }, [props.listType])
 
   const saveList = () => {
     props.setFieldValue(props.listType, selectedItems)
@@ -56,30 +56,25 @@ export function SelectListModal(
     }
   }
 
-  function generateDeviceName() {
-    return (
-      (ExpoDevice.manufacturer ?? 'Unknown Manufacturer') +
-      ' ' +
-      (ExpoDevice.modelName ?? 'Unknown Device') +
-      ' (this device)'
-    )
+  function isSelected(item: Blocklist | Device) {
+    return selectedItems.some((selectedItem) => selectedItem.id === item.id)
   }
 
   return (
     <TiedSModal isVisible={props.visible} onRequestClose={props.onRequestClose}>
       <View>
-        {availableListItems.length === 0 && (
+        {props.items.length === 0 && (
           <Text style={styles.itemText}>No {props.listType} available</Text>
         )}
 
         <FlatList
-          data={availableListItems}
+          data={availableItems}
           renderItem={({ item }) => (
             <View key={item.id} style={styles.item}>
               <Text style={styles.itemText}>{item.name}</Text>
               <Switch
-                style={{ marginLeft: T.spacing.medium }}
-                value={selectedItems.includes(item)}
+                style={styles.itemSelector}
+                value={isSelected(item)}
                 onValueChange={toggleList(item)}
               />
             </View>
@@ -103,4 +98,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: T.spacing.medium,
   },
+  itemSelector: { marginLeft: T.spacing.medium },
 })

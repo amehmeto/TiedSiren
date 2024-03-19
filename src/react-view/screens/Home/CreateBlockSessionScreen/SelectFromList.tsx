@@ -11,7 +11,7 @@ export function SelectFromList({
   values,
   setFieldValue,
   listType,
-  getItems,
+  items,
 }: Readonly<{
   listType: 'blocklists' | 'devices'
   values: Session
@@ -20,7 +20,7 @@ export function SelectFromList({
     value: (Blocklist | Device)[],
     shouldValidate?: boolean,
   ) => Promise<void | FormikErrors<Session>>
-  getItems: () => Promise<(Blocklist | Device)[]>
+  items: (Blocklist | Device)[]
 }>) {
   const [isListModelOpened, setIsListModelOpened] = useState<boolean>(false)
 
@@ -51,7 +51,7 @@ export function SelectFromList({
         onRequestClose={() => setIsListModelOpened(!isListModelOpened)}
         setFieldValue={setFieldValue}
         listType={listType}
-        getItems={getItems}
+        items={items}
       />
     </>
   )

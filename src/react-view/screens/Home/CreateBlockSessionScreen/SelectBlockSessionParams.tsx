@@ -10,11 +10,13 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
 import { TabScreens } from '../../../navigators/screen-lists/TabScreens.ts'
 import { SelectFromList } from './SelectFromList.tsx'
-import { blocklistRepository, deviceRepository } from '../../../dependencies.ts'
+import { deviceRepository } from '../../../dependencies.ts'
 import { ChooseName } from './ChooseName.tsx'
 import { SelectTime } from './SelectTime.tsx'
 import { Device } from '../../../../core/device/device.ts'
-import { Blocklist } from '../../../../core/blocklist/blocklist.ts'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../core/_redux_/createStore.ts'
+import { selectAllBlocklists } from '../../../../core/blocklist/selectors/selectAllBlocklists.ts'
 
 export function SelectBlockSessionParams(
   props: Readonly<{
@@ -25,18 +27,18 @@ export function SelectBlockSessionParams(
   const { handleChange, handleBlur, handleSubmit, setFieldValue, values } =
     props.form
   const [devices, setDevices] = useState<Device[]>([])
-  const [blocklists, setBlocklists] = useState<Blocklist[]>([])
   const [isStartTimePickerVisible, setIsStartTimePickerVisible] =
     useState<boolean>(false)
   const [isEndTimePickerVisible, setIsEndTimePickerVisible] =
     useState<boolean>(false)
 
+  const blocklists = useSelector((state: RootState) =>
+    selectAllBlocklists(state),
+  )
+
   useEffect(() => {
     deviceRepository.getDevices().then((devices) => {
       setDevices(devices)
-    })
-    blocklistRepository.getBlocklists().then((blocklists) => {
-      setBlocklists(blocklists)
     })
   }, [])
 

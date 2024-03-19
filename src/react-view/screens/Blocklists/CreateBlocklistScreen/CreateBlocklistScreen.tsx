@@ -54,7 +54,6 @@ export function CreateBlocklistScreen({
   }, [])
 
   function selectAppToBlocklist(packageName: string) {
-    console.log('selectAppToBlocklist', packageName, isAppSelected(packageName))
     setBlocklist((prevBlocklist) => {
       return isAppSelected(packageName)
         ? {
@@ -139,7 +138,6 @@ export function CreateBlocklistScreen({
       <TiedSButton
         text={'Save Blocklist'}
         onPress={() => {
-          console.log(blocklist)
           dispatch(createBlocklist(blocklist))
           navigation.navigate(BlocklistsStackScreens.MAIN_BLOCKLIST)
         }}

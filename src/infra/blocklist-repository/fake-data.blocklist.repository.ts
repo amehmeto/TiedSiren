@@ -9,7 +9,6 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
       {
         id: 'blocklist-id-1',
         name: 'Distractions',
-        totalBlocks: 23,
         blocks: {
           apps: {
             android: ['Instagram', 'Facebook'],
@@ -21,7 +20,6 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
       {
         id: 'blocklist-id-2',
         name: 'Necessary evils',
-        totalBlocks: 4,
         blocks: {
           apps: { android: ['WhatsApp'] },
           keywords: ['work'],
@@ -31,7 +29,6 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
       {
         id: 'blocklist-id-3',
         name: 'Productivity',
-        totalBlocks: 12,
         blocks: {
           apps: { android: ['Todoist', 'Trello'] },
           websites: ['github.com'],
@@ -41,9 +38,7 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
     ])
   }
 
-  createBlocklist(
-    payload: Omit<Blocklist, 'id' | 'totalBlocks'>,
-  ): Promise<Blocklist> {
+  createBlocklist(payload: Omit<Blocklist, 'id'>): Promise<Blocklist> {
     const blocklistId = String(Math.random() * 100)
     this.blocklists.set(blocklistId, { id: blocklistId, ...payload })
     const createdBlocklist = this.blocklists.get(blocklistId)

@@ -14,7 +14,6 @@ export function buildBlocklist(
   const randomBlocklist: Blocklist = {
     id: faker.string.uuid(),
     name: faker.helpers.arrayElement(blocklistNameExamples),
-    totalBlocks: faker.number.int(),
     blocks: {
       apps: {
         android: [faker.internet.domainWord()],

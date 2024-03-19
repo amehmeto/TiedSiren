@@ -3,7 +3,6 @@ import { createEntityAdapter } from '@reduxjs/toolkit'
 export type Blocklist = {
   id: string
   name: string
-  totalBlocks?: number
   blocks: {
     apps: {
       android: string[]

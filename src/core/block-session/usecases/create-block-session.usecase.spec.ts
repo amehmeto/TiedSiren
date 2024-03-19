@@ -18,7 +18,6 @@ describe('Feature: Creating a block session', () => {
         buildBlocklist({
           id: 'blocklist-id',
           name: 'Distraction',
-          totalBlocks: 10,
           blocks: {
             apps: {
               android: ['Instagram', 'Facebook'],
@@ -48,7 +47,6 @@ describe('Feature: Creating a block session', () => {
         buildBlocklist({
           id: 'blocklist-id',
           name: 'Distraction',
-          totalBlocks: 10,
           blocks: {
             apps: {
               android: ['Instagram', 'Facebook'],

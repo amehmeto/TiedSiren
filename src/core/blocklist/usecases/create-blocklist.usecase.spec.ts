@@ -12,7 +12,6 @@ describe('Feature: Creating a blocklist', () => {
     const blocklistPayload = {
       id: 'blocklist-id',
       name: 'Distraction',
-      totalBlocks: 10,
       blocks: {
         apps: {
           android: ['Instagram', 'Facebook'],
@@ -27,7 +26,6 @@ describe('Feature: Creating a blocklist', () => {
     fixture.then.blocklistShouldBeStoredAs({
       id: 'blocklist-id',
       name: 'Distraction',
-      totalBlocks: 10,
       blocks: {
         apps: {
           android: ['Instagram', 'Facebook'],

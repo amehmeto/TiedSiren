@@ -41,11 +41,11 @@ export function CreateBlocklistScreen({
     },
   })
   const [index, setIndex] = useState(0)
-  const [routes] = useState([
+  const routes = [
     { key: 'apps', title: 'Apps' },
     { key: 'websites', title: 'Websites' },
     { key: 'keywords', title: 'Keywords' },
-  ])
+  ]
 
   useEffect(() => {
     installedAppsRepository.getInstalledApps().then((apps) => {

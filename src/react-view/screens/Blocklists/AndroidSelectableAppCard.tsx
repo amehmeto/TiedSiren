@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Image, Pressable, StyleSheet, Text } from 'react-native'
 import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { T } from '../../design-system/theme'

@@ -15,7 +15,7 @@ function RoundBlueDot() {
         borderRadius: roundSize / 2,
         backgroundColor: T.color.lightBlue,
       }}
-    ></View>
+    />
   )
 }
 

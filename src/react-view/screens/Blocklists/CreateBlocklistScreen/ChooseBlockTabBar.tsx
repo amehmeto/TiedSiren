@@ -25,7 +25,7 @@ export function ChooseBlockTabBar(
             },
           ]}
         >
-          <Text style={styles.labelText}>{route.title}</Text>
+          <Text style={[styles.labelText, { color }]}>{route.title}</Text>
         </Pressable>
       )}
       style={styles.tabBar}

@@ -25,6 +25,7 @@ export function WebTimePicker(
         onChange={handleTimeChange}
       />
       <button
+        type={'button'}
         onClick={() => {
           props.setTime(props.chosenTime)
           props.setIsTimePickerVisible(false)

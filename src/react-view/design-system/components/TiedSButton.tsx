@@ -1,11 +1,4 @@
-import {
-  Platform,
-  Pressable,
-  StyleProp,
-  StyleSheet,
-  Text,
-  ViewStyle,
-} from 'react-native'
+import { Pressable, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native'
 import { T } from '../theme'
 
 export function TiedSButton(
@@ -16,7 +9,14 @@ export function TiedSButton(
   }>,
 ) {
   return (
-    <Pressable style={[styles.container, props.style]} onPress={props.onPress}>
+    <Pressable
+      style={({ pressed }) => [
+        styles.container,
+        props.style,
+        { opacity: pressed ? 0.5 : 1 },
+      ]}
+      onPress={props.onPress}
+    >
       <Text style={styles.buttonText}>{props.text}</Text>
     </Pressable>
   )
@@ -28,24 +28,6 @@ const styles = StyleSheet.create({
     backgroundColor: T.color.lightBlue,
     marginTop: T.spacing.large,
     padding: T.spacing.small,
-
-    ...Platform.select({
-      ios: {
-        shadowColor: T.color.shadow,
-        shadowOffset: {
-          width: T.shadow.offset.width,
-          height: T.shadow.offset.height,
-        },
-        shadowOpacity: T.shadow.opacity,
-        shadowRadius: T.shadow.radius,
-      },
-      android: {
-        elevation: 20,
-      },
-      web: {
-        boxShadow: `${T.shadow.offset.width}px ${T.shadow.offset.height}px 10px ${T.color.shadow}`,
-      },
-    }),
   },
   buttonText: {
     fontWeight: T.font.weight.bold,

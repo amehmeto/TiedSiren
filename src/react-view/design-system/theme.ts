@@ -1,3 +1,5 @@
+import { Platform } from 'react-native'
+
 export const T = {
   color: {
     text: 'rgba(255, 255, 255, 1)',
@@ -21,7 +23,11 @@ export const T = {
       bold: 'bold' as const,
     },
     family: {
-      primary: 'Roboto',
+      primary: Platform.select({
+        ios: 'Helvetica Neue',
+        android: 'Roboto',
+        default: 'Helvetica Neue',
+      }),
     },
   },
   size: {

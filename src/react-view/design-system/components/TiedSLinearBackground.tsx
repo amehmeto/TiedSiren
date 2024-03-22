@@ -11,9 +11,9 @@ export function TiedSLinearBackground(
 
   return (
     <LinearGradient
-      colors={[T.color.purple, T.color.lightBlueShade, T.color.lightBlue]}
-      start={{ x: 0.4, y: 0.5 }}
-      end={{ x: 1.5, y: 0.6 }}
+      colors={[T.color.lightBlueShade, T.color.purple]}
+      start={{ x: 0.1, y: 0 }}
+      end={{ x: 0.5, y: 1 }}
       style={[
         styles.container,
         { paddingTop: T.spacing.large + statusBarHeight },

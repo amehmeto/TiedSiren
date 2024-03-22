@@ -1,11 +1,19 @@
 import { StyleSheet, TextInput, TextInputProps } from 'react-native'
 import { T } from '../theme'
+import { useState } from 'react'
 
 export function TiedSTextInput(props: Readonly<TextInputProps>) {
+  const [isFocused, setIsFocused] = useState(false)
+
   return (
     <TextInput
-      style={[styles.input]}
+      style={[
+        styles.input,
+        { borderColor: isFocused ? T.color.lightBlue : 'transparent' },
+      ]}
       placeholderTextColor={T.color.white}
+      onFocus={() => setIsFocused(true)}
+      onBlur={() => setIsFocused(false)}
       {...props}
     />
   )

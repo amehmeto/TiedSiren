@@ -17,7 +17,13 @@ export function AndroidSelectableAppCard({
 
   return (
     <Pressable onPress={onPress}>
-      <TiedSBlurView style={styles.container}>
+      <TiedSBlurView
+        style={[
+          styles.container,
+          { marginVertical: T.spacing.extraSmall },
+          isSelected ? styles.selected : null,
+        ]}
+      >
         <Image
           source={{
             uri: dataImagePngBase64 + app.icon,
@@ -46,8 +52,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   checkboxContainer: {
-    padding: 0,
-    margin: 0,
+    padding: T.spacing.none,
+    margin: T.spacing.none,
   },
   appName: {
     color: T.color.text,
@@ -58,5 +64,9 @@ const styles = StyleSheet.create({
     marginRight: T.spacing.small,
     height: 20,
     width: 20,
+  },
+  selected: {
+    borderColor: T.color.lightBlue,
+    borderWidth: 2,
   },
 })

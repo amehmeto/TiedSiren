@@ -10,6 +10,8 @@ export const T = {
     inactive: 'rgba(209, 233, 248, 1)',
     shadow: 'rgba(30, 30, 30, 1)',
     white: 'rgba(255, 255, 255, 1)',
+    grey: 'rgba(211, 211, 211, 1)',
+    red: 'rgba(255, 0, 0, 1)',
   },
   font: {
     size: {
@@ -69,4 +71,5 @@ export const T = {
     roundButton: 80,
     chipMinWidth: 80,
   },
+  sirenIconSize: 20,
 }

@@ -1,36 +1,59 @@
 import { Image, Pressable, StyleSheet, Text } from 'react-native'
 import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { T } from '../../design-system/theme'
-import { CheckBox } from 'react-native-elements'
 import { InstalledApp } from '../../../core/installed-app/InstalledApp'
+import { FontAwesome6, MaterialCommunityIcons } from '@expo/vector-icons'
+import { CheckBox } from 'react-native-elements'
 
-export function AndroidSelectableAppCard({
-  app,
+export function SelectableSirenCard({
+  sirenType,
+  siren,
   onPress,
   isSelected,
 }: Readonly<{
-  app: InstalledApp
+  sirenType: 'app' | 'website' | 'keyword'
+  siren: InstalledApp | string
   onPress: () => void
   isSelected: boolean
 }>) {
   const dataImagePngBase64 = 'data:image/png;base64,'
+  const iconElement =
+    sirenType === 'app' ? (
+      <Image
+        source={{ uri: dataImagePngBase64 + (siren as InstalledApp).icon }}
+        style={styles.appIcon}
+      />
+    ) : sirenType === 'website' ? (
+      <MaterialCommunityIcons
+        name={'web'}
+        color={T.color.white}
+        size={20}
+        style={[{ marginRight: T.spacing.small }]}
+      />
+    ) : (
+      <FontAwesome6
+        name={'hashtag'}
+        color={T.color.white}
+        size={T.sirenIconSize}
+        style={[{ marginRight: T.spacing.small }]}
+      />
+    )
+
+  const sirenName =
+    sirenType === 'app' ? (siren as InstalledApp).appName : (siren as string)
 
   return (
     <Pressable onPress={onPress}>
       <TiedSBlurView
         style={[
           styles.container,
-          { marginVertical: T.spacing.extraSmall },
+          { marginVertical: T.spacing.extraExtraSmall },
           isSelected ? styles.selected : null,
         ]}
       >
-        <Image
-          source={{
-            uri: dataImagePngBase64 + app.icon,
-          }}
-          style={styles.appIcon}
-        />
-        <Text style={styles.appName}>{app.appName}</Text>
+        {iconElement}
+        <Text style={styles.appName}>{sirenName}</Text>
+
         <CheckBox
           style={styles.checkbox}
           containerStyle={styles.checkboxContainer}
@@ -62,8 +85,8 @@ const styles = StyleSheet.create({
   },
   appIcon: {
     marginRight: T.spacing.small,
-    height: 20,
-    width: 20,
+    height: T.sirenIconSize,
+    width: T.sirenIconSize,
   },
   selected: {
     borderColor: T.color.lightBlue,

@@ -6,7 +6,7 @@ import { FlatList, StyleSheet, Text } from 'react-native'
 import { ScreenList } from '../../navigators/screen-lists/screenLists'
 import { TiedSButton } from '../../design-system/components/TiedSButton'
 import { installedAppsRepository } from '../../dependencies'
-import { AndroidSelectableAppCard } from './AndroidSelectableAppCard'
+import { SelectableSirenCard } from './SelectableSirenCard.tsx'
 import { InstalledApp } from '../../../core/installed-app/InstalledApp'
 import { BlocklistsStackScreens } from '../../navigators/screen-lists/BlocklistsStackScreens'
 
@@ -36,8 +36,9 @@ export function EditPlatformBlocklistScreen({
         data={installedApps}
         keyExtractor={(item) => item.packageName}
         renderItem={({ item }) => (
-          <AndroidSelectableAppCard
-            app={item}
+          <SelectableSirenCard
+            sirenType={'app'}
+            siren={item}
             onPress={() => {}}
             isSelected={false}
           />

@@ -1,4 +1,11 @@
-import { FlatList, Platform, Pressable, StyleSheet } from 'react-native'
+import {
+  FlatList,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { T } from '../../../design-system/theme.ts'
 import { TiedSLinearBackground } from '../../../design-system/components/TiedSLinearBackground.tsx'
@@ -10,6 +17,9 @@ import { BlocklistCard } from '../BlocklistCard.tsx'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../core/_redux_/createStore.ts'
 import { selectBlocklistViewModel } from './blocklist.view-model.ts'
+import { ReactNode } from 'react'
+import { exhaustiveGuard } from '../../../../common/exhaustive-guard.ts'
+import { BlocklistViewModel } from './blocklist-view-model.type.ts'
 
 type BlockListScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
@@ -23,20 +33,37 @@ export function BlocklistScreen({
     ReturnType<typeof selectBlocklistViewModel>
   >((rootState) => selectBlocklistViewModel(rootState))
 
+  const blocklistsNode: ReactNode = (() => {
+    switch (viewModel.type) {
+      case BlocklistViewModel.NoBlocklist:
+        return (
+          <View>
+            <Text style={{ color: 'white' }}>{viewModel.message}</Text>
+          </View>
+        )
+      case BlocklistViewModel.WithBlockLists:
+        return (
+          <FlatList
+            data={viewModel.blocklists}
+            keyExtractor={(blocklist) => blocklist.id}
+            renderItem={({ item: blocklist }) => (
+              <BlocklistCard
+                blocklist={blocklist}
+                onPress={() =>
+                  navigation.navigate(BlocklistsStackScreens.EDIT_BLOCKLIST)
+                }
+              />
+            )}
+          />
+        )
+      default:
+        return exhaustiveGuard(viewModel)
+    }
+  })()
+
   return (
     <TiedSLinearBackground>
-      <FlatList
-        data={viewModel.blocklists}
-        keyExtractor={(blocklist) => blocklist.id}
-        renderItem={({ item: blocklist }) => (
-          <BlocklistCard
-            blocklist={blocklist}
-            onPress={() =>
-              navigation.navigate(BlocklistsStackScreens.EDIT_BLOCKLIST)
-            }
-          />
-        )}
-      />
+      {blocklistsNode}
       <Pressable
         onPress={() =>
           navigation.navigate(BlocklistsStackScreens.CREATE_BLOCK_LIST)

@@ -1,15 +1,14 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { RootState } from '../../../../core/_redux_/createStore.ts'
 import { blocklistAdapter } from '../../../../core/blocklist/blocklist.ts'
-
-export enum BlocklistViewModel {
-  NoBlocklist = 'NO_BLOCKLIST',
-  WithBlockLists = 'WITH_BLOCKLISTS',
-}
+import {
+  BlocklistViewModel,
+  BlocklistViewModelType,
+} from './blocklist-view-model.type.ts'
 
 export const selectBlocklistViewModel = createSelector(
   [(rootState: RootState) => rootState.blocklist],
-  (blocklist) => {
+  (blocklist): BlocklistViewModelType => {
     const blocklists = blocklistAdapter.getSelectors().selectAll(blocklist)
 
     if (blocklists.length === 0) {

@@ -4,6 +4,7 @@ import { T } from '../../design-system/theme'
 import { InstalledApp } from '../../../core/installed-app/InstalledApp'
 import { FontAwesome6, MaterialCommunityIcons } from '@expo/vector-icons'
 import { CheckBox } from 'react-native-elements'
+import { SirenType } from './CreateBlocklistScreen/CreateBlocklistScreen.tsx'
 
 export function SelectableSirenCard({
   sirenType,
@@ -11,7 +12,7 @@ export function SelectableSirenCard({
   onPress,
   isSelected,
 }: Readonly<{
-  sirenType: 'app' | 'website' | 'keyword'
+  sirenType: SirenType
   siren: InstalledApp | string
   onPress: () => void
   isSelected: boolean

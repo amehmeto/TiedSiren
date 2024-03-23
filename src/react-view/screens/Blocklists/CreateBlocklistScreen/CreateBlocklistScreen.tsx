@@ -19,10 +19,15 @@ import { useDispatch } from 'react-redux'
 import { createBlocklist } from '../../../../core/blocklist/usecases/create-blocklist.usecase.ts'
 import { AppDispatch } from '../../../../core/_redux_/createStore.ts'
 import { Blocklist } from '../../../../core/blocklist/blocklist.ts'
-import { CheckBox } from 'react-native-elements'
 
 type BlocklistScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
+}
+
+export enum SirenType {
+  APP = 'app',
+  WEBSITE = 'website',
+  KEYWORD = 'keyword',
 }
 
 export function CreateBlocklistScreen({
@@ -57,36 +62,77 @@ export function CreateBlocklistScreen({
     })
   }, [])
 
-  function selectAppToBlocklist(packageName: string) {
+  function toggleApp(sirenId: string, prevBlocklist: Omit<Blocklist, 'id'>) {
+    return {
+      ...prevBlocklist,
+      blocks: {
+        ...prevBlocklist.blocks,
+        apps: {
+          ...prevBlocklist.blocks.apps,
+          android: isSirenSelected(SirenType.APP, sirenId)
+            ? prevBlocklist.blocks.apps.android.filter(
+                (selectedPackageName) => selectedPackageName !== sirenId,
+              )
+            : [...prevBlocklist.blocks.apps.android, sirenId],
+        },
+      },
+    }
+  }
+
+  function toggleWebsite(
+    prevBlocklist: Omit<Blocklist, 'id'>,
+    sirenId: string,
+  ) {
+    return {
+      ...prevBlocklist,
+      blocks: {
+        ...prevBlocklist.blocks,
+        websites: isSirenSelected(SirenType.WEBSITE, sirenId)
+          ? prevBlocklist.blocks.websites.filter(
+              (selectedWebsite) => selectedWebsite !== sirenId,
+            )
+          : [...prevBlocklist.blocks.websites, sirenId],
+      },
+    }
+  }
+
+  function toggleKeywords(
+    prevBlocklist: Omit<Blocklist, 'id'>,
+    sirenId: string,
+  ) {
+    return {
+      ...prevBlocklist,
+      blocks: {
+        ...prevBlocklist.blocks,
+        keywords: isSirenSelected(SirenType.KEYWORD, sirenId)
+          ? prevBlocklist.blocks.keywords.filter(
+              (selectedKeyword) => selectedKeyword !== sirenId,
+            )
+          : [...prevBlocklist.blocks.keywords, sirenId],
+      },
+    }
+  }
+
+  function toggleSiren(sirenType: SirenType, sirenId: string) {
     setBlocklist((prevBlocklist) => {
-      return isAppSelected(packageName)
-        ? {
-            ...prevBlocklist,
-            blocks: {
-              ...prevBlocklist.blocks,
-              apps: {
-                ...prevBlocklist.blocks.apps,
-                android: prevBlocklist.blocks.apps.android.filter(
-                  (selectedPackageName) => selectedPackageName !== packageName,
-                ),
-              },
-            },
-          }
-        : {
-            ...prevBlocklist,
-            blocks: {
-              ...prevBlocklist.blocks,
-              apps: {
-                ...prevBlocklist.blocks.apps,
-                android: [...prevBlocklist.blocks.apps.android, packageName],
-              },
-            },
-          }
+      if (sirenType === SirenType.APP) return toggleApp(sirenId, prevBlocklist)
+      if (sirenType === SirenType.WEBSITE)
+        return toggleWebsite(prevBlocklist, sirenId)
+      if (sirenType === SirenType.KEYWORD)
+        return toggleKeywords(prevBlocklist, sirenId)
+
+      return prevBlocklist
     })
   }
 
-  function isAppSelected(packageName: string) {
-    return blocklist.blocks.apps.android.includes(packageName)
+  function isSirenSelected(sirenType: SirenType, sirenId: string) {
+    if (sirenType === SirenType.APP)
+      return blocklist.blocks.apps.android.includes(sirenId)
+    if (sirenType === SirenType.WEBSITE)
+      return blocklist.blocks.websites.includes(sirenId)
+    if (sirenType === SirenType.KEYWORD)
+      return blocklist.blocks.keywords.includes(sirenId)
+    return false
   }
 
   const [isFocused, setIsFocused] = useState(false)
@@ -98,10 +144,10 @@ export function CreateBlocklistScreen({
         keyExtractor={(item) => item.packageName}
         renderItem={({ item }) => (
           <SelectableSirenCard
-            sirenType={'app'}
+            sirenType={SirenType.APP}
             siren={item}
-            onPress={() => selectAppToBlocklist(item.packageName)}
-            isSelected={isAppSelected(item.packageName)}
+            onPress={() => toggleSiren(SirenType.APP, item.packageName)}
+            isSelected={isSirenSelected(SirenType.APP, item.packageName)}
           />
         )}
       />
@@ -126,10 +172,10 @@ export function CreateBlocklistScreen({
           keyExtractor={(item) => item}
           renderItem={({ item }) => (
             <SelectableSirenCard
-              sirenType={'website'}
+              sirenType={SirenType.WEBSITE}
               siren={item}
-              onPress={() => selectAppToBlocklist(item)}
-              isSelected={isAppSelected(item)}
+              onPress={() => toggleSiren(SirenType.WEBSITE, item)}
+              isSelected={isSirenSelected(SirenType.WEBSITE, item)}
             />
           )}
         />
@@ -156,10 +202,10 @@ export function CreateBlocklistScreen({
           keyExtractor={(item) => item}
           renderItem={({ item }) => (
             <SelectableSirenCard
-              sirenType={'keyword'}
+              sirenType={SirenType.KEYWORD}
               siren={item}
-              onPress={() => selectAppToBlocklist(item)}
-              isSelected={isAppSelected(item)}
+              onPress={() => toggleSiren(SirenType.KEYWORD, item)}
+              isSelected={isSirenSelected(SirenType.KEYWORD, item)}
             />
           )}
         />

@@ -9,6 +9,7 @@ import { installedAppsRepository } from '../../dependencies'
 import { SelectableSirenCard } from './SelectableSirenCard.tsx'
 import { InstalledApp } from '../../../core/installed-app/InstalledApp'
 import { BlocklistsStackScreens } from '../../navigators/screen-lists/BlocklistsStackScreens'
+import { SirenType } from './CreateBlocklistScreen/CreateBlocklistScreen.tsx'
 
 type BlocklistScreenProps = {
   navigation: NativeStackNavigationProp<
@@ -37,7 +38,7 @@ export function EditPlatformBlocklistScreen({
         keyExtractor={(item) => item.packageName}
         renderItem={({ item }) => (
           <SelectableSirenCard
-            sirenType={'app'}
+            sirenType={SirenType.APP}
             siren={item}
             onPress={() => {}}
             isSelected={false}

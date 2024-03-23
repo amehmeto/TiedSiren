@@ -1,9 +1,6 @@
 import { RootState } from '../../../../core/_redux_/createStore.ts'
-import {
-  BlockSession,
-  blockSessionAdapter,
-} from '../../../../core/block-session/block.session.ts'
-import { formatDistance, isBefore } from 'date-fns'
+import { BlockSession } from '../../../../core/block-session/block.session.ts'
+import { formatDistance } from 'date-fns'
 import { createSelector } from '@reduxjs/toolkit'
 import {
   Greetings,
@@ -12,6 +9,13 @@ import {
   SessionBoardMessage,
   SessionBoardTitle,
 } from './home-view-model.types.ts'
+import {
+  isActive,
+  recoverDate,
+  selectActiveSessions,
+  selectScheduledSessions,
+} from '../../../../core/block-session/selectors/selectActiveSessions.ts'
+import { selectAllBlockSessions } from '../../../../core/block-session/selectors/selectAllBlockSessions.ts'
 
 function greetUser(now: Date) {
   const hour = now.getHours()
@@ -34,16 +38,6 @@ function generateTimeInfo(now: Date, start: Date, end: Date) {
         start.getMinutes().toString().padStart(2, '0')
 }
 
-function recoverDate(now: Date, time: string) {
-  const [hours, minutes] = time.split(':').map(Number)
-
-  const todayWithNewTime = new Date(now.getTime())
-  todayWithNewTime.setHours(hours)
-  todayWithNewTime.setMinutes(minutes)
-
-  return todayWithNewTime
-}
-
 function formatToViewModel(blockSessions: BlockSession[], now: Date) {
   return blockSessions.map((session) => {
     const start = recoverDate(now, session.start)
@@ -61,19 +55,13 @@ function formatToViewModel(blockSessions: BlockSession[], now: Date) {
   })
 }
 
-function isActive(now: Date, start: Date, end: Date) {
-  return !isBefore(now, start) && isBefore(now, end)
-}
-
 export const selectHomeViewModel = createSelector(
   [
     (rootState: RootState) => rootState.blockSession,
     (_state: RootState, now: Date) => now,
   ],
   (blockSession, now: Date): HomeViewModelType => {
-    const blockSessions = blockSessionAdapter
-      .getSelectors()
-      .selectAll(blockSession)
+    const blockSessions = selectAllBlockSessions(blockSession)
 
     const greetings = greetUser(now)
 
@@ -95,18 +83,10 @@ export const selectHomeViewModel = createSelector(
         scheduledSessions: NO_SCHEDULED_SESSION,
       }
 
-    const activeSessions = blockSessions.filter((session) => {
-      const start = recoverDate(now, session.start)
-      const end = recoverDate(now, session.end)
-      return isActive(now, start, end)
-    })
+    const activeSessions = selectActiveSessions(now, blockSession)
     const formattedActiveSessions = formatToViewModel(activeSessions, now)
 
-    const scheduledSessions = blockSessions.filter((session) => {
-      const start = recoverDate(now, session.start)
-      const end = recoverDate(now, session.end)
-      return !isActive(now, start, end)
-    })
+    const scheduledSessions = selectScheduledSessions(now, blockSession)
     const formattedScheduledSessions = formatToViewModel(scheduledSessions, now)
 
     if (!activeSessions.length)

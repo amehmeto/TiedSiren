@@ -29,6 +29,10 @@ describe('Blocklists View Model', () => {
             blocks: {
               apps: {
                 android: ['com.package.youtube'],
+                ios: [],
+                linux: [],
+                macos: [],
+                windows: [],
               },
               websites: [],
               keywords: [],
@@ -40,6 +44,10 @@ describe('Blocklists View Model', () => {
             blocks: {
               apps: {
                 android: ['com.package.youtube', 'com.example.amazonprime'],
+                ios: [],
+                linux: [],
+                macos: [],
+                windows: [],
               },
               websites: ['dailymotion.fr'],
               keywords: ['cat videos'],

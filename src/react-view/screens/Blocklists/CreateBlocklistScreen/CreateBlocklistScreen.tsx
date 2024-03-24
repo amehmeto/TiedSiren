@@ -44,6 +44,10 @@ export function CreateBlocklistScreen({
     blocks: {
       apps: {
         android: [],
+        ios: [],
+        windows: [],
+        macos: [],
+        linux: [],
       },
       websites: [],
       keywords: [],

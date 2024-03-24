@@ -8,11 +8,15 @@ import {
   selectBlockSessionById,
 } from '../block-session.slice.ts'
 import { FakeDataBlocklistRepository } from '../../../infra/blocklist-repository/fake-data.blocklist.repository.ts'
+import { InMemorySirenTier } from '../../../infra/siren-binder/in-memory-siren.tier.ts'
+import { RealDateProvider } from '../../../infra/date-provider/real.date-provider.ts'
 
 export function createBlockSessionFixture() {
   const store: AppStore = createStore({
     blockSessionRepository: new FakeDataBlockSessionRepository(),
     blocklistRepository: new FakeDataBlocklistRepository(),
+    sirenTier: new InMemorySirenTier(),
+    dateProvider: new RealDateProvider(),
   })
 
   return {

@@ -20,6 +20,10 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
             blocks: {
               apps: {
                 android: ['Instagram', 'Facebook'],
+                ios: [],
+                linux: [],
+                macos: [],
+                windows: [],
               },
               websites: ['twitter.com'],
               keywords: ['cat videos'],
@@ -32,6 +36,10 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
             blocks: {
               apps: {
                 android: ['Instagram', 'Facebook'],
+                ios: [],
+                linux: [],
+                macos: [],
+                windows: [],
               },
               websites: ['twitter.com'],
               keywords: ['cat videos'],
@@ -65,6 +73,10 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
             blocks: {
               apps: {
                 android: ['Instagram', 'Facebook'],
+                ios: [],
+                linux: [],
+                macos: [],
+                windows: [],
               },
               websites: ['twitter.com'],
               keywords: ['cat videos'],
@@ -77,6 +89,10 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
             blocks: {
               apps: {
                 android: ['Instagram', 'Facebook'],
+                ios: [],
+                linux: [],
+                macos: [],
+                windows: [],
               },
               websites: ['twitter.com'],
               keywords: ['cat videos'],
@@ -110,6 +126,10 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
             blocks: {
               apps: {
                 android: ['Instagram', 'Facebook'],
+                ios: [],
+                linux: [],
+                macos: [],
+                windows: [],
               },
               websites: ['twitter.com'],
               keywords: ['cat videos'],
@@ -122,6 +142,10 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
             blocks: {
               apps: {
                 android: ['Instagram', 'Facebook'],
+                ios: [],
+                linux: [],
+                macos: [],
+                windows: [],
               },
               websites: ['twitter.com'],
               keywords: ['cat videos'],

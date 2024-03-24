@@ -16,6 +16,10 @@ describe('Feature: Creating a blocklist', () => {
       blocks: {
         apps: {
           android: ['Instagram', 'Facebook'],
+          ios: [],
+          linux: [],
+          macos: [],
+          windows: [],
         },
         websites: ['facebook.com', 'instagram.com'],
         keywords: ['social', 'media'],

@@ -8,13 +8,19 @@ import { createStore } from './src/core/_redux_/createStore'
 import { FakeDataBlockSessionRepository } from './src/infra/block-session-repository/fake-data.block-session.repository'
 import { Provider } from 'react-redux'
 import { FakeDataBlocklistRepository } from './src/infra/blocklist-repository/fake-data.blocklist.repository'
+import { RealDateProvider } from './src/infra/date-provider/real.date-provider.ts'
+import { InMemorySirenTier } from './src/infra/siren-binder/in-memory-siren.tier.ts'
 
 const blockSessionRepository = new FakeDataBlockSessionRepository()
 const blocklistRepository = new FakeDataBlocklistRepository()
+const sirenTier = new InMemorySirenTier()
+const dateProvider = new RealDateProvider()
 
 const store = createStore({
   blockSessionRepository,
   blocklistRepository,
+  sirenTier,
+  dateProvider,
 })
 
 export default function App() {

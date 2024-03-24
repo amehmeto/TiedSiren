@@ -40,3 +40,20 @@ export const stateBuilder = (baseState = initialState) => {
     withBlocklists: reduce(withBlocklists),
   }
 }
+
+export const stateBuilderProvider = () => {
+  let builder = stateBuilder()
+
+  return {
+    getState() {
+      const rootState = builder.build()
+      return rootState
+    },
+    setState(updateFn: (_builder: StateBuilder) => StateBuilder) {
+      builder = updateFn(builder)
+    },
+  }
+}
+
+export type StateBuilder = ReturnType<typeof stateBuilder>
+export type StateBuilderProvider = ReturnType<typeof stateBuilderProvider>

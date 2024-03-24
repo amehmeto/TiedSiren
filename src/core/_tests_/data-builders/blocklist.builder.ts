@@ -17,6 +17,10 @@ export function buildBlocklist(
     blocks: {
       apps: {
         android: [faker.internet.domainWord()],
+        ios: [],
+        linux: [],
+        macos: [],
+        windows: [],
       },
       websites: [faker.internet.domainName()],
       keywords: [faker.lorem.word()],

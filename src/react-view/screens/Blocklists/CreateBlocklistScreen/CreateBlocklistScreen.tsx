@@ -131,6 +131,7 @@ export function CreateBlocklistScreen({
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
+        lazy={false}
         onIndexChange={setIndex}
         initialLayout={{ width: Dimensions.get('window').width }}
         renderTabBar={(props: TabBarProps<Route>) => (

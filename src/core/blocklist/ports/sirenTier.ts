@@ -1,5 +1,5 @@
-import { Blocklist } from '../blocklist.ts'
+import { Sirens } from '../blocklist.ts'
 
 export interface SirenTier {
-  block(aggregatedActiveBlocklist: Blocklist): Promise<void>
+  tie(sirens: Sirens): Promise<void>
 }

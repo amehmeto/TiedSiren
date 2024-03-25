@@ -19,8 +19,10 @@ export const selectBlocklistViewModel = createSelector(
     }
 
     const formattedBlocklists = blocklists.map((blocklist) => {
-      const { apps, websites, keywords } = blocklist.blocks
-      const total = apps.android.length + websites.length + keywords.length
+      const total = Object.values(blocklist.sirens).reduce(
+        (acc, currentSiren) => acc + currentSiren.length,
+        0,
+      )
 
       return {
         id: blocklist.id,

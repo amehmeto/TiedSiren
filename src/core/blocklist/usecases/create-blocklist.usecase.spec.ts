@@ -13,14 +13,12 @@ describe('Feature: Creating a blocklist', () => {
     const blocklistPayload = buildBlocklist({
       id: 'blocklist-id',
       name: 'Distraction',
-      blocks: {
-        apps: {
-          android: ['Instagram', 'Facebook'],
-          ios: [],
-          linux: [],
-          macos: [],
-          windows: [],
-        },
+      sirens: {
+        android: ['Instagram', 'Facebook'],
+        ios: [],
+        linux: [],
+        macos: [],
+        windows: [],
         websites: ['facebook.com', 'instagram.com'],
         keywords: ['social', 'media'],
       },
@@ -31,14 +29,12 @@ describe('Feature: Creating a blocklist', () => {
     fixture.then.blocklistShouldBeStoredAs({
       id: 'blocklist-id',
       name: 'Distraction',
-      blocks: {
-        apps: {
-          android: ['Instagram', 'Facebook'],
-          ios: [],
-          linux: [],
-          macos: [],
-          windows: [],
-        },
+      sirens: {
+        android: ['Instagram', 'Facebook'],
+        ios: [],
+        linux: [],
+        macos: [],
+        windows: [],
         websites: ['facebook.com', 'instagram.com'],
         keywords: ['social', 'media'],
       },

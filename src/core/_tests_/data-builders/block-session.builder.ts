@@ -3,7 +3,9 @@ import { BlockSession } from '../../block-session/block.session.ts'
 import { buildBlocklist } from './blocklist.builder.ts'
 import { buildDevice } from './device.builder.ts'
 
-export const buildBlockSession = (blockSession = {}): BlockSession => {
+export const buildBlockSession = (
+  wantedBlockSession: Partial<BlockSession> = {},
+): BlockSession => {
   const sessionNameExamples = [
     'Sleeping time',
     'Working time',
@@ -18,5 +20,5 @@ export const buildBlockSession = (blockSession = {}): BlockSession => {
     blocklists: [buildBlocklist()],
     devices: [buildDevice(), buildDevice()],
   }
-  return { ...defaultBlockSession, ...blockSession }
+  return { ...defaultBlockSession, ...wantedBlockSession }
 }

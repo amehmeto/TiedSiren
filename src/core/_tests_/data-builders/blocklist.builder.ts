@@ -14,14 +14,12 @@ export function buildBlocklist(
   const randomBlocklist: Blocklist = {
     id: faker.string.uuid(),
     name: faker.helpers.arrayElement(blocklistNameExamples),
-    blocks: {
-      apps: {
-        android: [faker.internet.domainWord()],
-        ios: [],
-        linux: [],
-        macos: [],
-        windows: [],
-      },
+    sirens: {
+      android: [faker.internet.domainWord()],
+      ios: [],
+      linux: [],
+      macos: [],
+      windows: [],
       websites: [faker.internet.domainName()],
       keywords: [faker.lorem.word()],
     },

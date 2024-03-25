@@ -41,14 +41,12 @@ export function CreateBlocklistScreen({
 
   const [blocklist, setBlocklist] = useState<Omit<Blocklist, 'id'>>({
     name: '',
-    blocks: {
-      apps: {
-        android: [],
-        ios: [],
-        windows: [],
-        macos: [],
-        linux: [],
-      },
+    sirens: {
+      android: [],
+      ios: [],
+      windows: [],
+      macos: [],
+      linux: [],
       websites: [],
       keywords: [],
     },
@@ -70,14 +68,14 @@ export function CreateBlocklistScreen({
     return {
       ...prevBlocklist,
       blocks: {
-        ...prevBlocklist.blocks,
+        ...prevBlocklist.sirens,
         apps: {
-          ...prevBlocklist.blocks.apps,
+          ...prevBlocklist.sirens,
           android: isSirenSelected(SirenType.APP, sirenId)
-            ? prevBlocklist.blocks.apps.android.filter(
+            ? prevBlocklist.sirens.android.filter(
                 (selectedPackageName) => selectedPackageName !== sirenId,
               )
-            : [...prevBlocklist.blocks.apps.android, sirenId],
+            : [...prevBlocklist.sirens.android, sirenId],
         },
       },
     }
@@ -90,12 +88,12 @@ export function CreateBlocklistScreen({
     return {
       ...prevBlocklist,
       blocks: {
-        ...prevBlocklist.blocks,
+        ...prevBlocklist.sirens,
         websites: isSirenSelected(SirenType.WEBSITE, sirenId)
-          ? prevBlocklist.blocks.websites.filter(
+          ? prevBlocklist.sirens.websites.filter(
               (selectedWebsite) => selectedWebsite !== sirenId,
             )
-          : [...prevBlocklist.blocks.websites, sirenId],
+          : [...prevBlocklist.sirens.websites, sirenId],
       },
     }
   }
@@ -107,12 +105,12 @@ export function CreateBlocklistScreen({
     return {
       ...prevBlocklist,
       blocks: {
-        ...prevBlocklist.blocks,
+        ...prevBlocklist.sirens,
         keywords: isSirenSelected(SirenType.KEYWORD, sirenId)
-          ? prevBlocklist.blocks.keywords.filter(
+          ? prevBlocklist.sirens.keywords.filter(
               (selectedKeyword) => selectedKeyword !== sirenId,
             )
-          : [...prevBlocklist.blocks.keywords, sirenId],
+          : [...prevBlocklist.sirens.keywords, sirenId],
       },
     }
   }
@@ -131,11 +129,11 @@ export function CreateBlocklistScreen({
 
   function isSirenSelected(sirenType: SirenType, sirenId: string) {
     if (sirenType === SirenType.APP)
-      return blocklist.blocks.apps.android.includes(sirenId)
+      return blocklist.sirens.android.includes(sirenId)
     if (sirenType === SirenType.WEBSITE)
-      return blocklist.blocks.websites.includes(sirenId)
+      return blocklist.sirens.websites.includes(sirenId)
     if (sirenType === SirenType.KEYWORD)
-      return blocklist.blocks.keywords.includes(sirenId)
+      return blocklist.sirens.keywords.includes(sirenId)
     return false
   }
 

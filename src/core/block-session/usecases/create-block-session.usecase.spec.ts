@@ -18,14 +18,12 @@ describe('Feature: Creating a block session', () => {
         buildBlocklist({
           id: 'blocklist-id',
           name: 'Distraction',
-          blocks: {
-            apps: {
-              android: ['Instagram', 'Facebook'],
-              ios: [],
-              linux: [],
-              macos: [],
-              windows: [],
-            },
+          sirens: {
+            android: ['Instagram', 'Facebook'],
+            ios: [],
+            linux: [],
+            macos: [],
+            windows: [],
             websites: [],
             keywords: [],
           },
@@ -51,14 +49,12 @@ describe('Feature: Creating a block session', () => {
         buildBlocklist({
           id: 'blocklist-id',
           name: 'Distraction',
-          blocks: {
-            apps: {
-              android: ['Instagram', 'Facebook'],
-              ios: [],
-              linux: [],
-              macos: [],
-              windows: [],
-            },
+          sirens: {
+            android: ['Instagram', 'Facebook'],
+            ios: [],
+            linux: [],
+            macos: [],
+            windows: [],
             websites: [],
             keywords: [],
           },

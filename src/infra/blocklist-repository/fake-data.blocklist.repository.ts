@@ -9,14 +9,12 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
       {
         id: 'blocklist-id-1',
         name: 'Distractions',
-        blocks: {
-          apps: {
-            android: ['Instagram', 'Facebook'],
-            ios: [],
-            linux: [],
-            macos: [],
-            windows: [],
-          },
+        sirens: {
+          android: ['Instagram', 'Facebook'],
+          ios: [],
+          linux: [],
+          macos: [],
+          windows: [],
           websites: ['twitter.com'],
           keywords: ['cat videos'],
         },
@@ -24,14 +22,12 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
       {
         id: 'blocklist-id-2',
         name: 'Necessary evils',
-        blocks: {
-          apps: {
-            android: ['WhatsApp'],
-            ios: [],
-            linux: [],
-            macos: [],
-            windows: [],
-          },
+        sirens: {
+          android: ['WhatsApp'],
+          ios: [],
+          linux: [],
+          macos: [],
+          windows: [],
           keywords: ['work'],
           websites: ['linkedin.com'],
         },
@@ -39,14 +35,12 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
       {
         id: 'blocklist-id-3',
         name: 'Productivity',
-        blocks: {
-          apps: {
-            android: ['Todoist', 'Trello'],
-            ios: [],
-            linux: [],
-            macos: [],
-            windows: [],
-          },
+        sirens: {
+          android: ['Todoist', 'Trello'],
+          ios: [],
+          linux: [],
+          macos: [],
+          windows: [],
           websites: ['github.com'],
           keywords: ['productivity'],
         },

@@ -2,8 +2,8 @@ import { describe, expect, test } from 'vitest'
 import { selectBlocklistViewModel } from './blocklist.view-model.ts'
 import { createTestStore } from '../../../../core/_tests_/createTestStore.ts'
 import { stateBuilder } from '../../../../core/_tests_/state-builder.ts'
-import { buildBlocklist } from '../../../../core/_tests_/data-builders/blocklist.builder.ts'
 import { BlocklistViewModel } from './blocklist-view-model.type.ts'
+import { buildBlocklist } from '../../../../core/_tests_/data-builders/blocklist.builder.ts'
 
 describe('Blocklists View Model', () => {
   test('Example: there is no blocklist', () => {
@@ -26,14 +26,12 @@ describe('Blocklists View Model', () => {
           buildBlocklist({
             id: 'blocklist-id-1',
             name: 'Distractions',
-            blocks: {
-              apps: {
-                android: ['com.package.youtube'],
-                ios: [],
-                linux: [],
-                macos: [],
-                windows: [],
-              },
+            sirens: {
+              android: ['com.package.youtube'],
+              ios: [],
+              linux: [],
+              macos: [],
+              windows: [],
               websites: [],
               keywords: [],
             },
@@ -41,14 +39,12 @@ describe('Blocklists View Model', () => {
           buildBlocklist({
             id: 'blocklist-id-2',
             name: 'Videos',
-            blocks: {
-              apps: {
-                android: ['com.package.youtube', 'com.example.amazonprime'],
-                ios: [],
-                linux: [],
-                macos: [],
-                windows: [],
-              },
+            sirens: {
+              android: ['com.package.youtube', 'com.example.amazonprime'],
+              ios: [],
+              linux: [],
+              macos: [],
+              windows: [],
               websites: ['dailymotion.fr'],
               keywords: ['cat videos'],
             },

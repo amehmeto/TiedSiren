@@ -1,11 +1,11 @@
-import { Blocklist } from '../../core/blocklist/blocklist.ts'
+import { Sirens } from '../../core/blocklist/blocklist.ts'
 import { SirenTier } from '../../core/blocklist/ports/sirenTier.ts'
 
 export class InMemorySirenTier implements SirenTier {
-  tiedSirens?: Blocklist = undefined
+  sirens?: Sirens = undefined
 
-  async block(aggregatedActiveBlocklist: Blocklist): Promise<void> {
-    this.tiedSirens = aggregatedActiveBlocklist
-    console.log('Blocking sirens: ', this.tiedSirens)
+  async tie(sirens: Sirens): Promise<void> {
+    console.log('Blocking sirens: ', this.sirens)
+    this.sirens = sirens
   }
 }

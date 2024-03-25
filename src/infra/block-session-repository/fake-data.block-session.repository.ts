@@ -16,15 +16,12 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
           {
             id: 'blocklist-id',
             name: 'Distractions',
-            totalBlocks: 10,
-            blocks: {
-              apps: {
-                android: ['Instagram', 'Facebook'],
-                ios: [],
-                linux: [],
-                macos: [],
-                windows: [],
-              },
+            sirens: {
+              android: ['Instagram', 'Facebook'],
+              ios: [],
+              linux: [],
+              macos: [],
+              windows: [],
               websites: ['twitter.com'],
               keywords: ['cat videos'],
             },
@@ -32,15 +29,12 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
           {
             id: 'blocklist-id-2',
             name: 'Games',
-            totalBlocks: 10,
-            blocks: {
-              apps: {
-                android: ['Instagram', 'Facebook'],
-                ios: [],
-                linux: [],
-                macos: [],
-                windows: [],
-              },
+            sirens: {
+              android: ['Instagram', 'Facebook'],
+              ios: [],
+              linux: [],
+              macos: [],
+              windows: [],
               websites: ['twitter.com'],
               keywords: ['cat videos'],
             },
@@ -69,15 +63,12 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
           {
             id: 'blocklist-id',
             name: 'Distractions',
-            totalBlocks: 10,
-            blocks: {
-              apps: {
-                android: ['Instagram', 'Facebook'],
-                ios: [],
-                linux: [],
-                macos: [],
-                windows: [],
-              },
+            sirens: {
+              android: ['Instagram', 'Facebook'],
+              ios: [],
+              linux: [],
+              macos: [],
+              windows: [],
               websites: ['twitter.com'],
               keywords: ['cat videos'],
             },
@@ -85,15 +76,12 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
           {
             id: 'blocklist-id-2',
             name: 'Games',
-            totalBlocks: 10,
-            blocks: {
-              apps: {
-                android: ['Instagram', 'Facebook'],
-                ios: [],
-                linux: [],
-                macos: [],
-                windows: [],
-              },
+            sirens: {
+              android: ['Instagram', 'Facebook'],
+              ios: [],
+              linux: [],
+              macos: [],
+              windows: [],
               websites: ['twitter.com'],
               keywords: ['cat videos'],
             },
@@ -122,15 +110,12 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
           {
             id: 'blocklist-id',
             name: 'Distractions',
-            totalBlocks: 10,
-            blocks: {
-              apps: {
-                android: ['Instagram', 'Facebook'],
-                ios: [],
-                linux: [],
-                macos: [],
-                windows: [],
-              },
+            sirens: {
+              android: ['Instagram', 'Facebook'],
+              ios: [],
+              linux: [],
+              macos: [],
+              windows: [],
               websites: ['twitter.com'],
               keywords: ['cat videos'],
             },
@@ -138,15 +123,12 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
           {
             id: 'blocklist-id-2',
             name: 'Games',
-            totalBlocks: 10,
-            blocks: {
-              apps: {
-                android: ['Instagram', 'Facebook'],
-                ios: [],
-                linux: [],
-                macos: [],
-                windows: [],
-              },
+            sirens: {
+              android: ['Instagram', 'Facebook'],
+              ios: [],
+              linux: [],
+              macos: [],
+              windows: [],
               websites: ['twitter.com'],
               keywords: ['cat videos'],
             },

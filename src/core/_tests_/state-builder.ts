@@ -46,8 +46,7 @@ export const stateBuilderProvider = () => {
 
   return {
     getState() {
-      const rootState = builder.build()
-      return rootState
+      return builder.build()
     },
     setState(updateFn: (_builder: StateBuilder) => StateBuilder) {
       builder = updateFn(builder)

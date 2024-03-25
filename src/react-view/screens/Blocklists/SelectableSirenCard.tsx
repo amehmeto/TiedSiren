@@ -4,7 +4,7 @@ import { T } from '../../design-system/theme'
 import { InstalledApp } from '../../../core/installed-app/InstalledApp'
 import { FontAwesome6, MaterialCommunityIcons } from '@expo/vector-icons'
 import { CheckBox } from 'react-native-elements'
-import { SirenType } from './CreateBlocklistScreen/CreateBlocklistScreen.tsx'
+import { SirenType } from '../../../core/blocklist/blocklist.ts'
 
 export function SelectableSirenCard({
   sirenType,
@@ -19,12 +19,12 @@ export function SelectableSirenCard({
 }>) {
   const dataImagePngBase64 = 'data:image/png;base64,'
   const iconElement =
-    sirenType === 'app' ? (
+    sirenType === SirenType.ANDROID ? (
       <Image
         source={{ uri: dataImagePngBase64 + (siren as InstalledApp).icon }}
         style={styles.appIcon}
       />
-    ) : sirenType === 'website' ? (
+    ) : sirenType === SirenType.WEBSITES ? (
       <MaterialCommunityIcons
         name={'web'}
         color={T.color.white}
@@ -41,7 +41,9 @@ export function SelectableSirenCard({
     )
 
   const sirenName =
-    sirenType === 'app' ? (siren as InstalledApp).appName : (siren as string)
+    sirenType === SirenType.ANDROID
+      ? (siren as InstalledApp).appName
+      : (siren as string)
 
   return (
     <Pressable onPress={onPress}>

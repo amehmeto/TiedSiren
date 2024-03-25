@@ -1,4 +1,4 @@
-import { Dimensions, FlatList, StyleSheet, Text, TextInput } from 'react-native'
+import { Dimensions, StyleSheet, Text } from 'react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
 import { TabScreens } from '../../../navigators/screen-lists/TabScreens.ts'
@@ -10,7 +10,6 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { installedAppsRepository } from '../../../dependencies.ts'
 import { InstalledApp } from '../../../../core/installed-app/InstalledApp.ts'
-import { SelectableSirenCard } from '../SelectableSirenCard.tsx'
 import { Route, SceneMap, TabBarProps, TabView } from 'react-native-tab-view'
 import { TiedSButton } from '../../../design-system/components/TiedSButton.tsx'
 import { BlocklistsStackScreens } from '../../../navigators/screen-lists/BlocklistsStackScreens.ts'
@@ -18,16 +17,16 @@ import { ChooseBlockTabBar } from './ChooseBlockTabBar.tsx'
 import { useDispatch } from 'react-redux'
 import { createBlocklist } from '../../../../core/blocklist/usecases/create-blocklist.usecase.ts'
 import { AppDispatch } from '../../../../core/_redux_/createStore.ts'
-import { Blocklist } from '../../../../core/blocklist/blocklist.ts'
+import {
+  Blocklist,
+  Sirens,
+  SirenType,
+} from '../../../../core/blocklist/blocklist.ts'
+import { AppsSelectionScene } from './AppsSelectionScene.tsx'
+import { TextInputSelectionScene } from './TextInputSelectionScene.tsx'
 
 type BlocklistScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
-}
-
-export enum SirenType {
-  APP = 'app',
-  WEBSITE = 'website',
-  KEYWORD = 'keyword',
 }
 
 export function CreateBlocklistScreen({
@@ -64,151 +63,58 @@ export function CreateBlocklistScreen({
     })
   }, [])
 
-  function toggleApp(sirenId: string, prevBlocklist: Omit<Blocklist, 'id'>) {
-    return {
-      ...prevBlocklist,
-      sirens: {
-        ...prevBlocklist.sirens,
-        android: isSirenSelected(SirenType.APP, sirenId)
-          ? prevBlocklist.sirens.android.filter(
-              (selectedPackageName) => selectedPackageName !== sirenId,
-            )
-          : [...prevBlocklist.sirens.android, sirenId],
-      },
-    }
-  }
-
-  function toggleWebsite(
-    prevBlocklist: Omit<Blocklist, 'id'>,
-    sirenId: string,
-  ) {
-    return {
-      ...prevBlocklist,
-      sirens: {
-        ...prevBlocklist.sirens,
-        websites: isSirenSelected(SirenType.WEBSITE, sirenId)
-          ? prevBlocklist.sirens.websites.filter(
-              (selectedWebsite) => selectedWebsite !== sirenId,
-            )
-          : [...prevBlocklist.sirens.websites, sirenId],
-      },
-    }
-  }
-
-  function toggleKeywords(
-    prevBlocklist: Omit<Blocklist, 'id'>,
-    sirenId: string,
-  ) {
-    return {
-      ...prevBlocklist,
-      sirens: {
-        ...prevBlocklist.sirens,
-        keywords: isSirenSelected(SirenType.KEYWORD, sirenId)
-          ? prevBlocklist.sirens.keywords.filter(
-              (selectedKeyword) => selectedKeyword !== sirenId,
-            )
-          : [...prevBlocklist.sirens.keywords, sirenId],
-      },
-    }
-  }
-
-  function toggleSiren(sirenType: SirenType, sirenId: string) {
+  function toggleSiren(sirenType: keyof Sirens, sirenId: string) {
     setBlocklist((prevBlocklist) => {
-      if (sirenType === SirenType.APP) return toggleApp(sirenId, prevBlocklist)
-      if (sirenType === SirenType.WEBSITE)
-        return toggleWebsite(prevBlocklist, sirenId)
-      if (sirenType === SirenType.KEYWORD)
-        return toggleKeywords(prevBlocklist, sirenId)
+      const updatedSirens = { ...prevBlocklist.sirens }
 
-      return prevBlocklist
+      updatedSirens[sirenType] = updatedSirens[sirenType].includes(sirenId)
+        ? updatedSirens[sirenType].filter(
+            (selectedSiren) => selectedSiren !== sirenId,
+          )
+        : [...updatedSirens[sirenType], sirenId]
+
+      return {
+        ...prevBlocklist,
+        sirens: updatedSirens,
+      }
     })
   }
 
   function isSirenSelected(sirenType: SirenType, sirenId: string) {
-    if (sirenType === SirenType.APP)
-      return blocklist.sirens.android.includes(sirenId)
-    if (sirenType === SirenType.WEBSITE)
-      return blocklist.sirens.websites.includes(sirenId)
-    if (sirenType === SirenType.KEYWORD)
-      return blocklist.sirens.keywords.includes(sirenId)
-    return false
+    return blocklist.sirens[sirenType].includes(sirenId)
   }
-
-  const [isFocused, setIsFocused] = useState(false)
 
   const renderScene = SceneMap({
     apps: () => (
-      <FlatList
+      <AppsSelectionScene
         data={installedApps}
-        keyExtractor={(item) => item.packageName}
-        renderItem={({ item }) => (
-          <SelectableSirenCard
-            sirenType={SirenType.APP}
-            siren={item}
-            onPress={() => toggleSiren(SirenType.APP, item.packageName)}
-            isSelected={isSirenSelected(SirenType.APP, item.packageName)}
-          />
-        )}
+        toggleSiren={toggleSiren}
+        isSirenSelected={isSirenSelected}
       />
     ),
     websites: () => (
-      <>
-        <TextInput
-          style={[
-            styles.addWebsiteInput,
-            { borderColor: isFocused ? T.color.lightBlue : T.color.white },
-          ]}
-          placeholder={'Add websites...'}
-          placeholderTextColor={T.color.white}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          onSubmitEditing={(event) =>
-            setWebsites([...websites, event.nativeEvent.text])
-          }
-        />
-        <FlatList
-          data={websites}
-          keyExtractor={(item) => item}
-          renderItem={({ item }) => (
-            <SelectableSirenCard
-              sirenType={SirenType.WEBSITE}
-              siren={item}
-              onPress={() => toggleSiren(SirenType.WEBSITE, item)}
-              isSelected={isSirenSelected(SirenType.WEBSITE, item)}
-            />
-          )}
-        />
-      </>
+      <TextInputSelectionScene
+        onSubmitEditing={(event) =>
+          setWebsites([...websites, event.nativeEvent.text])
+        }
+        sirenType={SirenType.WEBSITES}
+        placeholder={'Add websites...'}
+        data={websites}
+        toggleSiren={toggleSiren}
+        isSirenSelected={isSirenSelected}
+      />
     ),
     keywords: () => (
-      <>
-        <TextInput
-          style={[
-            styles.addWebsiteInput,
-            { borderColor: isFocused ? T.color.lightBlue : T.color.white },
-          ]}
-          placeholder={'Add keywords...'}
-          placeholderTextColor={T.color.white}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          onSubmitEditing={(event) =>
-            setKeywords([...keywords, event.nativeEvent.text])
-          }
-        />
-
-        <FlatList
-          data={keywords}
-          keyExtractor={(item) => item}
-          renderItem={({ item }) => (
-            <SelectableSirenCard
-              sirenType={SirenType.KEYWORD}
-              siren={item}
-              onPress={() => toggleSiren(SirenType.KEYWORD, item)}
-              isSelected={isSirenSelected(SirenType.KEYWORD, item)}
-            />
-          )}
-        />
-      </>
+      <TextInputSelectionScene
+        onSubmitEditing={(event) =>
+          setKeywords([...keywords, event.nativeEvent.text])
+        }
+        sirenType={SirenType.KEYWORDS}
+        placeholder={'Add keywords...'}
+        data={keywords}
+        toggleSiren={toggleSiren}
+        isSirenSelected={isSirenSelected}
+      />
     ),
   })
 
@@ -251,10 +157,5 @@ const styles = StyleSheet.create({
     fontSize: T.size.small,
     marginTop: T.spacing.small,
     marginBottom: T.spacing.small,
-  },
-  addWebsiteInput: {
-    borderBottomWidth: 2,
-    padding: T.spacing.small,
-    color: T.color.white,
   },
 })

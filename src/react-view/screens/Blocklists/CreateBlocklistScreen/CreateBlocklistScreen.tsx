@@ -67,16 +67,13 @@ export function CreateBlocklistScreen({
   function toggleApp(sirenId: string, prevBlocklist: Omit<Blocklist, 'id'>) {
     return {
       ...prevBlocklist,
-      blocks: {
+      sirens: {
         ...prevBlocklist.sirens,
-        apps: {
-          ...prevBlocklist.sirens,
-          android: isSirenSelected(SirenType.APP, sirenId)
-            ? prevBlocklist.sirens.android.filter(
-                (selectedPackageName) => selectedPackageName !== sirenId,
-              )
-            : [...prevBlocklist.sirens.android, sirenId],
-        },
+        android: isSirenSelected(SirenType.APP, sirenId)
+          ? prevBlocklist.sirens.android.filter(
+              (selectedPackageName) => selectedPackageName !== sirenId,
+            )
+          : [...prevBlocklist.sirens.android, sirenId],
       },
     }
   }
@@ -87,7 +84,7 @@ export function CreateBlocklistScreen({
   ) {
     return {
       ...prevBlocklist,
-      blocks: {
+      sirens: {
         ...prevBlocklist.sirens,
         websites: isSirenSelected(SirenType.WEBSITE, sirenId)
           ? prevBlocklist.sirens.websites.filter(
@@ -104,7 +101,7 @@ export function CreateBlocklistScreen({
   ) {
     return {
       ...prevBlocklist,
-      blocks: {
+      sirens: {
         ...prevBlocklist.sirens,
         keywords: isSirenSelected(SirenType.KEYWORD, sirenId)
           ? prevBlocklist.sirens.keywords.filter(

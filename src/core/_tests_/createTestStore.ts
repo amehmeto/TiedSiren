@@ -1,9 +1,11 @@
-import { createStore, Dependencies } from '../_redux_/createStore.ts'
+import { createStore } from '../_redux_/createStore.ts'
 import { FakeDataBlockSessionRepository } from '../../infra/block-session-repository/fake-data.block-session.repository.ts'
 import { rootReducer } from '../_redux_/rootReducer.ts'
 import { FakeDataBlocklistRepository } from '../../infra/blocklist-repository/fake-data.blocklist.repository.ts'
 import { InMemorySirenTier } from '../../infra/siren-binder/in-memory-siren.tier.ts'
 import { StubDateProvider } from '../../infra/date-provider/stub.date-provider.ts'
+import { Dependencies } from '../_redux_/dependencies.ts'
+import { FakeDataInstalledAppsRepository } from '../../infra/installed-apps-repository/fake-data.installed-apps.repository.ts'
 
 export const createTestStore = (
   {
@@ -11,6 +13,7 @@ export const createTestStore = (
     blocklistRepository = new FakeDataBlocklistRepository(),
     sirenTier = new InMemorySirenTier(),
     dateProvider = new StubDateProvider(),
+    installedAppRepository = new FakeDataInstalledAppsRepository(),
   }: Partial<Dependencies> = {},
   preloadedState?: Partial<ReturnType<typeof rootReducer>>,
 ) =>
@@ -20,6 +23,7 @@ export const createTestStore = (
       blocklistRepository,
       sirenTier,
       dateProvider,
+      installedAppRepository,
     },
     preloadedState,
   )

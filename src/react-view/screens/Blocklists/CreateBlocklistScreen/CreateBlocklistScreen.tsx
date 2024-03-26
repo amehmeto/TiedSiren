@@ -14,16 +14,13 @@ import { Route, SceneMap, TabBarProps, TabView } from 'react-native-tab-view'
 import { TiedSButton } from '../../../design-system/components/TiedSButton.tsx'
 import { BlocklistsStackScreens } from '../../../navigators/screen-lists/BlocklistsStackScreens.ts'
 import { ChooseBlockTabBar } from './ChooseBlockTabBar.tsx'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createBlocklist } from '../../../../core/blocklist/usecases/create-blocklist.usecase.ts'
-import { AppDispatch } from '../../../../core/_redux_/createStore.ts'
-import {
-  Blocklist,
-  Sirens,
-  SirenType,
-} from '../../../../core/blocklist/blocklist.ts'
+import { AppDispatch, RootState } from '../../../../core/_redux_/createStore.ts'
+import { Blocklist } from '../../../../core/blocklist/blocklist.ts'
 import { AppsSelectionScene } from './AppsSelectionScene.tsx'
 import { TextInputSelectionScene } from './TextInputSelectionScene.tsx'
+import { Sirens, SirenType } from '../../../../core/siren/sirens.ts'
 
 type BlocklistScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
@@ -34,6 +31,9 @@ export function CreateBlocklistScreen({
 }: Readonly<BlocklistScreenProps>) {
   const dispatch = useDispatch<AppDispatch>()
 
+  const availableSirens: Sirens = useSelector(
+    (state: RootState) => state.siren.availableSirens,
+  )
   const [installedApps, setInstalledApps] = useState<InstalledApp[]>([])
   const [websites, setWebsites] = useState<string[]>([])
   const [keywords, setKeywords] = useState<string[]>([])

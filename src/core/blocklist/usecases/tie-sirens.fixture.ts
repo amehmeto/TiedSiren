@@ -1,5 +1,4 @@
 import { expect } from 'vitest'
-import { Sirens } from '../blocklist.ts'
 import { AppStore } from '../../_redux_/createStore.ts'
 import { tieSirens } from './tie-sirens.usecase.ts'
 import { createTestStore } from '../../_tests_/createTestStore.ts'
@@ -7,6 +6,7 @@ import { InMemorySirenTier } from '../../../infra/siren-binder/in-memory-siren.t
 import { stateBuilderProvider } from '../../_tests_/state-builder.ts'
 import { BlockSession } from '../../block-session/block.session.ts'
 import { StubDateProvider } from '../../../infra/date-provider/stub.date-provider.ts'
+import { Sirens } from '../../siren/sirens.ts'
 
 export function tieSirensFixture(
   testStateBuilderProvider = stateBuilderProvider(),

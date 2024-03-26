@@ -2,7 +2,8 @@ import { InstalledApp } from '../../../../core/installed-app/InstalledApp.ts'
 import * as React from 'react'
 import { FlatList } from 'react-native'
 import { SelectableSirenCard } from '../SelectableSirenCard.tsx'
-import { SirenType } from '../../../../core/blocklist/blocklist.ts'
+
+import { SirenType } from '../../../../core/siren/sirens.ts'
 
 export function AppsSelectionScene(props: {
   data: InstalledApp[]

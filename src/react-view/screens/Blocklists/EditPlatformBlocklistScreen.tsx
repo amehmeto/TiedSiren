@@ -9,7 +9,8 @@ import { installedAppsRepository } from '../../dependencies'
 import { SelectableSirenCard } from './SelectableSirenCard.tsx'
 import { InstalledApp } from '../../../core/installed-app/InstalledApp'
 import { BlocklistsStackScreens } from '../../navigators/screen-lists/BlocklistsStackScreens'
-import { SirenType } from '../../../core/blocklist/blocklist.ts'
+
+import { SirenType } from '../../../core/siren/sirens.ts'
 
 type BlocklistScreenProps = {
   navigation: NativeStackNavigationProp<

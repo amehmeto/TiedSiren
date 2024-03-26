@@ -1,5 +1,5 @@
-import { Sirens } from '../../core/blocklist/blocklist.ts'
 import { SirenTier } from '../../core/blocklist/ports/sirenTier.ts'
+import { Sirens } from '../../core/siren/sirens.ts'
 
 export class InMemorySirenTier implements SirenTier {
   sirens?: Sirens = undefined

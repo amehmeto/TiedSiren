@@ -1,16 +1,6 @@
 import { AnyAction, configureStore, ThunkDispatch } from '@reduxjs/toolkit'
-import { BlockSessionRepository } from '../block-session/ports/block-session.repository.ts'
 import { rootReducer } from './rootReducer.ts'
-import { BlocklistRepository } from '../blocklist/ports/blocklist.repository.ts'
-import { SirenTier } from '../blocklist/ports/sirenTier.ts'
-import { DateProvider } from '../../infra/date-provider/port.date-provider.ts'
-
-export type Dependencies = {
-  blockSessionRepository: BlockSessionRepository
-  blocklistRepository: BlocklistRepository
-  sirenTier: SirenTier
-  dateProvider: DateProvider
-}
+import { Dependencies } from './dependencies.ts'
 
 export type PreloadedState = Partial<RootState>
 

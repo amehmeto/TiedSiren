@@ -1,7 +1,8 @@
 import { createAppAsyncThunk } from '../../_redux_/create-app-thunk.ts'
 import { selectActiveSessions } from '../../block-session/selectors/selectActiveSessions.ts'
 import { BlockSession } from '../../block-session/block.session.ts'
-import { Sirens } from '../blocklist.ts'
+
+import { Sirens } from '../../siren/sirens.ts'
 
 export const tieSirens = createAppAsyncThunk(
   'blocklist/tieSirens ',

@@ -4,7 +4,8 @@ import { T } from '../../design-system/theme'
 import { InstalledApp } from '../../../core/installed-app/InstalledApp'
 import { FontAwesome6, MaterialCommunityIcons } from '@expo/vector-icons'
 import { CheckBox } from 'react-native-elements'
-import { SirenType } from '../../../core/blocklist/blocklist.ts'
+
+import { SirenType } from '../../../core/siren/sirens.ts'
 
 export function SelectableSirenCard({
   sirenType,

@@ -3,16 +3,19 @@ import { FlatList, StyleSheet, TextInput } from 'react-native'
 import { T } from '../../../design-system/theme.ts'
 import { useState } from 'react'
 import { SelectableSirenCard } from '../SelectableSirenCard.tsx'
-import { SirenType } from '../../../../core/blocklist/blocklist.ts'
 
-export function TextInputSelectionScene(props: {
-  onSubmitEditing: (event: { nativeEvent: { text: string } }) => void
-  placeholder: string
-  sirenType: SirenType.WEBSITES | SirenType.KEYWORDS
-  data: string[]
-  toggleSiren: (sirenType: SirenType, sirenId: string) => void
-  isSirenSelected: (sirenType: SirenType, sirenId: string) => boolean
-}) {
+import { SirenType } from '../../../../core/siren/sirens.ts'
+
+export function TextInputSelectionScene(
+  props: Readonly<{
+    onSubmitEditing: (event: { nativeEvent: { text: string } }) => void
+    placeholder: string
+    sirenType: SirenType.WEBSITES | SirenType.KEYWORDS
+    data: string[]
+    toggleSiren: (sirenType: SirenType, sirenId: string) => void
+    isSirenSelected: (sirenType: SirenType, sirenId: string) => boolean
+  }>,
+) {
   const [isFocused, setIsFocused] = useState(false)
 
   return (

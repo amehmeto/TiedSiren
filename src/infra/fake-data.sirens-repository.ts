@@ -24,6 +24,7 @@ export class FakeDataSirensRepository implements SirensRepository {
     ],
   }
   getAvailableSirens(): Promise<Sirens> {
+    console.log('WESH')
     return Promise.resolve(this.sirens)
   }
 }

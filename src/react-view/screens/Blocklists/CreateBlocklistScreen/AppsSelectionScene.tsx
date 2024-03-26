@@ -1,16 +1,12 @@
-import { InstalledApp } from '../../../../core/installed-app/InstalledApp.ts'
 import * as React from 'react'
 import { FlatList } from 'react-native'
 import { SelectableSirenCard } from '../SelectableSirenCard.tsx'
 
-import { SirenType } from '../../../../core/siren/sirens.ts'
+import { AndroidSiren, SirenType } from '../../../../core/siren/sirens.ts'
 
 export function AppsSelectionScene(props: {
-  data: InstalledApp[]
-  toggleAppSiren: (
-    sirenType: SirenType.ANDROID,
-    app: Pick<InstalledApp, 'packageName' | 'appName' | 'icon'>,
-  ) => void
+  data: AndroidSiren[]
+  toggleAppSiren: (sirenType: SirenType.ANDROID, app: AndroidSiren) => void
   isSirenSelected: (sirenType: SirenType, sirenId: string) => boolean
 }) {
   return (

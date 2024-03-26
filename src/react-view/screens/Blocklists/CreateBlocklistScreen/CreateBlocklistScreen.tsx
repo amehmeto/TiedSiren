@@ -8,7 +8,6 @@ import { T } from '../../../design-system/theme'
 import { TiedSTextInput } from '../../../design-system/components/TiedSTextInput.tsx'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { installedAppsRepository } from '../../../dependencies.ts'
 import { InstalledApp } from '../../../../core/installed-app/InstalledApp.ts'
 import { Route, SceneMap, TabBarProps, TabView } from 'react-native-tab-view'
 import { TiedSButton } from '../../../design-system/components/TiedSButton.tsx'
@@ -21,6 +20,7 @@ import { Blocklist } from '../../../../core/blocklist/blocklist.ts'
 import { AppsSelectionScene } from './AppsSelectionScene.tsx'
 import { TextInputSelectionScene } from './TextInputSelectionScene.tsx'
 import { Sirens, SirenType } from '../../../../core/siren/sirens.ts'
+import { fetchAvailableSirens } from '../../../../core/siren/usecases/fetch-available-sirens.usecase.ts'
 
 type BlocklistScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
@@ -31,11 +31,13 @@ export function CreateBlocklistScreen({
 }: Readonly<BlocklistScreenProps>) {
   const dispatch = useDispatch<AppDispatch>()
 
-  const availableSirens: Sirens = useSelector(
+  const selectableSirens: Sirens = useSelector(
     (state: RootState) => state.siren.availableSirens,
   )
-  const [installedApps, setInstalledApps] = useState<InstalledApp[]>([])
-  const [websites, setWebsites] = useState<string[]>([])
+
+  const [websites, setWebsites] = useState<string[]>(
+    selectableSirens.websites || [],
+  )
   const [keywords, setKeywords] = useState<string[]>([])
 
   const [blocklist, setBlocklist] = useState<Omit<Blocklist, 'id'>>({
@@ -58,9 +60,7 @@ export function CreateBlocklistScreen({
   ]
 
   useEffect(() => {
-    installedAppsRepository.getInstalledApps().then((apps) => {
-      setInstalledApps(apps)
-    })
+    dispatch(fetchAvailableSirens())
   }, [])
 
   function toggleTextSiren(sirenType: keyof Sirens, sirenId: string) {
@@ -118,7 +118,7 @@ export function CreateBlocklistScreen({
   const renderScene = SceneMap({
     apps: () => (
       <AppsSelectionScene
-        data={installedApps}
+        data={selectableSirens.android}
         toggleAppSiren={toggleAppSiren}
         isSirenSelected={isSirenSelected}
       />
@@ -130,7 +130,7 @@ export function CreateBlocklistScreen({
         }
         sirenType={SirenType.WEBSITES}
         placeholder={'Add websites...'}
-        data={websites}
+        data={selectableSirens.websites}
         toggleSiren={toggleTextSiren}
         isSirenSelected={isSirenSelected}
       />

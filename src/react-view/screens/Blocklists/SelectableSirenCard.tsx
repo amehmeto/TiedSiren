@@ -5,7 +5,7 @@ import { InstalledApp } from '../../../core/installed-app/InstalledApp'
 import { FontAwesome6, MaterialCommunityIcons } from '@expo/vector-icons'
 import { CheckBox } from 'react-native-elements'
 
-import { SirenType } from '../../../core/siren/sirens.ts'
+import { AndroidSiren, SirenType } from '../../../core/siren/sirens.ts'
 
 export function SelectableSirenCard({
   sirenType,
@@ -14,7 +14,7 @@ export function SelectableSirenCard({
   isSelected,
 }: Readonly<{
   sirenType: SirenType
-  siren: InstalledApp | string
+  siren: AndroidSiren | string
   onPress: () => void
   isSelected: boolean
 }>) {

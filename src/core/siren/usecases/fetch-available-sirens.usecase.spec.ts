@@ -18,6 +18,10 @@ describe('Feature: Fetching available sirens', () => {
         packageName: 'com.facebook.katana',
       }),
     ])
+    fixture.given.existingRemoteSirens({
+      websites: ['https://www.hulu.com', 'https://www.jeuxvideos.fr'],
+      keywords: ['mma', 'ufc', 'boxing'],
+    })
 
     await fixture.when.fetchingAvailableSirens()
 
@@ -27,8 +31,8 @@ describe('Feature: Fetching available sirens', () => {
       linux: [],
       macos: [],
       windows: [],
-      websites: [],
-      keywords: [],
+      websites: ['https://www.hulu.com', 'https://www.jeuxvideos.fr'],
+      keywords: ['mma', 'ufc', 'boxing'],
     })
   })
 })

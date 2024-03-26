@@ -3,18 +3,18 @@ import { Sirens } from '../sirens.ts'
 
 export const fetchAvailableSirens = createAppAsyncThunk(
   'siren/fetchAvailableSirens',
-  async (_, { extra: { installedAppRepository } }) => {
+  async (_, { extra: { installedAppRepository, sirensRepository } }) => {
     const installedApps = await installedAppRepository.getInstalledApps()
+    const remoteSirens: Sirens = await sirensRepository.getAvailableSirens()
     const availableSirens: Sirens = {
       android: installedApps.map((app) => app.packageName),
       ios: [],
       windows: [],
       macos: [],
       linux: [],
-      websites: [],
-      keywords: [],
+      websites: remoteSirens.websites,
+      keywords: remoteSirens.keywords,
     }
-    console.log(availableSirens)
     return availableSirens
   },
 )

@@ -1,3 +1,5 @@
+import { InstalledApp } from '../installed-app/InstalledApp.ts'
+
 export enum SirenType {
   WEBSITES = 'websites',
   KEYWORDS = 'keywords',
@@ -8,8 +10,13 @@ export enum SirenType {
   LINUX = 'linux',
 }
 
+export type AndroidSiren = Pick<
+  InstalledApp,
+  'packageName' | 'appName' | 'icon'
+>
+
 export type Sirens = {
-  android: string[]
+  android: AndroidSiren[]
   windows: string[]
   macos: string[]
   ios: string[]

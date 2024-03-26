@@ -7,7 +7,10 @@ import { SirenType } from '../../../../core/siren/sirens.ts'
 
 export function AppsSelectionScene(props: {
   data: InstalledApp[]
-  toggleSiren: (sirenType: SirenType, sirenId: string) => void
+  toggleAppSiren: (
+    sirenType: SirenType.ANDROID,
+    app: Pick<InstalledApp, 'packageName' | 'appName' | 'icon'>,
+  ) => void
   isSirenSelected: (sirenType: SirenType, sirenId: string) => boolean
 }) {
   return (
@@ -18,7 +21,7 @@ export function AppsSelectionScene(props: {
         <SelectableSirenCard
           sirenType={SirenType.ANDROID}
           siren={item}
-          onPress={() => props.toggleSiren(SirenType.ANDROID, item.packageName)}
+          onPress={() => props.toggleAppSiren(SirenType.ANDROID, item)}
           isSelected={props.isSirenSelected(
             SirenType.ANDROID,
             item.packageName,

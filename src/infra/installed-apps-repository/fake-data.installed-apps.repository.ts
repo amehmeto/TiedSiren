@@ -1,11 +1,12 @@
-import {
-  AmazonPrimeIcon,
-  TikTokAppIcon,
-  YouTubeAppIcon,
-} from '../../../assets/fakeBase64AppIcons.ts'
+import { AmazonPrimeIcon } from '../../../assets/base64AppIcon/amazonPrimeAppIcon.ts'
 import { InstalledAppRepository } from '../../core/installed-app/ports/installed-app.repository.ts'
 import { InstalledApp } from '../../core/installed-app/InstalledApp.ts'
 import { faker } from '@faker-js/faker'
+import { TikTokAppIcon } from '../../../assets/base64AppIcon/tikTokAppIcon.ts'
+import { YouTubeAppIcon } from '../../../assets/base64AppIcon/youTubeAppIcon.ts'
+import { FacebookAppIcon } from '../../../assets/base64AppIcon/facebookAppIcon.ts'
+import { InstagramAppIcon } from '../../../assets/base64AppIcon/instagramAppIcon.ts'
+import { WhatsAppAppIcon } from '../../../assets/base64AppIcon/whatsAppAppIcon.ts'
 
 export function buildInstalledApp(
   wantedInstalledApp: Partial<InstalledApp>,
@@ -74,44 +75,44 @@ export class FakeDataInstalledAppsRepository implements InstalledAppRepository {
       },
     ],
     [
-      'com.example.youtube-1',
+      'com.example.facebook',
       {
-        packageName: 'com.example.youtube-1',
+        packageName: 'com.example.facebook',
         versionName: '1.0.0',
         versionCode: 1,
         firstInstallTime: 1616161616161,
         lastUpdateTime: 1626262626262,
-        appName: 'YouTube 1',
-        icon: YouTubeAppIcon,
-        apkDir: '/data/app/youtube-1/base.apk',
+        appName: 'Facebook',
+        icon: FacebookAppIcon,
+        apkDir: '/data/app/facebook/base.apk',
         size: 52428800,
       },
     ],
     [
-      'com.example.amazonprime-1',
+      'com.example.instagram',
       {
-        packageName: 'com.example.amazonprime-1',
+        packageName: 'com.example.instagram',
         versionName: '1.0.0',
         versionCode: 1,
         firstInstallTime: 1616161616161,
         lastUpdateTime: 1626262626262,
-        appName: 'Amazon Prime 1',
-        icon: AmazonPrimeIcon,
-        apkDir: '/data/app/amazonprime-1/base.apk',
+        appName: 'Instagram',
+        icon: InstagramAppIcon,
+        apkDir: '/data/app/instagram-1/base.apk',
         size: 52428800,
       },
     ],
     [
-      'com.example.tiktok-1',
+      'com.example.whatsapp-1',
       {
-        packageName: 'com.example.tiktok-1',
+        packageName: 'com.example.whatsapp-1',
         versionName: '1.0.0',
         versionCode: 1,
         firstInstallTime: 1616161616161,
         lastUpdateTime: 1626262626262,
-        appName: 'TikTok 1',
-        icon: TikTokAppIcon,
-        apkDir: '/data/app/tiktok-1/base.apk',
+        appName: 'WhatsApp',
+        icon: WhatsAppAppIcon,
+        apkDir: '/data/app/whatsApp-1/base.apk',
         size: 52428800,
       },
     ],

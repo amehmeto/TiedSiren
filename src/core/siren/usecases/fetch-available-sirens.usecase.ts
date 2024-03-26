@@ -7,7 +7,11 @@ export const fetchAvailableSirens = createAppAsyncThunk(
     const installedApps = await installedAppRepository.getInstalledApps()
     const remoteSirens: Sirens = await sirensRepository.getAvailableSirens()
     const availableSirens: Sirens = {
-      android: installedApps.map((app) => app.packageName),
+      android: installedApps.map((app) => ({
+        packageName: app.packageName,
+        appName: app.appName,
+        icon: app.icon,
+      })),
       ios: [],
       windows: [],
       macos: [],

@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { Blocklist } from '../../blocklist/blocklist.ts'
+import { buildAndroidSiren } from './android-siren.builder.ts'
 
 export function buildBlocklist(
   wantedBlocklist: Partial<Blocklist> = {},
@@ -15,7 +16,7 @@ export function buildBlocklist(
     id: faker.string.uuid(),
     name: faker.helpers.arrayElement(blocklistNameExamples),
     sirens: {
-      android: [faker.internet.domainWord()],
+      android: [buildAndroidSiren()],
       ios: [],
       linux: [],
       macos: [],

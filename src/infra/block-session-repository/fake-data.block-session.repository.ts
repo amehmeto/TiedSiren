@@ -2,22 +2,24 @@ import { BlockSessionRepository } from '../../core/block-session/ports/block-ses
 import uuid from 'react-native-uuid'
 
 import { BlockSession } from '../../core/block-session/block.session.ts'
+import {
+  facebookAndroidSiren,
+  instagramAndroidSiren,
+} from '../../core/_tests_/data-builders/android-siren.builder.ts'
+import { buildBlockSession } from '../../core/_tests_/data-builders/block-session.builder.ts'
 
 export class FakeDataBlockSessionRepository implements BlockSessionRepository {
-  blockSessions: Map<string, BlockSession> = new Map()
-
-  getCurrentSessions(): Promise<BlockSession[]> {
-    return Promise.resolve([
-      {
+  blockSessions: Map<string, BlockSession> = new Map(
+    [
+      buildBlockSession({
         id: String(uuid.v4()),
         name: 'Sleeping time',
-        minutesLeft: 'Ends in about 1 hour',
         blocklists: [
           {
             id: 'blocklist-id',
             name: 'Distractions',
             sirens: {
-              android: ['Instagram', 'Facebook'],
+              android: [instagramAndroidSiren, facebookAndroidSiren],
               ios: [],
               linux: [],
               macos: [],
@@ -30,7 +32,7 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
             id: 'blocklist-id-2',
             name: 'Games',
             sirens: {
-              android: ['Instagram', 'Facebook'],
+              android: [instagramAndroidSiren, facebookAndroidSiren],
               ios: [],
               linux: [],
               macos: [],
@@ -54,7 +56,7 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
         ],
         start: '10:48:00',
         end: '13:58:00',
-      },
+      }),
       {
         id: String(uuid.v4()),
         name: 'Playing time',
@@ -64,7 +66,7 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
             id: 'blocklist-id',
             name: 'Distractions',
             sirens: {
-              android: ['Instagram', 'Facebook'],
+              android: [instagramAndroidSiren, facebookAndroidSiren],
               ios: [],
               linux: [],
               macos: [],
@@ -77,7 +79,7 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
             id: 'blocklist-id-2',
             name: 'Games',
             sirens: {
-              android: ['Instagram', 'Facebook'],
+              android: [instagramAndroidSiren, facebookAndroidSiren],
               ios: [],
               linux: [],
               macos: [],
@@ -111,7 +113,7 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
             id: 'blocklist-id',
             name: 'Distractions',
             sirens: {
-              android: ['Instagram', 'Facebook'],
+              android: [instagramAndroidSiren, facebookAndroidSiren],
               ios: [],
               linux: [],
               macos: [],
@@ -124,7 +126,7 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
             id: 'blocklist-id-2',
             name: 'Games',
             sirens: {
-              android: ['Instagram', 'Facebook'],
+              android: [instagramAndroidSiren, facebookAndroidSiren],
               ios: [],
               linux: [],
               macos: [],
@@ -149,7 +151,11 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
         start: '10:48:00',
         end: '13:58:00',
       },
-    ])
+    ].map((blockSession) => [blockSession.id, blockSession]),
+  )
+
+  getCurrentSessions(): Promise<BlockSession[]> {
+    return Promise.resolve(Array.from(this.blockSessions.values()))
   }
 
   createSession(sessionPayload: BlockSession): Promise<BlockSession> {

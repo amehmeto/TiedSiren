@@ -3,6 +3,12 @@ import { tieSirensFixture } from './tie-sirens.fixture.ts'
 import { buildBlocklist } from '../../_tests_/data-builders/blocklist.builder.ts'
 import { buildBlockSession } from '../../_tests_/data-builders/block-session.builder.ts'
 
+import {
+  buildAndroidSiren,
+  facebookAndroidSiren,
+  instagramAndroidSiren,
+} from '../../_tests_/data-builders/android-siren.builder.ts'
+
 describe('Feature: Tie sirens', () => {
   let fixture: ReturnType<typeof tieSirensFixture>
 
@@ -18,7 +24,7 @@ describe('Feature: Tie sirens', () => {
         blocklists: [
           buildBlocklist({
             sirens: {
-              android: ['Instagram', 'Facebook'],
+              android: [instagramAndroidSiren, facebookAndroidSiren],
               ios: [],
               linux: [],
               macos: [],
@@ -52,7 +58,7 @@ describe('Feature: Tie sirens', () => {
     await sirensBeingTied
 
     fixture.then.sirensShouldTied({
-      android: ['Instagram', 'Facebook'],
+      android: [instagramAndroidSiren, facebookAndroidSiren],
       ios: [],
       linux: [],
       macos: [],

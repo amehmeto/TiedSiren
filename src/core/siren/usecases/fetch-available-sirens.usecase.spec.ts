@@ -2,6 +2,8 @@ import { describe, it, beforeEach } from 'vitest'
 import { fetchAvailableSirensFixture } from './fetch-available-sirens.fixture.ts'
 import { buildInstalledApp } from '../../../infra/installed-apps-repository/fake-data.installed-apps.repository.ts'
 
+import { YouTubeAppIcon } from '../../../../assets/base64AppIcon/youTubeAppIcon.ts'
+
 describe('Feature: Fetching available sirens', () => {
   let fixture: ReturnType<typeof fetchAvailableSirensFixture>
 
@@ -13,9 +15,13 @@ describe('Feature: Fetching available sirens', () => {
     fixture.given.installedApps([
       buildInstalledApp({
         packageName: 'com.instagram.android',
+        appName: 'Instagram',
+        icon: YouTubeAppIcon,
       }),
       buildInstalledApp({
         packageName: 'com.facebook.katana',
+        appName: 'Facebook',
+        icon: YouTubeAppIcon,
       }),
     ])
     fixture.given.existingRemoteSirens({
@@ -26,7 +32,18 @@ describe('Feature: Fetching available sirens', () => {
     await fixture.when.fetchingAvailableSirens()
 
     fixture.then.availableSirensShouldBeStoredAs({
-      android: ['com.instagram.android', 'com.facebook.katana'],
+      android: [
+        {
+          packageName: 'com.instagram.android',
+          appName: 'Instagram',
+          icon: YouTubeAppIcon,
+        },
+        {
+          packageName: 'com.facebook.katana',
+          appName: 'Facebook',
+          icon: YouTubeAppIcon,
+        },
+      ],
       ios: [],
       linux: [],
       macos: [],

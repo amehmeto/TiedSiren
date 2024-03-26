@@ -1,6 +1,10 @@
 import { beforeEach, describe, it } from 'vitest'
 import { createBlocklistFixture } from './create-blocklist.fixture.ts'
 import { buildBlocklist } from '../../_tests_/data-builders/blocklist.builder.ts'
+import {
+  facebookAndroidSiren,
+  instagramAndroidSiren,
+} from '../../_tests_/data-builders/android-siren.builder.ts'
 
 describe('Feature: Creating a blocklist', () => {
   let fixture: ReturnType<typeof createBlocklistFixture>
@@ -14,7 +18,7 @@ describe('Feature: Creating a blocklist', () => {
       id: 'blocklist-id',
       name: 'Distraction',
       sirens: {
-        android: ['Instagram', 'Facebook'],
+        android: [instagramAndroidSiren, facebookAndroidSiren],
         ios: [],
         linux: [],
         macos: [],
@@ -30,7 +34,7 @@ describe('Feature: Creating a blocklist', () => {
       id: 'blocklist-id',
       name: 'Distraction',
       sirens: {
-        android: ['Instagram', 'Facebook'],
+        android: [instagramAndroidSiren, facebookAndroidSiren],
         ios: [],
         linux: [],
         macos: [],

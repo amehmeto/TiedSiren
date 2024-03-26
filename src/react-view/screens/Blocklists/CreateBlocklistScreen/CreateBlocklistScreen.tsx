@@ -63,9 +63,14 @@ export function CreateBlocklistScreen({
     })
   }, [])
 
-  function toggleSiren(sirenType: keyof Sirens, sirenId: string) {
+  function toggleTextSiren(sirenType: keyof Sirens, sirenId: string) {
     setBlocklist((prevBlocklist) => {
       const updatedSirens = { ...prevBlocklist.sirens }
+
+      if (
+        !(sirenType === SirenType.WEBSITES || sirenType === SirenType.KEYWORDS)
+      )
+        return prevBlocklist
 
       updatedSirens[sirenType] = updatedSirens[sirenType].includes(sirenId)
         ? updatedSirens[sirenType].filter(
@@ -80,7 +85,33 @@ export function CreateBlocklistScreen({
     })
   }
 
+  function toggleAppSiren(
+    sirenType: SirenType.ANDROID,
+    app: Pick<InstalledApp, 'packageName' | 'appName' | 'icon'>,
+  ) {
+    setBlocklist((prevBlocklist) => {
+      const updatedSirens = { ...prevBlocklist.sirens }
+
+      if (sirenType !== SirenType.ANDROID) return prevBlocklist
+
+      updatedSirens[sirenType] = updatedSirens[sirenType].includes(app)
+        ? updatedSirens[sirenType].filter(
+            (selectedSiren) => selectedSiren.packageName !== app.packageName,
+          )
+        : [...updatedSirens[sirenType], app]
+
+      return {
+        ...prevBlocklist,
+        sirens: updatedSirens,
+      }
+    })
+  }
+
   function isSirenSelected(sirenType: SirenType, sirenId: string) {
+    if (sirenType === SirenType.ANDROID)
+      return blocklist.sirens.android
+        .map((app) => app.packageName)
+        .includes(sirenId)
     return blocklist.sirens[sirenType].includes(sirenId)
   }
 
@@ -88,7 +119,7 @@ export function CreateBlocklistScreen({
     apps: () => (
       <AppsSelectionScene
         data={installedApps}
-        toggleSiren={toggleSiren}
+        toggleAppSiren={toggleAppSiren}
         isSirenSelected={isSirenSelected}
       />
     ),
@@ -100,7 +131,7 @@ export function CreateBlocklistScreen({
         sirenType={SirenType.WEBSITES}
         placeholder={'Add websites...'}
         data={websites}
-        toggleSiren={toggleSiren}
+        toggleSiren={toggleTextSiren}
         isSirenSelected={isSirenSelected}
       />
     ),
@@ -112,7 +143,7 @@ export function CreateBlocklistScreen({
         sirenType={SirenType.KEYWORDS}
         placeholder={'Add keywords...'}
         data={keywords}
-        toggleSiren={toggleSiren}
+        toggleSiren={toggleTextSiren}
         isSirenSelected={isSirenSelected}
       />
     ),

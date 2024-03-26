@@ -2,6 +2,10 @@ import { beforeEach, describe, it } from 'vitest'
 import { createBlockSessionFixture } from './create-block-session.fixture.ts'
 import { BlockSession } from '../block.session.ts'
 import { buildBlocklist } from '../../_tests_/data-builders/blocklist.builder.ts'
+import {
+  facebookAndroidSiren,
+  instagramAndroidSiren,
+} from '../../_tests_/data-builders/android-siren.builder.ts'
 
 describe('Feature: Creating a block session', () => {
   let fixture: ReturnType<typeof createBlockSessionFixture>
@@ -19,7 +23,7 @@ describe('Feature: Creating a block session', () => {
           id: 'blocklist-id',
           name: 'Distraction',
           sirens: {
-            android: ['Instagram', 'Facebook'],
+            android: [instagramAndroidSiren, facebookAndroidSiren],
             ios: [],
             linux: [],
             macos: [],
@@ -50,7 +54,7 @@ describe('Feature: Creating a block session', () => {
           id: 'blocklist-id',
           name: 'Distraction',
           sirens: {
-            android: ['Instagram', 'Facebook'],
+            android: [instagramAndroidSiren, facebookAndroidSiren],
             ios: [],
             linux: [],
             macos: [],

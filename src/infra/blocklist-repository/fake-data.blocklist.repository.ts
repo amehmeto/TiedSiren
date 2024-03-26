@@ -1,16 +1,21 @@
 import { BlocklistRepository } from '../../core/blocklist/ports/blocklist.repository.ts'
 import { Blocklist } from '../../core/blocklist/blocklist.ts'
+import {
+  amazonPrimeAndroidSiren,
+  facebookAndroidSiren,
+  instagramAndroidSiren,
+  whatsappAndroidSiren,
+  youtubeAndroidSiren,
+} from '../../core/_tests_/data-builders/android-siren.builder.ts'
 
 export class FakeDataBlocklistRepository implements BlocklistRepository {
-  blocklists: Map<string, Blocklist> = new Map()
-
-  getBlocklists(): Promise<Blocklist[]> {
-    return Promise.resolve([
+  blocklists: Map<string, Blocklist> = new Map(
+    [
       {
         id: 'blocklist-id-1',
-        name: 'Distractions',
+        name: 'Social medias',
         sirens: {
-          android: ['Instagram', 'Facebook'],
+          android: [instagramAndroidSiren, facebookAndroidSiren],
           ios: [],
           linux: [],
           macos: [],
@@ -23,7 +28,7 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
         id: 'blocklist-id-2',
         name: 'Necessary evils',
         sirens: {
-          android: ['WhatsApp'],
+          android: [whatsappAndroidSiren],
           ios: [],
           linux: [],
           macos: [],
@@ -34,18 +39,22 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
       },
       {
         id: 'blocklist-id-3',
-        name: 'Productivity',
+        name: 'Streaming services',
         sirens: {
-          android: ['Todoist', 'Trello'],
+          android: [youtubeAndroidSiren, amazonPrimeAndroidSiren],
           ios: [],
           linux: [],
           macos: [],
           windows: [],
-          websites: ['github.com'],
-          keywords: ['productivity'],
+          websites: ['hulu.com'],
+          keywords: ['movies', 'series'],
         },
       },
-    ])
+    ].map((blocklist) => [blocklist.id, blocklist]),
+  )
+
+  getBlocklists(): Promise<Blocklist[]> {
+    return Promise.resolve(Array.from(this.blocklists.values()))
   }
 
   createBlocklist(payload: Omit<Blocklist, 'id'>): Promise<Blocklist> {

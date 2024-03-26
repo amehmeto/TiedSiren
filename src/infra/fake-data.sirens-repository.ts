@@ -1,19 +1,27 @@
 import { SirensRepository } from '../core/siren/ports/sirens.repository.ts'
 import { Sirens } from '../core/siren/sirens.ts'
+import { faker } from '@faker-js/faker'
+import { buildAndroidSiren } from '../core/_tests_/data-builders/android-siren.builder.ts'
 
 export class FakeDataSirensRepository implements SirensRepository {
   sirens: Sirens = {
-    android: ['com.whatsapp', 'com.facebook', 'com.instagram'],
+    android: [buildAndroidSiren(), buildAndroidSiren(), buildAndroidSiren()],
     ios: [],
     windows: [],
     macos: [],
     linux: [],
     websites: [
-      'https://www.whatsapp.com',
-      'https://www.facebook.com',
-      'https://www.instagram.com',
+      faker.internet.domainName(),
+      faker.internet.domainName(),
+      faker.internet.domainName(),
+      faker.internet.domainName(),
     ],
-    keywords: ['football', 'soccer', 'basketball'],
+    keywords: [
+      faker.lorem.words(),
+      faker.lorem.words(),
+      faker.lorem.words(),
+      faker.lorem.words(),
+    ],
   }
   getAvailableSirens(): Promise<Sirens> {
     return Promise.resolve(this.sirens)

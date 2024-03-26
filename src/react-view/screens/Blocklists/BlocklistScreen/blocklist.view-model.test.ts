@@ -4,6 +4,10 @@ import { createTestStore } from '../../../../core/_tests_/createTestStore.ts'
 import { stateBuilder } from '../../../../core/_tests_/state-builder.ts'
 import { BlocklistViewModel } from './blocklist-view-model.type.ts'
 import { buildBlocklist } from '../../../../core/_tests_/data-builders/blocklist.builder.ts'
+import {
+  amazonPrimeAndroidSiren,
+  youtubeAndroidSiren,
+} from '../../../../core/_tests_/data-builders/android-siren.builder.ts'
 
 describe('Blocklists View Model', () => {
   test('Example: there is no blocklist', () => {
@@ -27,7 +31,7 @@ describe('Blocklists View Model', () => {
             id: 'blocklist-id-1',
             name: 'Distractions',
             sirens: {
-              android: ['com.package.youtube'],
+              android: [youtubeAndroidSiren],
               ios: [],
               linux: [],
               macos: [],
@@ -40,7 +44,7 @@ describe('Blocklists View Model', () => {
             id: 'blocklist-id-2',
             name: 'Videos',
             sirens: {
-              android: ['com.package.youtube', 'com.example.amazonprime'],
+              android: [youtubeAndroidSiren, amazonPrimeAndroidSiren],
               ios: [],
               linux: [],
               macos: [],

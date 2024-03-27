@@ -1,14 +1,14 @@
 import { describe, it, beforeEach } from 'vitest'
-import { fetchAvailableSirensFixture } from './fetch-available-sirens.fixture.ts'
+import { sirensFixture } from './sirens.fixture.ts'
 import { buildInstalledApp } from '../../../infra/installed-apps-repository/fake-data.installed-apps.repository.ts'
 
 import { YouTubeAppIcon } from '../../../../assets/base64AppIcon/youTubeAppIcon.ts'
 
 describe('Feature: Fetching available sirens', () => {
-  let fixture: ReturnType<typeof fetchAvailableSirensFixture>
+  let fixture: ReturnType<typeof sirensFixture>
 
   beforeEach(() => {
-    fixture = fetchAvailableSirensFixture()
+    fixture = sirensFixture()
   })
 
   it('should fetch the available sirens', async () => {

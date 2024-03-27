@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker'
 import { buildAndroidSiren } from '../core/_tests_/data-builders/android-siren.builder.ts'
 
 export class FakeDataSirensRepository implements SirensRepository {
-  sirens: Sirens = {
+  selectableSirens: Sirens = {
     android: [buildAndroidSiren(), buildAndroidSiren(), buildAndroidSiren()],
     ios: [],
     windows: [],
@@ -17,14 +17,22 @@ export class FakeDataSirensRepository implements SirensRepository {
       faker.internet.domainName(),
     ],
     keywords: [
-      faker.lorem.words(),
-      faker.lorem.words(),
-      faker.lorem.words(),
-      faker.lorem.words(),
+      faker.lorem.word(),
+      faker.lorem.word(),
+      faker.lorem.word(),
+      faker.lorem.word(),
     ],
   }
-  getAvailableSirens(): Promise<Sirens> {
-    console.log('WESH')
-    return Promise.resolve(this.sirens)
+
+  addKeywordToSirens(keyword: string): Promise<void> {
+    this.selectableSirens.keywords = [
+      ...this.selectableSirens.keywords,
+      keyword,
+    ]
+    return Promise.resolve()
+  }
+
+  getSelectableSirens(): Promise<Sirens> {
+    return Promise.resolve(this.selectableSirens)
   }
 }

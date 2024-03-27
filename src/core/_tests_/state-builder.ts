@@ -10,11 +10,13 @@ import {
 } from '@reduxjs/toolkit'
 import { rootReducer } from '../_redux_/rootReducer.ts'
 import { Blocklist, blocklistAdapter } from '../blocklist/blocklist.ts'
+import { Sirens } from '../siren/sirens.ts'
 
 const initialState = rootReducer(undefined, { type: 'unknown' })
 
 const withBlockSessions = createAction<BlockSession[]>('withBlockSession')
 const withBlocklists = createAction<Blocklist[]>('withBlocklists')
+const withAvailableSirens = createAction<Sirens>('withAvailableSirens')
 
 const reducer = createReducer(initialState, (builder) => {
   builder
@@ -23,6 +25,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(withBlocklists, (state, action) => {
       blocklistAdapter.addMany(state.blocklist, action.payload)
+    })
+    .addCase(withAvailableSirens, (state, action) => {
+      state.siren.availableSirens = action.payload
     })
 })
 
@@ -38,6 +43,7 @@ export const stateBuilder = (baseState = initialState) => {
     },
     withBlockSessions: reduce(withBlockSessions),
     withBlocklists: reduce(withBlocklists),
+    withAvailableSirens: reduce(withAvailableSirens),
   }
 }
 

@@ -21,6 +21,7 @@ import { AppsSelectionScene } from './AppsSelectionScene.tsx'
 import { TextInputSelectionScene } from './TextInputSelectionScene.tsx'
 import { Sirens, SirenType } from '../../../../core/siren/sirens.ts'
 import { fetchAvailableSirens } from '../../../../core/siren/usecases/fetch-available-sirens.usecase.ts'
+import { addKeywordToSirens } from '../../../../core/siren/usecases/add-keyword-to-sirens.usecase.ts'
 
 type BlocklistScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
@@ -137,12 +138,13 @@ export function CreateBlocklistScreen({
     ),
     keywords: () => (
       <TextInputSelectionScene
-        onSubmitEditing={(event) =>
-          setKeywords([...keywords, event.nativeEvent.text])
+        onSubmitEditing={
+          (event) => dispatch(addKeywordToSirens(event.nativeEvent.text))
+          // setKeywords([...keywords, event.nativeEvent.text])
         }
         sirenType={SirenType.KEYWORDS}
         placeholder={'Add keywords...'}
-        data={keywords}
+        data={selectableSirens.keywords}
         toggleSiren={toggleTextSiren}
         isSirenSelected={isSirenSelected}
       />

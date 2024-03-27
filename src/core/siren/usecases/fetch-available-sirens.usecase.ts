@@ -5,7 +5,7 @@ export const fetchAvailableSirens = createAppAsyncThunk(
   'siren/fetchAvailableSirens',
   async (_, { extra: { installedAppRepository, sirensRepository } }) => {
     const installedApps = await installedAppRepository.getInstalledApps()
-    const remoteSirens: Sirens = await sirensRepository.getAvailableSirens()
+    const remoteSirens: Sirens = await sirensRepository.getSelectableSirens()
     const availableSirens: Sirens = {
       android: installedApps.map((app) => ({
         packageName: app.packageName,

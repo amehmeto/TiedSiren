@@ -1,5 +1,6 @@
 import { Sirens } from '../sirens.ts'
 
 export interface SirensRepository {
-  getAvailableSirens(): Promise<Sirens>
+  getSelectableSirens(): Promise<Sirens>
+  addKeywordToSirens(keyword: string): Promise<void>
 }

@@ -22,6 +22,7 @@ import { TextInputSelectionScene } from './TextInputSelectionScene.tsx'
 import { Sirens, SirenType } from '../../../../core/siren/sirens.ts'
 import { fetchAvailableSirens } from '../../../../core/siren/usecases/fetch-available-sirens.usecase.ts'
 import { addKeywordToSirens } from '../../../../core/siren/usecases/add-keyword-to-sirens.usecase.ts'
+import { addWebsiteToSirens } from '../../../../core/siren/usecases/add-website-to-sirens.usecase.ts'
 
 type BlocklistScreenProps = {
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
@@ -35,11 +36,6 @@ export function CreateBlocklistScreen({
   const selectableSirens: Sirens = useSelector(
     (state: RootState) => state.siren.availableSirens,
   )
-
-  const [websites, setWebsites] = useState<string[]>(
-    selectableSirens.websites || [],
-  )
-  const [keywords, setKeywords] = useState<string[]>([])
 
   const [blocklist, setBlocklist] = useState<Omit<Blocklist, 'id'>>({
     name: '',
@@ -127,7 +123,7 @@ export function CreateBlocklistScreen({
     websites: () => (
       <TextInputSelectionScene
         onSubmitEditing={(event) =>
-          setWebsites([...websites, event.nativeEvent.text])
+          dispatch(addWebsiteToSirens(event.nativeEvent.text))
         }
         sirenType={SirenType.WEBSITES}
         placeholder={'Add websites...'}
@@ -138,9 +134,8 @@ export function CreateBlocklistScreen({
     ),
     keywords: () => (
       <TextInputSelectionScene
-        onSubmitEditing={
-          (event) => dispatch(addKeywordToSirens(event.nativeEvent.text))
-          // setKeywords([...keywords, event.nativeEvent.text])
+        onSubmitEditing={(event) =>
+          dispatch(addKeywordToSirens(event.nativeEvent.text))
         }
         sirenType={SirenType.KEYWORDS}
         placeholder={'Add keywords...'}

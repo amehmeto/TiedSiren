@@ -9,6 +9,7 @@ import { InstalledApp } from '../../installed-app/InstalledApp.ts'
 import { FakeDataSirensRepository } from '../../../infra/fake-data.sirens-repository.ts'
 import { addKeywordToSirens } from './add-keyword-to-sirens.usecase.ts'
 import { stateBuilderProvider } from '../../_tests_/state-builder.ts'
+import { addWebsiteToSirens } from './add-website-to-sirens.usecase.ts'
 
 export function sirensFixture(
   testStateBuilderProvider = stateBuilderProvider(),
@@ -42,6 +43,17 @@ export function sirensFixture(
       },
     },
     when: {
+      addingWebsiteToSirens: async (website: string) => {
+        store = createTestStore(
+          {
+            installedAppRepository,
+            sirensRepository,
+          },
+          testStateBuilderProvider.getState(),
+        )
+
+        await store.dispatch(addWebsiteToSirens(website))
+      },
       addingKeywordToSirens: async (keyword: string) => {
         store = createTestStore(
           {
@@ -65,6 +77,10 @@ export function sirensFixture(
       keywordShouldBeSaved: async (expectedKeyword: string) => {
         const retrievedKeywords = await sirensRepository.getSelectableSirens()
         expect(retrievedKeywords.keywords).toContain(expectedKeyword)
+      },
+      websiteShouldBeSaved: async (expectedWebsite: string) => {
+        const retrievedKeywords = await sirensRepository.getSelectableSirens()
+        expect(retrievedKeywords.websites).toContain(expectedWebsite)
       },
       availableSirensShouldBeStoredAs: (expectedSirens: Sirens) => {
         const retrievedSirens = selectAvailableSirens(store.getState())

@@ -2,6 +2,7 @@ import { SirensRepository } from '../core/siren/ports/sirens.repository.ts'
 import { Sirens } from '../core/siren/sirens.ts'
 import { faker } from '@faker-js/faker'
 import { buildAndroidSiren } from '../core/_tests_/data-builders/android-siren.builder.ts'
+import { undefined } from 'zod'
 
 export class FakeDataSirensRepository implements SirensRepository {
   selectableSirens: Sirens = {
@@ -34,5 +35,13 @@ export class FakeDataSirensRepository implements SirensRepository {
 
   getSelectableSirens(): Promise<Sirens> {
     return Promise.resolve(this.selectableSirens)
+  }
+
+  addWebsiteToSirens(website: string): Promise<void> {
+    this.selectableSirens.websites = [
+      ...this.selectableSirens.websites,
+      website,
+    ]
+    return Promise.resolve()
   }
 }

@@ -1,9 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import { BlocklistScreen } from '../screens/Blocklists/BlocklistScreen/BlocklistScreen.tsx'
-import { EditBlocklistScreen } from '../screens/Blocklists/EditBlocklistScreen/EditBlocklistScreen.tsx'
 import { BlocklistsStackScreens } from './screen-lists/BlocklistsStackScreens'
 import { EditPlatformBlocklistScreen } from '../screens/Blocklists/EditPlatformBlocklistScreen'
 import { CreateBlocklistScreen } from '../screens/Blocklists/CreateBlocklistScreen/CreateBlocklistScreen.tsx'
+import { EditBlocklistScreen } from '../screens/Blocklists/EditBlocklistScreen/EditBlocklistScreen.tsx'
 
 const Stack = createStackNavigator()
 
@@ -32,6 +32,7 @@ export function BlocklistStackNavigator() {
         name={BlocklistsStackScreens.CREATE_BLOCK_LIST}
         options={{ headerShown: true }}
         component={CreateBlocklistScreen}
+        initialParams={{ mode: 'create' }}
       />
     </Stack.Navigator>
   )

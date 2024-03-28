@@ -1,5 +1,5 @@
 import { beforeEach, describe, it } from 'vitest'
-import { createBlockSessionFixture } from './create-block-session.fixture.ts'
+import { blockSessionFixture } from './block-session.fixture.ts'
 import { BlockSession } from '../block.session.ts'
 import { buildBlocklist } from '../../_tests_/data-builders/blocklist.builder.ts'
 import {
@@ -8,10 +8,10 @@ import {
 } from '../../_tests_/data-builders/android-siren.builder.ts'
 
 describe('Feature: Creating a block session', () => {
-  let fixture: ReturnType<typeof createBlockSessionFixture>
+  let fixture: ReturnType<typeof blockSessionFixture>
 
   beforeEach(() => {
-    fixture = createBlockSessionFixture()
+    fixture = blockSessionFixture()
   })
 
   it('should create a block session', async () => {

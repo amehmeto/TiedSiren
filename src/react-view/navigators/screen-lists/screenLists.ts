@@ -5,7 +5,7 @@ export type ScreenList = {
   CreateBlockSession: undefined
   Settings: undefined
   MainHome: undefined
-  EditBlocklist: undefined
+  EditBlocklist: { blocklistId: string }
   EditPlatformBlocklist: undefined
   MainBlocklist: undefined
   CreateBlocklist: undefined

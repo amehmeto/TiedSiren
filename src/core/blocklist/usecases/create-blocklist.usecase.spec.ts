@@ -1,5 +1,5 @@
 import { beforeEach, describe, it } from 'vitest'
-import { createBlocklistFixture } from './create-blocklist.fixture.ts'
+import { blocklistFixture } from './blocklist.fixture.ts'
 import { buildBlocklist } from '../../_tests_/data-builders/blocklist.builder.ts'
 import {
   facebookAndroidSiren,
@@ -7,10 +7,10 @@ import {
 } from '../../_tests_/data-builders/android-siren.builder.ts'
 
 describe('Feature: Creating a blocklist', () => {
-  let fixture: ReturnType<typeof createBlocklistFixture>
+  let fixture: ReturnType<typeof blocklistFixture>
 
   beforeEach(() => {
-    fixture = createBlocklistFixture()
+    fixture = blocklistFixture()
   })
 
   it('should create a blocklist', async () => {

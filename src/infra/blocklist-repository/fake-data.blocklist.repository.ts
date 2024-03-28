@@ -64,4 +64,13 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
     if (!createdBlocklist) throw new Error('Blocklist not found')
     return Promise.resolve(createdBlocklist)
   }
+
+  updateBlocklist(
+    payload: Partial<Blocklist> & Required<Pick<Blocklist, 'id'>>,
+  ): Promise<void> {
+    const blocklist = this.blocklists.get(payload.id)
+    if (!blocklist) throw new Error('Blocklist not found')
+    this.blocklists.set(payload.id, { ...blocklist, ...payload })
+    return Promise.resolve()
+  }
 }

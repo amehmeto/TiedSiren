@@ -5,4 +5,5 @@ export interface BlocklistRepository {
   createBlocklist(
     payload: Omit<Blocklist, 'id' | 'totalBlocks'>,
   ): Promise<Blocklist>
+  updateBlocklist(payload: Partial<Blocklist>): Promise<void>
 }

@@ -3,6 +3,7 @@ import { fetchAvailableSirens } from './usecases/fetch-available-sirens.usecase.
 import { Sirens } from './sirens.ts'
 import { addKeywordToSirens } from './usecases/add-keyword-to-sirens.usecase.ts'
 import { addWebsiteToSirens } from './usecases/add-website-to-sirens.usecase.ts'
+import { tieSirens } from './usecases/tie-sirens.usecase.ts'
 
 export const sirenSlice = createSlice({
   name: 'siren',
@@ -28,6 +29,9 @@ export const sirenSlice = createSlice({
       })
       .addCase(addWebsiteToSirens.fulfilled, (state, action) => {
         state.availableSirens.websites.push(action.payload)
+      })
+      .addCase(tieSirens.fulfilled, () => {
+        console.log('sirens tied!')
       })
   },
 })

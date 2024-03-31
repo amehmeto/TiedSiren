@@ -6,6 +6,9 @@ export const renameBlocklist = createAppAsyncThunk(
     payload: { id: string; name: string },
     { extra: { blocklistRepository } },
   ) => {
+    await blocklistRepository.updateBlocklist({
+      ...payload,
+    })
     return payload
   },
 )

@@ -2,10 +2,10 @@ import { createAppAsyncThunk } from '../../_redux_/create-app-thunk.ts'
 import { selectActiveSessions } from '../../block-session/selectors/selectActiveSessions.ts'
 import { BlockSession } from '../../block-session/block.session.ts'
 
-import { Sirens } from '../../siren/sirens.ts'
+import { Sirens } from '../sirens.ts'
 
 export const tieSirens = createAppAsyncThunk(
-  'blocklist/tieSirens ',
+  'siren/tieSirens ',
   async (_, { extra: { sirenTier, dateProvider }, getState }) => {
     const activeBlockSessions: BlockSession[] = selectActiveSessions(
       dateProvider.getNow(),

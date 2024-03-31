@@ -27,5 +27,11 @@ describe('Feature: Creating a blocklist', () => {
         name: 'Focus',
       }),
     )
+    fixture.then.blocklistShouldBeSavedInRepositoryAs(
+      buildBlocklist({
+        ...givenBlocklist,
+        name: 'Focus',
+      }),
+    )
   })
 })

@@ -61,6 +61,12 @@ export function blocklistFixture(
         )
         expect(retrievedBlocklist).toStrictEqual(expectedBlocklist)
       },
+      blocklistShouldBeSavedInRepositoryAs(expectedBlocklist: Blocklist) {
+        const retrievedBlocklist = blocklistRepository.blocklists.get(
+          expectedBlocklist.id,
+        )
+        expect(retrievedBlocklist).toStrictEqual(expectedBlocklist)
+      },
     },
   }
 }

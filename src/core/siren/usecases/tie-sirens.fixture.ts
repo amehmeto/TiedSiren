@@ -6,7 +6,7 @@ import { InMemorySirenTier } from '../../../infra/siren-binder/in-memory-siren.t
 import { stateBuilderProvider } from '../../_tests_/state-builder.ts'
 import { BlockSession } from '../../block-session/block.session.ts'
 import { StubDateProvider } from '../../../infra/date-provider/stub.date-provider.ts'
-import { Sirens } from '../../siren/sirens.ts'
+import { Sirens } from '../sirens.ts'
 
 export function tieSirensFixture(
   testStateBuilderProvider = stateBuilderProvider(),

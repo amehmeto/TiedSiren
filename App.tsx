@@ -13,6 +13,12 @@ import { InMemorySirenTier } from './src/infra/siren-binder/in-memory-siren.tier
 import { FakeDataInstalledAppsRepository } from './src/infra/installed-apps-repository/fake-data.installed-apps.repository.ts'
 import { FakeDataSirensRepository } from './src/infra/fake-data.sirens-repository.ts'
 import { MenuProvider } from 'react-native-popup-menu'
+import {
+  StateBuilderProvider,
+  stateBuilderProvider,
+} from './src/core/_tests_/state-builder.ts'
+import { buildBlockSession } from './src/core/_tests_/data-builders/block-session.builder.ts'
+import { buildBlocklist } from './src/core/_tests_/data-builders/blocklist.builder.ts'
 
 const blockSessionRepository = new FakeDataBlockSessionRepository()
 const blocklistRepository = new FakeDataBlocklistRepository()
@@ -21,14 +27,25 @@ const dateProvider = new RealDateProvider()
 const installedAppRepository = new FakeDataInstalledAppsRepository()
 const sirensRepository = new FakeDataSirensRepository()
 
-const store = createStore({
-  blockSessionRepository,
-  blocklistRepository,
-  sirenTier,
-  dateProvider,
-  installedAppRepository,
-  sirensRepository,
-})
+const fakePreloadedState: StateBuilderProvider = stateBuilderProvider()
+fakePreloadedState.setState((builder) =>
+  builder
+    .withBlockSessions([buildBlockSession()])
+    .withBlocklists([buildBlocklist(), buildBlocklist()]),
+)
+
+const store = createStore(
+  {
+    blockSessionRepository,
+    blocklistRepository,
+    sirenTier,
+    dateProvider,
+    installedAppRepository,
+    sirensRepository,
+  },
+
+  fakePreloadedState.getState(),
+)
 
 export default function App() {
   useEffect(() => {
@@ -36,6 +53,7 @@ export default function App() {
       NavigationBar.setBackgroundColorAsync(T.color.darkBlue).catch(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (e: any) => {
+          // eslint-disable-next-line no-console
           console.error('Failed to set navigation bar color', e)
         },
       )

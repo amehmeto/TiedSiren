@@ -2,17 +2,27 @@ import {
   Menu,
   MenuOption,
   MenuOptions,
+  MenuOptionsCustomStyle,
   MenuTrigger,
 } from 'react-native-popup-menu'
 import { Ionicons } from '@expo/vector-icons'
 import { T } from '../theme.ts'
 import { TiedSBlurView } from './TiedSBlurView.tsx'
-import { Dimensions, StyleSheet, Text } from 'react-native'
+import {
+  Dimensions,
+  StyleProp,
+  StyleSheet,
+  Text,
+  ViewStyle,
+} from 'react-native'
 import { BlocklistCardMenu } from '../../screens/Blocklists/BlocklistCard.tsx'
+import { SessionCardMenu } from '../../screens/Home/HomeScreen/SessionCard.tsx'
+
+type TiedSMenu = SessionCardMenu | BlocklistCardMenu
 
 function TiedSMenuOption(props: {
-  optionName: BlocklistCardMenu['name']
-  iconName: BlocklistCardMenu['iconName']
+  optionName: TiedSMenu['name']
+  iconName: TiedSMenu['iconName']
 }) {
   return (
     <MenuOption value={props.optionName} style={styles.menuOption}>
@@ -26,8 +36,11 @@ function TiedSMenuOption(props: {
   )
 }
 
-export function ThreeDotMenu(props: { menuOptions: BlocklistCardMenu[] }) {
-  const selectMenuOption = (optionName: BlocklistCardMenu['name']) => {
+export function ThreeDotMenu(props: {
+  menuOptions: TiedSMenu[]
+  style?: StyleProp<ViewStyle>
+}) {
+  const selectMenuOption = (optionName: TiedSMenu['name']) => {
     const selectedOption = props.menuOptions.find(
       (option) => option.name === optionName,
     )
@@ -36,7 +49,7 @@ export function ThreeDotMenu(props: { menuOptions: BlocklistCardMenu[] }) {
   }
 
   return (
-    <Menu onSelect={selectMenuOption}>
+    <Menu onSelect={selectMenuOption} style={[props.style]}>
       <MenuTrigger>
         <Ionicons
           name="ellipsis-horizontal"
@@ -46,11 +59,11 @@ export function ThreeDotMenu(props: { menuOptions: BlocklistCardMenu[] }) {
       </MenuTrigger>
       <MenuOptions customStyles={optionsStyles}>
         <TiedSBlurView style={styles.menuOptions}>
-          {Object.entries(props.menuOptions).map(([key, entry]) => (
+          {props.menuOptions.map((option) => (
             <TiedSMenuOption
-              key={key}
-              optionName={entry.name}
-              iconName={entry.iconName}
+              key={option.name}
+              optionName={option.name}
+              iconName={option.iconName}
             />
           ))}
         </TiedSBlurView>
@@ -82,10 +95,12 @@ const styles = StyleSheet.create({
   },
 })
 
-const optionsStyles = {
+const optionsStyles: MenuOptionsCustomStyle = {
   optionsContainer: {
     backgroundColor: T.color.transparent,
     borderRadius: T.border.radius.roundedSmall,
     width: betweenHalfAndThirdOfWindow,
+    marginTop: T.size.medium + 5,
+    marginLeft: T.size.medium,
   },
 }

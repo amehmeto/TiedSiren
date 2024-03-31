@@ -1,7 +1,32 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { T } from '../../design-system/theme'
-import { ThreeDotMenu } from './ThreeDotMenu.tsx'
+import { ThreeDotMenu } from '../../design-system/components/ThreeDotMenu.tsx'
+
+const blocklistCardMenu = [
+  {
+    name: 'Rename',
+    iconName: 'text-outline' as const,
+    action: () => {},
+  },
+  {
+    name: 'Edit',
+    iconName: 'create-outline' as const,
+    action: () => {},
+  },
+  {
+    name: 'Duplicate',
+    iconName: 'copy-outline' as const,
+    action: () => {},
+  },
+  {
+    name: 'Delete',
+    iconName: 'trash-outline' as const,
+    action: () => {},
+  },
+]
+
+export type BlocklistCardMenu = (typeof blocklistCardMenu)[number]
 
 export function BlocklistCard(
   props: Readonly<{
@@ -20,7 +45,7 @@ export function BlocklistCard(
           <Text style={styles.name}>{props.blocklist.name}</Text>
           <Text style={styles.totalBlocks}>{props.blocklist.totalBlocks}</Text>
         </View>
-        <ThreeDotMenu />
+        <ThreeDotMenu menuOptions={blocklistCardMenu} />
       </TiedSBlurView>
     </Pressable>
   )

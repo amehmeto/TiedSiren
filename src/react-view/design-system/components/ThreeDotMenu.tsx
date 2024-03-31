@@ -5,22 +5,18 @@ import {
   MenuTrigger,
 } from 'react-native-popup-menu'
 import { Ionicons } from '@expo/vector-icons'
-import { T } from '../../design-system/theme.ts'
-import { TiedSBlurView } from '../../design-system/components/TiedSBlurView.tsx'
+import { T } from '../theme.ts'
+import { TiedSBlurView } from './TiedSBlurView.tsx'
 import { Dimensions, StyleSheet, Text } from 'react-native'
+import { BlocklistCardMenu } from '../../screens/Blocklists/BlocklistCard.tsx'
 
-type MenuOptionName = 'Rename' | 'Edit' | 'Duplicate' | 'Delete'
-
-type IconName =
-  | 'text-outline'
-  | 'create-outline'
-  | 'copy-outline'
-  | 'trash-outline'
-
-function TiedSMenuOption(props: { value: MenuOptionName; iconName: IconName }) {
+function TiedSMenuOption(props: {
+  optionName: BlocklistCardMenu['name']
+  iconName: BlocklistCardMenu['iconName']
+}) {
   return (
-    <MenuOption value={props.value} style={styles.menuOption}>
-      <Text style={styles.menuOptionText}>{props.value}</Text>
+    <MenuOption value={props.optionName} style={styles.menuOption}>
+      <Text style={styles.menuOptionText}>{props.optionName}</Text>
       <Ionicons
         name={props.iconName}
         size={T.size.medium}
@@ -30,29 +26,13 @@ function TiedSMenuOption(props: { value: MenuOptionName; iconName: IconName }) {
   )
 }
 
-export function ThreeDotMenu() {
-  const menuOptions = {
-    Rename: {
-      iconName: 'text-outline' as const,
-      action: () => {},
-    },
-    Edit: {
-      iconName: 'create-outline' as const,
-      action: () => {},
-    },
-    Duplicate: {
-      iconName: 'copy-outline' as const,
-      action: () => {},
-    },
-
-    Delete: {
-      iconName: 'trash-outline' as const,
-      action: () => {},
-    },
-  }
-
-  const selectMenuOption = (value: MenuOptionName) => {
-    menuOptions[value].action()
+export function ThreeDotMenu(props: { menuOptions: BlocklistCardMenu[] }) {
+  const selectMenuOption = (optionName: BlocklistCardMenu['name']) => {
+    const selectedOption = props.menuOptions.find(
+      (option) => option.name === optionName,
+    )
+    if (!selectedOption) throw new Error('Invalid menu option')
+    selectedOption.action()
   }
 
   return (
@@ -66,10 +46,10 @@ export function ThreeDotMenu() {
       </MenuTrigger>
       <MenuOptions customStyles={optionsStyles}>
         <TiedSBlurView style={styles.menuOptions}>
-          {Object.entries(menuOptions).map(([key, entry]) => (
+          {Object.entries(props.menuOptions).map(([key, entry]) => (
             <TiedSMenuOption
               key={key}
-              value={key as MenuOptionName}
+              optionName={entry.name}
               iconName={entry.iconName}
             />
           ))}

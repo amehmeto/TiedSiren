@@ -73,6 +73,8 @@ export const T = {
   width: {
     roundButton: 60,
     chipMinWidth: 50,
+    textInputHeight: 50,
+    modalButton: 120,
   },
   sirenIconSize: 20,
   iconProportion: 0.45,

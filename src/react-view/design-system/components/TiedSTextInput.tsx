@@ -1,30 +1,41 @@
-import { StyleSheet, TextInput, TextInputProps } from 'react-native'
+import { StyleSheet, TextInput, TextInputProps, View, Text } from 'react-native'
 import { T } from '../theme'
 import { useState } from 'react'
 
-export function TiedSTextInput(props: Readonly<TextInputProps>) {
+interface TiedSTextInputProps extends TextInputProps {
+  label?: string
+}
+
+export function TiedSTextInput(props: Readonly<TiedSTextInputProps>) {
   const [isFocused, setIsFocused] = useState(false)
 
   return (
-    <TextInput
-      style={[
-        styles.input,
-        { borderColor: isFocused ? T.color.lightBlue : 'transparent' },
-      ]}
-      placeholderTextColor={T.color.white}
-      onFocus={() => setIsFocused(true)}
-      onBlur={() => setIsFocused(false)}
-      {...props}
-    />
+    <View>
+      {props.label && (
+        <Text style={{ color: T.color.white, marginBottom: T.spacing.medium }}>
+          {props.label}
+        </Text>
+      )}
+      <TextInput
+        style={[
+          styles.input,
+          { borderColor: isFocused ? T.color.lightBlue : T.color.white },
+        ]}
+        placeholderTextColor={T.color.white}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        {...props}
+      />
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   input: {
-    height: 50,
+    height: T.width.textInputHeight,
     padding: T.spacing.small,
     fontSize: T.font.size.regular,
-    borderWidth: 1,
+    borderWidth: T.border.width.thin,
     borderColor: T.color.lightBlue,
     borderRadius: T.border.radius.roundedSmall,
     color: T.color.white,

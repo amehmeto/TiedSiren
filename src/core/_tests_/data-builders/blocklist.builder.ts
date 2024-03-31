@@ -8,8 +8,8 @@ export function buildBlocklist(
   const blocklistNameExamples = [
     'Distractions',
     'Necessary evils',
-    'games',
-    'social medias',
+    'Games',
+    'Social Medias',
   ]
 
   const randomBlocklist: Blocklist = {

@@ -39,7 +39,7 @@ export function BlocklistScreen({
       case BlocklistViewModel.NoBlocklist:
         return (
           <View>
-            <Text style={{ color: 'white' }}>{viewModel.message}</Text>
+            <Text style={styles.text}>{viewModel.message}</Text>
           </View>
         )
       case BlocklistViewModel.WithBlockLists:
@@ -75,8 +75,8 @@ export function BlocklistScreen({
       >
         <Ionicons
           name={'add'}
-          size={T.addButtonSize}
-          color={T.color.lightBlue}
+          size={T.addButtonIconSize}
+          color={T.color.white}
         />
       </Pressable>
     </TiedSLinearBackground>
@@ -114,4 +114,5 @@ const styles = StyleSheet.create({
       },
     }),
   },
+  text: { color: 'white' },
 })

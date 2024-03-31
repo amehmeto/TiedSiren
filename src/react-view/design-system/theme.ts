@@ -71,10 +71,13 @@ export const T = {
     radius: 10,
   },
   width: {
-    roundButton: 80,
-    chipMinWidth: 80,
+    roundButton: 60,
+    chipMinWidth: 50,
   },
   sirenIconSize: 20,
-  addButtonSize: 50,
+  iconProportion: 0.45,
+  get addButtonIconSize() {
+    return this.width.roundButton * this.iconProportion
+  },
   tabBarHeight: 50,
 }

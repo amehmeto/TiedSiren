@@ -12,6 +12,7 @@ import { RealDateProvider } from './src/infra/date-provider/real.date-provider.t
 import { InMemorySirenTier } from './src/infra/siren-binder/in-memory-siren.tier.ts'
 import { FakeDataInstalledAppsRepository } from './src/infra/installed-apps-repository/fake-data.installed-apps.repository.ts'
 import { FakeDataSirensRepository } from './src/infra/fake-data.sirens-repository.ts'
+import { MenuProvider } from 'react-native-popup-menu'
 
 const blockSessionRepository = new FakeDataBlockSessionRepository()
 const blocklistRepository = new FakeDataBlocklistRepository()
@@ -42,9 +43,11 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <BottomTabNavigator />
-      </NavigationContainer>
+      <MenuProvider>
+        <NavigationContainer>
+          <BottomTabNavigator />
+        </NavigationContainer>
+      </MenuProvider>
     </Provider>
   )
 }

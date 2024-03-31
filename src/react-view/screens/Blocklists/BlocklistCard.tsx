@@ -1,6 +1,7 @@
-import { Pressable, StyleSheet, Text } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { TiedSBlurView } from '../../design-system/components/TiedSBlurView'
 import { T } from '../../design-system/theme'
+import { ThreeDotMenu } from './ThreeDotMenu.tsx'
 
 export function BlocklistCard(
   props: Readonly<{
@@ -15,8 +16,11 @@ export function BlocklistCard(
   return (
     <Pressable onPress={props.onPress}>
       <TiedSBlurView style={styles.container}>
-        <Text style={styles.name}>{props.blocklist.name}</Text>
-        <Text style={styles.totalBlocks}>{props.blocklist.totalBlocks}</Text>
+        <View style={styles.infoContainer}>
+          <Text style={styles.name}>{props.blocklist.name}</Text>
+          <Text style={styles.totalBlocks}>{props.blocklist.totalBlocks}</Text>
+        </View>
+        <ThreeDotMenu />
       </TiedSBlurView>
     </Pressable>
   )
@@ -24,8 +28,9 @@ export function BlocklistCard(
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-    alignItems: 'stretch',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   name: {
     color: T.color.text,
@@ -35,5 +40,9 @@ const styles = StyleSheet.create({
   totalBlocks: {
     color: T.color.text,
     fontSize: T.size.xSmall,
+  },
+  infoContainer: {
+    flex: 1,
+    flexDirection: 'column',
   },
 })

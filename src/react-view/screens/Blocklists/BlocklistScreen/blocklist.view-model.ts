@@ -19,7 +19,7 @@ export const selectBlocklistViewModel = createSelector(
     }
 
     const formattedBlocklists = blocklists.map((blocklist) => {
-      const total = Object.values(blocklist.sirens).reduce(
+      const totalBlocks = Object.values(blocklist.sirens).reduce(
         (acc, currentSiren) => acc + currentSiren.length,
         0,
       )
@@ -27,7 +27,7 @@ export const selectBlocklistViewModel = createSelector(
       return {
         id: blocklist.id,
         name: blocklist.name,
-        totalBlocks: total.toString() + ' blocks',
+        totalBlocks: totalBlocks.toString() + ' blocks',
       }
     })
 

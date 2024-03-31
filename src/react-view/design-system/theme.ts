@@ -2,6 +2,7 @@ import { Platform } from 'react-native'
 
 export const T = {
   color: {
+    transparent: 'transparent',
     text: 'rgba(255, 255, 255, 1)',
     darkBlue: 'rgba(12, 32, 122, 1)',
     lightBlue: 'rgba(0, 212, 255, 1)',
@@ -12,6 +13,7 @@ export const T = {
     white: 'rgba(255, 255, 255, 1)',
     grey: 'rgba(211, 211, 211, 1)',
     red: 'rgba(255, 0, 0, 1)',
+    yellow: 'rgba(255, 255, 0, 1)',
   },
   font: {
     size: {
@@ -49,6 +51,7 @@ export const T = {
   },
   border: {
     width: {
+      none: 0,
       thin: 1,
       thick: 2,
     },
@@ -72,4 +75,6 @@ export const T = {
     chipMinWidth: 80,
   },
   sirenIconSize: 20,
+  addButtonSize: 50,
+  tabBarHeight: 50,
 }

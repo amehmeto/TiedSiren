@@ -73,7 +73,11 @@ export function BlocklistScreen({
         }
         style={styles.roundButton}
       >
-        <Ionicons name={'add'} size={50} color={T.color.lightBlue} />
+        <Ionicons
+          name={'add'}
+          size={T.addButtonSize}
+          color={T.color.lightBlue}
+        />
       </Pressable>
     </TiedSLinearBackground>
   )

@@ -7,6 +7,7 @@ import { createTestStore } from '../../_tests_/createTestStore.ts'
 import { updateBlocklist } from './update-blocklist.usecase.ts'
 import { stateBuilderProvider } from '../../_tests_/state-builder.ts'
 import { FakeDataBlocklistRepository } from '../../../infra/blocklist-repository/fake-data.blocklist.repository.ts'
+import { renameBlocklist } from './rename-blocklist.usecase.ts'
 
 export function blocklistFixture(
   testStateBuilderProvider = stateBuilderProvider(),
@@ -38,6 +39,18 @@ export function blocklistFixture(
       creatingBlocklist: async (payload: Blocklist) => {
         store = createTestStore()
         await store.dispatch(createBlocklist(payload))
+      },
+      renamingBlocklist: async (renameBlocklistPayload: {
+        name: string
+        id: string
+      }) => {
+        store = createTestStore(
+          {
+            blocklistRepository,
+          },
+          testStateBuilderProvider.getState(),
+        )
+        await store.dispatch(renameBlocklist(renameBlocklistPayload))
       },
     },
     then: {

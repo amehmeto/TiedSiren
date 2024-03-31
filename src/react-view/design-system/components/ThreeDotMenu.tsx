@@ -15,10 +15,23 @@ import {
   Text,
   ViewStyle,
 } from 'react-native'
-import { BlocklistCardMenu } from '../../screens/Blocklists/BlocklistCard.tsx'
-import { SessionCardMenu } from '../../screens/Home/HomeScreen/SessionCard.tsx'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { ScreenList } from '../../navigators/screen-lists/screenLists.ts'
+import { TabScreens } from '../../navigators/screen-lists/TabScreens.ts'
 
-type TiedSMenu = SessionCardMenu | BlocklistCardMenu
+type IconName =
+  | 'text-outline'
+  | 'create-outline'
+  | 'copy-outline'
+  | 'trash-outline'
+
+type ThreeDotMenu = {
+  name: string
+  iconName: IconName
+  action: () => void
+}
+
+type TiedSMenu = ThreeDotMenu
 
 function TiedSMenuOption(props: {
   optionName: TiedSMenu['name']
@@ -38,6 +51,7 @@ function TiedSMenuOption(props: {
 
 export function ThreeDotMenu(props: {
   menuOptions: TiedSMenu[]
+  navigation?: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
   style?: StyleProp<ViewStyle>
 }) {
   const selectMenuOption = (optionName: TiedSMenu['name']) => {
@@ -52,7 +66,7 @@ export function ThreeDotMenu(props: {
     <Menu onSelect={selectMenuOption} style={[props.style]}>
       <MenuTrigger>
         <Ionicons
-          name="ellipsis-horizontal"
+          name={'ellipsis-horizontal'}
           size={T.size.medium}
           color={T.color.white}
         />
@@ -71,7 +85,7 @@ export function ThreeDotMenu(props: {
     </Menu>
   )
 }
-// TODO: hacky, should fix it be finding a way to apply width 100% and flex options
+// TODO: hacky, should be fixed by finding a way to apply width 100% and flex options
 const betweenHalfAndThirdOfWindow = Dimensions.get('window').width / 2.5
 
 const styles = StyleSheet.create({

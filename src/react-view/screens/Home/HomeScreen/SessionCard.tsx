@@ -20,31 +20,6 @@ function RoundBlueDot() {
   )
 }
 
-const sessionCardMenu = [
-  {
-    name: 'Rename',
-    iconName: 'text-outline' as const,
-    action: () => {},
-  },
-  {
-    name: 'Edit',
-    iconName: 'create-outline' as const,
-    action: () => {},
-  },
-  {
-    name: 'Duplicate',
-    iconName: 'copy-outline' as const,
-    action: () => {},
-  },
-  {
-    name: 'Delete',
-    iconName: 'trash-outline' as const,
-    action: () => {},
-  },
-]
-
-export type SessionCardMenu = (typeof sessionCardMenu)[number]
-
 export function SessionCard(
   props: Readonly<{
     session: {
@@ -55,6 +30,29 @@ export function SessionCard(
     }
   }>,
 ) {
+  const sessionCardMenu = [
+    {
+      name: 'Rename',
+      iconName: 'text-outline' as const,
+      action: () => {},
+    },
+    {
+      name: 'Edit',
+      iconName: 'create-outline' as const,
+      action: () => {},
+    },
+    {
+      name: 'Duplicate',
+      iconName: 'copy-outline' as const,
+      action: () => {},
+    },
+    {
+      name: 'Delete',
+      iconName: 'trash-outline' as const,
+      action: () => {},
+    },
+  ]
+
   return (
     <TiedSBlurView>
       <RoundBlueDot />

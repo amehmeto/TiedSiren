@@ -10,6 +10,11 @@ export function buildBlocklist(
     'Necessary evils',
     'Games',
     'Social Medias',
+    'Work',
+    'Entertainment',
+    'Productivity',
+    'Time wasters',
+    'News',
   ]
 
   const randomBlocklist: Blocklist = {

@@ -31,7 +31,12 @@ const fakePreloadedState: StateBuilderProvider = stateBuilderProvider()
 fakePreloadedState.setState((builder) =>
   builder
     .withBlockSessions([buildBlockSession()])
-    .withBlocklists([buildBlocklist(), buildBlocklist()]),
+    .withBlocklists([
+      buildBlocklist(),
+      buildBlocklist(),
+      buildBlocklist(),
+      buildBlocklist(),
+    ]),
 )
 
 const store = createStore(

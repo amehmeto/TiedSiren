@@ -4,6 +4,7 @@ import { createBlocklist } from './usecases/create-blocklist.usecase.ts'
 import { updateBlocklist } from './usecases/update-blocklist.usecase.ts'
 import { renameBlocklist } from './usecases/rename-blocklist.usecase.ts'
 import { duplicateBlocklist } from './usecases/duplicate-blocklist.usecase.ts'
+import { deleteBlocklist } from './usecases/delete-blocklist.usecase.ts'
 
 export const blocklistSlice = createSlice({
   name: 'blocklist',
@@ -29,6 +30,9 @@ export const blocklistSlice = createSlice({
       })
       .addCase(duplicateBlocklist.fulfilled, (state, action) => {
         blocklistAdapter.addOne(state, action.payload)
+      })
+      .addCase(deleteBlocklist.fulfilled, (state, action) => {
+        blocklistAdapter.removeOne(state, action.payload)
       })
   },
 })

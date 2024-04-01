@@ -4,7 +4,7 @@ import { Blocklist } from '../blocklist.ts'
 export const createBlocklist = createAppAsyncThunk(
   'blocklist/createBlocklist',
   async (
-    payload: Omit<Blocklist, 'id' | 'totalBlocks'>,
+    payload: Omit<Blocklist, 'id'>,
     { extra: { blocklistRepository } },
   ) => {
     return blocklistRepository.createBlocklist(payload)

@@ -76,7 +76,14 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
     return Promise.resolve()
   }
 
-  findById(id: string): Promise<Blocklist> {
-    return Promise.resolve(this.blocklists.get(id) as Blocklist)
+  findById(blocklistId: string): Promise<Blocklist> {
+    const blocklist = this.blocklists.get(blocklistId)
+    if (!blocklist) throw new Error('Blocklist not found')
+    return Promise.resolve(blocklist)
+  }
+
+  deleteBlocklist(blocklistId: string): Promise<void> {
+    this.blocklists.delete(blocklistId)
+    return Promise.resolve()
   }
 }

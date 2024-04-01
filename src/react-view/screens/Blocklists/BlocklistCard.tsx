@@ -12,6 +12,7 @@ import { renameBlocklist } from '../../../core/blocklist/usecases/rename-blockli
 import { AppDispatch } from '../../../core/_redux_/createStore.ts'
 import { TextInputModal } from './TextInputModal.tsx'
 import { duplicateBlocklist } from '../../../core/blocklist/usecases/duplicate-blocklist.usecase.ts'
+import { deleteBlocklist } from '../../../core/blocklist/usecases/delete-blocklist.usecase.ts'
 
 export function BlocklistCard(
   props: Readonly<{
@@ -54,7 +55,9 @@ export function BlocklistCard(
     {
       name: 'Delete',
       iconName: 'trash-outline' as const,
-      action: () => {},
+      action: () => {
+        dispatch(deleteBlocklist(props.blocklist.id))
+      },
     },
   ]
 

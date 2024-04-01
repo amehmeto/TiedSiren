@@ -6,13 +6,12 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { ScreenList } from '../../navigators/screen-lists/screenLists.ts'
 import { TabScreens } from '../../navigators/screen-lists/TabScreens.ts'
 import { BlocklistsStackScreens } from '../../navigators/screen-lists/BlocklistsStackScreens.ts'
-import { TiedSModal } from '../../design-system/components/TiedSModal.tsx'
-import { TiedSTextInput } from '../../design-system/components/TiedSTextInput.tsx'
 import { useState } from 'react'
-import { TiedSButton } from '../../design-system/components/TiedSButton.tsx'
 import { useDispatch } from 'react-redux'
 import { renameBlocklist } from '../../../core/blocklist/usecases/rename-blocklist.usecase.ts'
 import { AppDispatch } from '../../../core/_redux_/createStore.ts'
+import { TextInputModal } from './TextInputModal.tsx'
+import { duplicateBlocklist } from '../../../core/blocklist/usecases/duplicate-blocklist.usecase.ts'
 
 export function BlocklistCard(
   props: Readonly<{
@@ -26,15 +25,15 @@ export function BlocklistCard(
 ) {
   const dispatch = useDispatch<AppDispatch>()
 
-  const [isModalVisible, setModalVisible] = useState(false)
-  const [inputText, setInputText] = useState(props.blocklist.name)
+  const [isRenameModalVisible, setRenameModalVisible] = useState(false)
+  const [isDuplicateModalVisible, setIsDuplicateModalVisible] = useState(false)
 
   const blocklistCardMenu = [
     {
       name: 'Rename',
       iconName: 'text-outline' as const,
       action: () => {
-        setModalVisible(true)
+        setRenameModalVisible(true)
       },
     },
     {
@@ -48,7 +47,9 @@ export function BlocklistCard(
     {
       name: 'Duplicate',
       iconName: 'copy-outline' as const,
-      action: () => {},
+      action: () => {
+        setIsDuplicateModalVisible(true)
+      },
     },
     {
       name: 'Delete',
@@ -80,36 +81,38 @@ export function BlocklistCard(
         </TiedSBlurView>
       </Pressable>
 
-      <TiedSModal
-        style={styles.renameModal}
-        isVisible={isModalVisible}
-        onRequestClose={() => {}}
-      >
-        <TiedSTextInput
-          label={'Rename blocklist'}
-          value={inputText}
-          onChangeText={(text) => setInputText(text)}
-        />
-        <View style={styles.buttonContainer}>
-          <TiedSButton
-            style={styles.modalButton}
-            onPress={() => {
-              setModalVisible(false)
-            }}
-            text={'Cancel'}
-          />
-          <TiedSButton
-            style={styles.modalButton}
-            onPress={() => {
-              dispatch(
-                renameBlocklist({ id: props.blocklist.id, name: inputText }),
-              )
-              setModalVisible(false)
-            }}
-            text={'Save'}
-          />
-        </View>
-      </TiedSModal>
+      <TextInputModal
+        visible={isRenameModalVisible}
+        label={'Rename blocklist'}
+        initialText={props.blocklist.name}
+        onRequestClose={() => {
+          setRenameModalVisible(false)
+        }}
+        onCancel={() => {
+          setRenameModalVisible(false)
+        }}
+        onSave={(inputText: string) => {
+          dispatch(renameBlocklist({ id: props.blocklist.id, name: inputText }))
+          setRenameModalVisible(false)
+        }}
+      />
+      <TextInputModal
+        visible={isDuplicateModalVisible}
+        label={'Choose the name of the duplicated list blocklist'}
+        initialText={'Copy of "' + props.blocklist.name + '"'}
+        onRequestClose={() => {
+          setIsDuplicateModalVisible(false)
+        }}
+        onCancel={() => {
+          setIsDuplicateModalVisible(false)
+        }}
+        onSave={(inputText: string) => {
+          dispatch(
+            duplicateBlocklist({ id: props.blocklist.id, name: inputText }),
+          )
+          setIsDuplicateModalVisible(false)
+        }}
+      />
     </>
   )
 }
@@ -133,12 +136,4 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-  buttonContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    width: '100%',
-  },
-  modalButton: { marginLeft: T.spacing.large },
-  renameModal: { flexDirection: 'column' },
 })

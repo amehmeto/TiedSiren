@@ -7,10 +7,12 @@ import {
   whatsappAndroidSiren,
   youtubeAndroidSiren,
 } from '../../core/_tests_/data-builders/android-siren.builder.ts'
+import { buildBlocklist } from '../../core/_tests_/data-builders/blocklist.builder.ts'
 
 export class FakeDataBlocklistRepository implements BlocklistRepository {
   blocklists: Map<string, Blocklist> = new Map(
     [
+      buildBlocklist(),
       {
         id: 'blocklist-id-1',
         name: 'Social medias',
@@ -72,5 +74,9 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
     if (!blocklist) throw new Error('Blocklist not found')
     this.blocklists.set(payload.id, { ...blocklist, ...payload })
     return Promise.resolve()
+  }
+
+  findById(id: string): Promise<Blocklist> {
+    return Promise.resolve(this.blocklists.get(id) as Blocklist)
   }
 }

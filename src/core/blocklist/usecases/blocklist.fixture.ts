@@ -1,4 +1,4 @@
-import { Blocklist } from '../blocklist.ts'
+import { Blocklist, blocklistAdapter } from '../blocklist.ts'
 import { expect } from 'vitest'
 import { AppStore } from '../../_redux_/createStore.ts'
 import { createBlocklist } from './create-blocklist.usecase.ts'
@@ -8,6 +8,7 @@ import { updateBlocklist } from './update-blocklist.usecase.ts'
 import { stateBuilderProvider } from '../../_tests_/state-builder.ts'
 import { FakeDataBlocklistRepository } from '../../../infra/blocklist-repository/fake-data.blocklist.repository.ts'
 import { renameBlocklist } from './rename-blocklist.usecase.ts'
+import { duplicateBlocklist } from './duplicate-blocklist.usecase.ts'
 
 export function blocklistFixture(
   testStateBuilderProvider = stateBuilderProvider(),
@@ -52,6 +53,18 @@ export function blocklistFixture(
         )
         await store.dispatch(renameBlocklist(renameBlocklistPayload))
       },
+      duplicatingBlocklist: async (toBeDuplicatedPayload: {
+        name: string
+        id: string
+      }) => {
+        store = createTestStore(
+          {
+            blocklistRepository,
+          },
+          testStateBuilderProvider.getState(),
+        )
+        await store.dispatch(duplicateBlocklist(toBeDuplicatedPayload))
+      },
     },
     then: {
       blocklistShouldBeStoredAs: (expectedBlocklist: Blocklist) => {
@@ -66,6 +79,15 @@ export function blocklistFixture(
           expectedBlocklist.id,
         )
         expect(retrievedBlocklist).toStrictEqual(expectedBlocklist)
+      },
+      retrievedBlocklistsFromStoreShouldBe(expectedBlocklists: Blocklist[]) {
+        const state = store.getState()
+        const retrievedBlocklists = blocklistAdapter
+          .getSelectors()
+          .selectAll(state.blocklist)
+        expect(retrievedBlocklists).toEqual(
+          expect.arrayContaining(expectedBlocklists),
+        )
       },
     },
   }

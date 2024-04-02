@@ -8,8 +8,8 @@ import { stateBuilderProvider } from '../../_tests_/state-builder.ts'
 import { duplicateBlockSession } from './duplicate-block-session.usecase.ts'
 import { selectBlockSessionById } from '../selectors/selectBlockSessionById.ts'
 import { selectAllBlockSessionIds } from '../selectors/selectAllBlockSessionIds.ts'
-import { renameBlocklist } from '../../blocklist/usecases/rename-blocklist.usecase.ts'
 import { renameBlockSession } from './rename-block-session.usecase.ts'
+import { deleteBlockSession } from './delete-block-session.usecase.ts'
 
 export function blockSessionFixture(
   testStateBuilderProvider = stateBuilderProvider(),
@@ -58,6 +58,15 @@ export function blockSessionFixture(
         )
         await store.dispatch(renameBlockSession(toBeRenamedPayload))
       },
+      deletingBlockSession: async (blockSessionId: string) => {
+        store = createTestStore(
+          {
+            blockSessionRepository,
+          },
+          testStateBuilderProvider.getState(),
+        )
+        await store.dispatch(deleteBlockSession(blockSessionId))
+      },
     },
     then: {
       blockSessionsShouldBeStoredAs: (expectedBlockSession: BlockSession) => {
@@ -78,6 +87,13 @@ export function blockSessionFixture(
           .getSelectors()
           .selectAll(state)
         expect(retrievedBlockSessions).toStrictEqual(expectedBlocklists)
+      },
+      blockSessionShouldNotBeInStore(sessionId: string) {
+        const retrievedBlockSession = selectBlockSessionById(
+          sessionId,
+          store.getState(),
+        )
+        expect(retrievedBlockSession).toBeUndefined()
       },
     },
   }

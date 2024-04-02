@@ -9,6 +9,7 @@ import { stateBuilderProvider } from '../../_tests_/state-builder.ts'
 import { FakeDataBlocklistRepository } from '../../../infra/blocklist-repository/fake-data.blocklist.repository.ts'
 import { renameBlocklist } from './rename-blocklist.usecase.ts'
 import { duplicateBlocklist } from './duplicate-blocklist.usecase.ts'
+import { deleteBlocklist } from './delete-blocklist.usecase.ts'
 
 export function blocklistFixture(
   testStateBuilderProvider = stateBuilderProvider(),
@@ -65,6 +66,15 @@ export function blocklistFixture(
         )
         await store.dispatch(duplicateBlocklist(toBeDuplicatedPayload))
       },
+      deletingBlocklist: async (blocklistId: string) => {
+        store = createTestStore(
+          {
+            blocklistRepository,
+          },
+          testStateBuilderProvider.getState(),
+        )
+        await store.dispatch(deleteBlocklist(blocklistId))
+      },
     },
     then: {
       blocklistShouldBeStoredAs: (expectedBlocklist: Blocklist) => {
@@ -88,6 +98,13 @@ export function blocklistFixture(
         expect(retrievedBlocklists).toEqual(
           expect.arrayContaining(expectedBlocklists),
         )
+      },
+      blocklistShouldNotBeInStore(deletedSessionId: string) {
+        const retrievedBlocklist = selectBlocklistById(
+          deletedSessionId,
+          store.getState(),
+        )
+        expect(retrievedBlocklist).toBeUndefined()
       },
     },
   }

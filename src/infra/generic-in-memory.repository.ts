@@ -30,6 +30,7 @@ export class GenericInMemoryRepository<T extends { id: string }> {
   }
   async delete(id: string): Promise<void> {
     this.entities.delete(id)
+    return Promise.resolve()
   }
 
   update(updatePayload: Partial<T> & Required<Pick<T, 'id'>>) {

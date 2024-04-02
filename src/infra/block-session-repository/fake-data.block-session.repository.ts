@@ -159,7 +159,7 @@ export class FakeDataBlockSessionRepository
   )
 
   delete(sessionId: string): Promise<void> {
-    throw new Error('Method not implemented.')
+    return super.delete(sessionId)
   }
 
   findById(sessionId: string): Promise<BlockSession> {

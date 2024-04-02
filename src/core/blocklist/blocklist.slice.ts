@@ -15,7 +15,6 @@ export const blocklistSlice = createSlice({
       .addCase(createBlocklist.fulfilled, (state, action) => {
         blocklistAdapter.addOne(state, action.payload)
       })
-
       .addCase(updateBlocklist.fulfilled, (state, action) => {
         blocklistAdapter.updateOne(state, {
           id: action.payload.id,

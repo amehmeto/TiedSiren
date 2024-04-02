@@ -7,9 +7,22 @@ import {
   instagramAndroidSiren,
 } from '../../core/_tests_/data-builders/android-siren.builder.ts'
 import { buildBlockSession } from '../../core/_tests_/data-builders/block-session.builder.ts'
+import { GenericInMemoryRepository } from '../generic-in-memory.repository.ts'
 
-export class FakeDataBlockSessionRepository implements BlockSessionRepository {
-  blockSessions: Map<string, BlockSession> = new Map(
+export class FakeDataBlockSessionRepository
+  extends GenericInMemoryRepository<BlockSession>
+  implements BlockSessionRepository
+{
+  delete(sessionId: string): Promise<void> {
+    throw new Error('Method not implemented.')
+  }
+  findById(sessionId: string): Promise<BlockSession> {
+    return super.findById(sessionId)
+  }
+  update(session: BlockSession): Promise<void> {
+    throw new Error('Method not implemented.')
+  }
+  entities: Map<string, BlockSession> = new Map(
     [
       buildBlockSession({
         id: String(uuid.v4()),
@@ -155,13 +168,10 @@ export class FakeDataBlockSessionRepository implements BlockSessionRepository {
   )
 
   getCurrentSessions(): Promise<BlockSession[]> {
-    return Promise.resolve(Array.from(this.blockSessions.values()))
+    return Promise.resolve(Array.from(this.entities.values()))
   }
 
-  createSession(sessionPayload: BlockSession): Promise<BlockSession> {
-    this.blockSessions.set(sessionPayload.id, sessionPayload)
-    const createdSession = this.blockSessions.get(sessionPayload.id)
-    if (!createdSession) throw new Error('Session not created')
-    return Promise.resolve(createdSession)
+  create(sessionPayload: Omit<BlockSession, 'id'>): Promise<BlockSession> {
+    return super.create(sessionPayload)
   }
 }

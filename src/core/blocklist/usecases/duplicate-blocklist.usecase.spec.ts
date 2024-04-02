@@ -2,7 +2,7 @@ import { beforeEach, describe, it, expect } from 'vitest'
 import { blocklistFixture } from './blocklist.fixture.ts'
 import { buildBlocklist } from '../../_tests_/data-builders/blocklist.builder.ts'
 
-describe('Feature: Creating a blocklist', () => {
+describe('Feature: Duplicating a blocklist', () => {
   let fixture: ReturnType<typeof blocklistFixture>
 
   beforeEach(() => {

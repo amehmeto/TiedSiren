@@ -8,6 +8,8 @@ import { stateBuilderProvider } from '../../_tests_/state-builder.ts'
 import { duplicateBlockSession } from './duplicate-block-session.usecase.ts'
 import { selectBlockSessionById } from '../selectors/selectBlockSessionById.ts'
 import { selectAllBlockSessionIds } from '../selectors/selectAllBlockSessionIds.ts'
+import { renameBlocklist } from '../../blocklist/usecases/rename-blocklist.usecase.ts'
+import { renameBlockSession } from './rename-block-session.usecase.ts'
 
 export function blockSessionFixture(
   testStateBuilderProvider = stateBuilderProvider(),
@@ -43,6 +45,18 @@ export function blockSessionFixture(
           testStateBuilderProvider.getState(),
         )
         await store.dispatch(duplicateBlockSession(toBeDuplicatedPayload))
+      },
+      renamingBlockSession: async (toBeRenamedPayload: {
+        name: string
+        id: string
+      }) => {
+        store = createTestStore(
+          {
+            blockSessionRepository,
+          },
+          testStateBuilderProvider.getState(),
+        )
+        await store.dispatch(renameBlockSession(toBeRenamedPayload))
       },
     },
     then: {

@@ -5,5 +5,7 @@ export interface BlockSessionRepository {
   create(sessionPayload: Omit<BlockSession, 'id'>): Promise<BlockSession>
   delete(sessionId: string): Promise<void>
   findById(sessionId: string): Promise<BlockSession>
-  update(session: BlockSession): Promise<void>
+  update(
+    session: Partial<BlockSession> & Required<Pick<BlockSession, 'id'>>,
+  ): Promise<void>
 }

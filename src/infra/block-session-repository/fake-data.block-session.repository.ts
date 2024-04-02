@@ -13,15 +13,6 @@ export class FakeDataBlockSessionRepository
   extends GenericInMemoryRepository<BlockSession>
   implements BlockSessionRepository
 {
-  delete(sessionId: string): Promise<void> {
-    throw new Error('Method not implemented.')
-  }
-  findById(sessionId: string): Promise<BlockSession> {
-    return super.findById(sessionId)
-  }
-  update(session: BlockSession): Promise<void> {
-    throw new Error('Method not implemented.')
-  }
   entities: Map<string, BlockSession> = new Map(
     [
       buildBlockSession({
@@ -166,6 +157,20 @@ export class FakeDataBlockSessionRepository
       },
     ].map((blockSession) => [blockSession.id, blockSession]),
   )
+
+  delete(sessionId: string): Promise<void> {
+    throw new Error('Method not implemented.')
+  }
+
+  findById(sessionId: string): Promise<BlockSession> {
+    return super.findById(sessionId)
+  }
+
+  update(
+    session: Partial<BlockSession> & Required<Pick<BlockSession, 'id'>>,
+  ): Promise<void> {
+    return super.update(session)
+  }
 
   getCurrentSessions(): Promise<BlockSession[]> {
     return Promise.resolve(Array.from(this.entities.values()))

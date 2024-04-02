@@ -31,4 +31,12 @@ export class GenericInMemoryRepository<T extends { id: string }> {
   async delete(id: string): Promise<void> {
     this.entities.delete(id)
   }
+
+  update(updatePayload: Partial<T> & Required<Pick<T, 'id'>>) {
+    const entity = this.entities.get(updatePayload.id)
+    if (!entity)
+      throw new Error('Entity not found and not updated inside InMemory')
+    this.entities.set(updatePayload.id, { ...entity, ...updatePayload })
+    return Promise.resolve()
+  }
 }

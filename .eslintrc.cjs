@@ -29,6 +29,7 @@ module.exports = {
   overrides: [{
     files: ['**/*.jsx', '**/*.tsx'],
     rules: {
+      "prefer-arrow-callback": "error",
       "react/no-danger": "warn",
       "react/jsx-no-bind": "off", // This is a performance optimization, not a correctness issue.
       "react/jsx-no-useless-fragment": "error",

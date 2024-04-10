@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { TiedSBlurView } from '../../../design-system/components/TiedSBlurView.tsx'
 import { T } from '../../../design-system/theme.ts'
 import { ThreeDotMenu } from '../../../design-system/components/ThreeDotMenu.tsx'
@@ -9,23 +9,11 @@ import { TextInputModal } from '../../Blocklists/TextInputModal.tsx'
 import { deleteBlockSession } from '../../../../core/block-session/usecases/delete-block-session.usecase.ts'
 import { duplicateBlockSession } from '../../../../core/block-session/usecases/duplicate-block-session.usecase.ts'
 import { renameBlockSession } from '../../../../core/block-session/usecases/rename-block-session.usecase.ts'
-
-function RoundBlueDot() {
-  const roundSize = 15
-
-  return (
-    <View
-      style={{
-        margin: T.spacing.small,
-        marginRight: T.spacing.x_large,
-        width: roundSize,
-        height: roundSize,
-        borderRadius: roundSize / 2,
-        backgroundColor: T.color.lightBlue,
-      }}
-    />
-  )
-}
+import { RoundBlueDot } from './RoundBlueDot.tsx'
+import { useNavigation } from '@react-navigation/native'
+import { HomeStackScreens } from '../../../navigators/screen-lists/HomeStackScreens.ts'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
 
 export function SessionCard(
   props: Readonly<{
@@ -39,8 +27,9 @@ export function SessionCard(
   }>,
 ) {
   const dispatch = useDispatch<AppDispatch>()
+  const navigation = useNavigation<NativeStackNavigationProp<ScreenList>>()
 
-  const [isRenameModalVisible, setRenameModalVisible] = useState(false)
+  const [isRenameModalVisible, setIsRenameModalVisible] = useState(false)
   const [isDuplicateModalVisible, setIsDuplicateModalVisible] = useState(false)
 
   const sessionCardMenu = [
@@ -48,13 +37,17 @@ export function SessionCard(
       name: 'Rename',
       iconName: 'text-outline' as const,
       action: () => {
-        setRenameModalVisible(true)
+        setIsRenameModalVisible(true)
       },
     },
     {
       name: 'Edit',
       iconName: 'create-outline' as const,
-      action: () => {},
+      action: () => {
+        navigation.navigate(HomeStackScreens.EDIT_BLOCK_SESSION, {
+          sessionId: props.session.id,
+        })
+      },
     },
     {
       name: 'Duplicate',
@@ -74,33 +67,42 @@ export function SessionCard(
 
   return (
     <>
-      <TiedSBlurView>
-        <RoundBlueDot />
-        <View>
-          <Text style={styles.sessionName}>{props.session.name}</Text>
-          <Text style={styles.minutesLeft}>{props.session.minutesLeft}</Text>
-          <Text style={styles.devices}>
-            {props.session.devices} device, {props.session.blocklists} blocklist
-          </Text>
-        </View>
-        <ThreeDotMenu menuOptions={sessionCardMenu} style={styles.menu} />
-      </TiedSBlurView>
+      <Pressable
+        onPress={() => {
+          navigation.navigate(HomeStackScreens.EDIT_BLOCK_SESSION, {
+            sessionId: props.session.id,
+          })
+        }}
+      >
+        <TiedSBlurView>
+          <RoundBlueDot />
+          <View>
+            <Text style={styles.sessionName}>{props.session.name}</Text>
+            <Text style={styles.minutesLeft}>{props.session.minutesLeft}</Text>
+            <Text style={styles.devices}>
+              {props.session.devices} device, {props.session.blocklists}{' '}
+              blocklist
+            </Text>
+          </View>
+          <ThreeDotMenu menuOptions={sessionCardMenu} style={styles.menu} />
+        </TiedSBlurView>
+      </Pressable>
 
       <TextInputModal
         visible={isRenameModalVisible}
         label={'Rename block session'}
         initialText={props.session.name}
         onRequestClose={() => {
-          setRenameModalVisible(false)
+          setIsRenameModalVisible(false)
         }}
         onCancel={() => {
-          setRenameModalVisible(false)
+          setIsRenameModalVisible(false)
         }}
         onSave={(inputText: string) => {
           dispatch(
             renameBlockSession({ id: props.session.id, name: inputText }),
           )
-          setRenameModalVisible(false)
+          setIsRenameModalVisible(false)
         }}
       />
       <TextInputModal

@@ -1,4 +1,4 @@
-import { Session } from './CreateBlockSessionScreen.tsx'
+import { Session } from './BlockSessionForm.tsx'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { SelectListModal } from './SelectListModal.tsx'
 import { useState } from 'react'

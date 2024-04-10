@@ -6,15 +6,13 @@ import { BlocklistsStackScreens } from '../../../navigators/screen-lists/Blockli
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { TabScreens } from '../../../navigators/screen-lists/TabScreens.ts'
 
-export type EditBlocklistScreenProps = {
-  navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
-  route: RouteProp<ScreenList, BlocklistsStackScreens.EDIT_BLOCKLIST>
-}
-
 export function EditBlocklistScreen({
   navigation,
   route,
-}: Readonly<EditBlocklistScreenProps>) {
+}: Readonly<{
+  navigation: NativeStackNavigationProp<ScreenList, TabScreens.BLOCKLIST>
+  route: RouteProp<ScreenList, BlocklistsStackScreens.EDIT_BLOCKLIST>
+}>) {
   if (!route || !navigation) return null
   return (
     <BlocklistForm

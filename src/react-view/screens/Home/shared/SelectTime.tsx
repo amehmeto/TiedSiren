@@ -1,4 +1,4 @@
-import { Session } from './CreateBlockSessionScreen.tsx'
+import { Session } from './BlockSessionForm.tsx'
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import { T } from '../../../design-system/theme.ts'

@@ -1,4 +1,4 @@
-import { Session } from './CreateBlockSessionScreen.tsx'
+import { Session } from './BlockSessionForm.tsx'
 import React, { useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { TiedSModal } from '../../../design-system/components/TiedSModal.tsx'

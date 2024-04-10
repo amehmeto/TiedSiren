@@ -8,7 +8,6 @@ import { FakeDataBlocklistRepository } from '../infra/blocklist-repository/fake-
 import { InMemorySirenTier } from '../infra/siren-binder/in-memory-siren.tier.ts'
 import { FakeDataSirensRepository } from '../infra/sirens-repository/fake-data.sirens-repository.ts'
 
-new FakeDataInstalledAppsRepository()
 export const deviceRepository: DeviceRepository = new FakeDataDeviceRepository()
 
 export const dependencies: Dependencies = {

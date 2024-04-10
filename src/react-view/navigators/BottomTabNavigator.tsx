@@ -7,8 +7,9 @@ import { TabScreens } from './screen-lists/TabScreens'
 import { HomeStackNavigator } from './HomeStackNavigator.tsx'
 import { StrictModeScreen } from '../screens/StrictMode/StrictModeScreen/StrictModeScreen.tsx'
 import { StyleSheet } from 'react-native'
+import { ScreenList } from './screen-lists/screenLists.ts'
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator<ScreenList>()
 
 export function BottomTabNavigator() {
   return (

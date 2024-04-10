@@ -11,12 +11,8 @@ import { useDispatch } from 'react-redux'
 import { createBlockSession } from '../../../../core/block-session/usecases/create-block-session.usecase.ts'
 import uuid from 'react-native-uuid'
 import { BlockSession } from '../../../../core/block-session/block.session.ts'
+import { updateBlockSession } from '../../../../core/block-session/usecases/update-block-session.usecase.ts'
 // import { z } from 'zod'
-
-type HomeScreenProps = {
-  navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
-  session?: Session
-}
 
 export type Session = {
   id: string
@@ -39,7 +35,12 @@ const defaultSession: Session = {
 export function BlockSessionForm({
   navigation,
   session = defaultSession,
-}: Readonly<HomeScreenProps>) {
+  mode,
+}: Readonly<{
+  navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
+  mode: 'create' | 'edit'
+  session?: Session
+}>) {
   const dispatch = useDispatch<AppDispatch>()
 
   /*  const validationSchema = z.object({
@@ -90,7 +91,9 @@ export function BlockSessionForm({
         */
         onSubmit={(values) => {
           assertIsBlockSession(values)
-          dispatch(createBlockSession(values))
+          mode === 'edit'
+            ? dispatch(updateBlockSession(values))
+            : dispatch(createBlockSession(values))
         }}
       >
         {(form) => (

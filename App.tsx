@@ -29,8 +29,12 @@ const sirensRepository = new FakeDataSirensRepository()
 const blocklists = await blocklistRepository.getBlocklists()
 
 const preloadedState: StateBuilderProvider = stateBuilderProvider()
+const preloadedBlockSessions = [buildBlockSession()]
 preloadedState.setState((builder) =>
-  builder.withBlockSessions([buildBlockSession()]).withBlocklists(blocklists),
+  builder.withBlockSessions(preloadedBlockSessions).withBlocklists(blocklists),
+)
+blockSessionRepository.entities = new Map(
+  preloadedBlockSessions.map((blockSession) => [blockSession.id, blockSession]),
 )
 
 const store = createStore(

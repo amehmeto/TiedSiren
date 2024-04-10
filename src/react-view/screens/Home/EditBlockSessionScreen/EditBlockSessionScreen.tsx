@@ -19,6 +19,7 @@ export function EditBlockSessionScreen({
   const session = useSelector((state: RootState) =>
     selectBlockSessionById(sessionId, state),
   )
-  console.log(session)
-  return <BlockSessionForm navigation={navigation} session={session} />
+  return (
+    <BlockSessionForm navigation={navigation} session={session} mode={'edit'} />
+  )
 }

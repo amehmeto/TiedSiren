@@ -20,8 +20,8 @@ import { selectAllBlocklists } from '../../../../core/blocklist/selectors/select
 
 export function SelectBlockSessionParams(
   props: Readonly<{
-    form: FormikProps<Session>
     navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
+    form: FormikProps<Session>
   }>,
 ) {
   const { handleChange, handleBlur, handleSubmit, setFieldValue, values } =

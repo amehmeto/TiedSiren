@@ -10,6 +10,7 @@ import { selectBlockSessionById } from '../selectors/selectBlockSessionById.ts'
 import { selectAllBlockSessionIds } from '../selectors/selectAllBlockSessionIds.ts'
 import { renameBlockSession } from './rename-block-session.usecase.ts'
 import { deleteBlockSession } from './delete-block-session.usecase.ts'
+import { updateBlockSession } from './update-block-session.usecase.ts'
 
 export function blockSessionFixture(
   testStateBuilderProvider = stateBuilderProvider(),
@@ -67,9 +68,21 @@ export function blockSessionFixture(
         )
         await store.dispatch(deleteBlockSession(blockSessionId))
       },
+      updatingBlockSession: async (
+        updateBlockSessionPayload: Partial<BlockSession> &
+          Required<Pick<BlockSession, 'id'>>,
+      ) => {
+        store = createTestStore(
+          {
+            blockSessionRepository,
+          },
+          testStateBuilderProvider.getState(),
+        )
+        await store.dispatch(updateBlockSession(updateBlockSessionPayload))
+      },
     },
     then: {
-      blockSessionsShouldBeStoredAs: (expectedBlockSession: BlockSession) => {
+      blockSessionShouldBeStoredAs: (expectedBlockSession: BlockSession) => {
         const retrievedBlockSessions = selectBlockSessionById(
           expectedBlockSession.id,
           store.getState(),

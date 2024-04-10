@@ -8,5 +8,5 @@ export function CreateBlockSessionScreen({
 }: Readonly<{
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
 }>) {
-  return <BlockSessionForm navigation={navigation} />
+  return <BlockSessionForm navigation={navigation} mode={'create'} />
 }

@@ -16,13 +16,14 @@ import { exhaustiveGuard } from '../../../../common/exhaustive-guard.ts'
 import { NoSessionBoard } from './NoSessionBoard.tsx'
 import { SessionsBoard } from './SessionsBoard.tsx'
 import { HomeViewModel } from './home-view-model.types.ts'
-import { dateProvider } from '../../../dependencies.ts'
+import { dependencies } from '../../../dependencies.ts'
 
-type HomeScreenProps = {
+export function HomeScreen({
+  navigation,
+}: Readonly<{
   navigation: NativeStackNavigationProp<ScreenList, TabScreens.HOME>
-}
-
-export function HomeScreen({ navigation }: Readonly<HomeScreenProps>) {
+}>) {
+  const { dateProvider } = dependencies
   const [now, setNow] = useState<Date>(dateProvider.getNow())
   const viewModel = useSelector<
     RootState,

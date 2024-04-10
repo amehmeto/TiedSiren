@@ -46,7 +46,7 @@ describe('Feature: Creating a block session', () => {
 
     await fixture.when.creatingBlockSession(blockSessionPayload)
 
-    fixture.then.blockSessionsShouldBeStoredAs({
+    fixture.then.blockSessionShouldBeStoredAs({
       id: 'block-session-id',
       name: 'Sleeping time',
       blocklists: [

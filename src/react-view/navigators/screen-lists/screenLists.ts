@@ -10,4 +10,5 @@ export type ScreenList = {
   MainBlocklist: undefined
   CreateBlocklist: undefined
   EditBlockSession: { sessionId: string }
+  StrictMode: undefined
 }

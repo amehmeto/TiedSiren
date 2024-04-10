@@ -44,6 +44,7 @@ export function SessionCard(
       name: 'Edit',
       iconName: 'create-outline' as const,
       action: () => {
+        console.log(props.session.id)
         navigation.navigate(HomeStackScreens.EDIT_BLOCK_SESSION, {
           sessionId: props.session.id,
         })

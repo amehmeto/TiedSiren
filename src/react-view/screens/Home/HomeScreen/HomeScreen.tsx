@@ -1,5 +1,5 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import { StyleSheet, Text } from 'react-native'
 import { TiedSirenLogoSvg } from './TiedSirenLogoSvg.tsx'
 import 'react-native-gesture-handler'
@@ -15,8 +15,56 @@ import { selectHomeViewModel } from './home.view-model.ts'
 import { exhaustiveGuard } from '../../../../common/exhaustive-guard.ts'
 import { NoSessionBoard } from './NoSessionBoard.tsx'
 import { SessionsBoard } from './SessionsBoard.tsx'
-import { HomeViewModel } from './home-view-model.types.ts'
+import {
+  HomeViewModel,
+  HomeViewModelType,
+  SessionBoardTitle,
+  ViewModelBlockSession,
+} from './home-view-model.types.ts'
 import { dependencies } from '../../../dependencies.ts'
+
+function notifyActiveSessionsStartAndEnd(
+  viewModel: HomeViewModelType,
+  previousActiveSessionsRef: React.MutableRefObject<ViewModelBlockSession[]>,
+) {
+  const { notificationService } = dependencies
+
+  function notInPreviousActiveSessions(session: ViewModelBlockSession) {
+    return !previousActiveSessions.some(
+      (prevSession) => prevSession.id === session.id,
+    )
+  }
+
+  function notInCurrentActivesSessions(
+    activeSessions: ViewModelBlockSession[],
+    session: ViewModelBlockSession,
+  ) {
+    return !activeSessions.some(
+      (activeSession) => activeSession.id === session.id,
+    )
+  }
+
+  const currentActiveSessions =
+    viewModel.activeSessions.title === SessionBoardTitle.ACTIVE_SESSIONS
+      ? viewModel.activeSessions.blockSessions
+      : []
+  const previousActiveSessions = previousActiveSessionsRef.current
+  const newActiveSessions = currentActiveSessions.filter((session) =>
+    notInPreviousActiveSessions(session),
+  )
+  const endedSessions = previousActiveSessions.filter((session) =>
+    notInCurrentActivesSessions(currentActiveSessions, session),
+  )
+
+  newActiveSessions.forEach((session) => {
+    notificationService.pushNotification(`Session ${session.id} has started`)
+  })
+  endedSessions.forEach((session) => {
+    notificationService.pushNotification(`Session ${session.id} has ended`)
+  })
+
+  previousActiveSessionsRef.current = currentActiveSessions
+}
 
 export function HomeScreen({
   navigation,
@@ -30,12 +78,18 @@ export function HomeScreen({
     ReturnType<typeof selectHomeViewModel>
   >((rootState) => selectHomeViewModel(rootState, now))
 
+  const previousActiveSessionsRef = useRef<ViewModelBlockSession[]>([])
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       setNow(dateProvider.getNow())
     }, 1_000)
     return () => clearInterval(intervalId)
-  }, [now])
+  }, [dateProvider, now])
+
+  useEffect(() => {
+    notifyActiveSessionsStartAndEnd(viewModel, previousActiveSessionsRef)
+  }, [viewModel])
 
   const [activeSessionsNode, scheduledSessionsNode]: ReactNode[] = (() => {
     switch (viewModel.type) {

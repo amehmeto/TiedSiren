@@ -7,6 +7,8 @@ import { FakeDataBlockSessionRepository } from '../infra/block-session-repositor
 import { FakeDataBlocklistRepository } from '../infra/blocklist-repository/fake-data.blocklist.repository.ts'
 import { InMemorySirenTier } from '../infra/siren-binder/in-memory-siren.tier.ts'
 import { FakeDataSirensRepository } from '../infra/sirens-repository/fake-data.sirens-repository.ts'
+import { ExpoNotificationService } from '../infra/notification-service/expo.notification.service.ts'
+import { FakeNotificationService } from '../infra/notification-service/fake.notification.service.ts'
 
 export const deviceRepository: DeviceRepository = new FakeDataDeviceRepository()
 
@@ -17,4 +19,5 @@ export const dependencies: Dependencies = {
   dateProvider: new RealDateProvider(),
   installedAppRepository: new FakeDataInstalledAppsRepository(),
   sirensRepository: new FakeDataSirensRepository(),
+  notificationService: new FakeNotificationService(), // new ExpoNotificationService(),
 }

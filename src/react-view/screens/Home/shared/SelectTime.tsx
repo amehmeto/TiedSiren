@@ -5,7 +5,7 @@ import { T } from '../../../design-system/theme.ts'
 import React from 'react'
 import { WebTimePicker } from './WebTimePicker.tsx'
 
-function toHHmm(date: Date) {
+export function toHHmm(date: Date) {
   const hours = String(date.getHours()).padStart(2, '0')
   const minutes = String(date.getMinutes()).padStart(2, '0')
   return `${hours}:${minutes}`

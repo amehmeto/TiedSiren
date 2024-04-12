@@ -7,6 +7,7 @@ import { StubDateProvider } from '../../infra/date-provider/stub.date-provider.t
 import { Dependencies } from '../_redux_/dependencies.ts'
 import { FakeDataInstalledAppsRepository } from '../../infra/installed-apps-repository/fake-data.installed-apps.repository.ts'
 import { FakeDataSirensRepository } from '../../infra/sirens-repository/fake-data.sirens-repository.ts'
+import { FakeNotificationService } from '../../infra/notification-service/fake.notification.service.ts'
 
 export const createTestStore = (
   {
@@ -16,6 +17,7 @@ export const createTestStore = (
     dateProvider = new StubDateProvider(),
     installedAppRepository = new FakeDataInstalledAppsRepository(),
     sirensRepository = new FakeDataSirensRepository(),
+    notificationService = new FakeNotificationService(),
   }: Partial<Dependencies> = {},
   preloadedState?: Partial<ReturnType<typeof rootReducer>>,
 ) =>
@@ -27,6 +29,7 @@ export const createTestStore = (
       dateProvider,
       installedAppRepository,
       sirensRepository,
+      notificationService,
     },
     preloadedState,
   )

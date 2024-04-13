@@ -8,6 +8,9 @@ node_modules/
 dist/
 web-build/
 
+# Expo extra
+credentials.json
+
 # Native
 *.orig.*
 *.jks

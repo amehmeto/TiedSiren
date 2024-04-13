@@ -9549,11 +9549,6 @@ react-native-gesture-handler@~2.14.0:
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
-react-native-installed-application@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/react-native-installed-application/-/react-native-installed-application-1.0.6.tgz#1b4522cfe31962dd4eb6977c2b8d780efd94b1e4"
-  integrity sha512-eZzJubWXeP4WXLrN8xbd1EThd5tSj4OugPV11syqCI/8IoNa/rXGMGroVqQnuYUGgT8bRK+6rqNMZ2LRn3st0Q==
-
 react-native-modal-datetime-picker@^17.1.0:
   version "17.1.0"
   resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-17.1.0.tgz#74291bf92b830be285752f437841f52885c90e0b"

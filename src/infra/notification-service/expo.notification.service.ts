@@ -3,24 +3,26 @@ import { NotificationService } from './notification.service.ts'
 import Constants from 'expo-constants'
 
 export class ExpoNotificationService implements NotificationService {
+  async requestNotificationPermissions(): Promise<void> {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync()
+    let finalStatus = existingStatus
+
+    // only ask if permissions have not already been determined, because
+    // iOS won't necessarily prompt the user a second time.
+    if (existingStatus !== 'granted') {
+      // Android remote notification permissions are granted during the app
+      // installation, so this will only ask on iOS
+      const { status } = await Notifications.requestPermissionsAsync()
+      finalStatus = status
+    }
+
+    if (finalStatus !== 'granted')
+      throw new Error('Failed to get push token for push notification!')
+  }
+
   async getNotificationToken(): Promise<string> {
     try {
-      const { status: existingStatus } =
-        await Notifications.getPermissionsAsync()
-      let finalStatus = existingStatus
-
-      // only ask if permissions have not already been determined, because
-      // iOS won't necessarily prompt the user a second time.
-      if (existingStatus !== 'granted') {
-        // Android remote notification permissions are granted during the app
-        // installation, so this will only ask on iOS
-        const { status } = await Notifications.requestPermissionsAsync()
-        finalStatus = status
-      }
-
-      if (finalStatus !== 'granted')
-        throw new Error('Failed to get push token for push notification!')
-
+      await this.requestNotificationPermissions()
       const projectId = Constants?.expoConfig?.extra?.eas?.projectId
 
       if (!projectId) throw new Error('Project ID not found')
@@ -28,6 +30,7 @@ export class ExpoNotificationService implements NotificationService {
       const token = await Notifications.getExpoPushTokenAsync({
         projectId,
       })
+
       return token.data
     } catch (error) {
       console.error(error)
@@ -35,7 +38,8 @@ export class ExpoNotificationService implements NotificationService {
     }
   }
 
-  async pushNotification(message: string): Promise<void> {
+  async sendPushNotification(message: string): Promise<void> {
+    await this.requestNotificationPermissions()
     const token = await this.getNotificationToken()
     const response = await fetch('https://exp.host/--/api/v2/push/send', {
       method: 'POST',
@@ -56,5 +60,22 @@ export class ExpoNotificationService implements NotificationService {
     if (!response.ok) {
       throw new Error('Failed to send push notification')
     }
+  }
+
+  async scheduleLocalNotification(
+    title: string,
+    body: string,
+    trigger: Notifications.NotificationTriggerInput,
+  ): Promise<string> {
+    await this.requestNotificationPermissions()
+    return Notifications.scheduleNotificationAsync({
+      content: {
+        title,
+        body,
+        sound: 'default',
+        data: { data: 'goes here' },
+      },
+      trigger,
+    })
   }
 }

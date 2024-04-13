@@ -9,9 +9,37 @@ import { Provider } from 'react-redux'
 import { MenuProvider } from 'react-native-popup-menu'
 import { dependencies } from './src/react-view/dependencies.ts'
 import { preloadedStateForManualTesting } from './PreloadedStateForManualTesting.tsx'
+import * as Notifications from 'expo-notifications'
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+})
 
 export default function App() {
   const [store, setStore] = useState<AppStore | null>(null)
+
+  /*  useEffect(() => {
+    const subscription1 = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        console.log('app is opened', notification)
+      },
+    )
+
+    const subscription2 = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        console.log('The user tapped', response)
+      },
+    )
+
+    return () => {
+      subscription1.remove()
+      subscription2.remove()
+    }
+  }, [])*/
 
   useEffect(() => {
     async function initializeStore() {

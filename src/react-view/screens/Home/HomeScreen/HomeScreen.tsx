@@ -57,13 +57,17 @@ async function notifyActiveSessionsStartAndEnd(
   )
 
   for (const session of newActiveSessions) {
-    await notificationService.pushNotification(
-      `Session ${session.id} has started`,
+    await notificationService.scheduleLocalNotification(
+      'Tied Siren',
+      `Session ${session.name} has started`,
+      { seconds: 1 },
     )
   }
   for (const session of endedSessions) {
-    await notificationService.pushNotification(
-      `Session ${session.id} has ended`,
+    await notificationService.scheduleLocalNotification(
+      'Tied Siren',
+      `Session ${session.name} has ended`,
+      { seconds: 1 },
     )
   }
 

@@ -23,7 +23,7 @@ import {
 } from './home-view-model.types.ts'
 import { dependencies } from '../../../dependencies.ts'
 
-function notifyActiveSessionsStartAndEnd(
+async function notifyActiveSessionsStartAndEnd(
   viewModel: HomeViewModelType,
   previousActiveSessionsRef: React.MutableRefObject<ViewModelBlockSession[]>,
 ) {
@@ -56,12 +56,16 @@ function notifyActiveSessionsStartAndEnd(
     notInCurrentActivesSessions(currentActiveSessions, session),
   )
 
-  newActiveSessions.forEach((session) => {
-    notificationService.pushNotification(`Session ${session.id} has started`)
-  })
-  endedSessions.forEach((session) => {
-    notificationService.pushNotification(`Session ${session.id} has ended`)
-  })
+  for (const session of newActiveSessions) {
+    await notificationService.pushNotification(
+      `Session ${session.id} has started`,
+    )
+  }
+  for (const session of endedSessions) {
+    await notificationService.pushNotification(
+      `Session ${session.id} has ended`,
+    )
+  }
 
   previousActiveSessionsRef.current = currentActiveSessions
 }

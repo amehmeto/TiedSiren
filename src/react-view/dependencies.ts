@@ -19,5 +19,5 @@ export const dependencies: Dependencies = {
   dateProvider: new RealDateProvider(),
   installedAppRepository: new FakeDataInstalledAppsRepository(),
   sirensRepository: new FakeDataSirensRepository(),
-  notificationService: new FakeNotificationService(), // new ExpoNotificationService(),
+  notificationService: new ExpoNotificationService(),
 }

@@ -22,7 +22,7 @@ describe('Feature: Renaming a block session', () => {
       name: 'Sleeping time',
     })
 
-    fixture.then.retrievedBlockSessionsFromStoreShouldBe([
+    fixture.then.blockSessionsFromStoreShouldBe([
       {
         ...givenBlockSession,
         name: 'Sleeping time',

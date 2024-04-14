@@ -1,5 +1,8 @@
 import { AppStore } from '../../_redux_/createStore.ts'
-import { createBlockSession } from './create-block-session.usecase.ts'
+import {
+  createBlockSession,
+  CreateBlockSessionPayload,
+} from './create-block-session.usecase.ts'
 import { expect } from 'vitest'
 import { BlockSession, blockSessionAdapter } from '../block.session.ts'
 import { createTestStore } from '../../_tests_/createTestStore.ts'
@@ -39,7 +42,7 @@ export function blockSessionFixture(
       },
     },
     when: {
-      creatingBlockSession: async (payload: BlockSession) => {
+      creatingBlockSession: async (payload: CreateBlockSessionPayload) => {
         store = createTestStore({
           notificationService,
           dateProvider,
@@ -103,9 +106,7 @@ export function blockSessionFixture(
         const blockSessionIds = selectAllBlockSessionIds(store.getState())
         expect(blockSessionIds).toContain(expectedBlockSession.id)
       },
-      retrievedBlockSessionsFromStoreShouldBe(
-        expectedBlocklists: BlockSession[],
-      ) {
+      blockSessionsFromStoreShouldBe(expectedBlocklists: BlockSession[]) {
         const state = store.getState().blockSession
         const retrievedBlockSessions = blockSessionAdapter
           .getSelectors()

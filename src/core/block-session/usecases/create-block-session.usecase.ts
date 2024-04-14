@@ -2,10 +2,14 @@ import { createAppAsyncThunk } from '../../_redux_/create-app-thunk.ts'
 import { BlockSession } from '../block.session.ts'
 import { differenceInSeconds } from 'date-fns'
 
+export type CreateBlockSessionPayload = Omit<
+  BlockSession,
+  'id' | 'startNotificationId' | 'endNotificationId'
+>
 export const createBlockSession = createAppAsyncThunk(
   'blockSession/createBlockSession',
   async (
-    payload: BlockSession,
+    payload: CreateBlockSessionPayload,
     { extra: { blockSessionRepository, notificationService, dateProvider } },
   ) => {
     const now = dateProvider.getNow()
@@ -27,6 +31,10 @@ export const createBlockSession = createAppAsyncThunk(
           seconds: differenceInSeconds(endedAt, now),
         },
       )
-    return blockSessionRepository.create(payload)
+    return blockSessionRepository.create({
+      ...payload,
+      startNotificationId,
+      endNotificationId,
+    })
   },
 )

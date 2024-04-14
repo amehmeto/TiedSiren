@@ -17,6 +17,8 @@ export const buildBlockSession = (
     name: faker.helpers.arrayElement(sessionNameExamples),
     startedAt: '03:48',
     endedAt: '13:58',
+    startNotificationId: 'start-notification-id',
+    endNotificationId: 'end-notification-id',
     blocklists: [buildBlocklist()],
     devices: [buildDevice(), buildDevice()],
   }

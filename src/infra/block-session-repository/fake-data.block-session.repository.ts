@@ -58,8 +58,10 @@ export class FakeDataBlockSessionRepository
             name: 'Google Pixel 3a',
           },
         ],
-        startedAt: '10:48:00',
-        endedAt: '13:58:00',
+        startedAt: '10:48',
+        endedAt: '13:58',
+        startNotificationId: 'start-notification-id',
+        endNotificationId: 'end-notification-id',
       }),
       {
         id: String(uuid.v4()),
@@ -107,6 +109,8 @@ export class FakeDataBlockSessionRepository
         ],
         startedAt: '10:48',
         endedAt: '13:58',
+        startNotificationId: 'start-notification-id',
+        endNotificationId: 'end-notification-id',
       },
       {
         id: String(uuid.v4()),
@@ -154,6 +158,8 @@ export class FakeDataBlockSessionRepository
         ],
         startedAt: '10:48',
         endedAt: '13:58',
+        startNotificationId: 'start-notification-id',
+        endNotificationId: 'end-notification-id',
       },
     ].map((blockSession) => [blockSession.id, blockSession]),
   )

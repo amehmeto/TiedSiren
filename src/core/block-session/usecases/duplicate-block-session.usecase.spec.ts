@@ -19,7 +19,7 @@ describe('Feature: Duplicating a block session', () => {
       name: 'Copy of ' + givenBlockSession.name,
     })
 
-    fixture.then.retrievedBlockSessionsFromStoreShouldBe([
+    fixture.then.blockSessionsFromStoreShouldBe([
       givenBlockSession,
       {
         ...givenBlockSession,

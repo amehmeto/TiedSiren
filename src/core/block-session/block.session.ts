@@ -9,6 +9,8 @@ export type BlockSession = {
   devices: Device[]
   startedAt: string
   endedAt: string
+  startNotificationId: string
+  endNotificationId: string
 }
 
 export const blockSessionAdapter = createEntityAdapter<BlockSession>()

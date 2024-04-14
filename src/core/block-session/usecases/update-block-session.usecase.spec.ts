@@ -1,7 +1,7 @@
 import { beforeEach, describe, it } from 'vitest'
 import { blockSessionFixture } from './block-session.fixture.ts'
-import { BlockSession } from '../block.session.ts'
 import { buildBlockSession } from '../../_tests_/data-builders/block-session.builder.ts'
+import { UpdateBlockSessionPayload } from './update-block-session.usecase.ts'
 
 describe('Feature: Updating block session', () => {
   let fixture: ReturnType<typeof blockSessionFixture>
@@ -11,10 +11,11 @@ describe('Feature: Updating block session', () => {
   })
 
   it('should update a block session', async () => {
-    const updateBlockSessionPayload: Partial<BlockSession> &
-      Required<Pick<BlockSession, 'id'>> = {
+    const updateBlockSessionPayload: UpdateBlockSessionPayload = {
       id: 'block-session-id',
       name: 'Working time',
+      startedAt: '01:10',
+      endedAt: '01:45',
     }
 
     const existingBlockSession = buildBlockSession({
@@ -22,12 +23,34 @@ describe('Feature: Updating block session', () => {
       name: 'Sleeping time',
     })
     fixture.given.existingBlockSession(existingBlockSession)
+    fixture.given.nowIs({
+      hours: 0,
+      minutes: 50,
+    })
 
     await fixture.when.updatingBlockSession(updateBlockSessionPayload)
 
     fixture.then.blockSessionShouldBeStoredAs({
       ...existingBlockSession,
       name: 'Working time',
+      startedAt: '01:10',
+      endedAt: '01:45',
     })
+    fixture.then.notificationsShouldBeScheduled([
+      {
+        title: 'Tied Siren',
+        body: `Block session "Working time" has started`,
+        trigger: {
+          seconds: 20 * 60,
+        },
+      },
+      {
+        title: 'Tied Siren',
+        body: `Block session "Working time" has ended`,
+        trigger: {
+          seconds: 55 * 60,
+        },
+      },
+    ])
   })
 })

@@ -36,10 +36,6 @@ describe('Feature: Duplicating a block session', () => {
         endNotificationId: expect.any(String),
       },
     ])
-    fixture.then.scheduledNotificationsShouldCancelled([
-      givenBlockSession.startNotificationId,
-      givenBlockSession.endNotificationId,
-    ])
     fixture.then.notificationsShouldBeScheduled([
       {
         title: 'Tied Siren',

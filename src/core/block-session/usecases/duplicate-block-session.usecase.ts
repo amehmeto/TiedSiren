@@ -8,12 +8,6 @@ export const duplicateBlockSession = createAppAsyncThunk(
     { extra: { blockSessionRepository, notificationService, dateProvider } },
   ) => {
     const sessionToBeCopied = await blockSessionRepository.findById(payload.id)
-    await notificationService.cancelScheduledNotifications(
-      sessionToBeCopied.startNotificationId,
-    )
-    await notificationService.cancelScheduledNotifications(
-      sessionToBeCopied.endNotificationId,
-    )
 
     const now = dateProvider.getNow()
     const startedAt = dateProvider.recoverDate(sessionToBeCopied.startedAt)

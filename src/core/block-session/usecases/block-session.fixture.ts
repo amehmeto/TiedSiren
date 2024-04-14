@@ -94,6 +94,8 @@ export function blockSessionFixture(
         store = createTestStore(
           {
             blockSessionRepository,
+            dateProvider,
+            notificationService,
           },
           testStateBuilderProvider.getState(),
         )

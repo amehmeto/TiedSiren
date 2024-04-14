@@ -8,7 +8,7 @@ import { AppStore, createStore } from './src/core/_redux_/createStore'
 import { Provider } from 'react-redux'
 import { MenuProvider } from 'react-native-popup-menu'
 import { dependencies } from './src/react-view/dependencies.ts'
-import { preloadedStateForManualTesting } from './PreloadedStateForManualTesting.tsx'
+import { preloadedStateForManualTesting } from './src/react-view/preloadedStateForManualTesting.tsx'
 import * as Notifications from 'expo-notifications'
 
 Notifications.setNotificationHandler({

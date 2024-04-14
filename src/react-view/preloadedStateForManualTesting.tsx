@@ -1,11 +1,10 @@
-import { dependencies } from './src/react-view/dependencies.ts'
+import { dependencies } from './dependencies.ts'
 import {
   stateBuilderProvider,
   StateBuilderProvider,
-} from './src/core/_tests_/state-builder.ts'
-import { buildBlockSession } from './src/core/_tests_/data-builders/block-session.builder.ts'
-import { toHHmm } from './src/react-view/screens/Home/shared/SelectTime.tsx'
-import { FakeDataBlockSessionRepository } from './src/infra/block-session-repository/fake-data.block-session.repository.ts'
+} from '../core/_tests_/state-builder.ts'
+import { buildBlockSession } from '../core/_tests_/data-builders/block-session.builder.ts'
+import { FakeDataBlockSessionRepository } from '../infra/block-session-repository/fake-data.block-session.repository.ts'
 
 export async function preloadedStateForManualTesting() {
   const blocklists = await dependencies.blocklistRepository.getBlocklists()
@@ -17,12 +16,12 @@ export async function preloadedStateForManualTesting() {
   const preloadedBlockSessions = [
     buildBlockSession({
       name: 'Working time',
-      start: toHHmm(now),
-      end: toHHmm(oneMinuteFromNow),
+      startedAt: dependencies.dateProvider.toHHmm(now),
+      endedAt: dependencies.dateProvider.toHHmm(oneMinuteFromNow),
     }),
     buildBlockSession({
       name: 'Sleeping time',
-      start: toHHmm(oneMinuteFromNow),
+      startedAt: dependencies.dateProvider.toHHmm(oneMinuteFromNow),
     }),
   ]
   preloadedState.setState((builder) =>

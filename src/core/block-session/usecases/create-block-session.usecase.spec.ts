@@ -40,12 +40,31 @@ describe('Feature: Creating a block session', () => {
           name: 'Huawei P30',
         },
       ],
-      start: '2021-01-01T00:00:00Z',
-      end: '2021-01-01T00:00:00Z',
+      startedAt: '00:10',
+      endedAt: '00:30',
     }
+    const now = new Date()
+    now.setUTCHours(0, 0, 0, 0)
+    fixture.given.nowIs(now)
 
     await fixture.when.creatingBlockSession(blockSessionPayload)
 
+    fixture.then.notificationsShouldBeScheduled([
+      {
+        title: 'Tied Siren',
+        body: `Block session "Sleeping time" has started`,
+        trigger: {
+          seconds: 10 * 60,
+        },
+      },
+      {
+        title: 'Tied Siren',
+        body: `Block session "Sleeping time" has ended`,
+        trigger: {
+          seconds: 30 * 60,
+        },
+      },
+    ])
     fixture.then.blockSessionShouldBeStoredAs({
       id: 'block-session-id',
       name: 'Sleeping time',
@@ -71,8 +90,8 @@ describe('Feature: Creating a block session', () => {
           name: 'Huawei P30',
         },
       ],
-      start: '2021-01-01T00:00:00Z',
-      end: '2021-01-01T00:00:00Z',
+      startedAt: '00:10',
+      endedAt: '00:30',
     })
   })
 })

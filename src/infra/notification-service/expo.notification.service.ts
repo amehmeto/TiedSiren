@@ -1,6 +1,7 @@
 import * as Notifications from 'expo-notifications'
 import { NotificationService } from './notification.service.ts'
 import Constants from 'expo-constants'
+import { Platform } from 'react-native'
 
 export class ExpoNotificationService implements NotificationService {
   async requestNotificationPermissions(): Promise<void> {
@@ -67,6 +68,9 @@ export class ExpoNotificationService implements NotificationService {
     body: string,
     trigger: Notifications.NotificationTriggerInput,
   ): Promise<string> {
+    if (Platform.OS === 'web')
+      return 'Local notifications are not supported on web'
+
     await this.requestNotificationPermissions()
     return Notifications.scheduleNotificationAsync({
       content: {

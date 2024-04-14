@@ -7,8 +7,8 @@ export type BlockSession = {
   name: string
   blocklists: Blocklist[]
   devices: Device[]
-  start: string
-  end: string
+  startedAt: string
+  endedAt: string
 }
 
 export const blockSessionAdapter = createEntityAdapter<BlockSession>()

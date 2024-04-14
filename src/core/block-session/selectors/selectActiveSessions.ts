@@ -24,8 +24,8 @@ export const selectActiveSessions = (
     .getSelectors()
     .selectAll(blockSession)
     .filter((session) => {
-      const start = recoverDate(now, session.start)
-      const end = recoverDate(now, session.end)
+      const start = recoverDate(now, session.startedAt)
+      const end = recoverDate(now, session.endedAt)
       return isActive(now, start, end)
     })
 }
@@ -38,8 +38,8 @@ export const selectScheduledSessions = (
     .getSelectors()
     .selectAll(blockSession)
     .filter((session) => {
-      const start = recoverDate(now, session.start)
-      const end = recoverDate(now, session.end)
+      const start = recoverDate(now, session.startedAt)
+      const end = recoverDate(now, session.endedAt)
       return !isActive(now, start, end)
     })
 }

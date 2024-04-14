@@ -40,8 +40,8 @@ function generateTimeInfo(now: Date, start: Date, end: Date) {
 
 function formatToViewModel(blockSessions: BlockSession[], now: Date) {
   return blockSessions.map((session) => {
-    const start = recoverDate(now, session.start)
-    const end = recoverDate(now, session.end)
+    const start = recoverDate(now, session.startedAt)
+    const end = recoverDate(now, session.endedAt)
 
     const timeline = generateTimeInfo(now, start, end)
 

@@ -19,8 +19,8 @@ describe('Feature: Tie sirens', () => {
   it('should tie the sirens', async () => {
     fixture.given.activeBlockSessions([
       buildBlockSession({
-        start: '14:00',
-        end: '15:00',
+        startedAt: '14:00',
+        endedAt: '15:00',
         blocklists: [
           buildBlocklist({
             sirens: {
@@ -36,8 +36,8 @@ describe('Feature: Tie sirens', () => {
         ],
       }),
       buildBlockSession({
-        start: '14:00',
-        end: '15:00',
+        startedAt: '14:00',
+        endedAt: '15:00',
         blocklists: [
           buildBlocklist({
             sirens: {

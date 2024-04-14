@@ -65,7 +65,7 @@ export function SelectBlockSessionParams(
           items={devices}
         />
         <SelectTime
-          timeField={'start'}
+          timeField={'startedAt'}
           setIsTimePickerVisible={setIsStartTimePickerVisible}
           values={values}
           isTimePickerVisible={isStartTimePickerVisible}
@@ -74,7 +74,7 @@ export function SelectBlockSessionParams(
         />
 
         <SelectTime
-          timeField={'end'}
+          timeField={'endedAt'}
           setIsTimePickerVisible={setIsEndTimePickerVisible}
           values={values}
           isTimePickerVisible={isEndTimePickerVisible}

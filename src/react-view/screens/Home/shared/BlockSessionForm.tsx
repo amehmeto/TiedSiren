@@ -19,8 +19,8 @@ export type Session = {
   name: string | null
   blocklists: Blocklist[]
   devices: Device[]
-  start: string | null
-  end: string | null
+  startedAt: string | null
+  endedAt: string | null
 }
 
 const defaultSession: Session = {
@@ -28,8 +28,8 @@ const defaultSession: Session = {
   name: null,
   blocklists: [] as Blocklist[],
   devices: [] as Device[],
-  start: null,
-  end: null,
+  startedAt: null,
+  endedAt: null,
 }
 
 export function BlockSessionForm({

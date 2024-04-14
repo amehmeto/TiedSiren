@@ -58,8 +58,8 @@ export class FakeDataBlockSessionRepository
             name: 'Google Pixel 3a',
           },
         ],
-        start: '10:48:00',
-        end: '13:58:00',
+        startedAt: '10:48:00',
+        endedAt: '13:58:00',
       }),
       {
         id: String(uuid.v4()),
@@ -105,8 +105,8 @@ export class FakeDataBlockSessionRepository
             name: 'Google Pixel 3a',
           },
         ],
-        start: '10:48:00',
-        end: '13:58:00',
+        startedAt: '10:48',
+        endedAt: '13:58',
       },
       {
         id: String(uuid.v4()),
@@ -152,8 +152,8 @@ export class FakeDataBlockSessionRepository
             name: 'Google Pixel 3a',
           },
         ],
-        start: '10:48:00',
-        end: '13:58:00',
+        startedAt: '10:48',
+        endedAt: '13:58',
       },
     ].map((blockSession) => [blockSession.id, blockSession]),
   )

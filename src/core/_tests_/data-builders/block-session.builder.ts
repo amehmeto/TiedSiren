@@ -15,8 +15,8 @@ export const buildBlockSession = (
   const defaultBlockSession = {
     id: faker.string.uuid(),
     name: faker.helpers.arrayElement(sessionNameExamples),
-    start: '03:48:00',
-    end: '13:58:00',
+    startedAt: '03:48',
+    endedAt: '13:58',
     blocklists: [buildBlocklist()],
     devices: [buildDevice(), buildDevice()],
   }

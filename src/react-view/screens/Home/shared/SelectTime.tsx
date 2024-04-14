@@ -4,34 +4,35 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import { T } from '../../../design-system/theme.ts'
 import React from 'react'
 import { WebTimePicker } from './WebTimePicker.tsx'
+import { dependencies } from '../../../dependencies.ts'
 
-export function toHHmm(date: Date) {
+/*export function toHHmm(date: Date) {
   const hours = String(date.getHours()).padStart(2, '0')
   const minutes = String(date.getMinutes()).padStart(2, '0')
   return `${hours}:${minutes}`
-}
+}*/
 
 export function SelectTime(
   props: Readonly<{
-    timeField: 'start' | 'end'
+    timeField: 'startedAt' | 'endedAt'
     setIsTimePickerVisible: (value: React.SetStateAction<boolean>) => void
     values: Session
     isTimePickerVisible: boolean
     setFieldValue: (field: string, value: string) => void
-    handleChange: (field: 'start' | 'end') => void
+    handleChange: (field: 'startedAt' | 'endedAt') => void
   }>,
 ) {
-  const localeNow = toHHmm(new Date())
+  const localeNow = dependencies.dateProvider.toHHmm(new Date())
 
   const chosenTime =
-    props.timeField === 'start'
-      ? props.values.start ?? localeNow
-      : props.values.end ?? localeNow
+    props.timeField === 'startedAt'
+      ? props.values.startedAt ?? localeNow
+      : props.values.endedAt ?? localeNow
 
   const placeholder =
-    props.timeField === 'start'
-      ? props.values.start ?? `Select start time...`
-      : props.values.end ?? `Select end time...`
+    props.timeField === 'startedAt'
+      ? props.values.startedAt ?? `Select start time...`
+      : props.values.endedAt ?? `Select end time...`
 
   return (
     <>

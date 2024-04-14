@@ -11,12 +11,17 @@ import { selectAllBlockSessionIds } from '../selectors/selectAllBlockSessionIds.
 import { renameBlockSession } from './rename-block-session.usecase.ts'
 import { deleteBlockSession } from './delete-block-session.usecase.ts'
 import { updateBlockSession } from './update-block-session.usecase.ts'
+import { FakeNotificationService } from '../../../infra/notification-service/fake.notification.service.ts'
+import { NotificationTrigger } from '../../../infra/notification-service/notification.service.ts'
+import { StubDateProvider } from '../../../infra/date-provider/stub.date-provider.ts'
 
 export function blockSessionFixture(
   testStateBuilderProvider = stateBuilderProvider(),
 ) {
   let store: AppStore
   const blockSessionRepository = new FakeDataBlockSessionRepository()
+  const notificationService = new FakeNotificationService()
+  const dateProvider = new StubDateProvider()
 
   return {
     given: {
@@ -29,10 +34,16 @@ export function blockSessionFixture(
           builder.withBlockSessions([givenBlockSession]),
         )
       },
+      nowIs(now: Date) {
+        dateProvider.now = now
+      },
     },
     when: {
       creatingBlockSession: async (payload: BlockSession) => {
-        store = createTestStore()
+        store = createTestStore({
+          notificationService,
+          dateProvider,
+        })
         await store.dispatch(createBlockSession(payload))
       },
       duplicatingBlockSession: async (toBeDuplicatedPayload: {
@@ -107,6 +118,17 @@ export function blockSessionFixture(
           store.getState(),
         )
         expect(retrievedBlockSession).toBeUndefined()
+      },
+      notificationsShouldBeScheduled(
+        expectedNotification: {
+          title: string
+          body: string
+          trigger: NotificationTrigger
+        }[],
+      ) {
+        expect(notificationService.lastScheduledNotification).toEqual(
+          expectedNotification,
+        )
       },
     },
   }

@@ -10,4 +10,5 @@ export interface NotificationService {
     body: string,
     trigger: NotificationTrigger,
   ): Promise<string>
+  cancelScheduledNotifications(notificationId: string): Promise<void>
 }

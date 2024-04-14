@@ -37,8 +37,10 @@ export function blockSessionFixture(
           builder.withBlockSessions([givenBlockSession]),
         )
       },
-      nowIs(now: Date) {
-        dateProvider.now = now
+      nowIs(now: { hours: number; minutes: number }) {
+        const nowDate = new Date()
+        nowDate.setUTCHours(now.hours, now.minutes, 0, 0)
+        dateProvider.now = nowDate
       },
     },
     when: {
@@ -56,6 +58,8 @@ export function blockSessionFixture(
         store = createTestStore(
           {
             blockSessionRepository,
+            notificationService,
+            dateProvider,
           },
           testStateBuilderProvider.getState(),
         )
@@ -77,6 +81,7 @@ export function blockSessionFixture(
         store = createTestStore(
           {
             blockSessionRepository,
+            notificationService,
           },
           testStateBuilderProvider.getState(),
         )
@@ -129,6 +134,11 @@ export function blockSessionFixture(
       ) {
         expect(notificationService.lastScheduledNotification).toEqual(
           expectedNotification,
+        )
+      },
+      scheduledNotificationsShouldCancelled(expectedNotificationIds: string[]) {
+        expect(notificationService.lastCancelledNotificationIds).toEqual(
+          expectedNotificationIds,
         )
       },
     },

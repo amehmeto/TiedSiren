@@ -10,9 +10,16 @@ describe('Feature: Duplicating a block session', () => {
   })
 
   it('should duplicate a block session', async () => {
-    const givenBlockSession = buildBlockSession()
+    const givenBlockSession = buildBlockSession({
+      startedAt: '00:10',
+      endedAt: '00:45',
+    })
 
     fixture.given.existingBlockSession(givenBlockSession)
+    fixture.given.nowIs({
+      hours: 0,
+      minutes: 5,
+    })
 
     await fixture.when.duplicatingBlockSession({
       id: givenBlockSession.id,
@@ -25,6 +32,28 @@ describe('Feature: Duplicating a block session', () => {
         ...givenBlockSession,
         id: expect.any(String),
         name: 'Copy of ' + givenBlockSession.name,
+        startNotificationId: expect.any(String),
+        endNotificationId: expect.any(String),
+      },
+    ])
+    fixture.then.scheduledNotificationsShouldCancelled([
+      givenBlockSession.startNotificationId,
+      givenBlockSession.endNotificationId,
+    ])
+    fixture.then.notificationsShouldBeScheduled([
+      {
+        title: 'Tied Siren',
+        body: `Block session "Copy of ${givenBlockSession.name}" has started`,
+        trigger: {
+          seconds: 5 * 60,
+        },
+      },
+      {
+        title: 'Tied Siren',
+        body: `Block session "Copy of ${givenBlockSession.name}" has ended`,
+        trigger: {
+          seconds: 40 * 60,
+        },
       },
     ])
   })

@@ -82,4 +82,8 @@ export class ExpoNotificationService implements NotificationService {
       trigger,
     })
   }
+
+  async cancelScheduledNotifications(notificationId: string): Promise<void> {
+    await Notifications.cancelScheduledNotificationAsync(notificationId)
+  }
 }

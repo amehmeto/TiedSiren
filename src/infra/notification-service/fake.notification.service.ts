@@ -2,7 +2,6 @@ import {
   NotificationService,
   NotificationTrigger,
 } from './notification.service.ts'
-import * as console from 'node:console'
 import uuid from 'react-native-uuid'
 
 export class FakeNotificationService implements NotificationService {
@@ -11,6 +10,7 @@ export class FakeNotificationService implements NotificationService {
     body: string
     trigger: NotificationTrigger
   }[] = []
+  lastCancelledNotificationIds: string[] = []
 
   async sendPushNotification(message: string): Promise<void> {
     console.log(`Fake notification: ${message}`)
@@ -27,5 +27,10 @@ export class FakeNotificationService implements NotificationService {
       trigger,
     })
     return Promise.resolve(String(uuid.v4()))
+  }
+
+  cancelScheduledNotifications(notificationId: string): Promise<void> {
+    this.lastCancelledNotificationIds.push(notificationId)
+    return Promise.resolve()
   }
 }

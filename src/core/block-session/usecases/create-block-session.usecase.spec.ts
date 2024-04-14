@@ -42,9 +42,11 @@ describe('Feature: Creating a block session', () => {
       startedAt: '00:10',
       endedAt: '00:30',
     }
-    const now = new Date()
-    now.setUTCHours(0, 0, 0, 0)
-    fixture.given.nowIs(now)
+
+    fixture.given.nowIs({
+      hours: 0,
+      minutes: 0,
+    })
 
     await fixture.when.creatingBlockSession(blockSessionPayload)
 

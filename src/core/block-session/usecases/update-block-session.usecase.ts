@@ -11,27 +11,48 @@ export const updateBlockSession = createAppAsyncThunk(
     payload: UpdateBlockSessionPayload,
     { extra: { blockSessionRepository, notificationService, dateProvider } },
   ) => {
-    /*    const now = dateProvider.getNow()
+    const existingBlockSession = await blockSessionRepository.findById(
+      payload.id,
+    )
+    const now = dateProvider.getNow()
 
-    const startedAt = dateProvider.recoverDate(payload.startedAt)
-    const startNotificationId =
-      await notificationService.scheduleLocalNotification(
+    let startedAt, endedAt, startNotificationId, endNotificationId
+    if (payload.startedAt) {
+      await notificationService.cancelScheduledNotifications(
+        existingBlockSession.startNotificationId,
+      )
+      startedAt = dateProvider.recoverDate(payload.startedAt)
+      startNotificationId = await notificationService.scheduleLocalNotification(
         'Tied Siren',
         `Block session "${payload.name}" has started`,
         {
           seconds: differenceInSeconds(startedAt, now),
         },
       )
-    const endNotificationId =
-      await notificationService.scheduleLocalNotification(
+    }
+
+    if (payload.endedAt) {
+      await notificationService.cancelScheduledNotifications(
+        existingBlockSession.endNotificationId,
+      )
+      endedAt = dateProvider.recoverDate(payload.endedAt)
+      endNotificationId = await notificationService.scheduleLocalNotification(
         'Tied Siren',
         `Block session "${payload.name}" has ended`,
         {
           seconds: differenceInSeconds(endedAt, now),
         },
-      )*/
+      )
+    }
 
-    await blockSessionRepository.update(payload)
-    return payload
+    const toUpdateBlockSession = {
+      ...payload,
+      startNotificationId:
+        startNotificationId ?? existingBlockSession.startNotificationId,
+      endNotificationId:
+        endNotificationId ?? existingBlockSession.endNotificationId,
+    }
+    await blockSessionRepository.update(toUpdateBlockSession)
+    return toUpdateBlockSession
   },
 )

@@ -17,7 +17,7 @@ describe('Feature: Deleting a block session', () => {
     await fixture.when.deletingBlockSession(givenBlockSession.id)
 
     fixture.then.blockSessionShouldNotBeInStore(givenBlockSession.id)
-    fixture.then.scheduledNotificationsShouldCancelled([
+    fixture.then.scheduledNotificationsShouldBeCancelled([
       givenBlockSession.startNotificationId,
       givenBlockSession.endNotificationId,
     ])

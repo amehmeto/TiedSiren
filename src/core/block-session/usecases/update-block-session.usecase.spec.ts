@@ -1,4 +1,4 @@
-import { beforeEach, describe, it } from 'vitest'
+import { beforeEach, describe, it, expect } from 'vitest'
 import { blockSessionFixture } from './block-session.fixture.ts'
 import { buildBlockSession } from '../../_tests_/data-builders/block-session.builder.ts'
 import { UpdateBlockSessionPayload } from './update-block-session.usecase.ts'
@@ -35,7 +35,13 @@ describe('Feature: Updating block session', () => {
       name: 'Working time',
       startedAt: '01:10',
       endedAt: '01:45',
+      startNotificationId: expect.any(String),
+      endNotificationId: expect.any(String),
     })
+    fixture.then.scheduledNotificationsShouldBeCancelled([
+      existingBlockSession.startNotificationId,
+      existingBlockSession.endNotificationId,
+    ])
     fixture.then.notificationsShouldBeScheduled([
       {
         title: 'Tied Siren',

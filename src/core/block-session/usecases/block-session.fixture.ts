@@ -138,7 +138,9 @@ export function blockSessionFixture(
           expectedNotification,
         )
       },
-      scheduledNotificationsShouldCancelled(expectedNotificationIds: string[]) {
+      scheduledNotificationsShouldBeCancelled(
+        expectedNotificationIds: string[],
+      ) {
         expect(notificationService.lastCancelledNotificationIds).toEqual(
           expectedNotificationIds,
         )

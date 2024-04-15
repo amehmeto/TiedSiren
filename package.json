@@ -15,6 +15,7 @@
     "test:cov": "c8 vitest --run",
     "build": "eas build --platform all",
     "build:android": "eas build --platform android",
+    "build:android:apk": "eas build -p android --profile development",
     "build:ios": "eas build --platform ios",
     "check:uncommitted": "git diff-index --quiet HEAD || exit 1",
     "prepare": "husky install"
@@ -38,6 +39,7 @@
     "expo": "~50.0.15",
     "expo-blur": "~12.9.2",
     "expo-constants": "~15.4.5",
+    "expo-dev-client": "~3.3.11",
     "expo-device": "~5.9.3",
     "expo-linear-gradient": "~12.7.2",
     "expo-navigation-bar": "~2.8.1",

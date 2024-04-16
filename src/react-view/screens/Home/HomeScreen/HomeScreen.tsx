@@ -1,6 +1,6 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { Image, StyleSheet, Text } from 'react-native'
 import { TiedSirenLogoSvg } from './TiedSirenLogoSvg.tsx'
 import 'react-native-gesture-handler'
 import { TiedSButton } from '../../../design-system/components/TiedSButton.tsx'
@@ -22,6 +22,11 @@ import {
   ViewModelBlockSession,
 } from './home-view-model.types.ts'
 import { dependencies } from '../../../dependencies.ts'
+
+export enum SessionType {
+  ACTIVE = 'ACTIVE',
+  SCHEDULED = 'SCHEDULED',
+}
 
 async function notifyActiveSessionsStartAndEnd(
   viewModel: HomeViewModelType,
@@ -108,18 +113,34 @@ export function HomeScreen({
         ]
       case HomeViewModel.WithActiveWithoutScheduledSessions:
         return [
-          <SessionsBoard key={0} sessions={viewModel.activeSessions} />,
+          <SessionsBoard
+            key={0}
+            sessions={viewModel.activeSessions}
+            type={SessionType.ACTIVE}
+          />,
           <NoSessionBoard key={1} sessions={viewModel.scheduledSessions} />,
         ]
       case HomeViewModel.WithoutActiveWithScheduledSessions:
         return [
           <NoSessionBoard key={0} sessions={viewModel.activeSessions} />,
-          <SessionsBoard key={1} sessions={viewModel.scheduledSessions} />,
+          <SessionsBoard
+            key={1}
+            sessions={viewModel.scheduledSessions}
+            type={SessionType.SCHEDULED}
+          />,
         ]
       case HomeViewModel.WithActiveAndScheduledSessions:
         return [
-          <SessionsBoard key={0} sessions={viewModel.activeSessions} />,
-          <SessionsBoard key={1} sessions={viewModel.scheduledSessions} />,
+          <SessionsBoard
+            key={0}
+            sessions={viewModel.activeSessions}
+            type={SessionType.ACTIVE}
+          />,
+          <SessionsBoard
+            key={1}
+            sessions={viewModel.scheduledSessions}
+            type={SessionType.SCHEDULED}
+          />,
         ]
       default:
         return exhaustiveGuard(viewModel)
@@ -128,7 +149,10 @@ export function HomeScreen({
 
   return (
     <TiedSLinearBackground>
-      <TiedSirenLogoSvg />
+      <Image
+        source={require('../../../../../assets/tiedsirenlogo.png')}
+        style={{ width: 100, height: 100, marginBottom: T.spacing.large }}
+      />
       <Text style={styles.greetings}>{viewModel.greetings}</Text>
       <Text style={styles.text}>{"Let's make it productive"}</Text>
 

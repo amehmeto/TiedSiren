@@ -14,6 +14,8 @@ import { useNavigation } from '@react-navigation/native'
 import { HomeStackScreens } from '../../../navigators/screen-lists/HomeStackScreens.ts'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
+import { SessionType } from './HomeScreen.tsx'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 export function SessionCard(
   props: Readonly<{
@@ -24,6 +26,7 @@ export function SessionCard(
       blocklists: number
       devices: number
     }
+    type: SessionType
   }>,
 ) {
   const dispatch = useDispatch<AppDispatch>()
@@ -44,7 +47,6 @@ export function SessionCard(
       name: 'Edit',
       iconName: 'create-outline' as const,
       action: () => {
-        console.log(props.session.id)
         navigation.navigate(HomeStackScreens.EDIT_BLOCK_SESSION, {
           sessionId: props.session.id,
         })
@@ -76,7 +78,19 @@ export function SessionCard(
         }}
       >
         <TiedSBlurView>
-          <RoundBlueDot />
+          {props.type === SessionType.ACTIVE ? (
+            <RoundBlueDot />
+          ) : (
+            <MaterialCommunityIcons
+              name={'clock-outline'}
+              size={15}
+              color={T.color.lightBlue}
+              style={{
+                margin: T.spacing.small,
+                marginRight: T.spacing.x_large,
+              }}
+            />
+          )}
           <View>
             <Text style={styles.sessionName}>{props.session.name}</Text>
             <Text style={styles.minutesLeft}>{props.session.minutesLeft}</Text>

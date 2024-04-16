@@ -3,6 +3,7 @@ import { T } from '../../../design-system/theme.ts'
 import { SessionCard } from './SessionCard.tsx'
 
 import { ViewModelBlockSession } from './home-view-model.types.ts'
+import { SessionType } from './HomeScreen.tsx'
 
 export function SessionsBoard(
   props: Readonly<{
@@ -10,6 +11,7 @@ export function SessionsBoard(
       title: string
       blockSessions: ViewModelBlockSession[]
     }
+    type: SessionType
   }>,
 ) {
   return (
@@ -18,7 +20,9 @@ export function SessionsBoard(
       <FlatList
         style={styles.cardList}
         data={props.sessions.blockSessions}
-        renderItem={({ item }) => <SessionCard session={item} />}
+        renderItem={({ item }) => (
+          <SessionCard session={item} type={props.type} />
+        )}
       />
     </>
   )

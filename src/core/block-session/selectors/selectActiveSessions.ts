@@ -4,7 +4,10 @@ import { EntityState } from '@reduxjs/toolkit'
 import { DateProvider } from '../../../infra/date-provider/port.date-provider.ts'
 
 export function isActive(dateProvider: DateProvider, session: BlockSession) {
-  const start = dateProvider.recoverDate(session.startedAt)
+  const start =
+    session.startedAt > session.endedAt
+      ? dateProvider.recoverYesterdayDate(session.startedAt)
+      : dateProvider.recoverDate(session.startedAt)
   const end = dateProvider.recoverDate(session.endedAt)
   const now = dateProvider.getNow()
   return !isBefore(now, start) && isBefore(now, end)

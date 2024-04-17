@@ -1,6 +1,7 @@
 import { DateProvider } from './port.date-provider.ts'
 
 export class StubDateProvider implements DateProvider {
+  private MILLISECONDS_IN_A_DAY = 24 * 60 * 60 * 1000
   now = new Date()
 
   getNow(): Date {
@@ -15,7 +16,7 @@ export class StubDateProvider implements DateProvider {
     const [hours, minutes] = timeInHHmm.split(':').map(Number)
 
     const todayWithNewTime = new Date(this.now.getTime())
-    todayWithNewTime.setUTCHours(hours, minutes)
+    todayWithNewTime.setUTCHours(hours, minutes, 0, 0)
 
     return todayWithNewTime
   }
@@ -24,5 +25,16 @@ export class StubDateProvider implements DateProvider {
     const hours = String(date.getHours()).padStart(2, '0')
     const minutes = String(date.getMinutes()).padStart(2, '0')
     return `${hours}:${minutes}`
+  }
+
+  recoverYesterdayDate(timeInHHmm: string): Date {
+    const [hours, minutes] = timeInHHmm.split(':').map(Number)
+
+    const todayWithNewTime = new Date(
+      this.now.getTime() - this.MILLISECONDS_IN_A_DAY,
+    )
+    todayWithNewTime.setUTCHours(hours, minutes, 0, 0)
+
+    return todayWithNewTime
   }
 }

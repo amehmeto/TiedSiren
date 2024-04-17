@@ -160,7 +160,7 @@ describe('Home View Model', () => {
             {
               id: 'block-session-id',
               name: 'Sleeping time',
-              minutesLeft: 'Ends in about 1 hour',
+              minutesLeft: 'Ends in about 3 hours',
               blocklists: 1,
               devices: 2,
             },
@@ -306,7 +306,7 @@ describe('Home View Model', () => {
     (_, preloadedState: PreloadedState, expectedViewModel) => {
       const store = createTestStore({}, preloadedState)
       const now = new Date()
-      now.setUTCHours(13, 48)
+      now.setUTCHours(13, 48, 0, 0)
       dateProvider.now = now
 
       const homeViewModel = selectHomeViewModel(

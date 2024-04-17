@@ -8,7 +8,7 @@ export const tieSirens = createAppAsyncThunk(
   'siren/tieSirens ',
   async (_, { extra: { sirenTier, dateProvider }, getState }) => {
     const activeBlockSessions: BlockSession[] = selectActiveSessions(
-      dateProvider.getNow(),
+      dateProvider,
       getState().blockSession,
     )
 

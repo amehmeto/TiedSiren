@@ -11,11 +11,11 @@ import {
 } from './home-view-model.types.ts'
 import {
   isActive,
-  recoverDate,
   selectActiveSessions,
   selectScheduledSessions,
 } from '../../../../core/block-session/selectors/selectActiveSessions.ts'
 import { selectAllBlockSessions } from '../../../../core/block-session/selectors/selectAllBlockSessions.ts'
+import { DateProvider } from '../../../../infra/date-provider/port.date-provider.ts'
 
 function greetUser(now: Date) {
   const hour = now.getHours()
@@ -26,24 +26,27 @@ function greetUser(now: Date) {
   return Greetings.GoodNight
 }
 
-function generateTimeInfo(now: Date, start: Date, end: Date) {
-  return isActive(now, start, end)
+function generateTimeInfo(dateProvider: DateProvider, session: BlockSession) {
+  const start = dateProvider.recoverDate(session.startedAt)
+  const end = dateProvider.recoverDate(session.endedAt)
+  const now = dateProvider.getNow()
+  return isActive(dateProvider, session)
     ? 'Ends ' +
         formatDistance(end, now, {
           addSuffix: true,
         })
     : 'Starts at ' +
-        start.getHours().toString().padStart(2, '0') +
+        start.getUTCHours().toString().padStart(2, '0') +
         ':' +
-        start.getMinutes().toString().padStart(2, '0')
+        start.getUTCMinutes().toString().padStart(2, '0')
 }
 
-function formatToViewModel(blockSessions: BlockSession[], now: Date) {
+function formatToViewModel(
+  blockSessions: BlockSession[],
+  dateProvider: DateProvider,
+) {
   return blockSessions.map((session) => {
-    const start = recoverDate(now, session.startedAt)
-    const end = recoverDate(now, session.endedAt)
-
-    const timeline = generateTimeInfo(now, start, end)
+    const timeline = generateTimeInfo(dateProvider, session)
 
     return {
       id: session.id,
@@ -58,12 +61,15 @@ function formatToViewModel(blockSessions: BlockSession[], now: Date) {
 export const selectHomeViewModel = createSelector(
   [
     (rootState: RootState) => rootState.blockSession,
-    (_state: RootState, now: Date) => now,
+    (_state: RootState, now: Date, dateProvider: DateProvider) => ({
+      now,
+      dateProvider,
+    }),
   ],
-  (blockSession, now: Date): HomeViewModelType => {
+  (blockSession, { now, dateProvider }): HomeViewModelType => {
     const blockSessions = selectAllBlockSessions(blockSession)
 
-    const greetings = greetUser(now)
+    const greetings = greetUser(dateProvider.getNow())
 
     const NO_ACTIVE_SESSION = {
       title: SessionBoardTitle.NO_ACTIVE_SESSIONS as const,
@@ -83,11 +89,20 @@ export const selectHomeViewModel = createSelector(
         scheduledSessions: NO_SCHEDULED_SESSION,
       }
 
-    const activeSessions = selectActiveSessions(now, blockSession)
-    const formattedActiveSessions = formatToViewModel(activeSessions, now)
+    const activeSessions = selectActiveSessions(dateProvider, blockSession)
+    const formattedActiveSessions = formatToViewModel(
+      activeSessions,
+      dateProvider,
+    )
 
-    const scheduledSessions = selectScheduledSessions(now, blockSession)
-    const formattedScheduledSessions = formatToViewModel(scheduledSessions, now)
+    const scheduledSessions = selectScheduledSessions(
+      dateProvider,
+      blockSession,
+    )
+    const formattedScheduledSessions = formatToViewModel(
+      scheduledSessions,
+      dateProvider,
+    )
 
     if (!activeSessions.length)
       return {

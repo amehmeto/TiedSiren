@@ -84,7 +84,7 @@ export function HomeScreen({
   const viewModel = useSelector<
     RootState,
     ReturnType<typeof selectHomeViewModel>
-  >((rootState) => selectHomeViewModel(rootState, now))
+  >((rootState) => selectHomeViewModel(rootState, now, dateProvider))
 
   const previousActiveSessionsRef = useRef<ViewModelBlockSession[]>([])
 
@@ -145,8 +145,8 @@ export function HomeScreen({
   return (
     <TiedSLinearBackground>
       <Image
+        style={styles.image}
         source={require('../../../../../assets/tiedsirenlogo.png')}
-        style={{ width: 100, height: 100, marginBottom: T.spacing.large }}
       />
       <Text style={styles.greetings}>{viewModel.greetings}</Text>
       <Text style={styles.text}>{"Let's make it productive"}</Text>
@@ -178,4 +178,5 @@ const styles = StyleSheet.create({
     fontSize: T.size.medium,
   },
   text: { color: T.color.text, marginBottom: T.spacing.large },
+  image: { width: 100, height: 100, marginBottom: T.spacing.large },
 })

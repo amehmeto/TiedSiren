@@ -1,4 +1,4 @@
-import { describe, expect, it, test } from 'vitest'
+import { describe, beforeEach, expect, it, test } from 'vitest'
 import { selectHomeViewModel } from './home.view-model.ts'
 import { createTestStore } from '../../../../core/_tests_/createTestStore.ts'
 import { PreloadedState } from '../../../../core/_redux_/createStore.ts'
@@ -10,8 +10,15 @@ import {
   SessionBoardMessage,
   SessionBoardTitle,
 } from './home-view-model.types.ts'
+import { StubDateProvider } from '../../../../infra/date-provider/stub.date-provider.ts'
 
 describe('Home View Model', () => {
+  let dateProvider: StubDateProvider
+
+  beforeEach(() => {
+    dateProvider = new StubDateProvider()
+  })
+
   test.each([
     [
       'no session',
@@ -107,6 +114,40 @@ describe('Home View Model', () => {
             name: 'Sleeping time',
             startedAt: '13:48',
             endedAt: '14:58',
+          }),
+        ])
+        .build(),
+      {
+        type: HomeViewModel.WithActiveWithoutScheduledSessions,
+        greetings: Greetings.GoodAfternoon,
+        activeSessions: {
+          title: 'ACTIVE SESSIONS',
+          blockSessions: [
+            {
+              id: 'block-session-id',
+              name: 'Sleeping time',
+              minutesLeft: 'Ends in about 1 hour',
+              blocklists: 1,
+              devices: 2,
+            },
+          ],
+        },
+        scheduledSessions: {
+          title: SessionBoardTitle.NO_SCHEDULED_SESSIONS,
+          message: SessionBoardMessage.NO_SCHEDULED_SESSIONS,
+        },
+      },
+    ],
+
+    [
+      'one active session that has started the day before',
+      stateBuilder()
+        .withBlockSessions([
+          buildBlockSession({
+            id: 'block-session-id',
+            name: 'Sleeping time',
+            startedAt: '22:00',
+            endedAt: '17:00',
           }),
         ])
         .build(),
@@ -261,13 +302,18 @@ describe('Home View Model', () => {
       },
     ],
   ])(
-    'Example: there is %s going on',
+    'Example: there is %s',
     (_, preloadedState: PreloadedState, expectedViewModel) => {
       const store = createTestStore({}, preloadedState)
       const now = new Date()
-      now.setHours(13, 48)
+      now.setUTCHours(13, 48)
+      dateProvider.now = now
 
-      const homeViewModel = selectHomeViewModel(store.getState(), now)
+      const homeViewModel = selectHomeViewModel(
+        store.getState(),
+        now,
+        dateProvider,
+      )
 
       expect(homeViewModel).toStrictEqual(expectedViewModel)
     },
@@ -290,12 +336,22 @@ describe('Home View Model', () => {
   ])(
     'should greet the user with %s %s',
     (expectedGreetings: Greetings, _, nowHHmm: string) => {
-      const store = createTestStore({}, {})
+      const store = createTestStore(
+        {
+          dateProvider,
+        },
+        {},
+      )
       const [hours, minutes] = nowHHmm.split(':').map(Number)
       const now = new Date()
       now.setHours(hours, minutes)
+      dateProvider.now = now
 
-      const homeViewModel = selectHomeViewModel(store.getState(), now)
+      const homeViewModel = selectHomeViewModel(
+        store.getState(),
+        now,
+        dateProvider,
+      )
 
       expect(homeViewModel.greetings).toStrictEqual(expectedGreetings)
     },

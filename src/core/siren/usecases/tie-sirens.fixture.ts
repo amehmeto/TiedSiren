@@ -17,10 +17,14 @@ export function tieSirensFixture(
   return {
     given: {
       activeBlockSessions(blockSessions: BlockSession[]) {
-        dateProvider.now = new Date('2021-01-01T14:30:00')
         testStateBuilderProvider.setState((builder) =>
           builder.withBlockSessions(blockSessions),
         )
+      },
+      nowIs({ hours, minutes }: { hours: number; minutes: number }) {
+        const date = new Date()
+        date.setUTCHours(hours, minutes, 0, 0)
+        dateProvider.now = date
       },
     },
     when: {

@@ -2,9 +2,7 @@ import { beforeEach, describe, it } from 'vitest'
 import { tieSirensFixture } from './tie-sirens.fixture.ts'
 import { buildBlocklist } from '../../_tests_/data-builders/blocklist.builder.ts'
 import { buildBlockSession } from '../../_tests_/data-builders/block-session.builder.ts'
-
 import {
-  buildAndroidSiren,
   facebookAndroidSiren,
   instagramAndroidSiren,
 } from '../../_tests_/data-builders/android-siren.builder.ts'
@@ -17,6 +15,10 @@ describe('Feature: Tie sirens', () => {
   })
 
   it('should tie the sirens', async () => {
+    fixture.given.nowIs({
+      hours: 14,
+      minutes: 30,
+    })
     fixture.given.activeBlockSessions([
       buildBlockSession({
         startedAt: '14:00',

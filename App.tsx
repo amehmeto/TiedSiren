@@ -10,6 +10,7 @@ import { MenuProvider } from 'react-native-popup-menu'
 import { dependencies } from './src/react-view/dependencies.ts'
 import { preloadedStateForManualTesting } from './src/react-view/preloadedStateForManualTesting.tsx'
 import * as Notifications from 'expo-notifications'
+import { StatusBar } from 'expo-status-bar'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -21,25 +22,6 @@ Notifications.setNotificationHandler({
 
 export default function App() {
   const [store, setStore] = useState<AppStore | null>(null)
-
-  /*  useEffect(() => {
-    const subscription1 = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        console.log('app is opened', notification)
-      },
-    )
-
-    const subscription2 = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        console.log('The user tapped', response)
-      },
-    )
-
-    return () => {
-      subscription1.remove()
-      subscription2.remove()
-    }
-  }, [])*/
 
   useEffect(() => {
     async function initializeStore() {
@@ -66,6 +48,7 @@ export default function App() {
     <Provider store={store}>
       <MenuProvider>
         <NavigationContainer>
+          <StatusBar style={'auto'} />
           <BottomTabNavigator />
         </NavigationContainer>
       </MenuProvider>

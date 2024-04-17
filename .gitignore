@@ -38,3 +38,11 @@ yarn-error.*
 *.tsbuildinfo
 
 coverage/
+
+# Android
+#
+android/.gradle
+android/build
+android/.idea
+*.iml
+local.properties

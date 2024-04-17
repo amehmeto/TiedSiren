@@ -20,6 +20,10 @@ export function BottomTabNavigator() {
         tabBarActiveTintColor: T.color.lightBlue,
         tabBarInactiveTintColor: T.color.inactive,
         headerShown: false,
+        headerStyle: { backgroundColor: T.color.darkBlue },
+        headerTintColor: T.color.lightBlue,
+        headerTitleStyle: { fontWeight: T.font.weight.bold },
+        headerShadowVisible: false,
       }}
     >
       <Tab.Screen

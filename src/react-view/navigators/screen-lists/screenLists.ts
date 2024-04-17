@@ -1,14 +1,13 @@
 export type ScreenList = {
   Home: undefined
-  HomeTab: undefined
+  'Home tab': undefined
   Blocklist: undefined
-  CreateBlockSession: undefined
+  'Create block session': undefined
   Settings: undefined
-  MainHome: undefined
-  EditBlocklist: { blocklistId: string }
-  EditPlatformBlocklist: undefined
-  MainBlocklist: undefined
-  CreateBlocklist: undefined
-  EditBlockSession: { sessionId: string }
-  StrictMode: undefined
+  'Main home': undefined
+  'Edit blocklist': { blocklistId: string }
+  'Main blocklist': undefined
+  'Create blocklist': undefined
+  'Edit block session': { sessionId: string }
+  'Strict Mode': undefined
 }

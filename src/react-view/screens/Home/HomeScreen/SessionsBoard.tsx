@@ -3,7 +3,8 @@ import { T } from '../../../design-system/theme.ts'
 import { SessionCard } from './SessionCard.tsx'
 
 import { ViewModelBlockSession } from './home-view-model.types.ts'
-import { SessionType } from './HomeScreen.tsx'
+
+import { SessionType } from './SessionType.ts'
 
 export function SessionsBoard(
   props: Readonly<{

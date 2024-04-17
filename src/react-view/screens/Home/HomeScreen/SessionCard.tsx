@@ -14,8 +14,8 @@ import { useNavigation } from '@react-navigation/native'
 import { HomeStackScreens } from '../../../navigators/screen-lists/HomeStackScreens.ts'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { ScreenList } from '../../../navigators/screen-lists/screenLists.ts'
-import { SessionType } from './HomeScreen.tsx'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { SessionType } from './SessionType.ts'
 
 export function SessionCard(
   props: Readonly<{
@@ -83,7 +83,7 @@ export function SessionCard(
           ) : (
             <MaterialCommunityIcons
               name={'clock-outline'}
-              size={15}
+              size={16}
               color={T.color.lightBlue}
               style={{
                 margin: T.spacing.small,

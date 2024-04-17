@@ -38,6 +38,7 @@ export const T = {
     xSmall: 11,
     small: 14,
     medium: 20,
+    large: 24,
   },
   spacing: {
     none: 0,
@@ -73,7 +74,7 @@ export const T = {
   width: {
     roundButton: 60,
     chipMinWidth: 50,
-    textInputHeight: 50,
+    textInputHeight: 20,
     modalButton: 120,
   },
   sirenIconSize: 20,

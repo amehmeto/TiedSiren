@@ -11,11 +11,7 @@ export function TiedSTextInput(props: Readonly<TiedSTextInputProps>) {
 
   return (
     <View>
-      {props.label && (
-        <Text style={{ color: T.color.white, marginBottom: T.spacing.medium }}>
-          {props.label}
-        </Text>
-      )}
+      {props.label && <Text style={styles.text}>{props.label}</Text>}
       <TextInput
         style={[
           styles.input,
@@ -40,5 +36,9 @@ const styles = StyleSheet.create({
     borderRadius: T.border.radius.roundedSmall,
     color: T.color.white,
     flex: 1,
+  },
+  text: {
+    color: T.color.white,
+    marginBottom: T.spacing.medium,
   },
 })

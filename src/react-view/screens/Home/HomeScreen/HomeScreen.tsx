@@ -1,7 +1,6 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import { Image, StyleSheet, Text } from 'react-native'
-import { TiedSirenLogoSvg } from './TiedSirenLogoSvg.tsx'
 import 'react-native-gesture-handler'
 import { TiedSButton } from '../../../design-system/components/TiedSButton.tsx'
 import { TiedSLinearBackground } from '../../../design-system/components/TiedSLinearBackground.tsx'
@@ -22,11 +21,7 @@ import {
   ViewModelBlockSession,
 } from './home-view-model.types.ts'
 import { dependencies } from '../../../dependencies.ts'
-
-export enum SessionType {
-  ACTIVE = 'ACTIVE',
-  SCHEDULED = 'SCHEDULED',
-}
+import { SessionType } from './SessionType.ts'
 
 async function notifyActiveSessionsStartAndEnd(
   viewModel: HomeViewModelType,

@@ -6,14 +6,24 @@ export class RealDateProvider implements DateProvider {
   getISOStringNow(): string {
     return new Date().toISOString()
   }
+
   getNow(): Date {
     return new Date()
   }
+
+  getMinutesFromNow(minutes: number): Date {
+    return new Date(new Date().getTime() + minutes * 60 * 1000)
+  }
+
+  getHHmmMinutesFromNow(minutes: number): string {
+    return this.toHHmm(this.getMinutesFromNow(minutes))
+  }
+
   recoverDate(timeInHHmm: string): Date {
     const [hours, minutes] = timeInHHmm.split(':').map(Number)
 
     const todayWithNewTime = new Date()
-    todayWithNewTime.setUTCHours(hours, minutes)
+    todayWithNewTime.setHours(hours, minutes)
 
     return todayWithNewTime
   }
@@ -23,7 +33,7 @@ export class RealDateProvider implements DateProvider {
 
     const today = new Date().getTime()
     const yesterdayWithNewTime = new Date(today - this.MILLISECONDS_IN_A_DAY)
-    yesterdayWithNewTime.setUTCHours(hours, minutes, 0, 0)
+    yesterdayWithNewTime.setHours(hours, minutes, 0, 0)
 
     return yesterdayWithNewTime
   }

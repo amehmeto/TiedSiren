@@ -4,4 +4,6 @@ export interface DateProvider {
   recoverDate(timeInHHmm: string): Date
   recoverYesterdayDate(startedAt: string): Date
   toHHmm(date: Date): string
+  getMinutesFromNow(minutes: number): Date
+  getHHmmMinutesFromNow(minutes: number): string
 }

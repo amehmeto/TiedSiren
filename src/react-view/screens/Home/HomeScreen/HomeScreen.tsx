@@ -86,6 +86,7 @@ export function HomeScreen({
     ReturnType<typeof selectHomeViewModel>
   >((rootState) => selectHomeViewModel(rootState, now, dateProvider))
 
+  console.log(viewModel, now)
   const previousActiveSessionsRef = useRef<ViewModelBlockSession[]>([])
 
   useEffect(() => {

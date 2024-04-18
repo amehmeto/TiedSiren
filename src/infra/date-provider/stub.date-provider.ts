@@ -37,4 +37,12 @@ export class StubDateProvider implements DateProvider {
 
     return todayWithNewTime
   }
+
+  getHHmmMinutesFromNow(minutes: number): string {
+    return this.toHHmm(this.getMinutesFromNow(minutes))
+  }
+
+  getMinutesFromNow(minutes: number): Date {
+    return new Date(this.now.getTime() + minutes * 60 * 1000)
+  }
 }

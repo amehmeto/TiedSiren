@@ -19,7 +19,6 @@
       "bundleIdentifier": "com.tiedsiren.tiedsiren"
     },
     "android": {
-      "package": "com.tiedsiren.tiedsiren",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

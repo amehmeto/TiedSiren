@@ -33,10 +33,7 @@ function generateTimeInfo(dateProvider: DateProvider, session: BlockSession) {
         formatDistance(end, now, {
           addSuffix: true,
         })
-    : 'Starts at ' +
-        start.getUTCHours().toString().padStart(2, '0') +
-        ':' +
-        start.getUTCMinutes().toString().padStart(2, '0')
+    : 'Starts at ' + dateProvider.toHHmm(start)
 }
 
 function formatToViewModel(

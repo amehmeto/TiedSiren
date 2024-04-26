@@ -72,5 +72,6 @@ const styles = StyleSheet.create({
   },
   modal: {
     flexDirection: 'column',
+    width: '80%',
   },
 })

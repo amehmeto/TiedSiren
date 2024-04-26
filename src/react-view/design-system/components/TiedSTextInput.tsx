@@ -10,7 +10,7 @@ export function TiedSTextInput(props: Readonly<TiedSTextInputProps>) {
   const [isFocused, setIsFocused] = useState(false)
 
   return (
-    <View>
+    <View style={styles.container}>
       {props.label && <Text style={styles.text}>{props.label}</Text>}
       <TextInput
         style={[
@@ -35,10 +35,13 @@ const styles = StyleSheet.create({
     borderColor: T.color.lightBlue,
     borderRadius: T.border.radius.roundedSmall,
     color: T.color.white,
-    flex: 1,
+    width: '100%',
   },
   text: {
     color: T.color.white,
     marginBottom: T.spacing.medium,
+  },
+  container: {
+    width: '100%',
   },
 })

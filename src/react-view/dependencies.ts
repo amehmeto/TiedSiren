@@ -5,9 +5,9 @@ import { RealDateProvider } from '../infra/date-provider/real.date-provider.ts'
 import { Dependencies } from '../core/_redux_/dependencies.ts'
 import { FakeDataBlockSessionRepository } from '../infra/block-session-repository/fake-data.block-session.repository.ts'
 import { FakeDataBlocklistRepository } from '../infra/blocklist-repository/fake-data.blocklist.repository.ts'
-import { InMemorySirenTier } from '../infra/siren-binder/in-memory-siren.tier.ts'
 import { FakeDataSirensRepository } from '../infra/sirens-repository/fake-data.sirens-repository.ts'
 import { ExpoNotificationService } from '../infra/notification-service/expo.notification.service.ts'
+import { InMemorySirenTier } from '../infra/siren-tier/in-memory-siren.tier.ts'
 
 export const deviceRepository: DeviceRepository = new FakeDataDeviceRepository()
 

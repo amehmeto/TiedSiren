@@ -86,7 +86,6 @@ export function HomeScreen({
     ReturnType<typeof selectHomeViewModel>
   >((rootState) => selectHomeViewModel(rootState, now, dateProvider))
 
-  console.log(viewModel, now)
   const previousActiveSessionsRef = useRef<ViewModelBlockSession[]>([])
 
   useEffect(() => {
@@ -179,5 +178,9 @@ const styles = StyleSheet.create({
     fontSize: T.size.medium,
   },
   text: { color: T.color.text, marginBottom: T.spacing.large },
-  image: { width: 100, height: 100, marginBottom: T.spacing.large },
+  image: {
+    width: T.width.tiedSirenLogo,
+    height: T.width.tiedSirenLogo,
+    marginBottom: T.spacing.large,
+  },
 })

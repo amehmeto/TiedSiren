@@ -8,6 +8,7 @@ import { FakeDataInstalledAppsRepository } from '../../infra/installed-apps-repo
 import { FakeDataSirensRepository } from '../../infra/sirens-repository/fake-data.sirens-repository.ts'
 import { FakeNotificationService } from '../../infra/notification-service/fake.notification.service.ts'
 import { InMemorySirenTier } from '../../infra/siren-tier/in-memory-siren.tier.ts'
+import { FakeBackgroundTaskService } from '../../infra/background-task-service/fake.background-task.service.ts'
 
 export const createTestStore = (
   {
@@ -18,6 +19,7 @@ export const createTestStore = (
     installedAppRepository = new FakeDataInstalledAppsRepository(),
     sirensRepository = new FakeDataSirensRepository(),
     notificationService = new FakeNotificationService(),
+    backgroundTaskService = new FakeBackgroundTaskService(),
   }: Partial<Dependencies> = {},
   preloadedState?: Partial<ReturnType<typeof rootReducer>>,
 ) =>
@@ -30,6 +32,7 @@ export const createTestStore = (
       installedAppRepository,
       sirensRepository,
       notificationService,
+      backgroundTaskService,
     },
     preloadedState,
   )

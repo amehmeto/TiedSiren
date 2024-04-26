@@ -5,6 +5,7 @@ export class InMemorySirenTier implements SirenTier {
   sirens?: Sirens = undefined
 
   async tie(sirens: Sirens): Promise<void> {
+    console.log('Tied sirens:', sirens)
     this.sirens = sirens
   }
 }

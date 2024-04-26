@@ -17,6 +17,7 @@ import { updateBlockSession } from './update-block-session.usecase.ts'
 import { FakeNotificationService } from '../../../infra/notification-service/fake.notification.service.ts'
 import { NotificationTrigger } from '../../../infra/notification-service/notification.service.ts'
 import { StubDateProvider } from '../../../infra/date-provider/stub.date-provider.ts'
+import { FakeBackgroundTaskService } from '../../../infra/background-task-service/fake.background-task.service.ts'
 
 export function blockSessionFixture(
   testStateBuilderProvider = stateBuilderProvider(),
@@ -25,6 +26,7 @@ export function blockSessionFixture(
   const blockSessionRepository = new FakeDataBlockSessionRepository()
   const notificationService = new FakeNotificationService()
   const dateProvider = new StubDateProvider()
+  const backgroundTaskService = new FakeBackgroundTaskService()
 
   return {
     given: {
@@ -48,6 +50,7 @@ export function blockSessionFixture(
         store = createTestStore({
           notificationService,
           dateProvider,
+          backgroundTaskService,
         })
         await store.dispatch(createBlockSession(payload))
       },
@@ -144,6 +147,9 @@ export function blockSessionFixture(
         expect(notificationService.lastCancelledNotificationIds).toEqual(
           expectedNotificationIds,
         )
+      },
+      backgroundTasksShouldBeScheduled(expectedTasks: string[]) {
+        expect(backgroundTaskService.lastScheduledTasks).toEqual(expectedTasks)
       },
     },
   }

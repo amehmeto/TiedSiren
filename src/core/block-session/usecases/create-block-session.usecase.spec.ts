@@ -6,6 +6,8 @@ import {
   instagramAndroidSiren,
 } from '../../_tests_/data-builders/android-siren.builder.ts'
 import { CreateBlockSessionPayload } from './create-block-session.usecase.ts'
+import { dispatchCommand } from 'react-native-reanimated'
+import { tieSirens } from '../../siren/usecases/tie-sirens.usecase.ts'
 
 describe('Feature: Creating a block session', () => {
   let fixture: ReturnType<typeof blockSessionFixture>
@@ -66,6 +68,7 @@ describe('Feature: Creating a block session', () => {
         },
       },
     ])
+    fixture.then.backgroundTasksShouldBeScheduled(['Run Tied Siren Use Case'])
     fixture.then.blockSessionsFromStoreShouldBe([
       {
         id: expect.any(String),

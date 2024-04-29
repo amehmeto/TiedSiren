@@ -5646,7 +5646,7 @@ event-target-shim@^5.0.0, event-target-shim@^5.0.1:
   resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
   integrity sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
 
-eventemitter3@^4.0.0, eventemitter3@^4.0.7:
+eventemitter3@^4.0.0:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
   integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
@@ -5736,6 +5736,13 @@ expo-asset@~9.0.2:
     expo-file-system "~16.0.0"
     invariant "^2.2.4"
     md5-file "^3.2.3"
+
+expo-background-fetch@^11.8.1:
+  version "11.8.1"
+  resolved "https://registry.yarnpkg.com/expo-background-fetch/-/expo-background-fetch-11.8.1.tgz#7ead9ab486d8fcc97181541f9283163e257bc172"
+  integrity sha512-WkWgj1RZsBjIt/J2HvYhfNi+8WEM6vEptuUj6r/vW9w+kXzDo5z/+pkr7YnPgQIhc4P7Z/j7TlM43azUpIEFZA==
+  dependencies:
+    expo-task-manager "~11.7.2"
 
 expo-blur@~12.9.2:
   version "12.9.2"
@@ -5893,6 +5900,13 @@ expo-status-bar@~1.11.1:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.11.1.tgz#a11318741d361048c11db2b16c4364a79a74af30"
   integrity sha512-ddQEtCOgYHTLlFUe/yH67dDBIoct5VIULthyT3LRJbEwdpzAgueKsX2FYK02ldh440V87PWKCamh7R9evk1rrg==
+
+expo-task-manager@~11.7.2:
+  version "11.7.3"
+  resolved "https://registry.yarnpkg.com/expo-task-manager/-/expo-task-manager-11.7.3.tgz#2d8b0d983e2a73fba4f1f4d65f36ef0db9356ebd"
+  integrity sha512-ueIOi638o+gRYeCIb9GHVEbdIIvAKqAmm4AllcjDJIrmqB240uA+5a5YwfHm7WUrSthIqHlIzLMFcnMTFxf/9w==
+  dependencies:
+    unimodules-app-loader "~4.5.0"
 
 expo-updates-interface@~0.15.1:
   version "0.15.3"
@@ -9665,18 +9679,6 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-native-background-actions@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-background-actions/-/react-native-background-actions-3.0.1.tgz#35a7aa77c8becd47fe677955e257c09b80cfebfb"
-  integrity sha512-xlEjUM2PP+OEQQkr9Z4c4+dRIzhbCh1xAeakL8FKGDib2a3dki2kMR4ZTw+9oHspHn9VF1Fuu78mWXR5zqkVaA==
-  dependencies:
-    eventemitter3 "^4.0.7"
-
-react-native-background-fetch@^4.2.5:
-  version "4.2.5"
-  resolved "https://registry.yarnpkg.com/react-native-background-fetch/-/react-native-background-fetch-4.2.5.tgz#d4fc59fb633e1e0143c0cefb6682582cdd330232"
-  integrity sha512-llOU+UWPd1fjOFGNGB4v4YrYaA0sMLn5hMk0aNx0Ok9+wQ2nQillVwj7G/XZEpIiD2vTVkntTNNXWycF5Ju0kQ==
-
 react-native-elements@^3.4.3:
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-3.4.3.tgz#c33919002aef83a0c0f98d0ed56009714ad9b1b3"
@@ -11441,6 +11443,11 @@ unicode-property-aliases-ecmascript@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-2.1.0.tgz#43d41e3be698bd493ef911077c9b131f827e8ccd"
   integrity sha512-6t3foTQI9qne+OZoVQB/8x8rk2k1eVy1gRXhV3oFQ5T6R1dqQ1xtin3XqSlx3+ATBkliTaR/hHyJBm+LVPNM8w==
+
+unimodules-app-loader@~4.5.0:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/unimodules-app-loader/-/unimodules-app-loader-4.5.1.tgz#6c8cf83617b6556e99b102fac8a6bbf011abe605"
+  integrity sha512-yQAsoL0jsCjld1C/iWS4tB5a6LZTb8+enZ9mpt9t9zHYw7YZgeInmW7yz5QZAgVE93ZMPN3SudZHWiXGuD4Wfg==
 
 unique-filename@^1.1.1:
   version "1.1.1"

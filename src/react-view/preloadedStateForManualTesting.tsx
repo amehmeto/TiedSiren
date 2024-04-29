@@ -5,6 +5,7 @@ import {
 } from '../core/_tests_/state-builder.ts'
 import { buildBlockSession } from '../core/_tests_/data-builders/block-session.builder.ts'
 import { FakeDataBlockSessionRepository } from '../infra/block-session-repository/fake-data.block-session.repository.ts'
+import { createStore } from '../core/_redux_/createStore.ts'
 
 export async function preloadedStateForManualTesting() {
   const { dateProvider, blocklistRepository, blockSessionRepository } =

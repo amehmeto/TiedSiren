@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "TiedSiren",
+    "name": "Tied Siren",
     "slug": "tiedsiren",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/tiedsirenlogo.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
@@ -29,7 +29,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive-icon2.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.tiedsiren.tiedsiren"

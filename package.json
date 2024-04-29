@@ -17,6 +17,7 @@
     "build:android": "eas build --platform android",
     "build:android:apk": "eas build -p android --profile preview",
     "build:ios": "eas build --platform ios",
+    "build:ios:simulator": "eas build --profile development-simulator --platform ios",
     "check:uncommitted": "git diff-index --quiet HEAD || exit 1",
     "prepare": "husky install"
   },

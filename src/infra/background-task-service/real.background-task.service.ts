@@ -5,8 +5,8 @@ import {
 import * as TaskManager from 'expo-task-manager'
 import { tieSirens } from '../../core/siren/usecases/tie-sirens.usecase.ts'
 import * as BackgroundFetch from 'expo-background-fetch'
-import { store } from '../../../App.tsx'
 import { Platform } from 'react-native'
+import { AppStore } from '../../core/_redux_/createStore.ts'
 
 export class RealBackgroundTaskService implements BackgroundTaskService {
   defineTask(
@@ -17,7 +17,7 @@ export class RealBackgroundTaskService implements BackgroundTaskService {
     return Promise.resolve()
   }
 
-  async initialize(): Promise<void> {
+  async initialize(store: AppStore): Promise<void> {
     TaskManager.defineTask('tie-sirens', async () => {
       const now = Date.now()
 

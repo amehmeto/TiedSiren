@@ -5901,7 +5901,7 @@ expo-status-bar@~1.11.1:
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.11.1.tgz#a11318741d361048c11db2b16c4364a79a74af30"
   integrity sha512-ddQEtCOgYHTLlFUe/yH67dDBIoct5VIULthyT3LRJbEwdpzAgueKsX2FYK02ldh440V87PWKCamh7R9evk1rrg==
 
-expo-task-manager@~11.7.2:
+expo-task-manager@^11.7.3, expo-task-manager@~11.7.2:
   version "11.7.3"
   resolved "https://registry.yarnpkg.com/expo-task-manager/-/expo-task-manager-11.7.3.tgz#2d8b0d983e2a73fba4f1f4d65f36ef0db9356ebd"
   integrity sha512-ueIOi638o+gRYeCIb9GHVEbdIIvAKqAmm4AllcjDJIrmqB240uA+5a5YwfHm7WUrSthIqHlIzLMFcnMTFxf/9w==

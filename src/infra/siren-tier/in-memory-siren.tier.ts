@@ -5,7 +5,10 @@ export class InMemorySirenTier implements SirenTier {
   sirens?: Sirens = undefined
 
   async tie(sirens: Sirens): Promise<void> {
-    console.log('Tied sirens:', sirens)
+    console.log(
+      'Tied sirens:',
+      sirens.android.map((app) => app.appName),
+    )
     this.sirens = sirens
   }
 }

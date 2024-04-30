@@ -43,3 +43,7 @@ export async function preloadedStateForManualTesting() {
     )
   return preloadedState
 }
+
+export const storePromise = preloadedStateForManualTesting().then(
+  (preloadedState) => createStore(dependencies, preloadedState.getState()),
+)

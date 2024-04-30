@@ -19,7 +19,7 @@ export const createBlockSession = createAppAsyncThunk(
       },
     },
   ) => {
-    await backgroundTaskService.scheduleTask('Run Tied Siren Use Case')
+    await backgroundTaskService.scheduleTask('tie-sirens')
     const now = dateProvider.getNow()
     const startedAt = dateProvider.recoverDate(payload.startedAt)
     const endedAt = dateProvider.recoverDate(payload.endedAt)

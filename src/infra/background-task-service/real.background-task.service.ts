@@ -31,19 +31,17 @@ export class RealBackgroundTaskService implements BackgroundTaskService {
     })
   }
 
-  async scheduleTask(task: string, options?: TaskOptions): Promise<void> {
+  async scheduleTask(taskName: string, options?: TaskOptions): Promise<void> {
     if (Platform.OS === 'web') return
 
-    return BackgroundFetch.registerTaskAsync('tie-sirens', {
-      minimumInterval: 60 * 15, // 15 minutes
+    return BackgroundFetch.registerTaskAsync(taskName, {
+      minimumInterval: 60 * 1, // 1 minute
       stopOnTerminate: false, // android only,
       startOnBoot: true, // android only
     })
   }
 
-  async cancelTask(taskId: string): Promise<void> {
-    /*
-    await BackgroundFetch.stop(taskId)
-*/
+  async cancelTask(taskName: string): Promise<void> {
+    return BackgroundFetch.unregisterTaskAsync(taskName)
   }
 }

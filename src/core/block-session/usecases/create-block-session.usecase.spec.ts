@@ -68,7 +68,7 @@ describe('Feature: Creating a block session', () => {
         },
       },
     ])
-    fixture.then.backgroundTasksShouldBeScheduled(['Run Tied Siren Use Case'])
+    fixture.then.backgroundTasksShouldBeScheduled(['tie-sirens'])
     fixture.then.blockSessionsFromStoreShouldBe([
       {
         id: expect.any(String),

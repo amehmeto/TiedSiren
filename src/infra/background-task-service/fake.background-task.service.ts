@@ -2,13 +2,12 @@ import {
   BackgroundTaskService,
   TaskOptions,
 } from '../../core/block-session/ports/background-task.service.ts'
-import * as console from 'node:console'
 
 export class FakeBackgroundTaskService implements BackgroundTaskService {
   lastScheduledTasks: string[] = []
 
-  async scheduleTask(task: string, options: TaskOptions): Promise<void> {
-    this.lastScheduledTasks.push(task)
+  async scheduleTask(taskName: string, options: TaskOptions): Promise<void> {
+    this.lastScheduledTasks.push(taskName)
   }
 
   async cancelTask(taskId: string): Promise<void> {

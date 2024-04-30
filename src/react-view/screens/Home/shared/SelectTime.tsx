@@ -22,7 +22,8 @@ export function SelectTime(
     handleChange: (field: 'startedAt' | 'endedAt') => void
   }>,
 ) {
-  const localeNow = dependencies.dateProvider.toHHmm(new Date())
+  const { dateProvider } = dependencies
+  const localeNow = dateProvider.toHHmm(new Date())
 
   const chosenTime =
     props.timeField === 'startedAt'
@@ -60,7 +61,7 @@ export function SelectTime(
             is24Hour={true}
             mode="time"
             onConfirm={(date) => {
-              props.setFieldValue(props.timeField, date.toTimeString())
+              props.setFieldValue(props.timeField, dateProvider.toHHmm(date))
               props.setIsTimePickerVisible(false)
             }}
             onCancel={() => props.setIsTimePickerVisible(false)}

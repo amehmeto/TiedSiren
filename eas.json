@@ -8,26 +8,33 @@
       "distribution": "internal",
       "android": {
         "buildType": "apk"
-      }
+      },
+      "node": "22.1.0"
     },
     "development-simulator": {
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
         "simulator": true
-      }
+      },
+      "node": "22.1.0"
     },
     "preview": {
       "developmentClient": false,
       "distribution": "internal",
       "android": {
         "buildType": "apk"
-      }
+      },
+      "node": "22.1.0"
+
     },
     "release": {
-      "distribution": "store"
+      "distribution": "store",
+      "node": "22.1.0"
     },
-    "production": {}
+    "production": {
+      "node": "22.1.0"
+    }
   },
   "submit": {
     "production": {}

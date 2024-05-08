@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "list-installed-apps",
+    "slug": "list-installed-apps",
+    "version": "0.1.0",
+    "description": "My new module",
+    "sdkVersion": "51.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "android": {
+      "package": "com.amehmeto.listinstalledapps"
+    },
+    "ios": {
+      "bundleIdentifier": "com.amehmeto.listinstalledapps"
+    }
+  }
+}

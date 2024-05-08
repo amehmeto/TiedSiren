@@ -1,0 +1,48 @@
+{
+  "name": "list-installed-apps",
+  "version": "0.1.0",
+  "description": "My new module",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "expo-module build",
+    "clean": "expo-module clean",
+    "lint": "expo-module lint",
+    "test": "expo-module test",
+    "prepare": "expo-module prepare",
+    "prepublishOnly": "expo-module prepublishOnly",
+    "expo-module": "expo-module",
+    "open:ios": "xed example/ios",
+    "open:android": "open -a \"Android Studio\" example/android",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
+  },
+  "keywords": [
+    "react-native",
+    "expo",
+    "list-installed-apps",
+    "ListInstalledApps"
+  ],
+  "repository": "https://github.com/amehmeto/list-installed-apps",
+  "bugs": {
+    "url": "https://github.com/amehmeto/list-installed-apps/issues"
+  },
+  "author": "amehmeto <42amehmeto@gmail.com> (https://github.com/amehmeto)",
+  "license": "MIT",
+  "homepage": "https://github.com/amehmeto/list-installed-apps#readme",
+  "dependencies": {
+    "expo": "~51.0.0",
+    "react": "18.2.0",
+    "react-native": "0.74.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.25",
+    "expo-module-scripts": "^3.5.1",
+    "expo-modules-core": "^1.12.9"
+  },
+  "peerDependencies": {
+    "expo": "*",
+    "react": "*",
+    "react-native": "*"
+  }
+}

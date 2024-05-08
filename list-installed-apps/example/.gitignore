@@ -8,19 +8,9 @@ node_modules/
 dist/
 web-build/
 
-# Expo extra
-credentials.json
-ios/
-android/
-*.aab
-*.apk
-*.keystore
-
 # Native
 *.orig.*
 *.jks
-
-
 *.p8
 *.p12
 *.key
@@ -43,13 +33,3 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
-
-coverage/
-
-# Android
-#
-android/.gradle
-android/build
-android/.idea
-*.iml
-local.properties

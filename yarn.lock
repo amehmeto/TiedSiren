@@ -5422,7 +5422,7 @@ expo-updates-interface@~0.16.0:
   resolved "https://registry.yarnpkg.com/expo-updates-interface/-/expo-updates-interface-0.16.1.tgz#9766d905335be5efeebe904b84332789ee7b329c"
   integrity sha512-yyG0y9HcifF0ptovHKvRyU7zz5/neGnJQI9BXrshpMwrtIGncQMpuL7vXVmmK2cg32enziPkIPDtu/bG0KoF1g==
 
-expo@^51.0.0:
+expo@^51.0.0, expo@~51.0.0:
   version "51.0.0"
   resolved "https://registry.yarnpkg.com/expo/-/expo-51.0.0.tgz#8e02950b242b7f94edfa9fc5020a6bf8508209c1"
   integrity sha512-qY4gECM+YDWgmv0rTzdlrbvGKYLMy/xQ6FtYp2/HG+yF+XpqpKTCNQ2RZN97DRIXlPmxhPd/S5IUD46kW3TQaQ==
@@ -7340,6 +7340,13 @@ lint-staged@^15.2.2:
     pidtree "0.6.0"
     string-argv "0.3.2"
     yaml "2.3.4"
+
+list-installed-apps@./list-installed-apps:
+  version "0.1.0"
+  dependencies:
+    expo "~51.0.0"
+    react "18.2.0"
+    react-native "0.74.1"
 
 listr2@8.0.1:
   version "8.0.1"

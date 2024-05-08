@@ -26,7 +26,7 @@ Notifications.setNotificationHandler({
 export default function App() {
   const [store, setStore] = useState<AppStore | null>(null)
 
-  console.log('test sa mere', hello())
+  console.log('test ', hello())
 
   useEffect(() => {
     storePromise.then(setStore)

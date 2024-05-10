@@ -13,6 +13,7 @@ import { tieSirens } from './src/core/siren/usecases/tie-sirens.usecase.ts'
 import { storePromise } from './src/react-view/preloadedStateForManualTesting.ts'
 import { AppStore } from './src/core/_redux_/createStore.ts'
 import { RealBackgroundTaskService } from './src/infra/background-task-service/real.background-task.service.ts'
+import { hello } from './modules/my-module'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -25,6 +26,7 @@ Notifications.setNotificationHandler({
 export default function App() {
   const [store, setStore] = useState<AppStore | null>(null)
 
+  console.log(hello())
   useEffect(() => {
     storePromise.then(setStore)
 
@@ -51,6 +53,7 @@ export default function App() {
       <MenuProvider>
         <NavigationContainer>
           <StatusBar style={'auto'} />
+
           <BottomTabNavigator />
         </NavigationContainer>
       </MenuProvider>

@@ -32,7 +32,8 @@
         "foregroundImage": "./assets/adaptive-icon2.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.tiedsiren.tiedsiren"
+      "package": "com.tiedsiren.tiedsiren",
+      "permissions": ["android.permission.QUERY_ALL_PACKAGES"]
     },
     "web": {
       "favicon": "./assets/favicon.png",

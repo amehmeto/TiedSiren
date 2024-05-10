@@ -14,6 +14,7 @@ import { storePromise } from './src/react-view/preloadedStateForManualTesting.ts
 import { AppStore } from './src/core/_redux_/createStore.ts'
 import { RealBackgroundTaskService } from './src/infra/background-task-service/real.background-task.service.ts'
 import { hello } from './modules/my-module'
+import { getInstalledApps } from './modules/list-installed-apps'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -27,6 +28,7 @@ export default function App() {
   const [store, setStore] = useState<AppStore | null>(null)
 
   console.log(hello())
+  console.log(getInstalledApps())
   useEffect(() => {
     storePromise.then(setStore)
 

@@ -8,13 +8,18 @@ import {
 // and on native platforms to ListInstalledApps.ts
 import ListInstalledAppsModule from './src/ListInstalledAppsModule'
 import ListInstalledAppsView from './src/ListInstalledAppsView'
+import {
+  ChangeEventPayload,
+  ListInstalledAppsViewProps,
+} from './src/ListInstalledApps.types'
 
 export function hello(): string {
   return ListInstalledAppsModule.hello()
 }
 
-export function listInstalledApps(): Array<any> {
-  return ListInstalledAppsModule.listInstalledApps()
-}
+// export function listInstalledApps(): Array<any> {
+//   return ListInstalledAppsModule.listInstalledApps()
+// }
 
 export { ListInstalledAppsView }
+export type { ChangeEventPayload, ListInstalledAppsViewProps }

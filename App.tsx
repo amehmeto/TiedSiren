@@ -14,7 +14,7 @@ import { storePromise } from './src/react-view/preloadedStateForManualTesting.ts
 import { AppStore } from './src/core/_redux_/createStore.ts'
 import { RealBackgroundTaskService } from './src/infra/background-task-service/real.background-task.service.ts'
 // import { hello } from './modules/my-module'
-import { hello, listInstalledApps } from './modules/list-installed-apps'
+import { hello /*, listInstalledApps */ } from './modules/list-installed-apps'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -27,8 +27,9 @@ Notifications.setNotificationHandler({
 export default function App() {
   const [store, setStore] = useState<AppStore | null>(null)
 
+  console.log('wsh soeur')
   console.log(hello())
-  console.log(listInstalledApps())
+  // console.log(listInstalledApps())
   // console.log(getInstalledApps())
   useEffect(() => {
     storePromise.then(setStore)

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
+    "scripts": "jq '.scripts' package.json",
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
@@ -13,6 +14,9 @@
     "test": "vitest",
     "test:prepush": "vitest --run",
     "test:cov": "c8 vitest --run",
+    "prebuild": "npx expo prebuild",
+    "prebuild:android": "npx expo prebuild --platform android",
+    "prebuild:ios": "npx expo prebuild --platform ios",
     "build": "eas build --platform all",
     "build:android": "eas build --platform android",
     "build:android:apk": "eas build -p android --profile preview",

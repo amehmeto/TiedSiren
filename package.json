@@ -13,7 +13,9 @@
     "test": "vitest",
     "test:prepush": "vitest --run",
     "test:cov": "c8 vitest --run",
-    "prebuild": "npx expo prebuild --clean",
+    "prebuild": "npx expo prebuild",
+    "prebuild:android": "npx expo prebuild --platform android",
+    "prebuild:ios": "npx expo prebuild --platform ios",
     "build": "eas build --platform all",
     "build:android": "eas build --platform android",
     "build:android:apk": "eas build -p android --profile preview",
@@ -49,6 +51,7 @@
     "expo-linear-gradient": "~13.0.2",
     "expo-navigation-bar": "~3.0.4",
     "expo-notifications": "~0.28.1",
+    "expo-splash-screen": "~0.27.4",
     "expo-status-bar": "~1.12.1",
     "expo-task-manager": "~11.8.1",
     "formik": "^2.4.5",
@@ -69,8 +72,7 @@
     "react-native-vector-icons": "^10.0.3",
     "react-native-web": "~0.19.6",
     "react-redux": "^9.1.0",
-    "zod": "^3.22.4",
-    "expo-splash-screen": "~0.27.4"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

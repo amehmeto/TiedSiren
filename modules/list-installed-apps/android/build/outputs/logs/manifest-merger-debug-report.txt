@@ -1,14 +1,14 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/arthurmehmetoglu/Development/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml:1:1-2:12
-INJECTED from /Users/arthurmehmetoglu/Development/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml:1:1-2:12
+ADDED from /Users/nicolascoulange/dev/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml:1:1-2:12
+INJECTED from /Users/nicolascoulange/dev/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml:1:1-2:12
 	package
-		INJECTED from /Users/arthurmehmetoglu/Development/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/nicolascoulange/dev/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml
 uses-sdk
-INJECTED from /Users/arthurmehmetoglu/Development/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/arthurmehmetoglu/Development/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml
-INJECTED from /Users/arthurmehmetoglu/Development/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml
+INJECTED from /Users/nicolascoulange/dev/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/nicolascoulange/dev/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml
+INJECTED from /Users/nicolascoulange/dev/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/arthurmehmetoglu/Development/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/nicolascoulange/dev/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/arthurmehmetoglu/Development/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/nicolascoulange/dev/TiedSiren/modules/list-installed-apps/android/src/main/AndroidManifest.xml

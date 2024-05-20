@@ -17,9 +17,9 @@ export function hello(): string {
   return ListInstalledAppsModule.hello()
 }
 
-// export function listInstalledApps(): Array<any> {
-//   return ListInstalledAppsModule.listInstalledApps()
-// }
+export function listInstalledApps(): Array<any> {
+  return ListInstalledAppsModule.listInstalledApps()
+}
 
 export { ListInstalledAppsView }
 export type { ChangeEventPayload, ListInstalledAppsViewProps }

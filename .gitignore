@@ -13,6 +13,8 @@ credentials.json
 ./ios/
 ./android/
 
+./modules/*/android/build/
+
 .idea/
 
 # Native

@@ -10,7 +10,7 @@ web-build/
 
 # Expo extra
 credentials.json
-./ios/
+/ios/
 /android/
 
 #chelou

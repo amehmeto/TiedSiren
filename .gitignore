@@ -15,7 +15,7 @@ credentials.json
 
 #chelou
 
-./modules/*/android/build/
+/modules/*/android/build/
 
 .idea/
 

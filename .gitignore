@@ -13,6 +13,8 @@ credentials.json
 ./ios/
 ./android/
 
+#chelou
+
 ./modules/*/android/build/
 
 .idea/

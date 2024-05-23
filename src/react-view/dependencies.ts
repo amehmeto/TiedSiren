@@ -9,11 +9,12 @@ import { FakeDataSirensRepository } from '../infra/sirens-repository/fake-data.s
 import { ExpoNotificationService } from '../infra/notification-service/expo.notification.service.ts'
 import { InMemorySirenTier } from '../infra/siren-tier/in-memory-siren.tier.ts'
 import { RealBackgroundTaskService } from '../infra/background-task-service/real.background-task.service.ts'
+import { PouchdbBlockSessionRepository } from '../infra/block-session-repository/pouchdb.block-session.repository.ts'
 
 export const deviceRepository: DeviceRepository = new FakeDataDeviceRepository()
 
 export const dependencies: Dependencies = {
-  blockSessionRepository: new FakeDataBlockSessionRepository(),
+  blockSessionRepository: new PouchdbBlockSessionRepository(), // new FakeDataBlockSessionRepository(),
   blocklistRepository: new FakeDataBlocklistRepository(),
   sirenTier: new InMemorySirenTier(),
   dateProvider: new RealDateProvider(),

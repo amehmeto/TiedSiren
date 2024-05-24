@@ -11,7 +11,7 @@ import {
 } from './home-view-model.types.ts'
 import { selectActiveSessions } from '../../../../core/block-session/selectors/selectActiveSessions.ts'
 import { selectAllBlockSessions } from '../../../../core/block-session/selectors/selectAllBlockSessions.ts'
-import { DateProvider } from '../../../../infra/date-provider/port.date-provider.ts'
+import { DateProvider } from '../../../../core/ports/port.date-provider.ts'
 import { isActive } from '../../../../core/block-session/selectors/isActive.ts'
 import { selectScheduledSessions } from '../../../../core/block-session/selectors/selectScheduledSessions.ts'
 

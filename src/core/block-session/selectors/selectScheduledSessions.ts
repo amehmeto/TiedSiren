@@ -1,4 +1,4 @@
-import { DateProvider } from '../../../infra/date-provider/port.date-provider.ts'
+import { DateProvider } from '../../ports/port.date-provider.ts'
 import { EntityState } from '@reduxjs/toolkit'
 import { BlockSession, blockSessionAdapter } from '../block.session.ts'
 import { isActive } from './isActive.ts'

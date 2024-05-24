@@ -15,7 +15,7 @@ import { renameBlockSession } from './rename-block-session.usecase.ts'
 import { deleteBlockSession } from './delete-block-session.usecase.ts'
 import { updateBlockSession } from './update-block-session.usecase.ts'
 import { FakeNotificationService } from '../../../infra/notification-service/fake.notification.service.ts'
-import { NotificationTrigger } from '../../../infra/notification-service/notification.service.ts'
+import { NotificationTrigger } from '../../ports/notification.service.ts'
 import { StubDateProvider } from '../../../infra/date-provider/stub.date-provider.ts'
 import { FakeBackgroundTaskService } from '../../../infra/background-task-service/fake.background-task.service.ts'
 

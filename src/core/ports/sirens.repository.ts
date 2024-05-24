@@ -1,4 +1,4 @@
-import { Sirens } from '../sirens.ts'
+import { Sirens } from '../siren/sirens.ts'
 
 export interface SirensRepository {
   getSelectableSirens(): Promise<Sirens>

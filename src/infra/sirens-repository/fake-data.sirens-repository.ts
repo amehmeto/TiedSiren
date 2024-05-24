@@ -1,4 +1,4 @@
-import { SirensRepository } from '../../core/siren/ports/sirens.repository.ts'
+import { SirensRepository } from '../../core/ports/sirens.repository.ts'
 import { Sirens } from '../../core/siren/sirens.ts'
 import { faker } from '@faker-js/faker'
 import { buildAndroidSiren } from '../../core/_tests_/data-builders/android-siren.builder.ts'

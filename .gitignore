@@ -60,3 +60,4 @@ MANIFEST-*
 # PouchDB databases
 block-sessions/
 blocklists/
+devices/

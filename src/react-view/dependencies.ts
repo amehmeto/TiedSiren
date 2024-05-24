@@ -1,5 +1,5 @@
 import { FakeDataInstalledAppsRepository } from '../infra/installed-apps-repository/fake-data.installed-apps.repository'
-import { DeviceRepository } from '../core/device/ports/device.repository'
+import { RemoteDeviceRepository } from '../core/device/ports/remoteDeviceRepository.ts'
 import { FakeDataDeviceRepository } from '../infra/device-repository/fake-data.device.repository'
 import { RealDateProvider } from '../infra/date-provider/real.date-provider.ts'
 import { Dependencies } from '../core/_redux_/dependencies.ts'
@@ -10,7 +10,8 @@ import { RealBackgroundTaskService } from '../infra/background-task-service/real
 import { PouchdbBlockSessionRepository } from '../infra/block-session-repository/pouchdb.block-session.repository.ts'
 import { PouchdbBlocklistRepository } from '../infra/blocklist-repository/pouchdb.blocklist.repository.ts'
 
-export const deviceRepository: DeviceRepository = new FakeDataDeviceRepository()
+export const deviceRepository: RemoteDeviceRepository =
+  new FakeDataDeviceRepository()
 
 export const dependencies: Dependencies = {
   blockSessionRepository: new PouchdbBlockSessionRepository(),

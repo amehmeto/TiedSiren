@@ -1,8 +1,8 @@
 import { Device } from '../../core/device/device.ts'
-import { DeviceRepository } from '../../core/device/ports/device.repository.ts'
+import { RemoteDeviceRepository } from '../../core/device/ports/remoteDeviceRepository.ts'
 
-export class FakeDataDeviceRepository implements DeviceRepository {
-  async getDevices(): Promise<Device[]> {
+export class FakeDataDeviceRepository implements RemoteDeviceRepository {
+  async findAll(): Promise<Device[]> {
     return [
       { id: '1', type: 'phone', name: 'iPhone 12' },
       { id: '2', type: 'tablet', name: 'iPad Pro' },

@@ -1,11 +1,13 @@
 import { BlockSession } from '../block.session.ts'
+import {
+  CreatePayload,
+  UpdatePayload,
+} from '../../../infra/generic-in-memory.repository.ts'
 
 export interface BlockSessionRepository {
-  getCurrentSessions(): Promise<BlockSession[]>
-  create(sessionPayload: Omit<BlockSession, 'id'>): Promise<BlockSession>
-  delete(sessionId: string): Promise<void>
+  create(sessionPayload: CreatePayload<BlockSession>): Promise<BlockSession>
+  findAll(): Promise<BlockSession[]>
   findById(sessionId: string): Promise<BlockSession>
-  update(
-    session: Partial<BlockSession> & Required<Pick<BlockSession, 'id'>>,
-  ): Promise<void>
+  update(session: UpdatePayload<BlockSession>): Promise<void>
+  delete(sessionId: string): Promise<void>
 }

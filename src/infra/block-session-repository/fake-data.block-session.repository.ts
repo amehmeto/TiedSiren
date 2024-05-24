@@ -178,7 +178,7 @@ export class FakeDataBlockSessionRepository
     return super.update(session)
   }
 
-  getCurrentSessions(): Promise<BlockSession[]> {
+  findAll(): Promise<BlockSession[]> {
     return Promise.resolve(Array.from(this.entities.values()))
   }
 

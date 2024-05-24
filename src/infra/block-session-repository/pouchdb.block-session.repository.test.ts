@@ -65,7 +65,7 @@ describe('PouchDBBlockSessionRepository', () => {
 
     await blockSessionRepository.create(createSessionPayload2)
 
-    const currentSessions = await blockSessionRepository.getCurrentSessions()
+    const currentSessions = await blockSessionRepository.findAll()
 
     expect(currentSessions).toStrictEqual([])
   })

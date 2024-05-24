@@ -14,7 +14,7 @@ export class PouchdbBlockSessionRepository implements BlockSessionRepository {
     this.db = new PouchDB('block-sessions')
   }
 
-  getCurrentSessions(): Promise<BlockSession[]> {
+  findAll(): Promise<BlockSession[]> {
     return Promise.resolve([])
   }
 
@@ -41,7 +41,6 @@ export class PouchdbBlockSessionRepository implements BlockSessionRepository {
   async delete(blockSessionId: string): Promise<void> {
     await this.db.get(blockSessionId).then(async (doc) => {
       await this.db.remove(doc._id, doc._rev)
-      console.log('Deleted successfully')
     })
   }
 

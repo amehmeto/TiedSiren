@@ -1,5 +1,5 @@
 import { Device } from '../../core/device/device.ts'
-import { RemoteDeviceRepository } from '../../core/device/ports/remoteDeviceRepository.ts'
+import { RemoteDeviceRepository } from '../../core/ports/remote-device.repository.ts'
 
 export class FakeDataDeviceRepository implements RemoteDeviceRepository {
   async findAll(): Promise<Device[]> {

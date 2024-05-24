@@ -1,8 +1,8 @@
-import { BlockSession } from '../block.session.ts'
+import { BlockSession } from '../block-session/block.session.ts'
 import {
   CreatePayload,
   UpdatePayload,
-} from '../../../infra/generic-in-memory.repository.ts'
+} from '../../infra/generic-in-memory.repository.ts'
 
 export interface BlockSessionRepository {
   create(sessionPayload: CreatePayload<BlockSession>): Promise<BlockSession>

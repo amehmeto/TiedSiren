@@ -1,5 +1,5 @@
 import { FakeDataInstalledAppsRepository } from '../infra/installed-apps-repository/fake-data.installed-apps.repository'
-import { RemoteDeviceRepository } from '../core/device/ports/remoteDeviceRepository.ts'
+import { RemoteDeviceRepository } from '../core/ports/remote-device.repository.ts'
 import { FakeDataDeviceRepository } from '../infra/device-repository/fake-data.device.repository'
 import { RealDateProvider } from '../infra/date-provider/real.date-provider.ts'
 import { Dependencies } from '../core/_redux_/dependencies.ts'

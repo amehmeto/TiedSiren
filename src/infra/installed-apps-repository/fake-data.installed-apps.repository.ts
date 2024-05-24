@@ -1,5 +1,5 @@
 import { AmazonPrimeIcon } from '../../../assets/base64AppIcon/amazonPrimeAppIcon.ts'
-import { InstalledAppRepository } from '../../core/installed-app/ports/installed-app.repository.ts'
+import { InstalledAppRepository } from '../../core/ports/installed-app.repository.ts'
 import { InstalledApp } from '../../core/installed-app/InstalledApp.ts'
 import { faker } from '@faker-js/faker'
 import { TikTokAppIcon } from '../../../assets/base64AppIcon/tikTokAppIcon.ts'

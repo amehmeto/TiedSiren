@@ -1,4 +1,4 @@
-import { BlockSessionRepository } from '../../core/block-session/ports/block-session.repository.ts'
+import { BlockSessionRepository } from '../../core/ports/block-session.repository.ts'
 import uuid from 'react-native-uuid'
 
 import { BlockSession } from '../../core/block-session/block.session.ts'

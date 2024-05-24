@@ -1,7 +1,7 @@
 import {
   BackgroundTaskService,
   TaskOptions,
-} from '../../core/block-session/ports/background-task.service.ts'
+} from '../../core/ports/background-task.service.ts'
 
 export class FakeBackgroundTaskService implements BackgroundTaskService {
   lastScheduledTasks: string[] = []

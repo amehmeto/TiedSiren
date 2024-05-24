@@ -1,8 +1,8 @@
-import { Blocklist } from '../blocklist.ts'
+import { Blocklist } from '../blocklist/blocklist.ts'
 import {
   CreatePayload,
   UpdatePayload,
-} from '../../../infra/generic-in-memory.repository.ts'
+} from '../../infra/generic-in-memory.repository.ts'
 
 export interface BlocklistRepository {
   findAll(): Promise<Blocklist[]>

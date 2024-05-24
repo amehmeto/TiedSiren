@@ -1,4 +1,4 @@
-import { BlocklistRepository } from '../../core/blocklist/ports/blocklist.repository.ts'
+import { BlocklistRepository } from '../../core/ports/blocklist.repository.ts'
 import { Blocklist } from '../../core/blocklist/blocklist.ts'
 import {
   amazonPrimeAndroidSiren,

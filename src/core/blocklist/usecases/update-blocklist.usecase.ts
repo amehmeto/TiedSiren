@@ -7,7 +7,7 @@ export const updateBlocklist = createAppAsyncThunk(
     payload: Partial<Blocklist> & Required<Pick<Blocklist, 'id'>>,
     { extra: { blocklistRepository } },
   ) => {
-    await blocklistRepository.updateBlocklist(payload)
+    await blocklistRepository.update(payload)
     return payload
   },
 )

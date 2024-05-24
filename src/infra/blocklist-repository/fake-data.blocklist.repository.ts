@@ -55,11 +55,11 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
     ].map((blocklist) => [blocklist.id, blocklist]),
   )
 
-  getBlocklists(): Promise<Blocklist[]> {
+  findAll(): Promise<Blocklist[]> {
     return Promise.resolve(Array.from(this.blocklists.values()))
   }
 
-  createBlocklist(payload: Omit<Blocklist, 'id'>): Promise<Blocklist> {
+  create(payload: Omit<Blocklist, 'id'>): Promise<Blocklist> {
     const blocklistId = String(Math.random() * 100)
     this.blocklists.set(blocklistId, { id: blocklistId, ...payload })
     const createdBlocklist = this.blocklists.get(blocklistId)
@@ -67,7 +67,7 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
     return Promise.resolve(createdBlocklist)
   }
 
-  updateBlocklist(
+  update(
     payload: Partial<Blocklist> & Required<Pick<Blocklist, 'id'>>,
   ): Promise<void> {
     const blocklist = this.blocklists.get(payload.id)
@@ -82,7 +82,7 @@ export class FakeDataBlocklistRepository implements BlocklistRepository {
     return Promise.resolve(blocklist)
   }
 
-  deleteBlocklist(blocklistId: string): Promise<void> {
+  delete(blocklistId: string): Promise<void> {
     this.blocklists.delete(blocklistId)
     return Promise.resolve()
   }

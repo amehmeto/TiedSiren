@@ -7,6 +7,6 @@ export const createBlocklist = createAppAsyncThunk(
     payload: Omit<Blocklist, 'id'>,
     { extra: { blocklistRepository } },
   ) => {
-    return blocklistRepository.createBlocklist(payload)
+    return blocklistRepository.create(payload)
   },
 )

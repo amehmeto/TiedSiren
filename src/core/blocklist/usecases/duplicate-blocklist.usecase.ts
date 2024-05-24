@@ -8,7 +8,7 @@ export const duplicateBlocklist = createAppAsyncThunk(
   ) => {
     const blocklistToBeCopied = await blocklistRepository.findById(payload.id)
     const { id, ...blocklistToBeCopiedWithoutId } = blocklistToBeCopied
-    return blocklistRepository.createBlocklist({
+    return blocklistRepository.create({
       ...blocklistToBeCopiedWithoutId,
       name: payload.name,
     })

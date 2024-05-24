@@ -13,9 +13,6 @@ export class PouchdbBlocklistRepository implements BlocklistRepository {
   constructor() {
     this.db = new PouchDB('blocklists')
   }
-  getCurrentBlocklists(): Promise<Blocklist[]> {
-    return Promise.resolve([])
-  }
 
   async create(blocklistPayload: CreatePayload<Blocklist>): Promise<Blocklist> {
     const createdId = uuid.v4().toString()
@@ -29,17 +26,14 @@ export class PouchdbBlocklistRepository implements BlocklistRepository {
       // eslint-disable-next-line no-console
       console.error(err)
     })
-    console.log('blocklist created inside Pouchdb')
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { _id, ...blocklistWithoutInternalId } = createdBlocklist
     return Promise.resolve(blocklistWithoutInternalId)
   }
 
-  async delete(blocklistId: string): Promise<void> {
-    await this.db.get(blocklistId).then(async (doc) => {
-      await this.db.remove(doc._id, doc._rev)
-    })
+  findAll(): Promise<Blocklist[]> {
+    return Promise.resolve([])
   }
 
   async findById(blocklistId: string): Promise<Blocklist> {
@@ -60,22 +54,9 @@ export class PouchdbBlocklistRepository implements BlocklistRepository {
     })
   }
 
-  createBlocklist(payload: Omit<Blocklist, 'id'>): Promise<Blocklist> {
-    throw new Error('Method not implemented.')
-    // return Promise.resolve(undefined)
-  }
-
-  deleteBlocklist(blocklistId: string): Promise<void> {
-    return Promise.resolve(undefined)
-  }
-
-  getBlocklists(): Promise<Blocklist[]> {
-    return Promise.resolve([])
-  }
-
-  updateBlocklist(
-    payload: Partial<Blocklist> & Required<Pick<Blocklist, 'id'>>,
-  ): Promise<void> {
-    return Promise.resolve(undefined)
+  async delete(blocklistId: string): Promise<void> {
+    await this.db.get(blocklistId).then(async (doc) => {
+      await this.db.remove(doc._id, doc._rev)
+    })
   }
 }

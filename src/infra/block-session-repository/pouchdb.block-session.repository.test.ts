@@ -1,13 +1,13 @@
 import { describe, it, beforeEach, expect } from 'vitest'
 import { PouchdbBlockSessionRepository } from './pouchdb.block-session.repository.ts'
-import memoryAdapter from 'pouchdb-adapter-memory'
-import PouchDB from 'pouchdb'
 import { buildBlockSession } from '../../core/_tests_/data-builders/block-session.builder.ts'
 import { BlockSession } from '../../core/block-session/block.session.ts'
 import {
   CreatePayload,
   UpdatePayload,
 } from '../generic-in-memory.repository.ts'
+import memoryAdapter from 'pouchdb-adapter-memory'
+import PouchDB from 'pouchdb'
 
 PouchDB.plugin(memoryAdapter)
 

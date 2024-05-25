@@ -3,11 +3,9 @@ import { RemoteDeviceRepository } from '../../core/ports/remote-device.repositor
 import PouchDB from 'pouchdb'
 
 export class PouchdbRemoteDeviceRepository implements RemoteDeviceRepository {
-  private db: PouchDB.Database<Device>
+  private db: PouchDB.Database<Device> = new PouchDB('devices')
 
-  constructor() {
-    this.db = new PouchDB('devices')
-  }
+  constructor() {}
 
   async findAll(): Promise<Device[]> {
     const response = await this.db.allDocs({ include_docs: true })

@@ -3,7 +3,7 @@ import { RemoteDeviceRepository } from '../../core/ports/remote-device.repositor
 import PouchDB from 'pouchdb'
 
 export class PouchdbRemoteDeviceRepository implements RemoteDeviceRepository {
-  private db: PouchDB.Database<Device> = new PouchDB('devices')
+  private db: PouchDB.Database<Device> = new PouchDB('remote-devices')
 
   constructor() {}
 

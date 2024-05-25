@@ -1,20 +1,21 @@
-import { describe, it, beforeEach, expect } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { PouchdbBlockSessionRepository } from './pouchdb.block-session.repository.ts'
 import { buildBlockSession } from '../../core/_tests_/data-builders/block-session.builder.ts'
 import { BlockSession } from '../../core/block-session/block.session.ts'
-import {
-  CreatePayload,
-  UpdatePayload,
-} from '../generic-in-memory.repository.ts'
 import memoryAdapter from 'pouchdb-adapter-memory'
 import PouchDB from 'pouchdb'
+import { UpdatePayload } from '../../core/ports/update.payload.ts'
+import { CreatePayload } from '../../core/ports/create.payload.ts'
 
 PouchDB.plugin(memoryAdapter)
 
 describe('PouchDBBlockSessionRepository', () => {
   let blockSessionRepository: PouchdbBlockSessionRepository
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    const db = new PouchDB('block-sessions')
+    await db.destroy()
+
     blockSessionRepository = new PouchdbBlockSessionRepository()
   })
 

@@ -2,10 +2,8 @@ import { BlockSession } from '../../core/block-session/block.session.ts'
 import { BlockSessionRepository } from '../../core/ports/block-session.repository.ts'
 import PouchDB from 'pouchdb'
 import uuid from 'react-native-uuid'
-import {
-  CreatePayload,
-  UpdatePayload,
-} from '../generic-in-memory.repository.ts'
+import { UpdatePayload } from '../../core/ports/update.payload.ts'
+import { CreatePayload } from '../../core/ports/create.payload.ts'
 
 export class PouchdbBlockSessionRepository implements BlockSessionRepository {
   private db: PouchDB.Database<BlockSession>

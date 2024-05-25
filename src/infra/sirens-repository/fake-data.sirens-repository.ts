@@ -2,7 +2,6 @@ import { SirensRepository } from '../../core/ports/sirens.repository.ts'
 import { AndroidSiren, Sirens } from '../../core/siren/sirens.ts'
 import { faker } from '@faker-js/faker'
 import { buildAndroidSiren } from '../../core/_tests_/data-builders/android-siren.builder.ts'
-import { undefined } from 'zod'
 
 export class FakeDataSirensRepository implements SirensRepository {
   selectableSirens: Sirens = {

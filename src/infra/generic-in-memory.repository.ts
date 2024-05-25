@@ -1,9 +1,6 @@
 import uuid from 'react-native-uuid'
-
-export type UpdatePayload<T extends { id: string }> = Partial<T> &
-  Required<Pick<T, 'id'>>
-
-export type CreatePayload<T extends { id: string }> = Omit<T, 'id'>
+import { UpdatePayload } from '../core/ports/update.payload.ts'
+import { CreatePayload } from '../core/ports/create.payload.ts'
 
 export class GenericInMemoryRepository<T extends { id: string }> {
   entities: Map<string, T> = new Map()

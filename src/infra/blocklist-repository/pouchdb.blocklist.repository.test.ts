@@ -1,17 +1,20 @@
 import { describe, it, beforeEach, expect } from 'vitest'
 import { buildBlocklist } from '../../core/_tests_/data-builders/blocklist.builder.ts'
 import { Blocklist } from '../../core/blocklist/blocklist.ts'
-import { CreatePayload } from '../generic-in-memory.repository.ts'
 import { PouchdbBlocklistRepository } from './pouchdb.blocklist.repository.ts'
 import PouchDB from 'pouchdb'
 import memoryAdapter from 'pouchdb-adapter-memory'
+import { CreatePayload } from '../../core/ports/create.payload.ts'
 
 PouchDB.plugin(memoryAdapter)
 
 describe('PouchDBBlocklistRepository', () => {
   let blocklistRepository: PouchdbBlocklistRepository
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    const db = new PouchDB('blocklists')
+    await db.destroy()
+
     blocklistRepository = new PouchdbBlocklistRepository()
   })
 

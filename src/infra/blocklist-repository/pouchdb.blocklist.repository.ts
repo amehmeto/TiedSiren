@@ -1,11 +1,9 @@
 import { BlocklistRepository } from '../../core/ports/blocklist.repository.ts'
-import {
-  CreatePayload,
-  UpdatePayload,
-} from '../generic-in-memory.repository.ts'
 import { Blocklist } from '../../core/blocklist/blocklist.ts'
 import uuid from 'react-native-uuid'
 import PouchDB from 'pouchdb'
+import { UpdatePayload } from '../../core/ports/update.payload.ts'
+import { CreatePayload } from '../../core/ports/create.payload.ts'
 
 export class PouchdbBlocklistRepository implements BlocklistRepository {
   private db: PouchDB.Database<Blocklist>

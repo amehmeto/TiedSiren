@@ -8,7 +8,10 @@ PouchDB.plugin(memoryAdapter)
 describe('PouchDBRemoteDeviceRepository', () => {
   let deviceRepository: PouchdbRemoteDeviceRepository
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    const db = new PouchDB('remote-devices')
+    await db.destroy()
+
     deviceRepository = new PouchdbRemoteDeviceRepository()
   })
 

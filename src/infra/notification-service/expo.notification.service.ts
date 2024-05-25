@@ -1,5 +1,5 @@
 import * as Notifications from 'expo-notifications'
-import { NotificationService } from './notification.service.ts'
+import { NotificationService } from '../../core/ports/notification.service.ts'
 import Constants from 'expo-constants'
 import { Platform } from 'react-native'
 

@@ -1,13 +1,15 @@
 import { createAppAsyncThunk } from '../../_redux_/create-app-thunk.ts'
 import { Blocklist } from '../blocklist.ts'
 
+import { UpdatePayload } from '../../ports/update.payload.ts'
+
 export const updateBlocklist = createAppAsyncThunk(
   'blocklist/updateBlocklist',
   async (
-    payload: Partial<Blocklist> & Required<Pick<Blocklist, 'id'>>,
+    payload: UpdatePayload<Blocklist>,
     { extra: { blocklistRepository } },
   ) => {
-    await blocklistRepository.updateBlocklist(payload)
+    await blocklistRepository.update(payload)
     return payload
   },
 )

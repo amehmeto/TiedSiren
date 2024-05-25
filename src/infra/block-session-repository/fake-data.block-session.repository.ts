@@ -1,4 +1,4 @@
-import { BlockSessionRepository } from '../../core/block-session/ports/block-session.repository.ts'
+import { BlockSessionRepository } from '../../core/ports/block-session.repository.ts'
 import uuid from 'react-native-uuid'
 
 import { BlockSession } from '../../core/block-session/block.session.ts'
@@ -178,7 +178,7 @@ export class FakeDataBlockSessionRepository
     return super.update(session)
   }
 
-  getCurrentSessions(): Promise<BlockSession[]> {
+  findAll(): Promise<BlockSession[]> {
     return Promise.resolve(Array.from(this.entities.values()))
   }
 

@@ -1,4 +1,4 @@
-import { AppStore } from '../../_redux_/createStore.ts'
+import { AppStore } from '../_redux_/createStore.ts'
 
 export type TaskOptions = {
   taskName: string

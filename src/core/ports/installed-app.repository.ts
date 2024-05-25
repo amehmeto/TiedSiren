@@ -1,4 +1,4 @@
-import { InstalledApp } from '../InstalledApp.ts'
+import { InstalledApp } from '../installed-app/InstalledApp.ts'
 
 export interface InstalledAppRepository {
   getInstalledApps(): Promise<InstalledApp[]>

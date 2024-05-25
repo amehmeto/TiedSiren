@@ -1,5 +1,5 @@
-import { SirensRepository } from '../../core/siren/ports/sirens.repository.ts'
-import { Sirens } from '../../core/siren/sirens.ts'
+import { SirensRepository } from '../../core/ports/sirens.repository.ts'
+import { AndroidSiren, Sirens } from '../../core/siren/sirens.ts'
 import { faker } from '@faker-js/faker'
 import { buildAndroidSiren } from '../../core/_tests_/data-builders/android-siren.builder.ts'
 
@@ -40,6 +40,14 @@ export class FakeDataSirensRepository implements SirensRepository {
     this.selectableSirens.websites = [
       ...this.selectableSirens.websites,
       website,
+    ]
+    return Promise.resolve()
+  }
+
+  addAndroidSirenToSirens(androidSiren: AndroidSiren): Promise<void> {
+    this.selectableSirens.android = [
+      ...this.selectableSirens.android,
+      androidSiren,
     ]
     return Promise.resolve()
   }

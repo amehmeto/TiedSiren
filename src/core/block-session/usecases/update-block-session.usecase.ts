@@ -1,9 +1,9 @@
 import { BlockSession } from '../block.session.ts'
 import { createAppAsyncThunk } from '../../_redux_/create-app-thunk.ts'
 import { differenceInSeconds } from 'date-fns'
+import { UpdatePayload } from '../../ports/update.payload.ts'
 
-export type UpdateBlockSessionPayload = Partial<BlockSession> &
-  Required<Pick<BlockSession, 'id'>>
+export type UpdateBlockSessionPayload = UpdatePayload<BlockSession>
 
 export const updateBlockSession = createAppAsyncThunk(
   'blockSession/updateBlockSession',

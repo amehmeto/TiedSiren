@@ -37,7 +37,7 @@ export function SelectBlockSessionParams(
   )
 
   useEffect(() => {
-    deviceRepository.getDevices().then((devices) => {
+    deviceRepository.findAll().then((devices) => {
       setDevices(devices)
     })
   }, [])

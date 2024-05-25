@@ -7,8 +7,9 @@ export const duplicateBlocklist = createAppAsyncThunk(
     { extra: { blocklistRepository } },
   ) => {
     const blocklistToBeCopied = await blocklistRepository.findById(payload.id)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, ...blocklistToBeCopiedWithoutId } = blocklistToBeCopied
-    return blocklistRepository.createBlocklist({
+    return blocklistRepository.create({
       ...blocklistToBeCopiedWithoutId,
       name: payload.name,
     })

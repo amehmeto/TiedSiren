@@ -10,7 +10,7 @@ import { createStore } from '../core/_redux_/createStore.ts'
 export async function preloadedStateForManualTesting() {
   const { dateProvider, blocklistRepository, blockSessionRepository } =
     dependencies
-  const blocklists = await blocklistRepository.getBlocklists()
+  const blocklists = await blocklistRepository.findAll()
 
   const preloadedState: StateBuilderProvider = stateBuilderProvider()
   const preloadedBlockSessions = [
@@ -44,6 +44,8 @@ export async function preloadedStateForManualTesting() {
   return preloadedState
 }
 
-export const storePromise = preloadedStateForManualTesting().then(
+/*export const storePromise = preloadedStateForManualTesting().then(
   (preloadedState) => createStore(dependencies, preloadedState.getState()),
-)
+)*/
+
+export const storePromise = Promise.resolve(createStore(dependencies))

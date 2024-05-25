@@ -1,7 +1,7 @@
 import {
   NotificationService,
   NotificationTrigger,
-} from './notification.service.ts'
+} from '../../core/ports/notification.service.ts'
 import uuid from 'react-native-uuid'
 
 export class FakeNotificationService implements NotificationService {

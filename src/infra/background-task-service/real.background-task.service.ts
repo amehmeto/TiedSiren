@@ -1,7 +1,7 @@
 import {
   BackgroundTaskService,
   TaskOptions,
-} from '../../core/block-session/ports/background-task.service.ts'
+} from '../../core/ports/background-task.service.ts'
 import * as TaskManager from 'expo-task-manager'
 import { tieSirens } from '../../core/siren/usecases/tie-sirens.usecase.ts'
 import * as BackgroundFetch from 'expo-background-fetch'

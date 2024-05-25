@@ -8,7 +8,7 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
   ],
-  plugins: ['react-refresh', 'react-hooks', ],
+  plugins: ['react-refresh', 'react-hooks', 'unicorn'],
   settings: {
     react: {
       version: "detect",
@@ -25,6 +25,7 @@ module.exports = {
     "no-console": "warn",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-unused-vars": "warn",
+    "unicorn/prefer-ternary": "error",
   },
   overrides: [{
     files: ['**/*.jsx', '**/*.tsx'],

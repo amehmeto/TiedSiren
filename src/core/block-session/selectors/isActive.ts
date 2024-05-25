@@ -1,4 +1,4 @@
-import { DateProvider } from '../../../infra/date-provider/port.date-provider.ts'
+import { DateProvider } from '../../ports/port.date-provider.ts'
 import { BlockSession } from '../block.session.ts'
 import { isBefore } from 'date-fns'
 

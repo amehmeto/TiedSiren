@@ -1,16 +1,21 @@
 {
   "cli": {
-    "version": ">= 7.8.1"
+    "version": "9.1.0"
   },
   "build": {
     "development": {
+      "node": "21.6.1",
       "developmentClient": true,
       "distribution": "internal",
       "android": {
         "buildType": "apk"
+      },
+      "env": {
+        "NODE_ENV": "development"
       }
     },
     "development-simulator": {
+      "node": "21.6.1",
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
@@ -18,6 +23,7 @@
       }
     },
     "preview": {
+      "node": "21.6.1",
       "developmentClient": false,
       "distribution": "internal",
       "android": {
@@ -25,9 +31,12 @@
       }
     },
     "release": {
+      "node": "21.6.1",
       "distribution": "store"
     },
-    "production": {}
+    "production": {
+      "node": "21.6.1"
+    }
   },
   "submit": {
     "production": {}

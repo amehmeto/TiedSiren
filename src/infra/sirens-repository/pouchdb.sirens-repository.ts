@@ -1,6 +1,6 @@
 import { AndroidSiren, Sirens } from '../../core/siren/sirens.ts'
 import { SirensRepository } from '../../core/ports/sirens.repository.ts'
-import PouchDB from 'pouchdb'
+import PouchDB from 'pouchdb-react-native'
 
 export class PouchdbSirensRepository implements SirensRepository {
   private db: PouchDB.Database<Sirens> = new PouchDB('sirens')

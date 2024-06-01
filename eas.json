@@ -16,6 +16,9 @@
     },
     "development-simulator": {
       "node": "21.6.1",
+      "env": {
+        "NODE_ENV": "development"
+      },
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
@@ -24,6 +27,9 @@
     },
     "preview": {
       "node": "21.6.1",
+      "env": {
+        "NODE_ENV": "test"
+      },
       "developmentClient": false,
       "distribution": "internal",
       "android": {
@@ -35,7 +41,10 @@
       "distribution": "store"
     },
     "production": {
-      "node": "21.6.1"
+      "node": "21.6.1",
+      "env": {
+        "NODE_ENV": "production"
+      }
     }
   },
   "submit": {

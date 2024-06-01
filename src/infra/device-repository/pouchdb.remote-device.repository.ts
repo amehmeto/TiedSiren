@@ -1,6 +1,6 @@
 import { Device } from '../../core/device/device.ts'
 import { RemoteDeviceRepository } from '../../core/ports/remote-device.repository.ts'
-import PouchDB from 'pouchdb'
+import PouchDB from 'pouchdb-react-native'
 
 export class PouchdbRemoteDeviceRepository implements RemoteDeviceRepository {
   private db: PouchDB.Database<Device> = new PouchDB('remote-devices')

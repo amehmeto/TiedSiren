@@ -1,15 +1,12 @@
-import { describe, it, beforeEach, expect } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { PouchdbSirensRepository } from './pouchdb.sirens-repository.ts'
-import memoryAdapter from 'pouchdb-adapter-memory'
 import PouchDB from 'pouchdb'
-
-PouchDB.plugin(memoryAdapter)
 
 describe('PouchDBSirenRepository', () => {
   let sirenRepository: PouchdbSirensRepository
 
   beforeEach(async () => {
-    const db = new PouchDB('sirens', { adapter: 'memory' })
+    const db = new PouchDB('sirens')
     await db.destroy()
 
     sirenRepository = new PouchdbSirensRepository()

@@ -39,10 +39,10 @@ jobs:
         run: yarn install
 
       - name: Prebuild
-        run: yarn prebuild
+        run: yarn prebuild:android
 
       - name: Build
-        run: yarn build
+        run: yarn build:android:local
 #
 #  smoke-tests:
 #    needs: build

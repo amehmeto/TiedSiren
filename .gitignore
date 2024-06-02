@@ -61,3 +61,7 @@ MANIFEST-*
 block-sessions/
 blocklists/
 devices/
+sirens/
+remote-devices/
+
+.idea/

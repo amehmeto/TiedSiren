@@ -3,10 +3,7 @@ import { buildBlocklist } from '../../core/_tests_/data-builders/blocklist.build
 import { Blocklist } from '../../core/blocklist/blocklist.ts'
 import { PouchdbBlocklistRepository } from './pouchdb.blocklist.repository.ts'
 import PouchDB from 'pouchdb'
-import memoryAdapter from 'pouchdb-adapter-memory'
 import { CreatePayload } from '../../core/ports/create.payload.ts'
-
-PouchDB.plugin(memoryAdapter)
 
 describe('PouchDBBlocklistRepository', () => {
   let blocklistRepository: PouchdbBlocklistRepository

@@ -1,8 +1,10 @@
 declare module 'react-native-installed-apps' {
   interface AppInfo {
-    appName: string;
+    appName: string
     // Add other properties if needed
   }
 
-  function getAll(callback: (apps: AppInfo[]) => void): void;
+  function getAll(callback: (apps: AppInfo[]) => void): void
 }
+
+declare module 'asyncstorage-down'

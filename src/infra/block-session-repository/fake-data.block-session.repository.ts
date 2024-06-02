@@ -7,7 +7,7 @@ import {
   instagramAndroidSiren,
 } from '../../core/_tests_/data-builders/android-siren.builder.ts'
 import { buildBlockSession } from '../../core/_tests_/data-builders/block-session.builder.ts'
-import { GenericInMemoryRepository } from '../generic-in-memory.repository.ts'
+import { GenericInMemoryRepository } from '../__abstract__/generic-in-memory.repository.ts'
 
 export class FakeDataBlockSessionRepository
   extends GenericInMemoryRepository<BlockSession>

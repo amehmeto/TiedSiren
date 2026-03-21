@@ -2,6 +2,7 @@ import * as ExpoForegroundService from '@amehmeto/expo-foreground-service'
 import { Platform } from 'react-native'
 import {
   ForegroundService,
+  ForegroundServiceActiveWindow,
   ForegroundServiceConfig,
 } from '@/core/_ports_/foreground.service'
 import { Logger } from '@/core/_ports_/logger'
@@ -73,6 +74,52 @@ export class AndroidForegroundService implements ForegroundService {
 
   isRunning(): boolean {
     return this.isServiceRunning
+  }
+
+  async clearActiveWindows(): Promise<void> {
+    try {
+      if (Platform.OS !== 'android') return
+
+      await ExpoForegroundService.clearActiveWindows()
+      this.logger.info('[AndroidForegroundService] Cleared active windows')
+    } catch (error) {
+      this.logger.error(
+        `[AndroidForegroundService] Failed to clear active windows: ${error}`,
+      )
+      throw error
+    }
+  }
+
+  async setActiveWindows(
+    windows: ForegroundServiceActiveWindow[],
+  ): Promise<void> {
+    try {
+      if (Platform.OS !== 'android') {
+        this.logger.info(
+          '[AndroidForegroundService] Active windows only available on Android',
+        )
+        return
+      }
+
+      await ExpoForegroundService.setActiveWindows(windows)
+      this.logger.info(
+        `[AndroidForegroundService] Set ${windows.length} active windows`,
+      )
+    } catch (error) {
+      this.logger.error(
+        `[AndroidForegroundService] Failed to set active windows: ${error}`,
+      )
+      throw error
+    }
+  }
+
+  addServiceStateListener(callback: (isRunning: boolean) => void): () => void {
+    const subscription = ExpoForegroundService.addServiceEventListener(
+      (event) => {
+        callback(event.isRunning)
+      },
+    )
+    return () => subscription.remove()
   }
 
   private async requestNotificationPermission(): Promise<void> {

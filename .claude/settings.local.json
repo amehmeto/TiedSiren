@@ -20,6 +20,7 @@
       "Bash(./scripts/worktree.sh prune:*)",
       "Bash(./scripts/worktree.sh:*)",
       "Bash(.claude/hooks/*.sh:*)",
+      "Bash(.claude/hooks/enforce-push-timeout.sh)",
       "Bash(.claude/hooks/validate-edit.sh scripts/ci-watch.sh)",
       "Bash(.claude/scripts/*.sh:*)",
       "Bash(.claude/scripts/detect-pr.sh:*)",
@@ -203,8 +204,10 @@
       "Bash(printf:*)",
       "Bash(ps:*)",
       "Bash(pwd:*)",
+      "Bash(rm -rf node_modules package-lock.json)",
       "Bash(rm .claude/ralph-loop.local.md)",
       "Bash(rm:*)",
+      "Bash(scripts/ci-watch.sh)",
       "Bash(sed:*)",
       "Bash(sh:*)",
       "Bash(shellcheck:*)",
@@ -241,6 +244,7 @@
       "Skill(ralph-wiggum:ralph-loop)",
       "Skill(sync-main)",
       "Skill(sync-project)",
+      "Skill(update-config)",
       "Skill(worktree)",
       "WebFetch(domain:blog.logrocket.com)",
       "WebFetch(domain:coderanch.com)",
@@ -479,6 +483,15 @@
           {
             "type": "command",
             "command": ".claude/hooks/validate-pr.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/enforce-push-timeout.sh"
           }
         ]
       },

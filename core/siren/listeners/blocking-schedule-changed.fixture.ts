@@ -7,6 +7,7 @@ import { setBlockSessions } from '@/core/block-session/block-session.slice'
 import { Blocklist } from '@/core/blocklist/blocklist'
 import { setBlocklists } from '@/core/blocklist/blocklist.slice'
 import { StubDateProvider } from '@/infra/date-provider/stub.date-provider'
+import { ForegroundServiceActiveWindow } from '@/core/_ports_/foreground.service'
 import { InMemoryForegroundService } from '@/infra/foreground-service/in-memory.foreground.service'
 import { InMemoryLogger } from '@/infra/logger/in-memory.logger'
 import { InMemorySirenLookout } from '@infra/siren-tier/in-memory.siren-lookout'
@@ -67,6 +68,13 @@ export function blockingScheduleChangedFixture(
         )
         store.dispatch(setBlocklists(blocklists))
         store.dispatch(setBlockSessions(sessions))
+        await new Promise((r) => setTimeout(r, 0))
+      },
+      simulatingNativeServiceStart() {
+        foregroundService.simulateNativeServiceStart()
+      },
+      simulatingNativeServiceStop() {
+        foregroundService.simulateNativeServiceStop()
       },
       async updatingBlocklist(blocklist: Blocklist) {
         store = createTestStore(
@@ -80,6 +88,7 @@ export function blockingScheduleChangedFixture(
           b.id === blocklist.id ? blocklist : b,
         )
         store.dispatch(setBlocklists(updatedBlocklists))
+        await new Promise((r) => setTimeout(r, 0))
       },
     },
     then: {
@@ -112,6 +121,12 @@ export function blockingScheduleChangedFixture(
         expect(sirenLookout.isWatching).toBe(false)
         expect(foregroundService.isRunning()).toBe(false)
       },
+      foregroundServiceShouldNotBeRunning() {
+        expect(foregroundService.isRunning()).toBe(false)
+      },
+      sirenLookoutShouldBeWatchingPreemptively() {
+        expect(sirenLookout.isWatching).toBe(true)
+      },
       blockingShouldRemainActiveWithoutToggling() {
         expect(sirenLookout.isWatching).toBe(true)
         expect(foregroundService.isRunning()).toBe(true)
@@ -119,6 +134,22 @@ export function blockingScheduleChangedFixture(
         expect(foregroundService.startCallCount).toBe(1)
         expect(sirenLookout.stopWatchingCallCount).toBe(0)
         expect(foregroundService.stopCallCount).toBe(0)
+      },
+      activeWindowsShouldBeSet(
+        expectedWindows: ForegroundServiceActiveWindow[],
+      ) {
+        expect(foregroundService.activeWindows).toEqual(expectedWindows)
+      },
+      activeWindowsShouldHaveBeenSynced() {
+        const setActiveWindowsCallCount =
+          foregroundService.setActiveWindowsCallCount
+        expect(setActiveWindowsCallCount).toBeGreaterThan(0)
+      },
+      activeWindowsShouldHaveBeenCleared() {
+        const clearActiveWindowsCallCount =
+          foregroundService.clearActiveWindowsCallCount
+        expect(clearActiveWindowsCallCount).toBeGreaterThan(0)
+        expect(foregroundService.activeWindows).toEqual([])
       },
       errorShouldBeLogged(expectedMessage: string) {
         const errorLogs = logger
@@ -131,6 +162,16 @@ export function blockingScheduleChangedFixture(
       },
       blockingScheduleShouldNotHaveBeenSynced() {
         expect(sirenTier.updateCallCount).toBe(0)
+      },
+      emitCurrentForegroundAppShouldHaveBeenCalled() {
+        const emitCurrentForegroundAppCallCount =
+          sirenLookout.emitCurrentForegroundAppCallCount
+        expect(emitCurrentForegroundAppCallCount).toBeGreaterThan(0)
+      },
+      emitCurrentForegroundAppShouldNotHaveBeenCalled() {
+        const emitCurrentForegroundAppCallCount =
+          sirenLookout.emitCurrentForegroundAppCallCount
+        expect(emitCurrentForegroundAppCallCount).toBe(0)
       },
     },
   }

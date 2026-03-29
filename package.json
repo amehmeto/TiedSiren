@@ -99,6 +99,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "@sentry/react-native": "~7.11.0",
     "@types/react-redux": "^7.1.33",
+    "babel-preset-expo": "^55.0.13",
     "date-fns": "^3.6.0",
     "electron": "^30.0.3",
     "env-var": "^7.5.0",
